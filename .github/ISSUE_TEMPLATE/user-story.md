@@ -11,12 +11,15 @@ so that [reason for the story]
 
 #### Acceptance criteria
 
-- [ ] Specific
-- [ ] Measurable
-- [ ] Achievable
-- [ ] Relevant
-- [ ] Time bound
 
+
+<!---
+Specific
+Measurable
+Achievable
+Relevant
+Time bound
+--->
 
 
 
