@@ -1,12 +1,34 @@
 ---
-name: "🐞 Bug report"
-about: Something is not working as it should
+Name: "🐞 Bug report"
+About: "Short description of bug"
+Related Issue: "Link to issue that was being worked on"
 ---
 
-#### Describe the bug
+<!--- Provide a general summary of the issue in the table above -->
 
-#### Expected behavior
+## Expected Behavior
+<!--- Tell us what should happen -->
 
-- [ ] I have included a description of the bug.
-- [ ] I have linked the related user story.
+## Current Behavior
+<!--- Tell us what happens instead of the expected behavior -->
 
+## Context (Environment)
+<!--- How has this issue affected you? What are you trying to accomplish? -->
+<!--- Providing context helps us come up with a solution that is most useful in the real world -->
+
+## Steps to Reproduce
+<!--- Provide a link to a live example, or an unambiguous set of steps to -->
+<!--- reproduce this bug. Include code to reproduce, if relevant -->
+1.
+2.
+3.
+4.
+
+## Possible Solution
+<!--- Not obligatory, but suggest a fix/reason for the bug, -->
+
+## Detailed Description
+<!--- Provide a detailed description of the change or addition you are proposing / working on -->
+
+## Possible Implementation
+<!--- Not obligatory, but suggest an idea for implementing addition or change -->
