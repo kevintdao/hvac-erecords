@@ -10,13 +10,18 @@ I want [goal of the story]
 so that [reason for the story]
 
 #### Acceptance criteria
+<!-- What the customer wants out of this user story --!>
 
-- [ ] Specific
-- [ ] Measurable
-- [ ] Achievable
-- [ ] Relevant
-- [ ] Time bound
+<!-- What the developer needs for this user story to be completed --!>
 
+
+<!---
+Specific
+Measurable
+Achievable
+Relevant
+Time bound
+--->
 
 
 
