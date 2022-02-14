@@ -1,0 +1,29 @@
+name: Jest CI
+
+on:
+  pull_request:
+    branches: [development, main]
+
+defaults:
+  run:
+    working-directory: client
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: client
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Tests
+        run: npm run jest
