@@ -5,7 +5,6 @@ import NavBar from '../components/NavBar';
 export default function Home() {
   return (
     <div>
-      <NavBar role='Maintenance Company' />
       <nav>
         <Link href='/about'>
           <a>About</a>
