@@ -3,12 +3,12 @@ import React from 'react'
 export default function NavBar(props) {
   const role = props.role;
 
-  function MaintanenceCompanayLinks(){
+  function MaintenanceCompanyLinks(){
     return (
       <div className='flex space-x-4 items-center'>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Manage</a>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Units</a>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Users</a>
+        <a href="manage" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Manage</a>
+        <a href="units" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Units</a>
+        <a href="users" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Users</a>
       </div>
     )
   }
@@ -47,7 +47,7 @@ export default function NavBar(props) {
             <a href="" className='text-gray-300 px-3 py-2 text-sm font-medium rounded'>Logo</a>
 
             {/* nav links */}
-            { role == 'Maintenance Company' && <MaintanenceCompanayLinks /> }
+            { role == 'Maintenance Company' && <MaintenanceCompanyLinks /> }
             { role == 'Building Owner' && <BuildingOwnerLinks /> }
             { role == 'Inspector' && <InspectorLinks /> }
             { role == 'Technician' && <TechnicianLinks /> }
