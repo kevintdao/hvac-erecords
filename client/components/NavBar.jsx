@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
 
 export default function NavBar(props) {
-  const role = props.role;
+  const role = "Maintenance Company";
   const isLoggedIn = false;
 
   function MaintenanceCompanyLinks(){
@@ -18,24 +18,26 @@ export default function NavBar(props) {
 
   function BuildingOwnerLinks(){
     return (
-      <div>
-
+      <div className='flex space-x-4 items-center'>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Units</a>
       </div>
     )
   }
-
+  
   function InspectorLinks(){
     return (
-      <div>
-
+      <div className='flex space-x-4 items-center'>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
       </div>
     )
   }
 
   function TechnicianLinks(){
     return (
-      <div>
-
+      <div className='flex space-x-4 items-center'>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Report</a>
       </div>
     )
   }
