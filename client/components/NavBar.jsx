@@ -4,6 +4,7 @@ import { MenuIcon } from '@heroicons/react/outline'
 
 export default function NavBar(props) {
   const role = props.role;
+  const isLoggedIn = true;
 
   function MaintenanceCompanyLinks(){
     return (
@@ -39,19 +40,49 @@ export default function NavBar(props) {
     )
   }
 
-  function SignedInButtons(){
+  function NotSignedInOptions(){
     return (
       <div>
-
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Login</a>
+        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Sign Up</a>
       </div>
     )
   }
 
-  function NotSignedInButtons(){
+  function MenuDropdown(){
     return (
-      <div>
+      <Menu as="div" className="ml-3 relative">
+        <div>
+          <Menu.Button className="">
+            <span className='sr-only'>Open User Menu</span>
+            <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
+          </Menu.Button>
+        </div>
 
-      </div>
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
+          <Menu.Item>
+            {({ active }) => (
+              <a 
+                href="" 
+                className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
+              >
+                Profile
+              </a>
+            )}
+          </Menu.Item>
+
+          <Menu.Item>
+            {({ active }) => (
+              <a 
+                href="" 
+                className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
+              >
+                Sign Out
+              </a>
+            )}
+          </Menu.Item>
+        </Menu.Items>
+      </Menu>
     )
   }
 
@@ -73,31 +104,9 @@ export default function NavBar(props) {
 
           {/* right */}
           <div className='flex space-x-4 items-center'>
-            {/* profile settings */}
-            <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Sign Out</a>
-          
-            {/* display buttons based on log in status */}
-            <Menu as="div" className="ml-3 relative">
-              <div>
-                <Menu.Button className="">
-                  <span className='sr-only'>Open User Menu</span>
-                  <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
-                </Menu.Button>
-              </div>
 
-              <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a 
-                      href="" 
-                      className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
-                    >
-                      Profile
-                    </a>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Menu>
+            {/* display buttons based on log in status */}
+            { isLoggedIn ? <MenuDropdown /> : <NotSignedInOptions />}
           </div>
         </div>
       </div>
