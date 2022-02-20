@@ -4,7 +4,7 @@ import { MenuIcon } from '@heroicons/react/outline'
 
 export default function NavBar(props) {
   const role = props.role;
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   function MaintenanceCompanyLinks(){
     return (
@@ -42,7 +42,7 @@ export default function NavBar(props) {
 
   function NotSignedInOptions(){
     return (
-      <div>
+      <div className='space-x-4'>
         <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Login</a>
         <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Sign Up</a>
       </div>
@@ -51,13 +51,10 @@ export default function NavBar(props) {
 
   function MenuDropdown(){
     return (
-      <Menu as="div" className="ml-3 relative">
-        <div>
-          <Menu.Button className="">
-            <span className='sr-only'>Open User Menu</span>
-            <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
-          </Menu.Button>
-        </div>
+      <Menu as="div" className="ml-3 relative pt-1">
+        <Menu.Button className="">
+          <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
+        </Menu.Button>
 
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
           <Menu.Item>
