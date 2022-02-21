@@ -1,54 +1,67 @@
 import React from 'react'
 import { Menu } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router';
+
 
 export default function NavBar(props) {
   const role = "Maintenance Company";
   const isLoggedIn = false;
 
-  function MaintenanceCompanyLinks(){
+  const router = useRouter();
+
+  function createNavLinks(links){
     return (
       <div className='flex space-x-4 items-center'>
-        <a href="manage" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Manage</a>
-        <a href="units" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Units</a>
-        <a href="users" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Users</a>
+        {links.map((item) => (
+          <a href={item.href} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
+        ))}
       </div>
     )
+  }
+
+  function MaintenanceCompanyLinks(){
+    const mcLinks = [
+      { name: "Manage", href: "/manage" },
+      { name: "Units", href: "/units" },
+      { name: "Users", href: "/users"}
+    ];
+
+    return createNavLinks(mcLinks);
   }
 
   function BuildingOwnerLinks(){
-    return (
-      <div className='flex space-x-4 items-center'>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Units</a>
-      </div>
-    )
+    const boLinks = [
+      { name: "Data", href: "/" }
+    ];
+
+    return createNavLinks(boLinks);
   }
   
   function InspectorLinks(){
-    return (
-      <div className='flex space-x-4 items-center'>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
-      </div>
-    )
+    const iLinks = [
+      { name: "Data", href: "/" }
+    ];
+
+    return createNavLinks(iLinks);
   }
 
   function TechnicianLinks(){
-    return (
-      <div className='flex space-x-4 items-center'>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Data</a>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Report</a>
-      </div>
-    )
+    const tLinks = [
+      { name: "Data", href: "/" },
+      { name: "Report", href: "/" }
+    ];
+
+    return createNavLinks(tLinks);
   }
 
   function NotSignedInOptions(){
-    return (
-      <div className='space-x-4'>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Login</a>
-        <a href="" className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>Sign Up</a>
-      </div>
-    )
+    const notSignedInLinks = [
+      { name: "Login", href: "/" },
+      { name: "Sign Up", href: "/" }
+    ];
+
+    return createNavLinks(notSignedInLinks);
   }
 
   function MenuDropdown(){
@@ -112,4 +125,3 @@ export default function NavBar(props) {
     </nav>
   )
 }
-
