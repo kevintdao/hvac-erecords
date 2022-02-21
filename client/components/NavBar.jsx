@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function NavBar(props) {
   const role = "Maintenance Company";
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   const router = useRouter();
 
@@ -14,7 +14,7 @@ export default function NavBar(props) {
     return (
       <div className='flex space-x-4 items-center'>
         {links.map((item) => (
-          <a href={item.href} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
+          <a key={item.name} href={item.href} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
         ))}
       </div>
     )
@@ -65,6 +65,11 @@ export default function NavBar(props) {
   }
 
   function MenuDropdown(){
+    const menuItems = [
+      { name: "Profile", href: "/" },
+      { name: "Sign Out", href: "/"}
+    ]
+
     return (
       <Menu as="div" className="ml-3 relative pt-1">
         <Menu.Button className="">
@@ -72,27 +77,19 @@ export default function NavBar(props) {
         </Menu.Button>
 
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
-          <Menu.Item>
-            {({ active }) => (
-              <a 
-                href="" 
-                className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
-              >
-                Profile
-              </a>
-            )}
-          </Menu.Item>
-
-          <Menu.Item>
-            {({ active }) => (
-              <a 
-                href="" 
-                className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
-              >
-                Sign Out
-              </a>
-            )}
-          </Menu.Item>
+          {menuItems.map((item, index) => (
+            <Menu.Item key={item.name}>
+              {({ active }) => (
+                <a 
+                  href={item.href}
+                  className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
+                >
+                  {item.name}
+                </a>
+              )}
+            </Menu.Item>
+          ))}
+          
         </Menu.Items>
       </Menu>
     )
