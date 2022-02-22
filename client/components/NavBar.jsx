@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 
 
 export default function NavBar(props) {
-  const role = "Maintenance Company";
-  const isLoggedIn = true;
+  const role = props.role;
+  const isLoggedIn = props.loggedIn;
 
   const router = useRouter();
 
@@ -71,12 +71,12 @@ export default function NavBar(props) {
     ]
 
     return (
-      <Menu as="div" className="ml-3 relative pt-1">
+      <Menu data-testid="menu-button" as="div" className="ml-3 relative pt-1">
         <Menu.Button className="">
           <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
         </Menu.Button>
 
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
+        <Menu.Items data-testid="menu-items" className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
           {menuItems.map((item, index) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
