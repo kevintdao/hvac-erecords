@@ -1,0 +1,1 @@
+from .building_manager_view import *
