@@ -1,15 +1,23 @@
 import React, { useRef } from 'react'
-
+import { useState } from 'react';
+import Alert from './Alert';
 
 export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [alert, setAlert] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // call server api to verify infomation
+  }
 
   return (
-    <div>
-      <form action="POST" className='flex item-center justify-center py-2'>
-        <div className='w-1/2 max-w-md space-y-4'>
-          <h2>Login</h2>
+    <div className='mt-2'>
+      <form action="POST" onSubmit={handleSubmit} className='flex item-center justify-center py-2'>
+        <div className='w-4/5 max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
+          <h2 className='text-center font-bold text-3xl'>Login</h2>
 
           {/* email */}
           <div className="flex flex-col">
@@ -25,14 +33,13 @@ export default function Login(props) {
 
           {/* login button */}
           <div className="flex flex-col">
-            <input type="button" value="Login" className='p-2 bg-blue-700 rounded text-white'/>
+            <button className='p-2 bg-blue-700 rounded text-white text-center'>Login</button>
           </div>
 
           {/* signup button */}
           <div className='flex flex-col'>
             <a href="/register" className='p-2 bg-blue-700 rounded text-white text-center'>Register</a>
           </div>
-
         </div>
       </form>
     </div>
