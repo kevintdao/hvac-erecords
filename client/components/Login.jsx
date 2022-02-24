@@ -54,7 +54,7 @@ export default function Login(props) {
               className={`p-2 border rounded ${emailValidation ? "border-red-400" : "border-gray-300"}`}
               onChange={handleEmailChange}
             />
-            <span className='text-sm text-red-700 mt-1' id="email-help">{emailValidation}</span>
+            <span className='text-sm text-red-700 mt-1' id="email-help" data-testid="email-help">{emailValidation}</span>
           </div>
 
           {/* password */}
@@ -69,17 +69,17 @@ export default function Login(props) {
               className={`p-2 border rounded ${passwordValidation ? "border-red-400" : "border-gray-300"}`} 
               onChange={handlePassChange}
             />
-              <span className='text-sm text-red-700 mt-1' id="pass-help">{passwordValidation}</span>
+              <span className='text-sm text-red-700 mt-1' id="pass-help" data-testid="pass-help">{passwordValidation}</span>
           </div>
 
           {/* login button */}
           <div className="flex flex-col">
-            <button id='login-button' className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Login</button>
+            <button data-testid='login-button' className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Login</button>
           </div>
 
           {/* signup button */}
           <div className='flex justify-center'>
-            <a id="signup-button" href="/register" className='hover:text-blue-500'>Don't have an account?</a>
+            <a data-testid="signup-button" href="/register" className='hover:text-blue-500'>Don't have an account?</a>
           </div>
         </div>
       </form>
