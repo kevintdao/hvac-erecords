@@ -24,7 +24,7 @@ export default function Login(props) {
       setPasswordValidation("Cannot be empty!");
     }
 
-    // call server api to verify infomation
+    // call server api to verify information
   }
 
   const handleEmailChange = (e) => {
@@ -75,12 +75,12 @@ export default function Login(props) {
 
           {/* login button */}
           <div className="flex flex-col">
-            <button className='p-2 bg-blue-700 rounded text-white text-center'>Login</button>
+            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Login</button>
           </div>
 
           {/* signup button */}
-          <div className='flex flex-col'>
-            <a href="/register" className='p-2 bg-blue-700 rounded text-white text-center'>Register</a>
+          <div className='flex justify-center'>
+            <a href="/register" className='hover:text-blue-500'>Don't have an account?</a>
           </div>
         </div>
       </form>
