@@ -14,10 +14,14 @@ export default function Register(props) {
       value: 8,
       message: "Must contains at least 8 characters"
     },
+    maxLength: {
+      value: 32,
+      message: "Must not exceed 32 characters"
+    },
     pattern: {
       value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       message: "Must contains at least 1 special character and 1 number"
-    }
+    },
   });
 
   const onSubmit = (data) => {
@@ -53,10 +57,15 @@ export default function Register(props) {
                 pattern: {
                   value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
                   message: "Enter a valid email"
+                },
+                maxLength: {
+                  value: 320,
+                  message: "Email address should not exceed 320 characters"
                 }
               })}
             />
             <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
+            <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
           </div>
 
           {/* password */}
@@ -75,6 +84,7 @@ export default function Register(props) {
             />
             <span className='text-sm text-red-700 mt-1' id="pass-help">{errors.password?.message}</span>
             <small className='text-gray-400 mt-1'>Password must contains at least 8 characters, 1 special character, and 1 number.</small>
+            <small className="text-gray-400 mt-1">Password should not exceed 32 characters.</small>
           </div>
 
           {/* confirm password */}
