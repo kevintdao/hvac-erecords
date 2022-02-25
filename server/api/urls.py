@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path('managers',views.getData, name = 'managers-list'),
     path('managers/add/',views.addManager, name = 'managers-add'),
+    path('managers/<int:pk>/',views.getManager, name = 'managers-detail'),
 ]

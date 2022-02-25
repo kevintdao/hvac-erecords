@@ -16,3 +16,10 @@ def addManager(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+@api_view(['GET'])   
+def getManager(request, pk):
+    manager = BuildingManager.objects.get(pk=pk)
+    serializer = BuildingManagerSerializer(manager, many=False)
+    return Response(serializer.data)
+
