@@ -40,11 +40,16 @@ class TestUnitAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['manufacturer'], unit.manufacturer)
-'''
+
     def test_api_update_unit(self):
         unit = Unit.objects.get()
         new_data = {
+            'category': 'AC',
+            'serial_number': '24ABC542W003102',
+            'model_number': '1234A00',
+            'manufacturer': 'Trane',
             'production_date': datetime.date(2015,10,21),
+            'installation_date': datetime.date(2016,1,1),
         }
         response = self.client.put(
             reverse('units-detail',
@@ -65,7 +70,7 @@ class TestUnitAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
+'''
     def test_api_delete_unit(self):
         unit = Unit.objects.get()
         response = self.client.delete(
