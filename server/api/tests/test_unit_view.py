@@ -31,23 +31,23 @@ class TestUnitAPI(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Unit.objects.count(), 1)
-'''
+
     def test_api_get_unit(self):
         unit = Unit.objects.get()
         response = self.client.get(
-            reverse('unit-detail',
+            reverse('units-detail',
             kwargs={'pk':unit.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['manufacturer'], unit.manufacturer)
-
+'''
     def test_api_update_unit(self):
         unit = Unit.objects.get()
         new_data = {
             'production_date': datetime.date(2015,10,21),
         }
         response = self.client.put(
-            reverse('unit-detail',
+            reverse('units-detail',
             kwargs={'pk':unit.id}), data=new_data, format="json", 
             content_type="application/json"
         )
@@ -60,7 +60,7 @@ class TestUnitAPI(TestCase):
             'serialnumber': '0123',
         }
         response = self.client.put(
-            reverse('unit-detail',
+            reverse('units-detail',
             kwargs={'pk':unit.id}), data=new_data, format="json", 
             content_type="application/json"
         )

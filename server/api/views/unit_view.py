@@ -22,4 +22,11 @@ def apiUnits(request):
 
 @api_view(['GET','PUT','DELETE'])   
 def apiUnit(request,pk):
-    print()
+    try:
+        unit = Unit.objects.get(pk=pk)
+    except Unit.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    # Detail of unit
+    if request.method == 'GET':
+        serializer = UnitSerializer(unit, many=False)
+        return Response(serializer.data)
