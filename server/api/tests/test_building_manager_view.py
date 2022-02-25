@@ -33,4 +33,4 @@ class TestBuildingManagerAPI(TestCase):
             kwargs={'pk':building_manager.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response,building_manager)
+        self.assertEqual(response.data['name'], building_manager.name)
