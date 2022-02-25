@@ -1,22 +1,9 @@
 name: Linter
 
-# on: 
-#   push:
-#     paths:
-#       - 'client/**'
-#     jobs:
-#       build: ubuntu-latest
-#       steps:
-#       -uses: actions/checkout@v2
-#       -name: Install modules
-#         run: npm install
-#       -name: Run ESLint
-#         run: eslint . --ext .js, .jsx
-
-
 on:
   push:
-    branches-ignore: [main]
+    branches-ignore:
+      - 'main'
 jobs:
   build:
     # Name the Job
