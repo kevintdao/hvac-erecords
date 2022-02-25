@@ -5,7 +5,6 @@ from base.models import BuildingManager
 
 class TestBuildingManagerAPI(TestCase):
     def setUp(self):
-        print(reverse('managers-add'))
         self.data = {
             'name': 'Joe Smith',
             'phone_number': '512-513-5123'
