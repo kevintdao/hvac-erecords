@@ -1,44 +1,16 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 
 export default function Login(props) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const [emailValidation, setEmailValidation] = useState("");
-  const [passwordValidation, setPasswordValidation] = useState("");
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setEmailValidation("");
-    setPasswordValidation("");
-
-    // check for empty email and password
-    if(emailRef.current.value == ""){
-      setEmailValidation("Cannot be empty!");
-    }
-
-    if(passwordRef.current.value == ""){
-      setPasswordValidation("Cannot be empty!");
-    }
-
+  const onSubmit = (data) => {
     // call server api to verify information
-  }
-
-  const handleEmailChange = (e) => {
-    if(e.target.value.length > 0){
-      setEmailValidation("");
-    }
-  }
-
-  const handlePassChange = (e) => {
-    if(e.target.value.length > 0){
-      setPasswordValidation("");
-    }
   }
 
   return (
     <div className='mt-2'>
-      <form action="POST" onSubmit={handleSubmit} className='flex item-center justify-center py-2'>
+      <form action="POST" onSubmit={handleSubmit(onSubmit)} className='flex item-center justify-center py-2'>
         <div className='w-4/5 max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
           <h2 data-testid="login-header" className='text-center font-bold text-3xl'>Login</h2>
 
@@ -46,40 +18,46 @@ export default function Login(props) {
           <div className="flex flex-col">
             <label htmlFor="email">Email</label>
             <input 
-              data-testid="email-input"
               type="text" 
               name="email" 
               id="email" 
-              ref={emailRef} 
-              className={`p-2 border rounded ${emailValidation ? "border-red-400" : "border-gray-300"}`}
-              onChange={handleEmailChange}
+              className={`p-2 border rounded ${errors.email ? "border-red-400" : "border-gray-300"}`}
+              {...register("email", { 
+                required: {
+                  value: true,
+                  message: "You must enter your email!"
+                }
+              })}
             />
-            <span className='text-sm text-red-700 mt-1' id="email-help" data-testid="email-help">{emailValidation}</span>
+            <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
           </div>
 
           {/* password */}
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
             <input 
-              data-testid="pass-input"
               type="password" 
               name="password" 
               id="password" 
-              ref={passwordRef} 
-              className={`p-2 border rounded ${passwordValidation ? "border-red-400" : "border-gray-300"}`} 
-              onChange={handlePassChange}
+              className={`p-2 border rounded ${errors.password ? "border-red-400" : "border-gray-300"}`} 
+              {...register("password", { 
+                required: {
+                  value: true,
+                  message: "You must enter your password!"
+                } 
+              })}
             />
-              <span className='text-sm text-red-700 mt-1' id="pass-help" data-testid="pass-help">{passwordValidation}</span>
+              <span className='text-sm text-red-700 mt-1' id="pass-help">{errors.password?.message}</span>
           </div>
 
           {/* login button */}
           <div className="flex flex-col">
-            <button data-testid='login-button' className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Login</button>
+            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='login-button'>Login</button>
           </div>
 
           {/* signup button */}
           <div className='flex justify-center'>
-            <a data-testid="signup-button" href="/register" className='hover:text-blue-500'>Don't have an account?</a>
+            <a href="/register" className='hover:text-blue-500' id='register-button'>Don't have an account?</a>
           </div>
         </div>
       </form>

@@ -1,35 +1,76 @@
-import { render, fireEvent, screen, queryByTestId, getByTestId, cleanup } from "@testing-library/react"
+import { render, fireEvent, screen, cleanup, act } from "@testing-library/react"
 import Login from "../components/Login"
+
+const mockEmail = "test@test.com";
+const mockPass = "123456";
+const mockData = {
+  email: mockEmail,
+  password: mockPass
+}
 
 afterEach(cleanup);
 
-test("Email input can't be empty", () => {
-  const wrapper = render(<Login />);
+test("should watch input correctly", () => {
+  const { container } = render(<Login />);
+  const emailInput = container.querySelector("input#email");
+  const passInput = container.querySelector("input#password");
 
-  fireEvent.click(wrapper.queryByTestId("login-button"));
+  fireEvent.input(emailInput, {
+    target: {
+      value: mockEmail
+    }
+  });
 
-  expect(screen.queryByTestId("email-help").textContent).toBe("Cannot be empty!");
+  fireEvent.input(passInput, {
+    target: {
+      value: mockPass
+    }
+  });
+
+  expect(emailInput.value).toEqual(mockEmail);
+  expect(passInput.value).toEqual(mockPass);
 })
 
-test("Password input can't be empty", () => {
-  const wrapper = render(<Login />);
+test("should display the error messages when inputs are empty", async () => {
+  const { container } = render(<Login />);
+  const loginButton = container.querySelector("button#login-button");
+  const emailError = container.querySelector("span#email-help");
+  const passError = container.querySelector("span#pass-help");
 
-  fireEvent.click(wrapper.queryByTestId("login-button"));
+  await act(async () => {
+    fireEvent.submit(loginButton);
+  });
 
-  expect(screen.queryByTestId("pass-help").textContent).toBe("Cannot be empty!");
+  expect(emailError.textContent).toBe("You must enter your email!");
+  expect(passError.textContent).toBe("You must enter your password!");
 })
 
-test("Inputs message should removed when inputs are filled out ", () => {
-  const wrapper = render(<Login />);
+test("should submit the input data", async () => {
+  const { container } = render(<Login />);
+  const loginButton = container.querySelector("button#login-button");
+  const emailInput = container.querySelector("input#email");
+  const passInput = container.querySelector("input#password");
 
-  fireEvent.click(wrapper.queryByTestId("login-button"));
+  fireEvent.input(emailInput, {
+    target: {
+      value: mockEmail
+    }
+  });
 
-  expect(screen.queryByTestId("email-help").textContent).toBe("Cannot be empty!");
-  expect(screen.queryByTestId("pass-help").textContent).toBe("Cannot be empty!");
+  fireEvent.input(passInput, {
+    target: {
+      value: mockPass
+    }
+  });
 
-  fireEvent.change(wrapper.getByTestId("email-input"), {target: {value: 'test@test.com'}});
-  fireEvent.change(wrapper.getByTestId("pass-input"), {target: {value: '123456'}});
+  await act(async () => {
+    fireEvent.submit(loginButton);
+  });
 
-  expect(screen.queryByTestId("email-help").textContent).toBe("");
-  expect(screen.queryByTestId("pass-help").textContent).toBe("");
+  expect(emailInput.value).toEqual(mockEmail);
+  expect(passInput.value).toEqual(mockPass);
+  expect({ 
+    email: emailInput.value,
+    password: passInput.value
+  }).toEqual(mockData);
 })
