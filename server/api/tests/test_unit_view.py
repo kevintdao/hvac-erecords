@@ -70,16 +70,16 @@ class TestUnitAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-'''
+
     def test_api_delete_unit(self):
         unit = Unit.objects.get()
         response = self.client.delete(
-            reverse('unit-detail',
+            reverse('units-detail',
             kwargs={'pk':unit.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Unit.objects.count(), 0)
-
+'''
     def test_api_unit_not_found(self):
         response = self.client.get(
             reverse('unit-detail',
