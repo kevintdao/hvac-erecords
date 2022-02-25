@@ -79,10 +79,10 @@ class TestUnitAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Unit.objects.count(), 0)
-'''
+
     def test_api_unit_not_found(self):
         response = self.client.get(
-            reverse('unit-detail',
+            reverse('units-detail',
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -92,9 +92,8 @@ class TestUnitAPI(TestCase):
             "serialnumber": "0123",
         }
         self.response = self.client.post(
-            reverse('unit-list'),
+            reverse('units-list'),
             data,
             format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
-    '''
