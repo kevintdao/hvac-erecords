@@ -41,8 +41,27 @@ test("should display the error messages when inputs are empty", async () => {
     fireEvent.submit(loginButton);
   });
 
-  expect(emailError.textContent).toBe("You must enter your email!");
-  expect(passError.textContent).toBe("You must enter your password!");
+  expect(emailError.textContent).toBe("Enter an email");
+  expect(passError.textContent).toBe("Enter a password");
+})
+
+test("should display the error message when email is not valid", async () => {
+  const { container } = render(<Login />);
+  const emailInput = container.querySelector("input#email");
+  const loginButton = container.querySelector("button#login-button");
+  const emailError = container.querySelector("span#email-help");
+
+  fireEvent.input(emailInput, {
+    target: {
+      value: "test"
+    }
+  });
+
+  await act(async () => {
+    fireEvent.submit(loginButton);
+  });
+
+  expect(emailError.textContent).toBe("Enter a valid email");
 })
 
 test("should submit the input data", async () => {

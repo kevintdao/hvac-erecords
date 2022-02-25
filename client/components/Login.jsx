@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Login(props) {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     // call server api to verify information
@@ -25,7 +25,11 @@ export default function Login(props) {
               {...register("email", { 
                 required: {
                   value: true,
-                  message: "You must enter your email!"
+                  message: "Enter an email"
+                },
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: "Enter a valid email"
                 }
               })}
             />
@@ -43,7 +47,7 @@ export default function Login(props) {
               {...register("password", { 
                 required: {
                   value: true,
-                  message: "You must enter your password!"
+                  message: "Enter a password"
                 } 
               })}
             />
