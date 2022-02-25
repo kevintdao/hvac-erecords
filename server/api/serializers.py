@@ -4,4 +4,4 @@ from base.models import BuildingManager
 class BuildingManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = BuildingManager
-        fields = ('name', 'phone_number')
+        fields = '__all__'
