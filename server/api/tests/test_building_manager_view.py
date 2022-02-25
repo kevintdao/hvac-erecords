@@ -10,7 +10,7 @@ class TestBuildingManagerAPI(TestCase):
             'phone_number': '512-513-5123'
         }
         self.response = self.client.post(
-            reverse('managers-add'),
+            reverse('managers-list'),
             self.data,
             format="json"
         )
@@ -40,9 +40,10 @@ class TestBuildingManagerAPI(TestCase):
             "name": "George Johnson",
             "phone_number": "512-513-0000",
         }
-        response = self.client.post(
-            reverse('managers-edit',
-            kwargs={'pk':building_manager.id}), data=new_data, format="json"
+        response = self.client.put(
+            reverse('managers-detail',
+            kwargs={'pk':building_manager.id}), data=new_data, format="json", 
+            content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(BuildingManager.objects.get().name, 'George Johnson')  
