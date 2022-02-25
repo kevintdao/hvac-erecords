@@ -25,3 +25,12 @@ class TestBuildingManagerAPI(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(BuildingManager.objects.count(), 1)
+
+    def test_api_get_building_manager(self):
+        building_manager = BuildingManager.objects.get()
+        response = self.client.get(
+            reverse('managers-detail',
+            kwargs={'pk':building_manager.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(response,building_manager)
