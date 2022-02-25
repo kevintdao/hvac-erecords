@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form';
 
 export default function Register(props) {
@@ -38,7 +38,7 @@ export default function Register(props) {
   return (
     <div className='mt-2'>
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='flex item-center justify-center py-2'>
-        <div className='w-4/5 max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
+        <div className='w-full max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
           <h2 className='text-center font-bold text-3xl'>Register</h2>
 
           {/* email */}
@@ -101,21 +101,21 @@ export default function Register(props) {
                   message: "Confirm your password"
                 },
                 validate: {
-                  samePass: value => isSamePass(value) || "Password does not match"
+                  samePass: value => isSamePass(value) || "Passwords do not match"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="pass-help">{errors.passwordConfirm?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="pass-confirm-help">{errors.passwordConfirm?.message}</span>
           </div>
 
           {/* signup button */}
           <div className="flex flex-col">
-            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Sign Up</button>
+            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='register-button'>Sign Up</button>
           </div>
 
           {/* login button */}
           <div className='flex justify-center'>
-            <a href="/login" className='hover:text-blue-500'>Already have an account?</a>
+            <a href="/login" className='hover:text-blue-500' id='login-button'>Already have an account?</a>
           </div>
         </div>
       </form>
