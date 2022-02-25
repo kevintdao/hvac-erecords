@@ -34,3 +34,16 @@ class TestBuildingManagerAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], building_manager.name)
+
+    def test_api_update_building_manager(self):
+        building_manager = BuildingManager.objects.get()
+        new_data = {
+            "name": "George Johnson",
+            "phone_number": "512-513-0000",
+        }
+        response = self.client.post(
+            reverse('managers-edit',
+            kwargs={'pk':building_manager.id}), data=new_data, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(BuildingManager.objects.get().name, 'George Johnson')  
