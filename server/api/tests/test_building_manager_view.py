@@ -47,3 +47,12 @@ class TestBuildingManagerAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(BuildingManager.objects.get().name, 'George Johnson')  
+
+    def test_api_delete_building_manager(self):
+        building_manager = BuildingManager.objects.get()
+        response = self.client.delete(
+            reverse('managers-detail',
+            kwargs={'pk':building_manager.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(BuildingManager.objects.count(), 0)
