@@ -15,9 +15,12 @@ class Migration(migrations.Migration):
             name='Technician',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('technician_id', models.CharField(max_length=32)),
+                ('user_id', models.IntegerField()),
+                ('company_id', models.IntegerField()),
+                ('first_name', models.CharField(max_length=255)),
+                ('last_name', models.CharField(max_length=255)),
                 ('phone_number', models.CharField(max_length=32)),
+                ('license_number', models.IntegerField())
             ],
         ),
     ]

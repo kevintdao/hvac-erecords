@@ -1,8 +1,9 @@
 from django.db import models
 
 class Technician(models.Model):
-    name = models.CharField(max_length=255)
-    technician_id = models.CharField(max_length=32)
+    user_id = models.IntegerField()
+    company_id = models.IntegerField()
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
-    # building = models.ForeignKey("Building", on_delete=models.SET_NULL, null=True)
-    # to be added when Building CRUD is created.
+    license_number = models.IntegerField()

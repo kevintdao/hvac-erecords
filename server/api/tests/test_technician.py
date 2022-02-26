@@ -6,9 +6,12 @@ from base.models import Technician
 class TestTechnician(TestCase):
     def setUp(self):
         self.data = {
-            'name': "John Doe",
-            'technician_id': '001',
-            'phone_number': '101-101-1010'
+            'user_id' : 5,
+            'company_id' : 5,
+            'first_name' : 'John',
+            'last_name' : 'Doe',
+            'phone_number' : '101-101-1010',
+            'license_number' : 5
         }
         self.response = self.client.post(
             reverse('technicians-list'),
@@ -19,11 +22,11 @@ class TestTechnician(TestCase):
     def test_api_create_technician(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Technician.objects.count(), 1)
-        self.assertEqual(Technician.objects.get().name, "John Doe")
+        self.assertEqual(Technician.objects.get().first_name, 'John')
     
     def test_api_create_technician_failure(self):
         data = {
-            'id': '002',
+            'id': '2',
         }
         self.response = self.client.post(
             reverse('technicians-list'),
@@ -45,7 +48,7 @@ class TestTechnician(TestCase):
             kwargs={'pk':technician.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], technician.name)
+        self.assertEqual(response.data['first_name'], technician.first_name)
 
     def test_api_technician_not_found(self):
         response = self.client.get(
@@ -57,9 +60,12 @@ class TestTechnician(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.get()
         new_data = {
-            'name': 'Andrew Murley',
-            'technician_id': '002',
-            'phone_number': '010-010-0101',
+            'user_id' : 2,
+            'company_id' : 2,
+            'first_name' : 'Andrew',
+            'last_name' : 'Murley',
+            'phone_number' : '010-010-0101',
+            'license_number' : 2
         }
         response = self.client.put(
             reverse('technicians-detail',
@@ -67,12 +73,12 @@ class TestTechnician(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Technician.objects.get().name, 'Andrew Murley')
+        self.assertEqual(Technician.objects.get().first_name, 'Andrew')
 
     def test_api_update_technician_failure(self):
         technician = Technician.objects.get()
         new_data = {
-            'id': '002',
+            'id': '2',
         }
         response = self.client.put(
             reverse('technicians-detail',
