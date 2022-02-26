@@ -1,43 +1,44 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { useForm } from 'react-hook-form';
 
 export default function Register(props) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfRef = useRef();
-  const [emailValidation, setEmailValidation] = useState("");
-  const [passwordValidation, setPasswordValidation] = useState("");
-  const [passwordConfValidation, setPasswordConfValidation] = useState("");
+  const passRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { ref, ...rest } = register('password', {
+    required: {
+      value: true,
+      message: "Enter a password"
+    },
+    minLength: {
+      value: 8,
+      message: "Must contains at least 8 characters"
+    },
+    maxLength: {
+      value: 32,
+      message: "Must not exceed 32 characters"
+    },
+    pattern: {
+      value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      message: "Must contains at least 1 special character and 1 number"
+    },
+  });
 
-    // check for empty email and password
-
+  const onSubmit = (data) => {
     // call server api to verify information
   }
 
-  const handleEmailChange = (e) => {
-    if(e.target.value.length > 0){
-      setEmailValidation("");
+  const isSamePass = (passConf) => {
+    if(passRef.current.value != passConf){
+      return false;
     }
-  }
-
-  const handlePassChange = (e) => {
-    if(e.target.value.length > 0){
-      setPasswordValidation("");
-    }
-  }
-
-  const handlePassConfChange = (e) => {
-    if(e.target.value.length > 0){
-      setPasswordConfValidation("");
-    }
+    return true;
   }
 
   return (
     <div className='mt-2'>
-      <form action="" method="post" onSubmit={handleSubmit} className='flex item-center justify-center py-2'>
-        <div className='w-4/5 max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
+      <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='flex item-center justify-center py-2'>
+        <div className='w-full max-w-md space-y-4 p-4 rounded-md bg-white shadow-md border border-gray-200'>
           <h2 className='text-center font-bold text-3xl'>Register</h2>
 
           {/* email */}
@@ -47,11 +48,24 @@ export default function Register(props) {
               type="text" 
               name="email" 
               id="email" 
-              ref={emailRef} 
-              className={`p-2 border rounded ${emailValidation ? "border-red-400" : "border-gray-300"}`}
-              onChange={handleEmailChange}
+              className={`p-2 border rounded ${errors.email ? "border-red-400" : "border-gray-300"}`}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Enter an email"
+                },
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: "Enter a valid email"
+                },
+                maxLength: {
+                  value: 320,
+                  message: "Email address should not exceed 320 characters"
+                }
+              })}
             />
-            <span className='text-sm text-red-700 mt-1' id="email-help">{emailValidation}</span>
+            <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
+            <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
           </div>
 
           {/* password */}
@@ -61,11 +75,16 @@ export default function Register(props) {
               type="password" 
               name="password" 
               id="password" 
-              ref={passwordRef} 
-              className={`p-2 border rounded ${passwordValidation ? "border-red-400" : "border-gray-300"}`} 
-              onChange={handlePassChange}
+              ref={(e) => {
+                ref(e)
+                passRef.current = e
+              }}
+              className={`p-2 border rounded ${errors.password ? "border-red-400" : "border-gray-300"}`} 
+              {...rest}
             />
-              <span className='text-sm text-red-700 mt-1' id="pass-help">{passwordValidation}</span>
+            <span className='text-sm text-red-700 mt-1' id="pass-help">{errors.password?.message}</span>
+            <small className='text-gray-400 mt-1'>Password must contains at least 8 characters, 1 special character, and 1 number.</small>
+            <small className="text-gray-400 mt-1">Password should not exceed 32 characters.</small>
           </div>
 
           {/* confirm password */}
@@ -75,21 +94,28 @@ export default function Register(props) {
               type="password" 
               name="password-confirm" 
               id="password-confirm" 
-              ref={passwordConfRef} 
-              className={`p-2 border rounded ${passwordConfValidation ? "border-red-400" : "border-gray-300"}`} 
-              onChange={handlePassConfChange}
+              className={`p-2 border rounded ${errors.passwordConfirm ? "border-red-400" : "border-gray-300"}`} 
+              {...register("passwordConfirm", {
+                required: {
+                  value: true,
+                  message: "Confirm your password"
+                },
+                validate: {
+                  samePass: value => isSamePass(value) || "Passwords do not match"
+                }
+              })}
             />
-              <span className='text-sm text-red-700 mt-1' id="pass-help">{passwordConfValidation}</span>
+            <span className='text-sm text-red-700 mt-1' id="pass-confirm-help">{errors.passwordConfirm?.message}</span>
           </div>
 
           {/* signup button */}
           <div className="flex flex-col">
-            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800'>Sign Up</button>
+            <button className='p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='register-button'>Sign Up</button>
           </div>
 
           {/* login button */}
           <div className='flex justify-center'>
-            <a href="/login" className='hover:text-blue-500'>Already have an account?</a>
+            <a href="/login" className='hover:text-blue-500' id='login-button'>Already have an account?</a>
           </div>
         </div>
       </form>
