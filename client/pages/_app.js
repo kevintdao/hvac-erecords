@@ -4,7 +4,7 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <NavBar role="Maintenance Company" loggedIn/>
+      <NavBar />
       <div className="max-w-6xl px-2 container mx-auto">
         <Component {...pageProps} />
       </div>
