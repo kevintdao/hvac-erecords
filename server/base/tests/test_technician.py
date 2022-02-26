@@ -1,7 +1,7 @@
 from re import T
 from django.db import DataError
 from django.test import TestCase
-from server.base.models.technician import Technician
+from base.models import Technician
 
 class BuildingManagerModelTests(TestCase):
 
