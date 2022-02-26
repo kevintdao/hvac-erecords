@@ -46,3 +46,10 @@ class TestTechnician(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], technician.name)
+
+    def test_api_technician_not_found(self):
+        response = self.client.get(
+            reverse('technicians-detail',
+            kwargs={'pk':0}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
