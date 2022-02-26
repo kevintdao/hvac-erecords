@@ -19,7 +19,7 @@ def apiTechnicians(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT'])
+@api_view(['GET','PUT','DELETE'])
 def apiTechnician(request,pk):
     try:
         technician = Technician.objects.get(pk=pk)
@@ -36,3 +36,7 @@ def apiTechnician(request,pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Delete technician
+    elif request.method == 'DELETE':
+        technician.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

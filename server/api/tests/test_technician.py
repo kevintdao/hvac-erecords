@@ -80,3 +80,12 @@ class TestTechnician(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_delete_technician(self):
+        technician = Technician.objects.get()
+        response = self.client.delete(
+            reverse('technicians-detail',
+            kwargs={'pk':technician.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Technician.objects.count(), 0)
