@@ -18,3 +18,15 @@ def apiTechnicians(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def apiTechnician(request,pk):
+    try:
+        technician = Technician.objects.get(pk=pk)
+    except Technician.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    # Detail of technician
+    if request.method == 'GET':
+        serializer = TechnicianSerializer(technician, many=False)
+        return Response(serializer.data)
+
