@@ -53,3 +53,30 @@ class TestTechnician(TestCase):
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_api_update_technician(self):
+        technician = Technician.objects.get()
+        new_data = {
+            'name': 'Andrew Murley',
+            'technician_id': '002',
+            'phone_number': '010-010-0101',
+        }
+        response = self.client.put(
+            reverse('technicians-detail',
+            kwargs={'pk':technician.id}), data=new_data, format="json",
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Technician.objects.get().name, 'Andrew Murley')
+
+    def test_api_update_technician_failure(self):
+        technician = Technician.objects.get()
+        new_data = {
+            'id': '002',
+        }
+        response = self.client.put(
+            reverse('technicians-detail',
+            kwargs={'pk':technician.id}), data=new_data, format="json",
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

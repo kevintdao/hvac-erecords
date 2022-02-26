@@ -19,7 +19,7 @@ def apiTechnicians(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET','PUT'])
 def apiTechnician(request,pk):
     try:
         technician = Technician.objects.get(pk=pk)
@@ -29,4 +29,10 @@ def apiTechnician(request,pk):
     if request.method == 'GET':
         serializer = TechnicianSerializer(technician, many=False)
         return Response(serializer.data)
-
+    # Update technician
+    elif request.method == 'PUT':
+        serializer = TechnicianSerializer(technician, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
