@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from base.models import Unit
+from base.models import BuildingManager
+from base.models import Technician
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +22,19 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password', 'date_joined']
+
+
+class UnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = '__all__'
+
+class BuildingManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BuildingManager
+        fields = '__all__'
+
+class TechnicianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technician
+        fields = '__all__'
