@@ -1,18 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-# from base.models import Users
-
-# class UsersSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Users
-#         fields = '__all__'
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'email', 'password', 'date_joined']
+        fields = ['id', 'username', 'email', 'password', 'date_joined']
 
-class RegisterUserSerializer(serializers.HyperlinkedModelSerializer):
+class RegisterUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -24,4 +18,4 @@ class RegisterUserSerializer(serializers.HyperlinkedModelSerializer):
         
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'email', 'password', 'date_joined']
+        fields = ['id', 'username', 'email', 'password', 'date_joined']
