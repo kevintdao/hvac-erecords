@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('manufacturer', models.CharField(max_length=255)),
                 ('production_date', models.DateField(null=True)),
                 ('installation_date', models.DateField(null=True)),
+            ],
             name='BuildingManager',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
