@@ -5,10 +5,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['hvac-erecords-server.herokuapp.com']
 
-INSTALLED_APPS += 'whitenoise.runserver_nostatic'
-
-MIDDLEWARE += 'whitenoise.middleware.WhiteNoiseMiddleware'
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
