@@ -13,34 +13,7 @@ export default function BuildingOwnerRegister() {
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
         <h2 className='font-bold text-3xl'>Building Owner Account Creation</h2>
 
-        {/* email */}
-        <div className='flex flex-col'>
-          <label htmlFor="email" className="mb-2">Email</label>
-          <input 
-            type="text" 
-            name="email" 
-            id="email" 
-            className={`p-2 border rounded ${errors.email ? "border-red-400" : "border-gray-300"}`} 
-            {...register('email', {
-              required: {
-                value: true,
-                message: "Enter an email"
-              },
-              pattern: {
-                value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: "Enter a valid email"
-              },
-              maxLength: {
-                value: 320,
-                message: "Email address should not exceed 320 characters"
-              }
-            })}  
-          />
-          <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
-          <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
-        </div>
-
-        <div className='grid md:grid-cols-3 md:gap-4 grid-cols-1'>
+        <div className='grid md:grid-cols-2 md:gap-4 grid-cols-1'>
           {/* first name */}
           <div className='flex flex-col'>
             <label htmlFor="first-name">First Name</label>
@@ -76,11 +49,53 @@ export default function BuildingOwnerRegister() {
             />
             <span className='text-sm text-red-700 mt-1' id="lname-help">{errors.lname?.message}</span>
           </div>
+        </div>
+
+        <div className='grid md:grid-cols-2 md:gap-4 grid-cols-1'>
+          {/* email */}
+          <div className='flex flex-col'>
+            <label htmlFor="email" className="mb-2">Email</label>
+            <input 
+              type="text" 
+              name="email" 
+              id="email" 
+              className={`p-2 border rounded ${errors.email ? "border-red-400" : "border-gray-300"}`} 
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: "Enter an email"
+                },
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: "Enter a valid email"
+                },
+                maxLength: {
+                  value: 320,
+                  message: "Email address should not exceed 320 characters"
+                }
+              })}  
+            />
+            <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
+            <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
+          </div>
 
           {/* phone number */}
           <div className='flex flex-col'>
             <label htmlFor="phone">Phone Number</label>
-            <input type="tel" name="phone" id="phone" className='p-2 border rounded border-gray-300'/>
+            <input 
+              type="tel" 
+              name="phone" 
+              id="phone" 
+              className='p-2 border rounded border-gray-300'
+              {...register('phone', {
+                required: {
+                  value: true,
+                  message: "Enter a phone number"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="phone-help">{errors.phone?.message}</span>
+            <small className="text-gray-400 mt-1">Format: 123-456-7890</small>
           </div>
         </div>
 
