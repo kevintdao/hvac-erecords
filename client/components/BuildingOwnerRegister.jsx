@@ -44,13 +44,37 @@ export default function BuildingOwnerRegister() {
           {/* first name */}
           <div className='flex flex-col'>
             <label htmlFor="first-name">First Name</label>
-            <input type="text" name="first-name" id="first-name" className='p-2 border rounded border-gray-300'/>
+            <input 
+              type="text" 
+              name="first-name" 
+              id="first-name" 
+              className={`p-2 border rounded ${errors.fname ? "border-red-400" : "border-gray-300"}`}
+              {...register('fname', {
+                required: {
+                  value: true,
+                  message: "Enter a first name"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="fname-help">{errors.fname?.message}</span>
           </div>
 
           {/* last name */}
           <div className='flex flex-col'>
             <label htmlFor="last-name">Last Name</label>
-            <input type="text" name="last-name" id="last-name" className='p-2 border rounded border-gray-300'/>
+            <input 
+              type="text" 
+              name="last-name" 
+              id="last-name" 
+              className={`p-2 border rounded ${errors.lname ? "border-red-400" : "border-gray-300"}`}
+              {...register('lname', {
+                required: {
+                  value: true,
+                  message: "Enter a last name"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="lname-help">{errors.lname?.message}</span>
           </div>
 
           {/* phone number */}
