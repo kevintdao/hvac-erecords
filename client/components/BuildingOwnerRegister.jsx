@@ -12,7 +12,7 @@ export default function BuildingOwnerRegister() {
           <input type="text" name="email" id="email" className='p-2 border rounded border-gray-300' />
         </div>
 
-        <div className='flex md:flex-row md:space-x-2 flex-col'>
+        <div className='grid md:grid-cols-3 md:gap-4 grid-cols-1'>
           {/* first name */}
           <div className='flex flex-col'>
             <label htmlFor="first-name">First Name</label>
@@ -24,7 +24,7 @@ export default function BuildingOwnerRegister() {
             <label htmlFor="last-name">Last Name</label>
             <input type="text" name="last-name" id="last-name" className='p-2 border rounded border-gray-300'/>
           </div>
-          
+
           {/* phone number */}
           <div className='flex flex-col'>
             <label htmlFor="phone">Phone Number</label>
@@ -32,6 +32,8 @@ export default function BuildingOwnerRegister() {
           </div>
         </div>
 
+        {/* submit button */}
+        <button className='px-4 py-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='create-button'>Create</button>
       </form>
     </div>
   )
