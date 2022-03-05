@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -11,10 +12,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-
             name='Unit',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('external_id', models.CharField(max_length=128)),
                 ('category', models.CharField(max_length=255)),
                 ('serial_number', models.CharField(max_length=255)),
@@ -22,11 +23,28 @@ class Migration(migrations.Migration):
                 ('manufacturer', models.CharField(max_length=255)),
                 ('production_date', models.DateField(null=True)),
                 ('installation_date', models.DateField(null=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='BuildingManager',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('phone_number', models.CharField(max_length=32)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Technician',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('user_id', models.IntegerField()),
+                ('company_id', models.IntegerField()),
+                ('first_name', models.CharField(max_length=255)),
+                ('last_name', models.CharField(max_length=255)),
+                ('phone_number', models.CharField(max_length=32)),
+                ('license_number', models.IntegerField())
             ],
         ),
     ]
