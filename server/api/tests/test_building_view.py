@@ -23,7 +23,7 @@ class TestBuildingAPI(TestCase):
     def test_api_create_building(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Building.objects.count(), 1)
-        self.assertEqual(Building.objects.get().site_name, 'Seamans Center)
+        self.assertEqual(Building.objects.get().site_name, 'Seamans Center')
 
     def test_api_list_building(self):
         url = reverse('buildings-list')
