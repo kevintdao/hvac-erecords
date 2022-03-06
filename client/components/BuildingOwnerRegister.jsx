@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/input'
 import { isPossiblePhoneNumber } from 'react-phone-number-input'
@@ -15,7 +15,6 @@ export default function BuildingOwnerRegister() {
 
   const onSubmit = (data) => {
     // call server api to verify information
-    console.log(data);
   }
 
   return (
@@ -93,7 +92,7 @@ export default function BuildingOwnerRegister() {
           <div className={styles.inputContainer}>
             <label htmlFor="phone">Phone Number</label>
             <Controller 
-              name='phone-input'
+              name='phone'
               control={control}
               rules={{
                 required: {
@@ -105,14 +104,15 @@ export default function BuildingOwnerRegister() {
               render={({ field: { onChange, value } }) => (
                 <PhoneInput
                   country="US"
-                  className={`${styles.input} ${errors['phone-input'] ? "border-red-400" : "border-gray-300"}`}
+                  className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
                   value={value}
                   onChange={onChange}
+                  id="phone"
                 />
               )}
             />
               
-            <span className={styles.helpText} id="phone-help">{errors['phone-input']?.message}</span>
+            <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
             <small className="text-gray-400 mt-1">US phone number only.</small>
           </div>
         </div>
