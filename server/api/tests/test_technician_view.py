@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import TestCase
 from base.models import Technician
 
-class TestTechnician(TestCase):
+class TestTechnicianAPI(TestCase):
     def setUp(self):
         self.data = {
             'user_id' : 5,
