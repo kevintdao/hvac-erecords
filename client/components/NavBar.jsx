@@ -60,8 +60,8 @@ export default function NavBar(props) {
 
   function NotSignedInOptions(){
     const notSignedInLinks = [
-      { name: "Login", href: "/" },
-      { name: "Sign Up", href: "/" }
+      { name: "Login", href: "/login" },
+      { name: "Sign Up", href: "/register" }
     ];
 
     return createNavLinks(notSignedInLinks);
