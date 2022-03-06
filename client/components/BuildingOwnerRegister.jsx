@@ -1,11 +1,21 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import PhoneInput from 'react-phone-number-input/input'
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
 
 export default function BuildingOwnerRegister() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, control } = useForm();
+
+  const styles = {
+    inputsDiv: "grid md:grid-cols-2 gap-4 grid-cols-1",
+    inputContainer: "flex flex-col",
+    input: "p-2 border rounded",
+    helpText: "text-sm text-red-700 mt-1"
+  }
 
   const onSubmit = (data) => {
     // call server api to verify information
+    console.log(data);
   }
 
   return (
@@ -13,15 +23,15 @@ export default function BuildingOwnerRegister() {
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
         <h2 className='font-bold text-3xl'>Building Owner Account Creation</h2>
 
-        <div className='grid md:grid-cols-2 md:gap-4 grid-cols-1'>
+        <div className={styles.inputsDiv}>
           {/* first name */}
-          <div className='flex flex-col'>
+          <div className={styles.inputContainer}>
             <label htmlFor="first-name">First Name</label>
             <input 
               type="text" 
               name="first-name" 
               id="first-name" 
-              className={`p-2 border rounded ${errors.fname ? "border-red-400" : "border-gray-300"}`}
+              className={`${styles.input} ${errors.fname ? "border-red-400" : "border-gray-300"}`}
               {...register('fname', {
                 required: {
                   value: true,
@@ -29,17 +39,17 @@ export default function BuildingOwnerRegister() {
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="fname-help">{errors.fname?.message}</span>
+            <span className={styles.helpText} id="fname-help">{errors.fname?.message}</span>
           </div>
 
           {/* last name */}
-          <div className='flex flex-col'>
+          <div className={styles.inputContainer}>
             <label htmlFor="last-name">Last Name</label>
             <input 
               type="text" 
               name="last-name" 
               id="last-name" 
-              className={`p-2 border rounded ${errors.lname ? "border-red-400" : "border-gray-300"}`}
+              className={`${styles.input} ${errors.lname ? "border-red-400" : "border-gray-300"}`}
               {...register('lname', {
                 required: {
                   value: true,
@@ -47,19 +57,19 @@ export default function BuildingOwnerRegister() {
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="lname-help">{errors.lname?.message}</span>
+            <span className={styles.helpText} id="lname-help">{errors.lname?.message}</span>
           </div>
         </div>
 
-        <div className='grid md:grid-cols-2 md:gap-4 grid-cols-1'>
+        <div className={styles.inputsDiv}>
           {/* email */}
-          <div className='flex flex-col'>
-            <label htmlFor="email" className="mb-2">Email</label>
+          <div className={styles.inputContainer}>
+            <label htmlFor="email">Email</label>
             <input 
               type="text" 
               name="email" 
               id="email" 
-              className={`p-2 border rounded ${errors.email ? "border-red-400" : "border-gray-300"}`} 
+              className={`${styles.input} ${errors.email ? "border-red-400" : "border-gray-300"}`} 
               {...register('email', {
                 required: {
                   value: true,
@@ -75,27 +85,35 @@ export default function BuildingOwnerRegister() {
                 }
               })}  
             />
-            <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
+            <span className={styles.helpText} id="email-help">{errors.email?.message}</span>
             <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
           </div>
 
           {/* phone number */}
-          <div className='flex flex-col'>
+          <div className={styles.inputContainer}>
             <label htmlFor="phone">Phone Number</label>
-            <input 
-              type="tel" 
-              name="phone" 
-              id="phone" 
-              className='p-2 border rounded border-gray-300'
-              {...register('phone', {
+            <Controller 
+              name='phone-input'
+              control={control}
+              rules={{
                 required: {
                   value: true,
                   message: "Enter a phone number"
-                }
-              })}
+                },
+                validate: value => isPossiblePhoneNumber(value) || "Enter a valid phone number"
+              }}
+              render={({ field: { onChange, value } }) => (
+                <PhoneInput
+                  country="US"
+                  className={`${styles.input} ${errors['phone-input'] ? "border-red-400" : "border-gray-300"}`}
+                  value={value}
+                  onChange={onChange}
+                />
+              )}
             />
-            <span className='text-sm text-red-700 mt-1' id="phone-help">{errors.phone?.message}</span>
-            <small className="text-gray-400 mt-1">Format: 123-456-7890</small>
+              
+            <span className={styles.helpText} id="phone-help">{errors['phone-input']?.message}</span>
+            <small className="text-gray-400 mt-1">US phone number only.</small>
           </div>
         </div>
 
