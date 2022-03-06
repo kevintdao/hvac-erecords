@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from base.models import Technician
 from api.serializers import TechnicianSerializer
 from rest_framework import status
+from dry_rest_permissions.generics import DRYPermissions
 
 @api_view(['GET','POST'])
 def apiTechnicians(request):
@@ -40,3 +41,8 @@ def apiTechnician(request,pk):
     elif request.method == 'DELETE':
         technician.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TechnicianViewSet(viewsets.ModelViewSet):
+    ppermission_classes = (DRYPermissions,)
+    queryset = Technician.objects.all()
+    serializer_class = TechnicianSerializer
