@@ -41,8 +41,3 @@ def apiTechnician(request,pk):
     elif request.method == 'DELETE':
         technician.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-class TechnicianViewSet(viewsets.ModelViewSet):
-    ppermission_classes = (DRYPermissions,)
-    queryset = Technician.objects.all()
-    serializer_class = TechnicianSerializer
