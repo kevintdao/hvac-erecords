@@ -2,10 +2,12 @@ import React from 'react'
 import Head from 'next/head'
 
 export default function create() {
-  // get user's building
-  const getBuildings = () => {
-
-  }
+  const hvacTypes = [
+    "Heating and cooling split system",
+    "Hybrid split system",
+    "Duct free",
+    "Packaged heating and air conditioning system"
+  ]
 
   const styles = {
     inputContainer: "flex flex-col",
@@ -25,7 +27,11 @@ export default function create() {
       {/* Type */}
       <div className={styles.inputContainer}>
         <label htmlFor="type">Type</label>
-        <input type="text" name="type" id="type" className={`${styles.input} border-gray-300`}/>
+        <select name="type" id="type" className={`${styles.input} border-gray-300`}>
+          {hvacTypes.map((data, index) => (
+            <option value={index}>{data}</option>
+          ))}
+        </select>
       </div>
 
       {/* External ID */}
