@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
+import React from 'react'
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import Alert from '../components/Alert';
-import Link from 'next/link';
 
-export default function UnitForm({ type }) {
+export default function UnitForm({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [id, setId] = useState(null);
-  const [error, setError] = useState();
 
   const hvacTypes = [
     "Heating and cooling split system",
@@ -23,78 +17,11 @@ export default function UnitForm({ type }) {
     inputs2Cols: "grid md:grid-cols-2 gap-4 grid-cols-1",
     inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
     button: "p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800",
-    indigoButton: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
-  }
-
-  const onSubmit = async (data) => {
-    const unit = {
-      external_id: data.exId,
-      category: data.type,
-      serial_number: data.serial,
-      model_number: data.model,
-      manufacturer: data.manufacturer,
-      production_date: data.prodDate,
-      installation_date: data.installDate
-    }
-
-    // create type
-    if(type == 'Create'){
-      axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, unit)
-        .then(res => {
-          setId(res.data.id);
-        })
-        .catch(error => {
-          setError("Error with request");
-        })
-    }
-
-    // update type
-    else if(type == 'Update'){
-      
-    }
-  }
-
-  if(id){
-    const text = 
-      type == 'Create' ? 
-      "Successfully created a unit. Click the link below to the newly created unit or all the units" :
-      "Successfully updated a unit. Click the link below to the newly updated unit or all the units";
-    
-    return (
-      <div className='mt-2'>
-        <Alert 
-          title="Successful"
-          text={text}
-          type="success"
-        />
-
-        <div className='mt-4 space-x-4'>
-          <Link href="/units">
-            <a className={styles.indigoButton}>All units</a>        
-          </Link>
-          <Link href={`/units/${id}`}>
-            <a className={styles.indigoButton}>See created unit</a>        
-          </Link>
-        </div>
-      </div>
-    )
   }
 
   return (
-    <div className='space-y-4 mt-2'>
-      <Head>
-        <title>{type} Unit</title>
-      </Head>
-
-      <h2 className="font-bold text-3xl">{type} Unit</h2>
-
-      {error && <Alert 
-          title="Error"
-          text={error}
-          type="error"
-        />}
-
-      <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <>
+      <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
         <div className={styles.inputs3Cols}>
           {/* External ID */}
           <div className={styles.inputContainer}>
@@ -104,6 +31,7 @@ export default function UnitForm({ type }) {
               name="ex-id" 
               id="ex-id" 
               className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
+              value={data?.external_id}
               {...register('exId', {
                 required: {
                   value: true,
@@ -122,6 +50,7 @@ export default function UnitForm({ type }) {
               name="model" 
               id="model" 
               className={`${styles.input} ${errors.model ? "border-red-400" : "border-gray-300"}`}
+              value={data?.model_number}
               {...register('model', {
                 required: {
                   value: true,
@@ -139,6 +68,7 @@ export default function UnitForm({ type }) {
               type="text" 
               name="serial" 
               id="serial" 
+              value={data?.serial_number}
               className={`${styles.input} ${errors.serial ? "border-red-400" : "border-gray-300"}`}
               {...register('serial', {
                 required: {
@@ -158,6 +88,7 @@ export default function UnitForm({ type }) {
             <select 
               name="type" 
               id="type" 
+              value={data?.category}
               className={`${styles.input} border-gray-300`}
               {...register('type')}
             >
@@ -174,6 +105,7 @@ export default function UnitForm({ type }) {
               type="text" 
               name="manufacturer" 
               id="manufacturer" 
+              value={data?.manufacturer}
               className={`${styles.input} ${errors.manufacturer ? "border-red-400" : "border-gray-300"}`}
               {...register('manufacturer', {
                 required: {
@@ -194,6 +126,7 @@ export default function UnitForm({ type }) {
               type="date" 
               name="prod-date" 
               id="prod-date" 
+              value={data?.production_date}
               className={`${styles.input} ${errors.prodDate ? "border-red-400" : "border-gray-300"}`}
               {...register('prodDate', {
                 required: {
@@ -212,6 +145,7 @@ export default function UnitForm({ type }) {
               type="date" 
               name="install-date" 
               id="install-date" 
+              value={data?.installation_date}
               className={`${styles.input} ${errors.installDate ? "border-red-400" : "border-gray-300"}`}
               {...register('installDate', {
                 required: {
@@ -228,6 +162,6 @@ export default function UnitForm({ type }) {
           <button className={styles.button} id='create-button'>{type} Unit</button>
         </div>
       </form>
-    </div>
+    </>
   )
 }
