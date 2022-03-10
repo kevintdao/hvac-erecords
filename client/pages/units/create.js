@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Alert from '../../components/Alert';
+import Link from 'next/link';
 
-export default function create() {
+export default function Create() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [id, setId] = useState(null);
+  const [error, setError] = useState();
 
   const hvacTypes = [
     "Heating and cooling split system",
@@ -15,12 +20,48 @@ export default function create() {
   const styles = {
     inputContainer: "flex flex-col",
     input: "p-2 border rounded",
-    inputsDiv: "grid md:grid-cols-2 gap-4 grid-cols-1",
+    inputs2Cols: "grid md:grid-cols-2 gap-4 grid-cols-1",
+    inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
     button: "p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800"
   }
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const unit = {
+      external_id: data.exId,
+      category: data.type,
+      serial_number: data.serial,
+      model_number: data.model,
+      manufacturer: data.manufacturer,
+      production_date: data.prodDate,
+      installation_date: data.installDate
+    }
+
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, unit);
+    if(res.status == 201){
+      setId(res.data.id);
+    }
+    else{
+
+    }
+  }
+
+  if(id){
+    return (
+      <div className='mt-2'>
+        <Alert 
+          title="Successful"
+          text="Successfully created a unit. Click the link below to the newly created unit or all the units"
+          type="success"
+        />
+
+        <Link href="/units">
+          <a >All units</a>        
+        </Link>
+        <Link href={`/units/${id}`}>
+          <a>See created unit</a>        
+        </Link>
+      </div>
+    )
   }
 
   return (
@@ -34,7 +75,63 @@ export default function create() {
       <h2 className="font-bold text-3xl">Create Unit</h2>
 
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className={styles.inputsDiv}>
+        <div className={styles.inputs3Cols}>
+          {/* External ID */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="ex-id">External ID</label>
+            <input 
+              type="text" 
+              name="ex-id" 
+              id="ex-id" 
+              className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
+              {...register('exId', {
+                required: {
+                  value: true,
+                  message: "Enter an External ID"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.exId?.message}</span>
+          </div>
+
+          {/* Model Number */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Model Number</label>
+            <input 
+              type="text" 
+              name="model" 
+              id="model" 
+              className={`${styles.input} ${errors.model ? "border-red-400" : "border-gray-300"}`}
+              {...register('model', {
+                required: {
+                  value: true,
+                  message: "Enter a Model Number"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.model?.message}</span>
+          </div>
+
+          {/* Serial Number */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="serial">Serial Nunber</label>
+            <input 
+              type="text" 
+              name="serial" 
+              id="serial" 
+              className={`${styles.input} ${errors.serial ? "border-red-400" : "border-gray-300"}`}
+              {...register('serial', {
+                required: {
+                  value: true,
+                  message: "Enter a Serial Number"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.serial?.message}</span>
+          </div>
+        </div>
+
+        <div className={styles.inputs2Cols}>
           {/* Type */}
           <div className={styles.inputContainer}>
             <label htmlFor="type">Type</label>
@@ -42,8 +139,7 @@ export default function create() {
               name="type" 
               id="type" 
               className={`${styles.input} border-gray-300`}
-              {...register('type', {
-              })}
+              {...register('type')}
             >
               {hvacTypes.map((data, index) => (
                 <option key={index} value={data}>{data}</option>
@@ -70,45 +166,7 @@ export default function create() {
           </div>
         </div>
 
-        <div className={styles.inputsDiv}>
-          {/* External ID */}
-          <div className={styles.inputContainer}>
-            <label htmlFor="ex-id">External ID</label>
-            <input 
-              type="text" 
-              name="ex-id" 
-              id="ex-id" 
-              className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
-              {...register('exId', {
-                required: {
-                  value: true,
-                  message: "Enter an External ID"
-                }
-              })}
-            />
-            <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.exId?.message}</span>
-          </div>
-
-          {/* Serial Number */}
-          <div className={styles.inputContainer}>
-            <label htmlFor="serial">Serial Nunber</label>
-            <input 
-              type="text" 
-              name="serial" 
-              id="serial" 
-              className={`${styles.input} ${errors.serial ? "border-red-400" : "border-gray-300"}`}
-              {...register('serial', {
-                required: {
-                  value: true,
-                  message: "Enter a Serial Number"
-                }
-              })}
-            />
-            <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.serial?.message}</span>
-          </div>
-        </div>
-
-        <div className={styles.inputsDiv}>
+        <div className={styles.inputs2Cols}>
           {/* Production Date */}
           <div className={styles.inputContainer}>
             <label htmlFor="prod-date">Production Date</label>
