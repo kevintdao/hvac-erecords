@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
 
-export default function unit({ data }) {
+export default function Unit({ data }) {
   const router = useRouter();
   const { id } = router.query;
 

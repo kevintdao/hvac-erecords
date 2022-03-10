@@ -5,7 +5,7 @@ import axios from 'axios'
 import UnitForm from '../../components/units/UnitForm'
 import Alert from '../../components/Alert'
 
-export default function create() {
+export default function Create() {
   const [id, setId] = useState(null);
   const [error, setError] = useState();
 

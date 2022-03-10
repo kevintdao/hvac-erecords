@@ -6,7 +6,7 @@ import axios from 'axios'
 import UnitForm from '../../../components/units/UnitForm';
 import Alert from '../../../components/Alert';
 
-export default function edit({ data }) {
+export default function Edit({ data }) {
   const router = useRouter();
   const { id } = router.query;
   const [unitId, setUnitId] = useState();

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import UnitTable from '../../components/units/UnitTable'
 
-export default function index(props) {
+export default function Index(props) {
   const data = props.data;
   const labels = ["External ID", "Model Number", "Serial Number", "Type", "Manufacturer"];
 
