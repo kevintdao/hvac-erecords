@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import axios from 'axios'
-import UnitsTable from '../../components/UnitsTable'
+import UnitTable from '../../components/units/UnitTable'
 
 export default function index(props) {
   const data = props.data;
@@ -17,7 +17,7 @@ export default function index(props) {
 
       <h2 className='font-bold text-3xl'>Units</h2>
   
-      <UnitsTable data={data} labels={labels} />
+      <UnitTable data={data} labels={labels} />
     </div>
   )
 }

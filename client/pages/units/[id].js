@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import UnitDetails from '../../components/UnitDetails'
+import UnitDetails from '../../components/units/UnitDetails'
 
 export default function unit({ data }) {
   const router = useRouter();

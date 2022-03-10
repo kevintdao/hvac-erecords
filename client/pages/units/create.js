@@ -1,5 +1,5 @@
 import React from 'react'
-import UnitForm from '../../components/UnitForm'
+import UnitForm from '../../components/units/UnitForm'
 
 export default function create() {
   return (
