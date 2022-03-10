@@ -44,9 +44,10 @@ class RegisterUserTest(APITestCase):
         response = self.client.post(url, data, format='json')
 
         url = 'http://localhost:8000/api/api/token/refresh/'
-        data = {'refresh': response.json()}
+        # print(response.json()['refresh'])
+        data = {'refresh': response.json()['refresh']}
         response = self.client.post(url, data, format='json')
-        self.assertTrue('refresh' in response.json())
+        self.assertTrue('access' in response.json())
 
     # def test_login_user(self):
 
@@ -57,10 +58,9 @@ class RegisterUserTest(APITestCase):
     #     url = 'http://localhost:8000/api/api/token/'
     #     data = {'username': 'test44', 'password': 'Testing44*' }
     #     response = self.client.post(url, data, format='json')
-    #     print(response.json()['refresh'])
-    #     self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.json()['refresh'])
+
+    #     # self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.json()['refresh'])
 
     #     url = 'api/api/user/'
-    #     data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
-    #     response = self.client.post(url, data, format = 'json')
+    #     response = self.client.get(url, {}, HTTP_AUTHORIZATION='Bearer ' + response.json()['refresh'])
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
