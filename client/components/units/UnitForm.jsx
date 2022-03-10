@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
   const hvacTypes = [
     "Heating and cooling split system",
@@ -31,13 +31,13 @@ export default function UnitForm({ type, data, onSubmit }) {
               name="ex-id" 
               id="ex-id" 
               className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
-              value={data?.external_id}
               {...register('exId', {
                 required: {
                   value: true,
                   message: "Enter an External ID"
                 }
               })}
+              {...setValue("exId", data?.external_id)}
             />
             <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.exId?.message}</span>
           </div>
@@ -50,13 +50,13 @@ export default function UnitForm({ type, data, onSubmit }) {
               name="model" 
               id="model" 
               className={`${styles.input} ${errors.model ? "border-red-400" : "border-gray-300"}`}
-              value={data?.model_number}
               {...register('model', {
                 required: {
                   value: true,
                   message: "Enter a Model Number"
                 }
               })}
+              {...setValue("model", data?.model_number)}
             />
             <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.model?.message}</span>
           </div>
@@ -68,7 +68,6 @@ export default function UnitForm({ type, data, onSubmit }) {
               type="text" 
               name="serial" 
               id="serial" 
-              value={data?.serial_number}
               className={`${styles.input} ${errors.serial ? "border-red-400" : "border-gray-300"}`}
               {...register('serial', {
                 required: {
@@ -76,6 +75,7 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Serial Number"
                 }
               })}
+              {...setValue("serial", data?.serial_number)}
             />
             <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.serial?.message}</span>
           </div>
@@ -88,9 +88,9 @@ export default function UnitForm({ type, data, onSubmit }) {
             <select 
               name="type" 
               id="type" 
-              value={data?.category}
               className={`${styles.input} border-gray-300`}
               {...register('type')}
+              {...setValue("type", data?.category)}
             >
               {hvacTypes.map((data, index) => (
                 <option key={index} value={data}>{data}</option>
@@ -105,7 +105,6 @@ export default function UnitForm({ type, data, onSubmit }) {
               type="text" 
               name="manufacturer" 
               id="manufacturer" 
-              value={data?.manufacturer}
               className={`${styles.input} ${errors.manufacturer ? "border-red-400" : "border-gray-300"}`}
               {...register('manufacturer', {
                 required: {
@@ -113,6 +112,7 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Manufacturer"
                 }
               })}
+              {...setValue("manufacturer", data?.manufacturer)}
             />
             <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.manufacturer?.message}</span>
           </div>
@@ -126,7 +126,6 @@ export default function UnitForm({ type, data, onSubmit }) {
               type="date" 
               name="prod-date" 
               id="prod-date" 
-              value={data?.production_date}
               className={`${styles.input} ${errors.prodDate ? "border-red-400" : "border-gray-300"}`}
               {...register('prodDate', {
                 required: {
@@ -134,6 +133,7 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Production Date"
                 }
               })}
+              {...setValue("prodDate", data?.production_date)}
             />
             <span className='text-sm text-red-700 mt-1' id="prod-date-help">{errors.prodDate?.message}</span>
           </div>
@@ -145,7 +145,6 @@ export default function UnitForm({ type, data, onSubmit }) {
               type="date" 
               name="install-date" 
               id="install-date" 
-              value={data?.installation_date}
               className={`${styles.input} ${errors.installDate ? "border-red-400" : "border-gray-300"}`}
               {...register('installDate', {
                 required: {
@@ -153,6 +152,7 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter an Installation Date"
                 }
               })}
+              {...setValue("installDate", data?.installation_date)}
             />
             <span className='text-sm text-red-700 mt-1' id="install-date-help">{errors.installDate?.message}</span>
           </div>
