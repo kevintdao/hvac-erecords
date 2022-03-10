@@ -1,13 +1,14 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Technician
+from base.models import Technician, Company
 
 class TestTechnicianAPI(TestCase):
+    fixtures = ['test_data.json',]
+
     def setUp(self):
         self.data = {
-            'user_id' : 5,
-            'company_id' : 5,
+            'company' : 1,
             'first_name' : 'John',
             'last_name' : 'Doe',
             'phone_number' : '101-101-1010',
@@ -60,8 +61,7 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.get()
         new_data = {
-            'user_id' : 2,
-            'company_id' : 2,
+            'company' : 1,
             'first_name' : 'Andrew',
             'last_name' : 'Murley',
             'phone_number' : '010-010-0101',
