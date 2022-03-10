@@ -1,0 +1,24 @@
+[
+    {
+        "model":  "base.building",
+        "pk":  "1",
+        "fields": { 
+			"site_name":  "Seamans Center",
+			"street":  "103 South Capitol Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States"
+		}
+	},
+    {
+        "model":  "base.building",
+        "pk":  "2",
+        "fields": { 
+			"site_name":  "Main Library",
+			"street":  "125 West Washington Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States"
+		}
+	}
+]
