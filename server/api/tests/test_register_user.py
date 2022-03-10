@@ -44,11 +44,22 @@ class RegisterUserTest(APITestCase):
         response = self.client.post(url, data, format='json')
 
         url = 'http://localhost:8000/api/api/token/refresh/'
-        data = {'refresh': response.json()['refresh']}
+        data = {'refresh': response.json()}
         response = self.client.post(url, data, format='json')
-        self.assertTrue('access' in response.data)
+        self.assertTrue('refresh' in response.json())
 
     # def test_login_user(self):
+
+    #     url = 'http://localhost:8000/api/api/register/'
+    #     data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+    #     response = self.client.post(url, data, format = 'json')
+
+    #     url = 'http://localhost:8000/api/api/token/'
+    #     data = {'username': 'test44', 'password': 'Testing44*' }
+    #     response = self.client.post(url, data, format='json')
+    #     print(response.json()['refresh'])
+    #     self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.json()['refresh'])
+
     #     url = 'api/api/user/'
     #     data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
     #     response = self.client.post(url, data, format = 'json')
