@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from base.models import Unit
 from base.models import BuildingManager
 from base.models import Technician
+from base.models import Building
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,4 +38,9 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
+        fields = '__all__'
+
+class BuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Building
         fields = '__all__'

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 
 export default function Register(props) {
   const passRef = useRef(null);
@@ -115,7 +116,9 @@ export default function Register(props) {
 
           {/* login button */}
           <div className='flex justify-center'>
-            <a href="/login" className='hover:text-blue-500' id='login-button'>Already have an account?</a>
+            <Link href="/login">
+              <a className='hover:text-blue-500' id='login-button'>Already have an account?</a>
+            </Link>
           </div>
         </div>
       </form>

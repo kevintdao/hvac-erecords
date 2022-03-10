@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import Link from 'next/link';
 
 export default function Login(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -61,7 +62,9 @@ export default function Login(props) {
 
           {/* signup button */}
           <div className='flex justify-center'>
-            <a href="/register" className='hover:text-blue-500' id='register-button'>Don't have an account?</a>
+            <Link href='/register'>
+              <a className='hover:text-blue-500' id='register-button'>Don`&apos;`t have an account?</a>
+            </Link>
           </div>
         </div>
       </form>

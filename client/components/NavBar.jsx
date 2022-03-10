@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router';
-
+import Link from 'next/link';
 
 export default function NavBar(props) {
   const role = props.role;
@@ -14,7 +14,10 @@ export default function NavBar(props) {
     return (
       <div className='flex space-x-4 items-center'>
         {links.map((item) => (
-          <a key={item.name} href={item.href} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
+          <Link key={item.name} href={item.href}>
+            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
+          </Link>
+        
         ))}
       </div>
     )
@@ -57,8 +60,8 @@ export default function NavBar(props) {
 
   function NotSignedInOptions(){
     const notSignedInLinks = [
-      { name: "Login", href: "/" },
-      { name: "Sign Up", href: "/" }
+      { name: "Login", href: "/login" },
+      { name: "Sign Up", href: "/register" }
     ];
 
     return createNavLinks(notSignedInLinks);
@@ -80,12 +83,13 @@ export default function NavBar(props) {
           {menuItems.map((item, index) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
-                <a 
-                  href={item.href}
-                  className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
-                >
-                  {item.name}
-                </a>
+                <Link href={item.href}>
+                  <a 
+                    className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
+                  >
+                    {item.name}
+                  </a>
+                </Link>
               )}
             </Menu.Item>
           ))}
@@ -97,12 +101,14 @@ export default function NavBar(props) {
 
   return (
     <nav className='bg-gray-800 py-2'>
-      <div className='max-w-6xl mx-auto px-2'>
+      <div className='max-w-4xl mx-auto px-2'>
         <div className='flex items-center justify-between'>
           {/* left */}
           <div className='flex space-x-4'>
             {/* logo */}
-            <a href="/" className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>Logo</a>
+            <Link href="/">
+              <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>Logo</a>
+            </Link>
 
             {/* nav links */}
             { role == 'Maintenance Company' && <MaintenanceCompanyLinks /> }

@@ -5,3 +5,4 @@ from .RegisterUserAPIView import *
 from .unit_view import *
 from .building_manager_view import *
 from .technician_view import *
+from .building_view import *
