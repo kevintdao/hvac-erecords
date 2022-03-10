@@ -1,12 +1,15 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Unit
+from base.models import Unit, Building
 import datetime
 
 class TestUnitAPI(TestCase):
+    fixtures = ['test_data.json',]
+    
     def setUp(self):
         self.data = {
+            'building': 1,
             'external_id': '',
             'category': 'AC',
             'serial_number': '24ABC542W003102',
@@ -44,6 +47,7 @@ class TestUnitAPI(TestCase):
     def test_api_update_unit(self):
         unit = Unit.objects.get()
         new_data = {
+            'building': 1,
             'category': 'AC',
             'serial_number': '24ABC542W003102',
             'model_number': '1234A00',
