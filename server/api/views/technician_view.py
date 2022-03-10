@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from base.models import Technician
 from api.serializers import TechnicianSerializer
 from rest_framework import status
-from dry_rest_permissions.generics import DRYPermissions
 
 @api_view(['GET','POST'])
 def apiTechnicians(request):
