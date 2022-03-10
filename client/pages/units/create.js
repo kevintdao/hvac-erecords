@@ -22,7 +22,8 @@ export default function Create() {
     input: "p-2 border rounded",
     inputs2Cols: "grid md:grid-cols-2 gap-4 grid-cols-1",
     inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
-    button: "p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800"
+    button: "p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800",
+    indigoButton: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
   }
 
   const onSubmit = async (data) => {
@@ -36,13 +37,13 @@ export default function Create() {
       installation_date: data.installDate
     }
 
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, unit);
-    if(res.status == 201){
-      setId(res.data.id);
-    }
-    else{
-
-    }
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, unit)
+      .then(res => {
+        setId(res.data.id);
+      })
+      .catch(error => {
+        setError("Error with request");
+      })
   }
 
   if(id){
@@ -54,12 +55,14 @@ export default function Create() {
           type="success"
         />
 
-        <Link href="/units">
-          <a >All units</a>        
-        </Link>
-        <Link href={`/units/${id}`}>
-          <a>See created unit</a>        
-        </Link>
+        <div className='mt-4 space-x-4'>
+          <Link href="/units">
+            <a className={styles.indigoButton}>All units</a>        
+          </Link>
+          <Link href={`/units/${id}`}>
+            <a className={styles.indigoButton}>See created unit</a>        
+          </Link>
+        </div>
       </div>
     )
   }
@@ -73,6 +76,12 @@ export default function Create() {
       {/* Unit Create Page (Create a new unit) */}
 
       <h2 className="font-bold text-3xl">Create Unit</h2>
+
+      {error && <Alert 
+          title="Error"
+          text={error}
+          type="error"
+        />}
 
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className={styles.inputs3Cols}>
