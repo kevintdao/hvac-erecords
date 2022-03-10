@@ -10,6 +10,7 @@ export default function Index(props) {
 
   const styles = {
     button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
+    desc: "font-medium font-gray-900"
   }
 
   return (
@@ -20,7 +21,7 @@ export default function Index(props) {
 
       <h2 className='font-bold text-3xl'>Units</h2>
   
-      <UnitTable data={data} labels={labels} />
+      {data.length == 0 ? <p className={styles.desc}>No existing units</p> : <UnitTable data={data} labels={labels} />}
 
       <div className='mt-2'>
         <Link href="/units/create">
