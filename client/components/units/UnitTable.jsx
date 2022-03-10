@@ -6,7 +6,7 @@ export default function UnitTable({ data, labels }) {
     header: "px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
     body: "divide-y divide-gray-200",
     cell: "px-2 py-3 text-sm font-medium text-gray-900",
-    link: "",
+    link: "font-medium text-blue-600 hover:text-blue-500",
   }
   
   return (
@@ -31,12 +31,12 @@ export default function UnitTable({ data, labels }) {
               <td className={styles.cell}>{item.manufacturer}</td>
               <td>
                 <Link href={`/units/${item.id}`}>
-                  <a>More Info</a>
+                  <a className={styles.link}>More Info</a>
                 </Link>
               </td>
               <td>
                 <Link href={`/units/edit/${item.id}`}>
-                  <a>Edit</a>
+                  <a className={styles.link}>Edit</a>
                 </Link>
               </td>
             </tr>

@@ -13,7 +13,7 @@ export default function edit({ data }) {
   const [error, setError] = useState();
 
   const styles = {
-    indigoButton: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
+    button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
   }
 
   const onSubmit = async (data) => {
@@ -48,10 +48,10 @@ export default function edit({ data }) {
 
         <div className='mt-4 space-x-4'>
           <Link href="/units">
-            <a className={styles.indigoButton}>All units</a>        
+            <a className={styles.button}>All units</a>        
           </Link>
           <Link href={`/units/${id}`}>
-            <a className={styles.indigoButton}>See unit info</a>        
+            <a className={styles.button}>See unit info</a>        
           </Link>
         </div>
       </div>

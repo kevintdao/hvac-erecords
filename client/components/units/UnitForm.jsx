@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, onSubmit }) {
@@ -16,7 +16,7 @@ export default function UnitForm({ type, data, onSubmit }) {
     input: "p-2 border rounded",
     inputs2Cols: "grid md:grid-cols-2 gap-4 grid-cols-1",
     inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
-    button: "p-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800",
+    button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
   }
 
   return (
@@ -159,7 +159,7 @@ export default function UnitForm({ type, data, onSubmit }) {
         </div>
 
         <div>
-          <button className={styles.button} id='create-button'>{type} Unit</button>
+          <button className={styles.button} id='create-button'>{type}</button>
         </div>
       </form>
     </>
