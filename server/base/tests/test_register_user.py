@@ -1,0 +1,55 @@
+# from django.test import TestCase
+# from rest_framework.test import APIRequestFactory
+
+# factory = APIRequestFactory()
+# data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+# # http://localhost:8000/api/api/register
+# request = factory.post('/api/api/register', data, format='json')
+
+from email import header
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+
+
+class RegisterUserTest(APITestCase):
+    
+    def test_register_user(self):
+        url = 'http://localhost:8000/api/api/register/'
+        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        response = self.client.post(url, data, format = 'json')
+        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_access_token(self):
+
+        url = 'http://localhost:8000/api/api/register/'
+        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        response = self.client.post(url, data, format = 'json')
+
+        url = 'http://localhost:8000/api/api/token/'
+        data = {'username': 'test44', 'password': 'Testing44*' }
+        response = self.client.post(url, data, format='json')
+
+        self.assertTrue('access' in response.json())
+
+    def test_refresh_token(self):
+
+        url = 'http://localhost:8000/api/api/register/'
+        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        response = self.client.post(url, data, format = 'json')
+
+        url = 'http://localhost:8000/api/api/token/'
+        data = {'username': 'test44', 'password': 'Testing44*' }
+        response = self.client.post(url, data, format='json')
+
+        url = 'http://localhost:8000/api/api/token/refresh/'
+        data = {'refresh': response.json()['refresh']}
+        response = self.client.post(url, data, format='json')
+        self.assertTrue('access' in response.data)
+
+    # def test_login_user(self):
+    #     url = 'api/api/user/'
+    #     data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+    #     response = self.client.post(url, data, format = 'json')
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
