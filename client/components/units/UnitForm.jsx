@@ -2,7 +2,17 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, onSubmit }) {
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      exId: data?.external_id,
+      model: data?.model_number,
+      serial: data?.serial_number,
+      type: data?.category,
+      manufacturer: data?.manufacturer,
+      prodDate: data?.production_date,
+      installDate: data?.installation_date
+    }
+  });
 
   const hvacTypes = [
     "Heating and cooling split system",
@@ -31,13 +41,13 @@ export default function UnitForm({ type, data, onSubmit }) {
               name="ex-id" 
               id="ex-id" 
               className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
+
               {...register('exId', {
                 required: {
                   value: true,
                   message: "Enter an External ID"
                 }
               })}
-              {...setValue("exId", data?.external_id)}
             />
             <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.exId?.message}</span>
           </div>
@@ -56,7 +66,6 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Model Number"
                 }
               })}
-              {...setValue("model", data?.model_number)}
             />
             <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.model?.message}</span>
           </div>
@@ -75,7 +84,6 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Serial Number"
                 }
               })}
-              {...setValue("serial", data?.serial_number)}
             />
             <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.serial?.message}</span>
           </div>
@@ -90,7 +98,6 @@ export default function UnitForm({ type, data, onSubmit }) {
               id="type" 
               className={`${styles.input} border-gray-300`}
               {...register('type')}
-              {...setValue("type", data?.category)}
             >
               {hvacTypes.map((data, index) => (
                 <option key={index} value={data}>{data}</option>
@@ -112,7 +119,6 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Manufacturer"
                 }
               })}
-              {...setValue("manufacturer", data?.manufacturer)}
             />
             <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.manufacturer?.message}</span>
           </div>
@@ -133,7 +139,6 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter a Production Date"
                 }
               })}
-              {...setValue("prodDate", data?.production_date)}
             />
             <span className='text-sm text-red-700 mt-1' id="prod-date-help">{errors.prodDate?.message}</span>
           </div>
@@ -152,7 +157,6 @@ export default function UnitForm({ type, data, onSubmit }) {
                   message: "Enter an Installation Date"
                 }
               })}
-              {...setValue("installDate", data?.installation_date)}
             />
             <span className='text-sm text-red-700 mt-1' id="install-date-help">{errors.installDate?.message}</span>
           </div>
