@@ -14,8 +14,8 @@ export default function UnitTable({ data, labels }) {
       <table className="divide-y divide-gray-200 min-w-full table-fixed">
         <thead className='bg-gray-50'>
           <tr>
-            {labels.map((item, index) => (
-              <th key={index} id={item} className={styles.header}>{item}</th>
+            {labels.id.map((item, index) => (
+              <th key={index} id={labels.id[index]} className={styles.header}>{labels.text[index]}</th>
             ))}
             <th></th>
             <th></th>
@@ -24,11 +24,11 @@ export default function UnitTable({ data, labels }) {
         <tbody className={styles.body}>
           {data.map((item, index) => (
             <tr key={index}>
-              <td className={styles.cell}>{item.external_id}</td>
-              <td className={styles.cell}>{item.model_number}</td>
-              <td className={styles.cell}>{item.serial_number}</td>
-              <td className={styles.cell}>{item.category}</td>
-              <td className={styles.cell}>{item.manufacturer}</td>
+              <td className={styles.cell} id={`ex-id-${item.id}`}>{item.external_id}</td>
+              <td className={styles.cell} id={`model-${item.id}`}>{item.model_number}</td>
+              <td className={styles.cell} id={`serial-${item.id}`}>{item.serial_number}</td>
+              <td className={styles.cell} id={`category-${item.id}`}>{item.category}</td>
+              <td className={styles.cell} id={`manufacturer-${item.id}`}>{item.manufacturer}</td>
               <td>
                 <Link href={`/units/${item.id}`}>
                   <a className={styles.link}>More Info</a>

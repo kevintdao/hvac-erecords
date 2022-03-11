@@ -6,7 +6,10 @@ import UnitTable from '../../components/units/UnitTable'
 
 export default function Index(props) {
   const data = props.data;
-  const labels = ["External ID", "Model Number", "Serial Number", "Type", "Manufacturer"];
+  const labels = {
+    text: ["External ID", "Model Number", "Serial Number", "Type", "Manufacturer"],
+    id: ["id", "model", "serial", "category", "manufacturer"],
+  };
 
   const styles = {
     button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
