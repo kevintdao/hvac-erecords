@@ -21,7 +21,7 @@ export default function Unit({ data }) {
 
       <h2 className='font-bold text-3xl'>Unit Details</h2>
 
-      <UnitDetails data={data} id={id}/>
+      <UnitDetails data={data}/>
 
       <div className='space-x-4'>
         <Link href="/units">

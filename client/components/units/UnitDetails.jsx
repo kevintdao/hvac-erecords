@@ -13,44 +13,44 @@ export default function UnitDetails({ data }) {
       <dl>
         {/* External ID */}
         <div className={`${styles.div} border-none`}>
-          <dt className={styles.label}>External ID</dt>
-          <dd className={styles.text}>{data.external_id}</dd> 
+          <dt className={styles.label} id='external_id-label'>External ID</dt>
+          <dd className={styles.text} id='external_id'>{data.external_id}</dd> 
         </div>
 
         {/* Model Number */}
         <div className={styles.div}>
-          <dt className={styles.label}>Model Number</dt>
-          <dd className={styles.text}>{data.model_number}</dd> 
+          <dt className={styles.label} id="model_number-label">Model Number</dt>
+          <dd className={styles.text} id="model_number">{data.model_number}</dd> 
         </div>
 
         {/* Serial Number */}
         <div className={styles.div}>
-          <dt className={styles.label}>Serial Number</dt>
-          <dd className={styles.text}>{data.serial_number}</dd> 
+          <dt className={styles.label} id="serial_number-label">Serial Number</dt>
+          <dd className={styles.text} id="serial_number">{data.serial_number}</dd> 
         </div>
 
         {/* Type */}
         <div className={styles.div}>
-          <dt className={styles.label}>Type</dt>
-          <dd className={styles.text}>{data.category}</dd> 
+          <dt className={styles.label} id="category-label">Type</dt>
+          <dd className={styles.text} id="category">{data.category}</dd> 
         </div>
 
         {/* Manufacturer */}
         <div className={styles.div}>
-          <dt className={styles.label}>Manufacturer</dt>
-          <dd className={styles.text}>{data.manufacturer}</dd> 
+          <dt className={styles.label} id="manufacturer-label">Manufacturer</dt>
+          <dd className={styles.text} id="manufacturer">{data.manufacturer}</dd> 
         </div>
 
         {/* Production Date */}
         <div className={styles.div}>
-          <dt className={styles.label}>Production Date</dt>
-          <dd className={styles.text}>{data.production_date}</dd> 
+          <dt className={styles.label} id="production_date-label">Production Date</dt>
+          <dd className={styles.text} id="production_date">{data.production_date}</dd> 
         </div>
 
         {/* Installation Date */}
         <div className={styles.div}>
-          <dt className={styles.label}>Installation Date</dt>
-          <dd className={styles.text}>{data.installation_date}</dd> 
+          <dt className={styles.label} id="installation_date-label">Installation Date</dt>
+          <dd className={styles.text} id="installation_date">{data.installation_date}</dd> 
         </div>
       </dl>
     </div>
