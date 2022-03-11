@@ -1,0 +1,47 @@
+[
+	{
+        "model":  "base.company",
+        "pk":  "1",
+        "fields": { 
+			"name":  "HVAC Company #1",
+			"street":  "112 Railroad Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States",
+			"phone_number":  "555-555-5554"
+		}
+	},
+	{
+        "model":  "base.buildingmanager",
+        "pk":  "1",
+        "fields": { 
+			"name":  "University of Iowa",
+			"phone_number":  "555-555-5555",
+			"company": 1
+		}
+	},
+    {
+        "model":  "base.building",
+        "pk":  "1",
+        "fields": { 
+			"manager": 1,
+			"site_name":  "Seamans Center",
+			"street":  "103 South Capitol Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States"
+		}
+	},
+    {
+        "model":  "base.building",
+        "pk":  "2",
+        "fields": { 
+			"manager": 1,
+			"site_name":  "Main Library",
+			"street":  "125 West Washington Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States"
+		}
+	}
+]
