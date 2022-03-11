@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <div>
       <NavBar />
-      <div className="max-w-4xl px-2 container mx-auto">
+      <div className="max-w-5xl px-2 container mx-auto">
         <Component {...pageProps} />
       </div>
     </div>
