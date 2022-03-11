@@ -15,7 +15,7 @@ from rest_framework.test import APITestCase
 class RegisterUserTest(APITestCase):
     
     def test_register_user(self):
-        url = 'http://localhost:8000/api/api/register/'
+        url = 'http://localhost:8000/api/register/'
         data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
         
@@ -23,11 +23,11 @@ class RegisterUserTest(APITestCase):
 
     def test_access_token(self):
 
-        url = 'http://localhost:8000/api/api/register/'
+        url = 'http://localhost:8000/api/register/'
         data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
-        url = 'http://localhost:8000/api/api/token/'
+        url = 'http://localhost:8000/api/token/'
         data = {'username': 'test44', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
 
@@ -35,15 +35,15 @@ class RegisterUserTest(APITestCase):
 
     def test_refresh_token(self):
 
-        url = 'http://localhost:8000/api/api/register/'
+        url = 'http://localhost:8000/api/register/'
         data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
-        url = 'http://localhost:8000/api/api/token/'
+        url = 'http://localhost:8000/api/token/'
         data = {'username': 'test44', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
 
-        url = 'http://localhost:8000/api/api/token/refresh/'
+        url = 'http://localhost:8000/api/token/refresh/'
         # print(response.json()['refresh'])
         data = {'refresh': response.json()['refresh']}
         response = self.client.post(url, data, format='json')
@@ -51,16 +51,16 @@ class RegisterUserTest(APITestCase):
 
     def test_login_user(self):
 
-        url = 'http://localhost:8000/api/api/register/'
+        url = 'http://localhost:8000/api/register/'
         data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
-        url = 'http://localhost:8000/api/api/token/'
+        url = 'http://localhost:8000/api/token/'
         data = {'username': 'test44', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
         #print(response.json()['refresh'])
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.json()['access'])
 
-        url = 'http://localhost:8000/api/api/user/'
+        url = 'http://localhost:8000/api/user/'
         response = self.client.get(url, {})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
