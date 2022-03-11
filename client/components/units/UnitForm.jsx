@@ -3,15 +3,7 @@ import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      exId: data?.external_id,
-      model: data?.model_number,
-      serial: data?.serial_number,
-      type: data?.category,
-      manufacturer: data?.manufacturer,
-      prodDate: data?.production_date,
-      installDate: data?.installation_date
-    }
+    defaultValues: data
   });
 
   const hvacTypes = [
@@ -35,69 +27,69 @@ export default function UnitForm({ type, data, onSubmit }) {
         <div className={styles.inputs3Cols}>
           {/* External ID */}
           <div className={styles.inputContainer}>
-            <label htmlFor="ex-id">External ID</label>
+            <label htmlFor="external_id">External ID</label>
             <input 
               type="text" 
-              name="ex-id" 
-              id="ex-id" 
-              className={`${styles.input} ${errors.exId ? "border-red-400" : "border-gray-300"}`}
+              name="external_id" 
+              id="external_id" 
+              className={`${styles.input} ${errors.external_id ? "border-red-400" : "border-gray-300"}`}
 
-              {...register('exId', {
+              {...register('external_id', {
                 required: {
                   value: true,
                   message: "Enter an External ID"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.exId?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="external_id-help">{errors.external_id?.message}</span>
           </div>
 
           {/* Model Number */}
           <div className={styles.inputContainer}>
-            <label htmlFor="">Model Number</label>
+            <label htmlFor="model_number">Model Number</label>
             <input 
               type="text" 
-              name="model" 
-              id="model" 
-              className={`${styles.input} ${errors.model ? "border-red-400" : "border-gray-300"}`}
-              {...register('model', {
+              name="model_number" 
+              id="model_number" 
+              className={`${styles.input} ${errors.model_number ? "border-red-400" : "border-gray-300"}`}
+              {...register('model_number', {
                 required: {
                   value: true,
                   message: "Enter a Model Number"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="ex-id-help">{errors.model?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="model_number-help">{errors.model_number?.message}</span>
           </div>
 
           {/* Serial Number */}
           <div className={styles.inputContainer}>
-            <label htmlFor="serial">Serial Nunber</label>
+            <label htmlFor="serial_number">Serial Nunber</label>
             <input 
               type="text" 
-              name="serial" 
-              id="serial" 
-              className={`${styles.input} ${errors.serial ? "border-red-400" : "border-gray-300"}`}
-              {...register('serial', {
+              name="serial_number" 
+              id="serial_number" 
+              className={`${styles.input} ${errors.serial_number ? "border-red-400" : "border-gray-300"}`}
+              {...register('serial_number', {
                 required: {
                   value: true,
                   message: "Enter a Serial Number"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.serial?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="serial_number-help">{errors.serial_number?.message}</span>
           </div>
         </div>
 
         <div className={styles.inputs2Cols}>
           {/* Type */}
           <div className={styles.inputContainer}>
-            <label htmlFor="type">Type</label>
+            <label htmlFor="category">Type</label>
             <select 
-              name="type" 
-              id="type" 
+              name="category" 
+              id="category" 
               className={`${styles.input} border-gray-300`}
-              {...register('type')}
+              {...register('category')}
             >
               {hvacTypes.map((data, index) => (
                 <option key={index} value={data}>{data}</option>
@@ -120,45 +112,45 @@ export default function UnitForm({ type, data, onSubmit }) {
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="serial-help">{errors.manufacturer?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="manufacturer-help">{errors.manufacturer?.message}</span>
           </div>
         </div>
 
         <div className={styles.inputs2Cols}>
           {/* Production Date */}
           <div className={styles.inputContainer}>
-            <label htmlFor="prod-date">Production Date</label>
+            <label htmlFor="production_date">Production Date</label>
             <input 
               type="date" 
-              name="prod-date" 
-              id="prod-date" 
-              className={`${styles.input} ${errors.prodDate ? "border-red-400" : "border-gray-300"}`}
-              {...register('prodDate', {
+              name="production_date" 
+              id="production_date" 
+              className={`${styles.input} ${errors.production_date ? "border-red-400" : "border-gray-300"}`}
+              {...register('production_date', {
                 required: {
                   value: true,
                   message: "Enter a Production Date"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="prod-date-help">{errors.prodDate?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="production_date-help">{errors.production_date?.message}</span>
           </div>
 
           {/* Installation Date */}
           <div className={styles.inputContainer}>
-            <label htmlFor="install-date">Installation Date</label>
+            <label htmlFor="installation_date">Installation Date</label>
             <input 
               type="date" 
-              name="install-date" 
-              id="install-date" 
-              className={`${styles.input} ${errors.installDate ? "border-red-400" : "border-gray-300"}`}
-              {...register('installDate', {
+              name="installation_date" 
+              id="installation_date" 
+              className={`${styles.input} ${errors.installation_date ? "border-red-400" : "border-gray-300"}`}
+              {...register('installation_date', {
                 required: {
                   value: true,
                   message: "Enter an Installation Date"
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="install-date-help">{errors.installDate?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="install-date-help">{errors.installation_date?.message}</span>
           </div>
         </div>
 
