@@ -32,16 +32,9 @@ export default function UnitForm({ type, data, onSubmit }) {
               type="text" 
               name="external_id" 
               id="external_id" 
-              className={`${styles.input} ${errors.external_id ? "border-red-400" : "border-gray-300"}`}
-
-              {...register('external_id', {
-                required: {
-                  value: true,
-                  message: "Enter an External ID"
-                }
-              })}
+              className={`${styles.input} border-gray-300`}
+              {...register('external_id')}
             />
-            <span className='text-sm text-red-700 mt-1' id="external_id-help">{errors.external_id?.message}</span>
           </div>
 
           {/* Model Number */}
@@ -150,7 +143,7 @@ export default function UnitForm({ type, data, onSubmit }) {
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="install-date-help">{errors.installation_date?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="installation_date-help">{errors.installation_date?.message}</span>
           </div>
         </div>
 
