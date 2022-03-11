@@ -14,17 +14,7 @@ export default function Create() {
   }
 
   const onSubmit = async (data) => {
-    const unit = {
-      external_id: data.exId,
-      category: data.type,
-      serial_number: data.serial,
-      model_number: data.model,
-      manufacturer: data.manufacturer,
-      production_date: data.prodDate,
-      installation_date: data.installDate
-    }
-
-    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, unit)
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, data)
       .then(res => {
         setId(res.data.id);
       })

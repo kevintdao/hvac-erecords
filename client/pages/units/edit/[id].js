@@ -17,17 +17,7 @@ export default function Edit({ data }) {
   }
 
   const onSubmit = async (data) => {
-    const unit = {
-      external_id: data.exId,
-      category: data.type,
-      serial_number: data.serial,
-      model_number: data.model,
-      manufacturer: data.manufacturer,
-      production_date: data.prodDate,
-      installation_date: data.installDate
-    }
-
-    axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`, unit)
+    axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`, data)
       .then(res => {
         setUnitId(res.data.id);
       })
