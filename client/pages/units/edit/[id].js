@@ -7,38 +7,38 @@ import UnitForm from '../../../components/units/UnitForm';
 import Alert from '../../../components/Alert';
 import Loading from '../../../components/Loading'
 
-export default function Edit(props) {
-  const router = useRouter();
-  const { id } = router.query;
-  const [unitId, setUnitId] = useState();
-  const [error, setError] = useState();
-  const [data, setData] = useState();
+export default function Edit (props) {
+  const router = useRouter()
+  const { id } = router.query
+  const [unitId, setUnitId] = useState()
+  const [error, setError] = useState()
+  const [data, setData] = useState()
 
   const styles = {
-    button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
+    button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
   }
 
   useEffect(() => {
-    if(!router.isReady) return;
+    if(!router.isReady) return
 
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .then((res) => {
-        setData(res.data);
+        setData(res.data)
       })
   }, [router.isReady])
 
   const onSubmit = async (data) => {
     axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`, data)
       .then(res => {
-        setUnitId(res.data.id);
+        setUnitId(res.data.id)
       })
       .catch(error => {
-        setError("Error with request");
+        setError("Error with request")
       })
   }
 
   // successfully updated unit
-  if(unitId){
+  if (unitId) {
     return (
       <div className='mt-2'>
         <Alert 
