@@ -6,13 +6,13 @@ import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 
-export default function Unit(props) {
-  const router = useRouter();
-  const { id } = router.query;
-  const [data, setData] = useState();
+export default function Unit (props) {
+  const router = useRouter()
+  const { id } = router.query
+  const [data, setData] = useState()
   
   useEffect(() => {
-    if(!router.isReady) return;
+    if (!router.isReady) return
 
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .then((res) => {
@@ -21,13 +21,13 @@ export default function Unit(props) {
   }, [router.isReady])
 
   const styles = {
-    button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
+    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
   }
 
-  if(!data){
+  if (!data) {
     return (<Loading />)
   }
-  
+
   return (
     <div className='space-y-4 mt-2'>
       <Head>
@@ -36,10 +36,10 @@ export default function Unit(props) {
 
       <h2 className='font-bold text-3xl'>Unit Details</h2>
 
-      <UnitDetails data={data}/>
+      <UnitDetails data={data} />
 
       <div className='space-x-4'>
-        <Link href="/units">
+        <Link href='/units'>
           <a className={styles.button} id='all-units'>All Units</a>
         </Link>
 
