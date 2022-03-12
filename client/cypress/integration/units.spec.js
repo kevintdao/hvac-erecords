@@ -4,12 +4,6 @@ describe('Unit index page', () => {
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.visit('http://localhost:3000/units');
   })
-  
-  it('should display a message when there is no unit', () => {
-    cy.intercept('GET', '**/api/units', []).as('getAllUnits');
-    cy.wait('@getAllUnits');
-    cy.get('p#no-units').should('contain', 'No existing units');
-  })
 
   it('should see all units when on the index page', () => {
     cy.wait('@getAllUnits');
