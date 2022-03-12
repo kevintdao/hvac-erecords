@@ -8,7 +8,7 @@ describe('Unit index page', () => {
   it('should display a message when there is no unit', () => {
     cy.intercept('GET', '**/api/units', []).as('getNoUnits');
     cy.wait('@getNoUnits');
-    cy.get('p').should('contain', 'No existing units');
+    cy.get('p#no-units').should('contain', 'No existing units');
   })
 
   it('should see all units when on the index page', () => {
