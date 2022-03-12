@@ -10,18 +10,18 @@ export default function Unit (props) {
   const router = useRouter()
   const { id } = router.query
   const [data, setData] = useState()
-  
+
   useEffect(() => {
     if (!router.isReady) return
 
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .then((res) => {
-        setData(res.data);
+        setData(res.data)
       })
   }, [router.isReady])
 
   const styles = {
-    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
+    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
   if (!data) {
