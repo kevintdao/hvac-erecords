@@ -8,12 +8,14 @@ const labels = {
 
 const data = [
     {
+        id: 1,
         user_id: 5,
         company_id: 1,
         first_name: "John",
         last_name: "Doe",
     },
     {
+        id: 2,
         user_id: 6,
         company_id: 1,
         first_name: "Ryan",
