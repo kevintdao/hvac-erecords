@@ -1,6 +1,0 @@
-{
-  "nyc": {
-    "exclude": ["components/NavBar.jsx", "components/Login.jsx", "components/Register.jsx"],
-    "excludeAfterRemap": true
-  }
-}

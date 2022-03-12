@@ -12,6 +12,10 @@
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
+  "nyc": {
+    "exclude": ["components/NavBar.jsx", "components/Login.jsx", "components/Register.jsx"],
+    "excludeAfterRemap": true
+  },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.5",

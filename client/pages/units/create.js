@@ -27,7 +27,7 @@ export default function Create () {
   if (id) {
     return (
       <div className='mt-2'>
-        <Alert 
+        <Alert
           title='Successful'
           text='Successfully created a unit. Click the link below to the newly created unit or all the units'
           type='success'
@@ -51,9 +51,9 @@ export default function Create () {
         <title>Create Unit</title>
       </Head>
 
-      <h2 className="font-bold text-3xl">Create Unit</h2>
+      <h2 className='font-bold text-3xl'>Create Unit</h2>
 
-      {error && <Alert title="Error" text={error} type="error" />}
+      {error && <Alert title='Error' text={error} type='error' />}
 
       <UnitForm type='Create' onSubmit={onSubmit} />
     </div>
