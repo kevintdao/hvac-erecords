@@ -85,6 +85,23 @@ describe('Unit create page', () => {
     cy.get('input#installation_date').type("2022-03-09");
   })
 
+  it('should diplay red border around invalid inputs', () => {
+    cy.get('input#model_number').clear();
+    cy.get('input#serial_number').clear();
+    cy.get('select#category').select("Duct free");
+    cy.get('input#manufacturer').clear();
+    cy.get('input#production_date').clear();
+    cy.get('input#installation_date').clear();
+
+    cy.get('button#create-button').click();
+
+    cy.get('input#model_number').should('have.class', 'border-red-400');
+    cy.get('input#serial_number').should('have.class', 'border-red-400');
+    cy.get('input#manufacturer').should('have.class', 'border-red-400');
+    cy.get('input#production_date').should('have.class', 'border-red-400');
+    cy.get('input#installation_date').should('have.class', 'border-red-400');
+  })
+
   it('should display successful message when unit is created', () => {
     cy.get('button#create-button').click();
     cy.wait('@createUnit');
