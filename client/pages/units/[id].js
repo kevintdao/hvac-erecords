@@ -40,11 +40,11 @@ export default function Unit(props) {
 
       <div className='space-x-4'>
         <Link href="/units">
-          <a className={styles.button}>All Units</a>
+          <a className={styles.button} id='all-units'>All Units</a>
         </Link>
 
         <Link href={`/units/edit/${id}`}>
-          <a className={styles.button}>Edit</a>
+          <a className={styles.button} id='edit'>Edit</a>
         </Link>
       </div>
     </div>
