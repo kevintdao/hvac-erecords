@@ -17,7 +17,7 @@ export default function Index (props) {
 
   const labels = {
     text: ['External ID', 'Model Number', 'Serial Number', 'Type', 'Manufacturer'],
-    id: ['id', 'model', 'serial', 'category', 'manufacturer'],
+    id: ['id', 'model', 'serial', 'category', 'manufacturer']
   }
 
   const styles = {
