@@ -1,0 +1,24 @@
+[
+  {
+      "id": 1,
+      "external_id": "123454",
+      "category": "Heating and cooling split system",
+      "serial_number": "serial_1",
+      "model_number": "model_1",
+      "manufacturer": "manu 1",
+      "production_date": "2022-03-10",
+      "installation_date": "2022-03-10",
+      "building": 1
+  },
+  {
+      "id": 2,
+      "external_id": "External ID",
+      "category": "Duct free",
+      "serial_number": "serial 2",
+      "model_number": "model 2",
+      "manufacturer": "manu 2",
+      "production_date": "2022-03-11",
+      "installation_date": "2022-03-11",
+      "building": 1
+  }
+]
