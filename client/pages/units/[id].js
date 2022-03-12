@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
+import Loading from '../../components/Loading'
 
-export default function Unit({ data }) {
+export default function Unit(props) {
   const router = useRouter();
   const { id } = router.query;
+  const [data, setData] = useState();
+  
+  useEffect(() => {
+    if(!router.isReady) return;
+
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      .then((res) => {
+        setData(res.data);
+      })
+  }, [router.isReady])
 
   const styles = {
     button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
+  }
+
+  if(!data){
+    return (<Loading />)
   }
   
   return (
@@ -34,16 +49,4 @@ export default function Unit({ data }) {
       </div>
     </div>
   )
-}
-
-// get unit data before loading the page
-export async function getServerSideProps(context){
-  const { id } = context.query;
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`);
-
-  return {
-    props: {
-      data: res.data
-    }
-  }
 }
