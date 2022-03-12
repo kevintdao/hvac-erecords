@@ -27,6 +27,10 @@ export default function Technician({data}) {
                 <Link href="/technicians">
                     <a className={styles.button}>All Technicians</a>
                 </Link>
+
+                <Link href={`/technicians/edit/${id}`}>
+                    <a className={styles.button}>Edit</a>
+                </Link>
             </div>
         </div>
     )
@@ -35,7 +39,7 @@ export default function Technician({data}) {
 // get technician data before loading the page
 export async function getServerSideProps(context){
     const { id } = context.query;
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technician/${id}/`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`);
   
     return {
         props: {

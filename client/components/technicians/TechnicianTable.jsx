@@ -18,6 +18,7 @@ export default function TechnicianTable({data, labels}) {
                         <th key={index} id={labels.id[index]} className={styles.header}>{labels.text[index]}</th>
                     ))}
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody className={styles.body}>
@@ -28,11 +29,16 @@ export default function TechnicianTable({data, labels}) {
                     <td className={styles.cell} id={`serial-${item.id}`}>{item.first_name}</td>
                     <td className={styles.cell} id={`category-${item.id}`}>{item.last_name}</td>
                     <td>
-                        <Link href={`/units/${item.id}`}>
+                        <Link href={`/technicians/${item.id}`}>
                             <a className={styles.link}>More Info</a>
                         </Link>
                     </td>
-                    </tr>
+                    <td>
+                        <Link href={`/technicians/edit/${item.id}`}>
+                            <a className={styles.link}>Edit</a>
+                        </Link>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

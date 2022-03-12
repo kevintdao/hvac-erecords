@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import TechnicianTable from '../../components/technicians/TechnicianTable'
+import Link from 'next/link'
 
 export default function Index(props) {
     const data = props.data;
@@ -17,13 +18,19 @@ export default function Index(props) {
 
     return (
         <div className='space-y-4 mt-2'>
-          <Head>
+            <Head>
             <title>Technicians</title>
-          </Head>
-    
-          <h2 className='font-bold text-3xl'>Technicians</h2>
-    
-          {data.length == 0 ? <p className={styles.desc}>No existing technicians</p> : <TechnicianTable data={data} labels={labels} />}
+            </Head>
+
+            <h2 className='font-bold text-3xl'>Technicians</h2>
+
+            {data.length == 0 ? <p className={styles.desc}>No existing technicians</p> : <TechnicianTable data={data} labels={labels} />}
+
+            <div className='mt-2'>
+                <Link href="/technicians/create">
+                    <a className={styles.button}>New Technician</a>
+                </Link>
+            </div>
         </div>
     )
 }
@@ -31,7 +38,7 @@ export default function Index(props) {
 // get technician data before loading the page
 export async function getServerSideProps(context){
     const { id } = context.query;
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technician/${id}/`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians`);
   
     return {
         props: {
