@@ -47,14 +47,3 @@ export default function Index(props) {
     </div>
   )
 }
-
-// export async function getServerSideProps(){
-//   const res = 
-//   console.log(res);
-
-//   return {
-//     props: {
-//       data: res.data
-//     }
-//   }
-// }
