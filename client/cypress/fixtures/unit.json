@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "external_id": "12345",
+  "model_number": "12345",
+  "serial_number": "ABC123",
+  "category": "Duct free",
+  "manufacturer": "Test",
+  "production_date": "2022-03-09",
+  "installation_date": "2022-03-09",
+  "building": 1
+}
