@@ -40,7 +40,7 @@ describe('Manager index page', () => {
   
     it('should display the manager details', () => {
       cy.get('dd#name').should('contain', 'University of Iowa');
-      cy.get('dd#phone_number').should('contain', '+11523543230');
+      cy.get('dd#phone_number').should('contain', '+12523543230');
     })
   
     it('should navigate to edit manager page when click on edit button', () => {
@@ -63,17 +63,17 @@ describe('Manager index page', () => {
       cy.visit('http://localhost:3000/managers/create');
   
       cy.get('input#name').type("Test");
-      cy.get('input#phone').type("(223) 321 1231");
+      cy.get('input#phone_number').type("(223) 321 1231");
     })
   
     it('should diplay red border around invalid inputs', () => {
       cy.get('input#name').clear();
-      cy.get('input#phone').clear();
+      cy.get('input#phone_number').clear();
   
       cy.get('button#create-button').click();
   
       cy.get('input#name').should('have.class', 'border-red-400');
-      cy.get('input#phone').should('have.class', 'border-red-400');
+      cy.get('input#phone_number').should('have.class', 'border-red-400');
     })
   
     it('should display successful message when manager is created', () => {
@@ -103,12 +103,12 @@ describe('Manager index page', () => {
   
     it('should pre-filled the inputs with the current information', () => {
       cy.get('input#name').should('have.value', 'University of Iowa');
-      cy.get('input#phone').should('have.value', '1 (152) 354-3230');
+      cy.get('input#phone_number').should('have.value', '(252) 354-3230');
     })
   
     it('should display successful message when manager is updated', () => {
       cy.get('input#name').clear().type("University of Ohio");
-      cy.get('input#phone').clear().type("115235432301");
+      cy.get('input#phone_number').clear().type("(752) 354-3230");
   
       cy.get('button#create-button').click();
       cy.wait('@updateManager');
