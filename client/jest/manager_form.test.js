@@ -11,7 +11,7 @@ afterEach(cleanup);
 test('should watch input correctly', () => {
   const { container } = render(<ManagerForm type="Create"/>);
   const nameInput = container.querySelector("input#name");
-  const phoneNumberInput = container.querySelector("input#phone");
+  const phoneNumberInput = container.querySelector("input#phone_number");
 
   fireEvent.input(nameInput, { target: { value: input.name } });
   fireEvent.input(phoneNumberInput, { target: { value: input.phone_number } });
@@ -23,7 +23,7 @@ test('should watch input correctly', () => {
 test("should display error message when inputs are empty", async () => {
   const { container } = render(<ManagerForm type="Create"/>);
   const nameInput = container.querySelector("input#name");
-  const phoneNumberInput = container.querySelector("input#phone");
+  const phoneNumberInput = container.querySelector("input#phone_number");
 
   const nameError = container.querySelector("span#name-help");
   const phoneError = container.querySelector("span#phone-help");

@@ -41,9 +41,9 @@ export default function ManagerForm({ type, data, onSubmit }) {
 
           {/* Phone Number */}
           <div className={styles.inputContainer}>
-            <label htmlFor="phone">Phone Number</label>
+            <label htmlFor="phone_number">Phone Number</label>
             <Controller 
-              name='phone'
+              name='phone_number'
               control={control}
               rules={{
                 required: {
@@ -55,15 +55,15 @@ export default function ManagerForm({ type, data, onSubmit }) {
               render={({ field: { onChange, value } }) => (
                 <PhoneInput
                   country="US"
-                  className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
+                  className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
                   value={value}
                   onChange={onChange}
-                  id="phone"
+                  id="phone_number"
                 />
               )}
             />
 
-            <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
+            <span className={styles.helpText} id="phone-help">{errors.phone_number?.message}</span>
             <small className="text-gray-400 mt-1">US phone number only.</small>
           </div>
         </div>
