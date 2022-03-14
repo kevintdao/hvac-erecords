@@ -25,7 +25,7 @@ export default function NavBar(props) {
 
   function MaintenanceCompanyLinks(){
     const mcLinks = [
-      { name: "Manage", href: "/manage" },
+      { name: "Manage", href: "/managers" },
       { name: "Units", href: "/units" },
       { name: "Users", href: "/users"}
     ];

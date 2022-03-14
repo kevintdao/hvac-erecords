@@ -13,7 +13,11 @@
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "nyc": {
-    "exclude": ["components/NavBar.jsx", "components/Login.jsx", "components/Register.jsx"],
+    "exclude": [
+      "components/NavBar.jsx",
+      "components/Login.jsx",
+      "components/Register.jsx"
+    ],
     "excludeAfterRemap": true
   },
   "dependencies": {
