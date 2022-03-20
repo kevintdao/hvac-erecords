@@ -9,14 +9,14 @@ jobs:
     # Name the Job
     name: Lint Code Base
     # Set the agent to run on
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     ##################
     # Load all steps #
     ##################
     steps:
-      - name: Give runner permission
-        run: sudo chown ubuntu -R ${{github.workspace}}
+      # - name: Give runner permission
+      #   run: sudo chown ubuntu -R ${{github.workspace}}
       ##########################
       # Checkout the code base #
       ##########################

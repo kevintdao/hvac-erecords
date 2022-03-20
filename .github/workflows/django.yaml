@@ -10,7 +10,7 @@ defaults:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     services:
       postgres:
@@ -32,8 +32,8 @@ jobs:
         python-version: ["3.10.x"]
 
     steps:
-      - name: Give runner permission
-        run: sudo chown ubuntu -R ${{github.workspace}}
+      # - name: Give runner permission
+      #   run: sudo chown ubuntu -R ${{github.workspace}}
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
