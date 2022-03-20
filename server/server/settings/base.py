@@ -1,7 +1,8 @@
-from pathlib import Path
-import environ
 import os
+from pathlib import Path
 import dj_database_url
+import environ
+
 
 # Initialize enviroment variable
 env = environ.Env()
