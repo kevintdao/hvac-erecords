@@ -15,6 +15,8 @@ jobs:
     # Load all steps #
     ##################
     steps:
+      - name: Give runner permission
+        run: sudo chown ec2-user -R ../actions-runner
       ##########################
       # Checkout the code base #
       ##########################
