@@ -15,10 +15,6 @@ def apiManagers(request):
         return Response(serializer.data)
     # Create manager
     elif request.method == 'POST':
-        if ("company" not in request.data):
-            request.data["company"] = 1
-            print(
-                '\033[91m [WARNING] ======> Building Manager has hardcoded value')
         serializer = BuildingManagerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

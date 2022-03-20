@@ -14,9 +14,6 @@ def apiUnits(request):
         return Response(serializer.data)
     # Create unit
     elif request.method == 'POST':
-        if ("building" not in request.data):
-            request.data["building"] = 1
-            print('\033[91m [WARNING] ======> Unit has hardcoded value')
         serializer = UnitSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
