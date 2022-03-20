@@ -1,8 +1,6 @@
 name: Django CI
 
 on:
-  push:
-    branches: [ci-update-test]
   pull_request:
     branches: [development, main]
 
@@ -35,7 +33,7 @@ jobs:
 
     steps:
       - name: Give runner permission
-        run: sudo chown ubuntu -R ../../../
+        run: sudo chown ubuntu -R ${{github.workspace}}
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
