@@ -4,7 +4,8 @@ from base.models import Unit
 from api.serializers import UnitSerializer
 from rest_framework import status
 
-@api_view(['GET','POST'])   
+
+@api_view(['GET', 'POST'])
 def apiUnits(request):
     # List units
     if request.method == 'GET':
@@ -15,16 +16,16 @@ def apiUnits(request):
     elif request.method == 'POST':
         if ("building" not in request.data):
             request.data["building"] = 1
-        print('\033[91m [WARNING] ======> Unit has hardcoded value' )
+            print('\033[91m [WARNING] ======> Unit has hardcoded value')
         serializer = UnitSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
-@api_view(['GET','PUT','DELETE'])   
-def apiUnit(request,pk):
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apiUnit(request, pk):
     try:
         unit = Unit.objects.get(pk=pk)
     except Unit.DoesNotExist:
