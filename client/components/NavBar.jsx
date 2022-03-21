@@ -3,6 +3,7 @@ import { Menu } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useAppContext } from '../context/state'
 
 export default function NavBar ({ role }) {
@@ -100,15 +101,16 @@ export default function NavBar ({ role }) {
   }
 
   return (
-    <nav className='bg-gray-800 py-2'>
+    <nav className='bg-gray-800 py-2 z-50 sticky top-0'>
       <div className='max-w-5xl mx-auto px-2'>
         <div className='flex items-center justify-between'>
           {/* left */}
-          <div className='flex space-x-4'>
+          <div className='flex space-x-4 items-center'>
             {/* logo */}
-            <Link href='/'>
-              <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>Logo</a>
-            </Link>
+            <div className='relative h-9 w-9 cursor-pointer' onClick={() => router.push('/')}>
+              <Image src='/HVAC erecords-logos_white.png' layout='fill' objectFit='contain' />
+            </div>
+
 
             {/* nav links */}
             { role == 'Maintenance Company' && <MaintenanceCompanyLinks /> }
