@@ -67,6 +67,11 @@ export default function NavBar ({ role }) {
 
   const signout = async () => {
     logout()
+
+    // remove tokens from localStorage
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+
     router.push('/')
   }
 
