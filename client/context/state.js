@@ -4,6 +4,7 @@ import axios from 'axios'
 const AppContext = createContext()
 
 export function AppProvider ({ children }) {
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState({
     accessToken: null,
     refreshToken: null,
@@ -49,6 +50,27 @@ export function AppProvider ({ children }) {
     login,
     logout
   }
+
+  function checkToken () {
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/token/`, data)
+  }
+
+  function loadData () {
+    const access = localStorage.getItem('access_token')
+    const refresh = localStorage.getItem('refresh_token')
+
+    setData({
+      accessToken: access,
+      refreshToken: refresh,
+      isLoggedIn: access != null && refresh != null
+    })
+  }
+
+  useEffect(() => {
+    setLoading(true)
+    loadData()
+    setLoading(false)
+  }, [])
 
   return (
     <AppContext.Provider value={value}>
