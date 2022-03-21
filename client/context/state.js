@@ -44,6 +44,7 @@ export function AppProvider ({ children }) {
 
   const value = {
     data,
+    setData,
     signup,
     login,
     logout

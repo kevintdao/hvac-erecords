@@ -6,13 +6,19 @@ import Header from '../components/Header'
 import Alert from '../components/Alert'
 
 export default function login () {
-  const { login } = useAppContext()
+  const { login, data, setData } = useAppContext()
   const router = useRouter()
   const [error, setError] = useState()
 
-  const onSubmit = async (data) => {
-    login(data.email, data.password)
+  const onSubmit = async (inputData) => {
+    login(inputData.email, inputData.password)
       .then(res => {
+        setData(data => ({
+          ...data,
+          accessToken: res.data.access,
+          refreshToken: res.data.refresh,
+          isLoggedIn: true
+        }))
         router.push('/')
       })
       .catch(error => {

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Menu } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { useAppContext } from '../context/state'
 
-export default function NavBar(props) {
-  const role = props.role;
-  const isLoggedIn = props.loggedIn;
-
-  const router = useRouter();
+export default function NavBar ({ role }) {
+  const { data, setData } = useAppContext()
+  const router = useRouter()
+  const isLoggedIn = data.isLoggedIn
 
   function createNavLinks(links){
     return (
@@ -25,9 +25,9 @@ export default function NavBar(props) {
 
   function MaintenanceCompanyLinks(){
     const mcLinks = [
-      { name: "Manage", href: "/managers" },
-      { name: "Units", href: "/units" },
-      { name: "Users", href: "/users"}
+      { name: 'Manage', href: '/managers' },
+      { name: 'Units', href: '/units' },
+      { name: 'Users', href: '/users'}
     ];
 
     return createNavLinks(mcLinks);
@@ -35,7 +35,7 @@ export default function NavBar(props) {
 
   function BuildingOwnerLinks(){
     const boLinks = [
-      { name: "Data", href: "/" }
+      { name: 'Data', href: '/' }
     ];
 
     return createNavLinks(boLinks);
@@ -43,7 +43,7 @@ export default function NavBar(props) {
   
   function InspectorLinks(){
     const iLinks = [
-      { name: "Data", href: "/" }
+      { name: 'Data', href: '/' }
     ];
 
     return createNavLinks(iLinks);
@@ -51,8 +51,8 @@ export default function NavBar(props) {
 
   function TechnicianLinks(){
     const tLinks = [
-      { name: "Data", href: "/" },
-      { name: "Report", href: "/" }
+      { name: 'Data', href: '/' },
+      { name: 'Report', href: '/' }
     ];
 
     return createNavLinks(tLinks);
@@ -60,8 +60,8 @@ export default function NavBar(props) {
 
   function NotSignedInOptions(){
     const notSignedInLinks = [
-      { name: "Login", href: "/login" },
-      { name: "Sign Up", href: "/register" }
+      { name: 'Login', href: '/login' },
+      { name: 'Sign Up', href: '/register' }
     ];
 
     return createNavLinks(notSignedInLinks);
@@ -69,17 +69,17 @@ export default function NavBar(props) {
 
   function MenuDropdown(){
     const menuItems = [
-      { name: "Profile", href: "/" },
-      { name: "Sign Out", href: "/"}
+      { name: 'Profile', href: '/' },
+      { name: 'Sign Out', href: '/'}
     ]
 
     return (
-      <Menu data-testid="menu-button" as="div" className="ml-3 relative pt-1">
-        <Menu.Button className="">
+      <Menu data-testid='menu-button' as='div' className='ml-3 relative pt-1'>
+        <Menu.Button className=''>
           <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
         </Menu.Button>
 
-        <Menu.Items data-testid="menu-items" className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white">
+        <Menu.Items data-testid='menu-items' className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white'>
           {menuItems.map((item, index) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
@@ -106,7 +106,7 @@ export default function NavBar(props) {
           {/* left */}
           <div className='flex space-x-4'>
             {/* logo */}
-            <Link href="/">
+            <Link href='/'>
               <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>Logo</a>
             </Link>
 
