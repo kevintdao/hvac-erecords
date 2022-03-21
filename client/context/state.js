@@ -30,13 +30,7 @@ export function AppProvider ({ children }) {
       password: '123456'
     }
 
-    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/token`, data)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    return axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/token/`, data)
   }
 
   function logout () {
