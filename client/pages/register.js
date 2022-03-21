@@ -20,7 +20,7 @@ export default function signup () {
         setSuccess(true)
       })
       .catch(error => {
-        setError(error)
+        setError(error.message)
       })
   }
 

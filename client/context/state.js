@@ -19,7 +19,7 @@ export function AppProvider ({ children }) {
       password: '123456'
     }
 
-    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/register/`, data)
+    return axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/register/`, data)
   }
 
   // remove username later
