@@ -1,13 +1,11 @@
 import React from 'react'
-import { Menu } from '@headlessui/react'
-import { MenuIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useAppContext } from '../context/state'
 
 export default function NavBar ({ role }) {
-  const { data, setData } = useAppContext()
+  const { data, setData, logout } = useAppContext()
   const router = useRouter()
   const isLoggedIn = data.isLoggedIn
 
@@ -16,9 +14,8 @@ export default function NavBar ({ role }) {
       <div className='flex space-x-4 items-center'>
         {links.map((item) => (
           <Link key={item.name} href={item.href}>
-            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded'>{item.name}</a>
+            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer'>{item.name}</a>
           </Link>
-        
         ))}
       </div>
     )
@@ -68,35 +65,23 @@ export default function NavBar ({ role }) {
     return createNavLinks(notSignedInLinks);
   }
 
+  const signout = async () => {
+    logout()
+    router.push('/')
+  }
+
   function MenuDropdown(){
-    const menuItems = [
-      { name: 'Profile', href: '/' },
-      { name: 'Sign Out', href: '/'}
-    ]
-
     return (
-      <Menu data-testid='menu-button' as='div' className='ml-3 relative pt-1'>
-        <Menu.Button className=''>
-          <MenuIcon className='block h-6 w-6 text-gray-300 hover:text-white'/>
-        </Menu.Button>
-
-        <Menu.Items data-testid='menu-items' className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white'>
-          {menuItems.map((item, index) => (
-            <Menu.Item key={item.name}>
-              {({ active }) => (
-                <Link href={item.href}>
-                  <a 
-                    className={`${active && 'bg-gray-100'} block px-4 py-2 text-sm text-gray-700`}
-                  >
-                    {item.name}
-                  </a>
-                </Link>
-              )}
-            </Menu.Item>
-          ))}
-          
-        </Menu.Items>
-      </Menu>
+      <div className='flex space-x-4 items-center'>
+        <div>
+          <Link href='/'>
+            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer'>Profile</a>
+          </Link>
+        </div>
+        <div>
+          <a onClick={signout} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer'>Sign Out</a>
+        </div>
+      </div>
     )
   }
 
