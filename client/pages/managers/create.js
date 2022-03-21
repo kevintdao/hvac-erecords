@@ -14,6 +14,7 @@ export default function Create () {
   }
 
   const onSubmit = async (data) => {
+    data.company = 1
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/managers`, data)
       .then(res => {
         setId(res.data.id)
