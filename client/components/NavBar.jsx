@@ -77,11 +77,11 @@ export default function NavBar ({ role }) {
       <div className='flex space-x-4 items-center'>
         <div>
           <Link href='/'>
-            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer'>Profile</a>
+            <a className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer' id='profile'>Profile</a>
           </Link>
         </div>
         <div>
-          <a onClick={signout} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer'>Sign Out</a>
+          <a onClick={signout} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer' id='sign-out'>Sign Out</a>
         </div>
       </div>
     )

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import Loading from '../components/Loading'
 
-const AppContext = createContext()
+export const AppContext = createContext()
 
 export function AppProvider ({ children }) {
   const [loading, setLoading] = useState(true)
@@ -112,6 +112,7 @@ export function AppProvider ({ children }) {
       </div>
     )
   }
+  console.log(value);
 
   return (
     <AppContext.Provider value={value}>
