@@ -5,7 +5,7 @@ import Login from '../components/Login'
 import Header from '../components/Header'
 import Alert from '../components/Alert'
 
-export default function login () {
+export default function LoginPage () {
   const { login, data, setData } = useAppContext()
   const router = useRouter()
   const [error, setError] = useState()

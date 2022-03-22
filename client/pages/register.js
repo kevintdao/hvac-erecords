@@ -5,7 +5,7 @@ import Register from '../components/Register'
 import Header from '../components/Header'
 import Alert from '../components/Alert'
 
-export default function signup () {
+export default function Signup () {
   const { signup } = useAppContext()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
