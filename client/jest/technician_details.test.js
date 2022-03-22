@@ -20,9 +20,9 @@ test("Should display preset technician data", () => {
     const phone_number = container.querySelector("dd#phone_number");
     const license_number = container.querySelector("dd#license_number");
 
-    expect(company.textContent).toEqual(data.company);
+    expect(company.textContent).toEqual(data.company.toString());
     expect(first_name.textContent).toEqual(data.first_name);
     expect(last_name.textContent).toEqual(data.last_name);
     expect(phone_number.textContent).toEqual(data.phone_number);
-    expect(license_number.textContent).toEqual(data.license_number);
+    expect(license_number.textContent).toEqual(data.license_number.toString());
 })

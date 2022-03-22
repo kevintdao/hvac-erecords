@@ -20,17 +20,17 @@ test('Should watch technician input correctly', () => {
     const phoneNumberInput = container.querySelector("input#phone_number");
     const licenseNumberInput = container.querySelector("input#license_number");
   
-    fireEvent.input(companyInput, { target: { value: input.company } });
-    fireEvent.input(firstNameInput, { target: { value: input.first_name } });
-    fireEvent.change(lastNameInput, { target: { value: input.last_name } });
-    fireEvent.input(phoneNumberInput, { target: { value: input.phone_number } });
-    fireEvent.input(licenseNumberInput, { target: { value: input.license_number } });
+    fireEvent.input(companyInput, { target: { value: data.company } });
+    fireEvent.input(firstNameInput, { target: { value: data.first_name } });
+    fireEvent.input(lastNameInput, { target: { value: data.last_name } });
+    fireEvent.input(phoneNumberInput, { target: { value: data.phone_number } });
+    fireEvent.input(licenseNumberInput, { target: { value: data.license_number } });
   
-    expect(companyInput.value).toEqual(input.company);
-    expect(firstNameInput.value).toEqual(input.first_name);
-    expect(lastNameInput.value).toEqual(input.last_name);
-    expect(phoneNumberInput.value).toEqual(input.phone_number);
-    expect(licenseNumberInput.value).toEqual(input.license_number);
+    expect(companyInput.value).toEqual(data.company.toString());
+    expect(firstNameInput.value).toEqual(data.first_name);
+    expect(lastNameInput.value).toEqual(data.last_name);
+    expect(phoneNumberInput.value).toEqual(data.phone_number);
+    expect(licenseNumberInput.value).toEqual(data.license_number.toString());
   })
 
   test("Should display error message when technician inputs are empty", async () => {
@@ -57,7 +57,7 @@ test('Should watch technician input correctly', () => {
     expect(phoneNumberInput.value.length).toEqual(0);
     expect(licenseNumberInput.value.length).toEqual(0);
 
-    expect(companyError.textContent).toBe("Enter a Company ID");
+    expect(companyError.textContent).toBe("Enter a Company");
     expect(firstNameError.textContent).toBe("Enter a First Name");
     expect(lastNameError.textContent).toBe("Enter a Last Name");
     expect(phoneNumberError.textContent).toBe("Enter a Phone Number");

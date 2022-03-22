@@ -24,9 +24,9 @@ export default function TechnicianTable({data, labels}) {
             <tbody className={styles.body}>
               {data.map((item, index) => (
                 <tr key={index}>
-                    <td className={styles.cell} id={`model-${item.id}`}>{item.company}</td>
-                    <td className={styles.cell} id={`serial-${item.id}`}>{item.first_name}</td>
-                    <td className={styles.cell} id={`category-${item.id}`}>{item.last_name}</td>
+                    <td className={styles.cell} id={`company-${item.id}`}>{item.company}</td>
+                    <td className={styles.cell} id={`first_name-${item.id}`}>{item.first_name}</td>
+                    <td className={styles.cell} id={`last_name-${item.id}`}>{item.last_name}</td>
                     <td>
                         <Link href={`/technicians/${item.id}`}>
                             <a className={styles.link}>More Info</a>
