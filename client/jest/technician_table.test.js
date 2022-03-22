@@ -2,24 +2,26 @@ import { render, fireEvent, cleanup, act } from "@testing-library/react"
 import TechnicianTable from "../components/technicians/TechnicianTable";
 
 const labels = {
-    text: ["User ID", "Company ID", "First Name", "Last Name"],
-    id: ["user_id", "company_id", "first_name", "last_name"],
+    text: ["ID", "Company", "First Name", "Last Name"],
+    id: ["id", "company", "first_name", "last_name"],
 };
 
 const data = [
     {
         id: 1,
-        user_id: 5,
-        company_id: 1,
+        company: 1,
         first_name: "John",
         last_name: "Doe",
+        phone_number: "111-111-1111",
+        license_number: 5,
     },
     {
         id: 2,
-        user_id: 6,
-        company_id: 1,
+        company: 1,
         first_name: "Ryan",
         last_name: "Baker",
+        phone_number: "000-000-0000",
+        license_number: 6,
     },
 ];
 
@@ -34,14 +36,12 @@ test("Should display preset table data", () => {
     });
 
     data.map((item, index) => {
-        const user_id = container.querySelector(`td#user_id-${item.id}`);
-        const company_id = container.querySelector(`td#company_id-${item.id}`);
+        const company = container.querySelector(`td#company-${item.id}`);
         const first_name = container.querySelector(`td#first_name-${item.id}`);
         const last_name = container.querySelector(`td#last_name-${item.id}`);
     
-        expect(user_id.textContent).toEqual(item.external_id);
-        expect(company_id.textContent).toEqual(item.model_number);
-        expect(first_name.textContent).toEqual(item.serial_number);
-        expect(last_name.textContent).toEqual(item.category);
+        expect(company.textContent).toEqual(item.company);
+        expect(first_name.textContent).toEqual(item.first_name);
+        expect(last_name.textContent).toEqual(item.last_name);
       })
 })

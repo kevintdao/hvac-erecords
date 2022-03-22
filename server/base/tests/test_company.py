@@ -6,9 +6,9 @@ from base.models import Company
 class CompanyModelTests(TestCase):
 
     def test_created_valid_company(self):
-        Company.objects.create(name='Example', street='1234 Street Rd', city='City', zip_code='12345', country='Country')
-        self.assert_(Company.objects.filter(name='Example', street='1234 Street Rd', city='City', zip_code='12345', country='Country').exists())
-    
+        Company.objects.create(name="HVAC Company #1", street="101 Main Street", city="Iowa City", zip_code="30142", country="United States", phone_number="555-555-5555")
+        self.assert_(Company.objects.filter(name="HVAC Company #1").exists())
+
     def test_created_invalid_company(self):
         with self.assertRaises(DataError):
-            Company.objects.create(name='Example', street='1234 Street Rd', city='City', zip_code='12345678910', country='Country')
+            Company.objects.create(name="HVAC Company #1", street="101 Main Street", city="Iowa City", zip_code="30142312312312312312321321321321321", country="United States", phone_number="555-555-5555")

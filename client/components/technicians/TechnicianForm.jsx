@@ -18,39 +18,22 @@ export default function TechnicianForm({type, data, onSubmit}) {
         <>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
                 <div className={styles.inputs3Cols}>
-                    {/* User ID */}
+                    {/* Company */}
                     <div className={styles.inputContainer}>
-                        <label htmlFor="user_id">User ID</label>
+                        <label htmlFor="company">Company</label>
                         <input 
                         type="number" 
-                        name="user_id" 
-                        id="user_id" 
-                        className={`${styles.input} ${errors.user_id ? "border-red-400" : "border-gray-300"}`}
-                        {...register('user_id', {
+                        name="company" 
+                        id="company" 
+                        className={`${styles.input} ${errors.company ? "border-red-400" : "border-gray-300"}`}
+                        {...register('company', {
                             required: {
                             value: true,
-                            message: "Enter a User ID"
+                            message: "Enter a Company"
                             }
                         })}
                         />
-                        <span className='text-sm text-red-700 mt-1' id="user_id-help">{errors.user_id?.message}</span>
-                    </div>
-                    {/* Company ID */}
-                    <div className={styles.inputContainer}>
-                        <label htmlFor="company_id">Company ID</label>
-                        <input 
-                        type="number" 
-                        name="company_id" 
-                        id="company_id" 
-                        className={`${styles.input} ${errors.company_id ? "border-red-400" : "border-gray-300"}`}
-                        {...register('company_id', {
-                            required: {
-                            value: true,
-                            message: "Enter a Company ID"
-                            }
-                        })}
-                        />
-                        <span className='text-sm text-red-700 mt-1' id="company_id-help">{errors.company_id?.message}</span>
+                        <span className='text-sm text-red-700 mt-1' id="company-help">{errors.company?.message}</span>
                     </div>
                     {/* First Name */}
                     <div className={styles.inputContainer}>

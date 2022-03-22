@@ -131,3 +131,10 @@ dmypy.json
 /client/cypress/videos/*
 
 /client/.nyc_output
+
+# node_modules
+/server/node_modules/
+
+# JSON
+/server/package.json
+/server/package-lock.json

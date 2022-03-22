@@ -11,16 +11,16 @@ export default function TechnicianDetails({data}) {
     return (
         <div className=''>
             <dl>
-                {/* User ID */}
+                {/* ID */}
                 <div className={`${styles.div} border-none`}>
-                <dt className={styles.label} id='user_id-label'>User ID</dt>
-                <dd className={styles.text} id='user_id'>{data.user_id}</dd>
+                <dt className={styles.label} id='id-label'>ID</dt>
+                <dd className={styles.text} id='id'>{data.id}</dd>
                 </div>
         
-                {/* Company ID */}
+                {/* Company */}
                 <div className={styles.div}>
-                <dt className={styles.label} id="company_id-label">Company ID</dt>
-                <dd className={styles.text} id="company_id">{data.company_id}</dd>
+                <dt className={styles.label} id="company-label">Company</dt>
+                <dd className={styles.text} id="company">{data.company}</dd>
                 </div>
         
                 {/* First Name */}

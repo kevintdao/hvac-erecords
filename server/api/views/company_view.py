@@ -4,7 +4,7 @@ from base.models import Company
 from api.serializers import CompanySerializer
 from rest_framework import status
 
-@api('GET')
+@api_view('GET')
 def apiCompanies(request):
     # List companies
     if request.method == 'GET':
