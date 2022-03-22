@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Scott Community College",
+        "phone_number": "+15232432342",
+        "company": 1
+    },
+    {
+        "id": 2,
+        "name": "University of Iowa",
+        "phone_number": "+115232432343",
+        "company": 1
+    }
+  ]

@@ -1,6 +1,6 @@
-from re import T
 from django.db import DataError
 from django.test import TestCase
+
 from base.models import Company
 
 class CompanyModelTests(TestCase):

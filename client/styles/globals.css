@@ -23,6 +23,5 @@
   }
   html {
     @apply h-full;
-    @apply bg-gray-50;
   }
 }

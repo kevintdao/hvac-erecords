@@ -1,10 +1,12 @@
+import re
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from base.models import BuildingManager
 from api.serializers import BuildingManagerSerializer
 from rest_framework import status
 
-@api_view(['GET','POST'])   
+
+@api_view(['GET', 'POST'])
 def apiManagers(request):
     # List managers
     if request.method == 'GET':
@@ -19,8 +21,9 @@ def apiManagers(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT','DELETE'])   
-def apiManager(request,pk):
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apiManager(request, pk):
     try:
         manager = BuildingManager.objects.get(pk=pk)
     except BuildingManager.DoesNotExist:

@@ -25,7 +25,7 @@ export default function NavBar(props) {
 
   function MaintenanceCompanyLinks(){
     const mcLinks = [
-      { name: "Manage", href: "/manage" },
+      { name: "Manage", href: "/managers" },
       { name: "Units", href: "/units" },
       { name: "Users", href: "/users"}
     ];
@@ -60,8 +60,8 @@ export default function NavBar(props) {
 
   function NotSignedInOptions(){
     const notSignedInLinks = [
-      { name: "Login", href: "/" },
-      { name: "Sign Up", href: "/" }
+      { name: "Login", href: "/login" },
+      { name: "Sign Up", href: "/register" }
     ];
 
     return createNavLinks(notSignedInLinks);
@@ -101,7 +101,7 @@ export default function NavBar(props) {
 
   return (
     <nav className='bg-gray-800 py-2'>
-      <div className='max-w-6xl mx-auto px-2'>
+      <div className='max-w-5xl mx-auto px-2'>
         <div className='flex items-center justify-between'>
           {/* left */}
           <div className='flex space-x-4'>

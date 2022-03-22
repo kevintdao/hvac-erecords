@@ -1,13 +1,14 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Technician
+from base.models import Technician, Company
 
 class TestTechnicianAPI(TestCase):
+    fixtures = ['test_data.json',]
+
     def setUp(self):
         self.data = {
-            'user_id' : 5,
-            'company_id' : 5,
+            'company' : 1,
             'first_name' : 'John',
             'last_name' : 'Doe',
             'phone_number' : '101-101-1010',
@@ -22,7 +23,7 @@ class TestTechnicianAPI(TestCase):
     def test_api_create_technician(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Technician.objects.count(), 1)
-        self.assertEqual(Technician.objects.get().first_name, 'John')
+        self.assertEqual(Technician.objects.last().first_name, 'John')
     
     def test_api_create_technician_failure(self):
         data = {
@@ -42,7 +43,7 @@ class TestTechnicianAPI(TestCase):
         self.assertEqual(Technician.objects.count(), 1)
 
     def test_api_get_technician(self):
-        technician = Technician.objects.get()
+        technician = Technician.objects.last()
         response = self.client.get(
             reverse('technicians-detail',
             kwargs={'pk':technician.id}), format="json"
@@ -58,10 +59,9 @@ class TestTechnicianAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_api_update_technician(self):
-        technician = Technician.objects.get()
+        technician = Technician.objects.last()
         new_data = {
-            'user_id' : 2,
-            'company_id' : 2,
+            'company' : 1,
             'first_name' : 'Andrew',
             'last_name' : 'Murley',
             'phone_number' : '010-010-0101',
@@ -73,10 +73,10 @@ class TestTechnicianAPI(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Technician.objects.get().first_name, 'Andrew')
+        self.assertEqual(Technician.objects.last().first_name, 'Andrew')
 
     def test_api_update_technician_failure(self):
-        technician = Technician.objects.get()
+        technician = Technician.objects.last()
         new_data = {
             'id': '2',
         }
@@ -88,7 +88,7 @@ class TestTechnicianAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_api_delete_technician(self):
-        technician = Technician.objects.get()
+        technician = Technician.objects.last()
         response = self.client.delete(
             reverse('technicians-detail',
             kwargs={'pk':technician.id}), format="json"

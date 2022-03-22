@@ -1,6 +1,8 @@
 from django.db import models
+from .building import *
 
 class Unit(models.Model):
+    building = models.ForeignKey(Building, on_delete=models.CASCADE)
     external_id = models.CharField(max_length=128, blank=True)
     category = models.CharField(max_length=255)
     serial_number = models.CharField(max_length=255)

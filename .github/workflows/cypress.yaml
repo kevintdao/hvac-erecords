@@ -16,6 +16,8 @@ jobs:
         node-version: [16.x]
 
     steps:
+      # - name: Give runner permission
+      #   run: sudo chown ubuntu -R ${{github.workspace}}
       - uses: actions/checkout@v2
       - name: Use node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
