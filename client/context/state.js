@@ -112,7 +112,6 @@ export function AppProvider ({ children }) {
       </div>
     )
   }
-  console.log(value);
 
   return (
     <AppContext.Provider value={value}>

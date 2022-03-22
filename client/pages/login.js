@@ -4,6 +4,7 @@ import { useAppContext } from '../context/state'
 import Login from '../components/Login'
 import Header from '../components/Header'
 import Alert from '../components/Alert'
+import axios from 'axios'
 
 export default function LoginPage () {
   const { login, data, setData } = useAppContext()
@@ -12,12 +13,19 @@ export default function LoginPage () {
 
   const onSubmit = async (inputData) => {
     login(inputData.email, inputData.password)
-      .then(res => {
+      .then(async (res) => {
+        const user = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/`, {
+          headers: {
+            Authorization: `Bearer ${res.data.access}`
+          }
+        })
+
         setData(data => ({
           ...data,
           accessToken: res.data.access,
           refreshToken: res.data.refresh,
-          isLoggedIn: true
+          isLoggedIn: true,
+          user: user.data
         }))
 
         // save tokens to localStorage
