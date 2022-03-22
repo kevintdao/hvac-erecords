@@ -7,11 +7,12 @@ const mockData = {
   email: mockEmail,
   password: mockPass
 }
+const mockCallback = jest.fn();
 
 afterEach(cleanup);
 
 test("should watch input correctly", () => {
-  const { container } = render(<Login />);
+  const { container } = render(<Login onSubmit={mockCallback} />);
   const emailInput = container.querySelector("input#email");
   const passInput = container.querySelector("input#password");
 
@@ -32,7 +33,7 @@ test("should watch input correctly", () => {
 })
 
 test("should display the error messages when inputs are empty", async () => {
-  const { container } = render(<Login />);
+  const { container } = render(<Login onSubmit={mockCallback} />);
   const loginButton = container.querySelector("button#login-button");
   const emailError = container.querySelector("span#email-help");
   const passError = container.querySelector("span#pass-help");
@@ -46,7 +47,7 @@ test("should display the error messages when inputs are empty", async () => {
 })
 
 test("should display the error message when email is not valid", async () => {
-  const { container } = render(<Login />);
+  const { container } = render(<Login onSubmit={mockCallback} />);
   const emailInput = container.querySelector("input#email");
   const loginButton = container.querySelector("button#login-button");
   const emailError = container.querySelector("span#email-help");
@@ -65,7 +66,7 @@ test("should display the error message when email is not valid", async () => {
 })
 
 test("should submit the input data", async () => {
-  const { container } = render(<Login />);
+  const { container } = render(<Login onSubmit={mockCallback} />);
   const loginButton = container.querySelector("button#login-button");
   const emailInput = container.querySelector("input#email");
   const passInput = container.querySelector("input#password");
