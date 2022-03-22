@@ -63,7 +63,7 @@ export default function Login(props) {
           {/* signup button */}
           <div className='flex justify-center'>
             <Link href='/register'>
-              <a className='hover:text-blue-500' id='register-button'>Don`&apos;`t have an account?</a>
+              <a className='hover:text-blue-500' id='register-button'>Don&apos;t have an account?</a>
             </Link>
           </div>
         </div>

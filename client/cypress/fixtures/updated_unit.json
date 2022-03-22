@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "external_id": "asdf",
+  "model_number": "123",
+  "serial_number": "asdf",
+  "category": "Heating and cooling split system",
+  "manufacturer": "manu",
+  "production_date": "2022-03-10",
+  "installation_date": "2022-03-10",
+  "building": 1
+}

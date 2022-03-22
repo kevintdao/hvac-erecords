@@ -1,12 +1,15 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Unit
+from base.models import Unit, Building
 import datetime
 
 class TestUnitAPI(TestCase):
+    fixtures = ['test_data.json',]
+    
     def setUp(self):
         self.data = {
+            'building': 1,
             'external_id': '',
             'category': 'AC',
             'serial_number': '24ABC542W003102',
@@ -24,7 +27,7 @@ class TestUnitAPI(TestCase):
     def test_api_create_unit(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Unit.objects.count(), 1)
-        self.assertEqual(Unit.objects.get().manufacturer, 'Trane')
+        self.assertEqual(Unit.objects.last().manufacturer, 'Trane')
 
     def test_api_list_unit(self):
         url = reverse('units-list')
@@ -33,7 +36,7 @@ class TestUnitAPI(TestCase):
         self.assertEqual(Unit.objects.count(), 1)
 
     def test_api_get_unit(self):
-        unit = Unit.objects.get()
+        unit = Unit.objects.last()
         response = self.client.get(
             reverse('units-detail',
             kwargs={'pk':unit.id}), format="json"
@@ -42,8 +45,9 @@ class TestUnitAPI(TestCase):
         self.assertEqual(response.data['manufacturer'], unit.manufacturer)
 
     def test_api_update_unit(self):
-        unit = Unit.objects.get()
+        unit = Unit.objects.last()
         new_data = {
+            'building': 1,
             'category': 'AC',
             'serial_number': '24ABC542W003102',
             'model_number': '1234A00',
@@ -57,10 +61,10 @@ class TestUnitAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Unit.objects.get().production_date, datetime.date(2015,10,21)) 
+        self.assertEqual(Unit.objects.last().production_date, datetime.date(2015,10,21)) 
 
     def test_api_update_unit_failure(self):
-        unit = Unit.objects.get()
+        unit = Unit.objects.last()
         new_data = {
             'serialnumber': '0123',
         }
@@ -72,7 +76,7 @@ class TestUnitAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_api_delete_unit(self):
-        unit = Unit.objects.get()
+        unit = Unit.objects.last()
         response = self.client.delete(
             reverse('units-detail',
             kwargs={'pk':unit.id}), format="json"

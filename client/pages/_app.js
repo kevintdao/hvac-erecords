@@ -4,8 +4,8 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <NavBar />
-      <div className="max-w-6xl px-2 container mx-auto">
+      <NavBar role="Maintenance Company"/>
+      <div className="max-w-5xl px-2 container mx-auto">
         <Component {...pageProps} />
       </div>
     </div>

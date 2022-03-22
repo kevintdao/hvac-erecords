@@ -1,12 +1,14 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Building
-
+from base.models import Building, BuildingManager
 
 class TestBuildingAPI(TestCase):
+    fixtures = ['test_data.json',]
+
     def setUp(self):
         self.data = {
+            'manager': 1,
             'site_name' : 'Seamans Center',
             'street' : '103 South Capitol Strreet',
             'city' : 'Iowa City',
@@ -22,17 +24,17 @@ class TestBuildingAPI(TestCase):
 
     def test_api_create_building(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Building.objects.count(), 1)
-        self.assertEqual(Building.objects.get().site_name, 'Seamans Center')
+        self.assertEqual(Building.objects.count(), 3)
+        self.assertEqual(Building.objects.last().site_name, 'Seamans Center')
 
     def test_api_list_building(self):
         url = reverse('buildings-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Building.objects.count(), 1)
+        self.assertEqual(Building.objects.count(), 3)
 
     def test_api_get_building(self):
-        building = Building.objects.get()
+        building = Building.objects.last()
         response = self.client.get(
             reverse('buildings-detail',
             kwargs={'pk':building.id}), format="json"
@@ -41,8 +43,9 @@ class TestBuildingAPI(TestCase):
         self.assertEqual(response.data['zip_code'], building.zip_code)
 
     def test_api_update_building(self):
-        building = Building.objects.get()
+        building = Building.objects.last()
         new_data = {
+            'manager': 1,
             'site_name' : 'Seamans Center',
             'street' : '103 South Capitol Strreet',
             'city' : 'Iowa City',
@@ -56,10 +59,10 @@ class TestBuildingAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Building.objects.get().zip_code, '52241') 
+        self.assertEqual(Building.objects.last().zip_code, '52241') 
 
     def test_api_update_building_failure(self):
-        building = Building.objects.get()
+        building = Building.objects.last()
         new_data = {
             "zip_code": "faef32fa3f3rt3gaw23ga3w32",
         }
@@ -71,13 +74,13 @@ class TestBuildingAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_api_delete_building(self):
-        building = Building.objects.get()
+        building = Building.objects.last()
         response = self.client.delete(
             reverse('buildings-detail',
             kwargs={'pk':building.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Building.objects.count(), 0)
+        self.assertEqual(Building.objects.count(), 2)
 
     def test_api_building_not_found(self):
         response = self.client.get(
