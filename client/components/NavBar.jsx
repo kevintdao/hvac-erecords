@@ -1,12 +1,9 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useAppContext } from '../context/state'
 
 export default function NavBar ({ role }) {
   const { data, setData, logout } = useAppContext()
-  const router = useRouter()
   const isLoggedIn = data.isLoggedIn
 
   function createNavLinks(links){
@@ -72,7 +69,7 @@ export default function NavBar ({ role }) {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
 
-    router.push('/')
+    window.location = '/'
   }
 
   function MenuDropdown(){
