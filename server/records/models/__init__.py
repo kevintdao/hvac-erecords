@@ -1,2 +1,3 @@
 from .task import *
 from .profile import *
+from .task_completion import *
