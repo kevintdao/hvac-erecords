@@ -1,0 +1,10 @@
+[
+	{
+        "model":  "records.task",
+        "pk":  "1",
+        "fields": { 
+			"title":  "Record condition of condenser coil",
+			"description":  ""
+		}
+	}
+]
