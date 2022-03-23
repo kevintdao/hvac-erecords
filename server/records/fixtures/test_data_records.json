@@ -4,7 +4,11 @@
         "pk":  "1",
         "fields": { 
 			"title":  "Record condition of condenser coil",
-			"description":  ""
+			"description":  "",
+			"rule": {		
+				"type": 1,
+				"name": "response"
+			}
 		}
 	}
 ]
