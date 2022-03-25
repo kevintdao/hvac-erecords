@@ -1,10 +1,16 @@
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import TypeNumberic from './TypeNumberic'
+import TypeSelection from './TypeSelection'
+import TypeText from './TypeText'
 
 export default function TaskForm ({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: data
   })
+  const [selected, setSelected] = useState('')
+
+  const types = ['Selection', 'Text', 'Numberic']
 
   const styles = {
     inputContainer: 'flex flex-col',
@@ -12,6 +18,21 @@ export default function TaskForm ({ type, data, onSubmit }) {
     inputs2Cols: 'grid md:grid-cols-2 gap-4 grid-cols-1',
     helpText: 'text-sm text-red-700 mt-1',
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
+  }
+
+  const renderSelected = (event) => {
+    setSelected(event.target.value)
+  }
+
+ function Type ({ type }) {
+    switch(type){
+      case 'Selection':
+        return (<TypeSelection />)
+      case 'Numberic':
+        return (<TypeNumberic />)
+      case 'Text':
+        return (<TypeText />)
+    }
   }
 
   return (
@@ -54,7 +75,21 @@ export default function TaskForm ({ type, data, onSubmit }) {
             <span className='text-sm text-red-700 mt-1' id='description-help'>{errors.description?.message}</span>
           </div>
 
-          {/* Render fields from JSON file */}
+          {/* Type of task selection */}
+          <div className={styles.inputContainer}>
+            <label htmlFor='type'>Type</label>
+            <select name='type' id='type' className={`${styles.input} border-gray-300`} onChange={renderSelected} defaultValue=''>
+              <option value='' disabled>Select a type</option>
+              {types.map((item, index) => (
+                <option value={item} key={index}>{item}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          {/* Render selected type */}
+          {selected && <Type type={selected}/>}
         </div>
 
         <div>
