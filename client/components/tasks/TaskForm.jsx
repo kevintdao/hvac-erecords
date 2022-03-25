@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import TypeNumberic from './TypeNumberic'
 import TypeSelection from './TypeSelection'
 
 export default function TaskForm ({ type, data, onSubmit }) {
-  const { register, handleSubmit, formState: { errors }, control } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: data
   })
   const types = ['Numberic', 'Selection', 'Text']
@@ -71,19 +71,15 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Type of task selection */}
           <div className={styles.inputContainer}>
             <label htmlFor='type'>Type</label>
-            <Controller 
-              name='type'
-              control={control}
-              render={({ field }) => (
-                <select name='type' id='type' className={`${styles.input} border-gray-300`} 
-                  onChange={renderSelected} defaultValue=''
-                >
-                  {types.map((item, index) => (
-                    <option value={item} key={index}>{item}</option>
-                  ))}
-                </select>
-              )}
-            />
+            <select name='type' id='type' className={`${styles.input} border-gray-300`} 
+              {...register('type', {
+                onChange: renderSelected
+              })}
+            >
+              {types.map((item, index) => (
+                <option value={item} key={index}>{item}</option>
+              ))}
+            </select>
           </div>
         </div>
 
