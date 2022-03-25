@@ -19,8 +19,8 @@ export default function TypeSelection ({ register, errors, number, ...rest }) {
     <div className={styles.inputContainer}>
       <label htmlFor='choices'>Choices</label>
       {rows.map((items, index) => (
-        <>
-          <input type='text' key={index} name={`choice-${index}`} id={`choice-${index}`} 
+        <div key={index} className={styles.inputContainer}>
+          <input type='text' name={`choice-${index}`} id={`choice-${index}`} 
             className={`${styles.input} ${errors[`choice${index}`] ? 'border-red-400' : 'border-gray-300'}`}
             {...register(`choice${index}`, {
               required: {
@@ -30,7 +30,7 @@ export default function TypeSelection ({ register, errors, number, ...rest }) {
             })}
           />
           <span className='text-sm text-red-700 mt-1' id='description-help'>{errors[`choice${index}`]?.message}</span>
-        </>
+        </div>
       ))}
     </div>
   )

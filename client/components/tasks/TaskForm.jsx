@@ -7,13 +7,14 @@ export default function TaskForm ({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, control } = useForm({
     defaultValues: data
   })
-  const [selected, setSelected] = useState('')
+  const types = ['Numberic', 'Selection', 'Text']
+
+  const [selected, setSelected] = useState(types[0])
   const [choices, setChoices] = useState(0)
 
   var rows = []
   for(let i = 0; i < choices; i++) rows.push(i)
 
-  const types = ['Numberic', 'Selection', 'Text']
 
   const styles = {
     inputContainer: 'flex flex-col',
@@ -70,12 +71,19 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Type of task selection */}
           <div className={styles.inputContainer}>
             <label htmlFor='type'>Type</label>
-            <select name='type' id='type' className={`${styles.input} border-gray-300`} onChange={renderSelected} defaultValue=''>
-              <option value='' disabled>Select a type</option>
-              {types.map((item, index) => (
-                <option value={item} key={index}>{item}</option>
-              ))}
-            </select>
+            <Controller 
+              name='type'
+              control={control}
+              render={({ field }) => (
+                <select name='type' id='type' className={`${styles.input} border-gray-300`} 
+                  onChange={renderSelected} defaultValue=''
+                >
+                  {types.map((item, index) => (
+                    <option value={item} key={index}>{item}</option>
+                  ))}
+                </select>
+              )}
+            />
           </div>
         </div>
 
