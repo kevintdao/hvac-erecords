@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import TypeNumberic from './TypeNumberic'
 import TypeSelection from './TypeSelection'
 import TypeText from './TypeText'
 
 export default function TaskForm ({ type, data, onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors }, control } = useForm({
     defaultValues: data
   })
   const [selected, setSelected] = useState('')
@@ -24,10 +24,37 @@ export default function TaskForm ({ type, data, onSubmit }) {
     setSelected(event.target.value)
   }
 
- function Type ({ type }) {
+  function Type ({ type }) {
     switch(type){
       case 'Selection':
-        return (<TypeSelection />)
+        return (
+          <>
+            <div className={styles.inputs2Cols}>
+              <div className={styles.inputContainer}>
+                <label htmlFor='numChoices'>Number of choices</label>
+                <Controller name='numChoices' control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Enter a number of choices"
+                    }
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <>
+                      <input type='number' name='numChoices' id='numChoices'
+                        className={`${styles.input} ${errors.numChoices ? 'border-red-400' : 'border-gray-300'}`}
+                        value={value}
+                        onChange={onChange}
+                      />
+                      <span className='text-sm text-red-700 mt-1' id='numChoices-help'>{errors.numChoices?.message}</span>
+                      <TypeSelection number={value} />
+                    </>
+                  )}
+                />
+              </div>
+            </div>
+          </>
+        )
       case 'Numberic':
         return (<TypeNumberic />)
       case 'Text':
@@ -87,9 +114,9 @@ export default function TaskForm ({ type, data, onSubmit }) {
           </div>
         </div>
 
-        <div>
+        <div className={styles.inputContainer}>
           {/* Render selected type */}
-          {selected && <Type type={selected}/>}
+          {selected && <Type type={selected} />}
         </div>
 
         <div>
