@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import TypeNumberic from './TypeNumberic'
 import TypeSelection from './TypeSelection'
-import TypeText from './TypeText'
 
 export default function TaskForm ({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, control } = useForm({
     defaultValues: data
   })
   const [selected, setSelected] = useState('')
+  const [choices, setChoices] = useState(0)
 
-  const types = ['Selection', 'Text', 'Numberic']
+  var rows = []
+  for(let i = 0; i < choices; i++) rows.push(i)
+
+  const types = ['Numberic', 'Selection', 'Text']
 
   const styles = {
     inputContainer: 'flex flex-col',
@@ -22,44 +25,6 @@ export default function TaskForm ({ type, data, onSubmit }) {
 
   const renderSelected = (event) => {
     setSelected(event.target.value)
-  }
-
-  function Type ({ type }) {
-    switch(type){
-      case 'Selection':
-        return (
-          <>
-            <div className={styles.inputs2Cols}>
-              <div className={styles.inputContainer}>
-                <label htmlFor='numChoices'>Number of choices</label>
-                <Controller name='numChoices' control={control}
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Enter a number of choices"
-                    }
-                  }}
-                  render={({ field: { onChange, value } }) => (
-                    <>
-                      <input type='number' name='numChoices' id='numChoices'
-                        className={`${styles.input} ${errors.numChoices ? 'border-red-400' : 'border-gray-300'}`}
-                        value={value}
-                        onChange={onChange}
-                      />
-                      <span className='text-sm text-red-700 mt-1' id='numChoices-help'>{errors.numChoices?.message}</span>
-                      <TypeSelection number={value} />
-                    </>
-                  )}
-                />
-              </div>
-            </div>
-          </>
-        )
-      case 'Numberic':
-        return (<TypeNumberic />)
-      case 'Text':
-        return (<TypeText />)
-    }
   }
 
   return (
@@ -116,7 +81,26 @@ export default function TaskForm ({ type, data, onSubmit }) {
 
         <div className={styles.inputContainer}>
           {/* Render selected type */}
-          {selected && <Type type={selected} />}
+          {/* Selection type */}
+          {selected == 'Selection' && 
+            <div className={styles.inputs2Cols}>
+              <div className={styles.inputContainer}>
+                <label htmlFor='numChoices'>{`Number of choices (${choices})`}</label>
+                <input type='range' name='numChoices' id='numChoices' min={0} max={10} 
+                  value={choices}
+                  onChange={(e) => setChoices(e.target.value)}
+                />
+                <TypeSelection number={choices} register={register} errors={errors} />
+              </div>
+            </div>
+          }
+
+          {/* Numberic type */}
+          {selected == 'Numberic' && 
+            <div className={styles.inputs2Cols}>
+              <TypeNumberic register={register} errors={errors} />
+            </div>
+          }
         </div>
 
         <div>
