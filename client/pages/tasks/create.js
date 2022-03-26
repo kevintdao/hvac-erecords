@@ -10,19 +10,13 @@ export default function Create () {
 
   const onSubmit = async (data) => {
     const type = data.type
-    var values = { title: data.title, description: data.description }
+    var values = { title: data.title, description: data.description, type: data.type }
     switch(type){
       case 'Numberic':
-        values.rule = {
-          name: data.type,
-          options: data.numberic
-        }
+        values.options = data.numberic
         break
       case 'Selection':
-        values.rule = {
-          name: data.type,
-          options: getSelectionChoices(data.selection)
-        }
+        values.options = getSelectionChoices(data.selection)
         break
     }
     console.log(values)
@@ -32,7 +26,7 @@ export default function Create () {
     const numChoices = selection.choices
     const output = {}
     for(let i = 1; i <= numChoices; i++){
-      output[i] = selection[i]
+      output[i] = selection[`c${i}`]
     }
     output.choices = numChoices
     return output

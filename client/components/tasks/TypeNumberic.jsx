@@ -11,7 +11,7 @@ export default function TypeNumberic ({ register, errors, ...rest}) {
       <div className={styles.inputContainer}>
         <label htmlFor='min'>Minimum value</label>
         <input type='number' name='min' id='min' 
-          className={`${styles.input} ${errors.min ? 'border-red-400' : 'border-gray-300'}`}
+          className={`${styles.input} ${errors.numberic?.min ? 'border-red-400' : 'border-gray-300'}`}
           {...register(`numberic.min`, {
             required: {
               value: true,
@@ -19,12 +19,12 @@ export default function TypeNumberic ({ register, errors, ...rest}) {
             }
           })}
         />
-        <span className='text-sm text-red-700 mt-1' id='description-help'>{errors.min?.message}</span>
+        <span className='text-sm text-red-700 mt-1' id='min-help'>{errors.numberic?.min?.message}</span>
       </div>
       <div className={styles.inputContainer}>
         <label htmlFor='max'>Maximum value</label>
         <input type='number' name='max' id='max' 
-          className={`${styles.input} ${errors.max ? 'border-red-400' : 'border-gray-300'}`}
+          className={`${styles.input} ${errors.numberic?.max ? 'border-red-400' : 'border-gray-300'}`}
           {...register(`numberic.max`, {
             required: {
               value: true,
@@ -32,7 +32,7 @@ export default function TypeNumberic ({ register, errors, ...rest}) {
             }
           })}
         />
-        <span className='text-sm text-red-700 mt-1' id='description-help'>{errors.max?.message}</span>
+        <span className='text-sm text-red-700 mt-1' id='max-help'>{errors.numberic?.max?.message}</span>
       </div>
     </>
   )
