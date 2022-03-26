@@ -8,7 +8,7 @@ describe('Technician index page', () => {
     it('should see all technicians when on the index page', () => {
       cy.wait('@getAllTechnicians');
       cy.get('td#first_name-1').should('contain', 'Andrew');
-      cy.get('td#phone_number-1').should('contain', '111-111-1111');
+      cy.get('td#last_name-1').should('contain', 'Murley');
     })
   
     it('should navigate to technician info page when click on more info button', () => {
@@ -62,8 +62,12 @@ describe('Technician create page', () => {
         cy.intercept('POST', '**/api/technicians', { fixture: 'technician.json' }).as('createTechnician');
         cy.visit('http://localhost:3000/technicians/create');
 
+        cy.get('input#user_id').type("3");
+        cy.get('input#company_id').type("3");
         cy.get('input#first_name').type("Ryan");
+        cy.get('input#last_name').type("Jones");
         cy.get('input#phone_number').type("111-000-0001");
+        cy.get('input#license_number').type("3");
     })
 
     it('should diplay red border around invalid inputs', () => {

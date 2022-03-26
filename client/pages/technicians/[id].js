@@ -40,11 +40,11 @@ export default function Technician(props) {
 
             <div className='space-x-4'>
                 <Link href="/technicians">
-                    <a className={styles.button}>All Technicians</a>
+                    <a className={styles.button} id='all-technicians'>All Technicians</a>
                 </Link>
 
                 <Link href={`/technicians/edit/${id}`}>
-                    <a className={styles.button}>Edit</a>
+                    <a className={styles.button} id='edit'>Edit</a>
                 </Link>
             </div>
         </div>
