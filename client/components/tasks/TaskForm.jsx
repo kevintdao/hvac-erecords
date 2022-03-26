@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import TypeNumeric from './TypeNumeric'
-import TypeSelection from './TypeSelection'
+import TaskNumeric from './TaskNumeric'
+import TaskSelection from './TaskSelection'
 
 export default function TaskForm ({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -95,14 +95,14 @@ export default function TaskForm ({ type, data, onSubmit }) {
                   onChange: (e) => setChoices(e.target.value)
                 })}
               />
-              <TypeSelection number={choices} register={register} errors={errors} />
+              <TaskSelection number={choices} register={register} errors={errors} />
             </div>
           }
 
           {/* Numeric type */}
           {selected == 'Numeric' && 
             <div className={styles.inputs2Cols}>
-              <TypeNumeric register={register} errors={errors} />
+              <TaskNumeric register={register} errors={errors} />
             </div>
           }
         </div>
