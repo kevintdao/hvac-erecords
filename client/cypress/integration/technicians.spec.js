@@ -62,7 +62,7 @@ describe('Technician create page', () => {
         cy.intercept('POST', '**/api/technicians', { fixture: 'technician.json' }).as('createTechnician');
         cy.visit('http://localhost:3000/technicians/create');
 
-        cy.get('input#company_id').type("3");
+        cy.get('input#company').type("3");
         cy.get('input#first_name').type("Ryan");
         cy.get('input#last_name').type("Jones");
         cy.get('input#phone_number').type("111-000-0001");
@@ -105,7 +105,7 @@ describe('Technician edit page', () => {
     })
   
     it('should pre-filled the inputs with the current information', () => {
-        cy.get('input#company_id').should('have.value', '1');
+        cy.get('input#company').should('have.value', '1');
         cy.get('input#first_name').should('have.value', 'Andrew');
         cy.get('input#last_name').should('have.value', 'Murley');
         cy.get('input#phone_number').should('have.value', '111-111-1111');
@@ -113,7 +113,7 @@ describe('Technician edit page', () => {
     })
   
     it('should display successful message when technician is updated', () => {
-        cy.get('input#company_id').clear().type("1");
+        cy.get('input#company').clear().type("1");
         cy.get('input#first_name').clear().type("Ryan");
         cy.get('input#last_name').clear().type("Murley");
         cy.get('input#phone_number').clear().type("101-111-1010");
