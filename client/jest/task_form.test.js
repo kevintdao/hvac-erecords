@@ -57,3 +57,72 @@ test("should render different components based on type", async () => {
   expect(container.querySelector("input#max")).toBeFalsy();
   expect(container.querySelector("input#choices")).toBeFalsy();
 })
+
+test('should display the correct number of options for selection type', async () => {
+  const { container } = render(<TaskForm type="Create" />);
+  const typeSelect = container.querySelector("select#type");
+
+  fireEvent.change(typeSelect, { target: { value: 'Selection' } });
+  const choicesRange = container.querySelector("input#choices");
+
+  let value = 5;
+  fireEvent.change(choicesRange, { target: { value: value } });
+  expect(choicesRange.value).toBe("5");
+  
+  for(let i = 1; i <= value; i++){
+    expect(container.querySelector(`input[name='selection.c${i}']`)).toBeTruthy()
+  }
+
+  value = 0;
+  fireEvent.change(choicesRange, { target: { value: value } });
+  expect(choicesRange.value).toBe("0");
+  
+  for(let i = 1; i <= 10; i++){
+    expect(container.querySelector(`input[name='selection.c${i}']`)).toBeFalsy()
+  }
+})
+
+test('should display error message when fields for Selection type is empty', async () => {
+  const { container } = render(<TaskForm type="Create" />);
+  const typeSelect = container.querySelector("select#type");
+
+  fireEvent.change(typeSelect, { target: { value: 'Selection' } });
+
+  const choicesRange = container.querySelector("input#choices");
+
+  let value = 5;
+  fireEvent.change(choicesRange, { target: { value: value } });
+  expect(choicesRange.value).toBe("5");
+
+  const createButton = container.querySelector("button#create-button");
+
+  await act(async () => { fireEvent.submit(createButton); });
+
+  for(let i = 1; i <= value; i++){
+    const choiceInput = container.querySelector(`input[name='selection.c${i}']`)
+    const choiceError = container.querySelector(`[id='${i}-help']`)
+    expect(choiceInput.value.length).toEqual(0);
+    expect(choiceError.textContent).toBe(`Enter a value for choice-${i}`);
+  }
+})
+
+test('should display error message when fields for Numberic type is empty', async () => {
+  const { container } = render(<TaskForm type="Create" />);
+  const typeSelect = container.querySelector("select#type");
+
+  fireEvent.change(typeSelect, { target: { value: 'Numberic' } });
+
+  const minInput = container.querySelector("input#min");
+  const maxInput = container.querySelector("input#max");
+  const minError = container.querySelector("span#min-help");
+  const maxError = container.querySelector("span#max-help");
+  
+  const createButton = container.querySelector("button#create-button");
+
+  await act(async () => { fireEvent.submit(createButton); });
+
+  expect(minInput.value.length).toEqual(0);
+  expect(maxInput.value.length).toEqual(0);
+  expect(minError.textContent).toBe("Enter a minimum value");
+  expect(maxError.textContent).toBe("Enter a maximum value");
+})

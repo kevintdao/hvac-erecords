@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TypeNumberic ({ register, errors, ...rest}) {
+export default function TypeNumberic ({ register, errors }) {
   const styles = {
     inputContainer: 'flex flex-col space-y-2 mt-2',
     input: 'p-2 border rounded',

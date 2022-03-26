@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TypeSelection ({ register, errors, number, ...rest }) {
+export default function TypeSelection ({ register, errors, number }) {
   var rows = []
   for(let i = 1; i <= number; i++) rows.push(i)
 
