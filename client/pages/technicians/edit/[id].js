@@ -7,7 +7,7 @@ import TechnicianForm from '../../../components/technicians/TechnicianForm'
 import Alert from '../../../components/Alert';
 import Loading from '../../../components/Loading'
 
-export default function Edit({data}) {
+export default function Edit(props) {
     const router = useRouter();
     const { id } = router.query;
     const [technicianId, setTechnicianId] = useState();

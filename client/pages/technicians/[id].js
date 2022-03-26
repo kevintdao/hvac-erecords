@@ -6,7 +6,7 @@ import axios from 'axios'
 import TechnicianDetails from '../../components/technicians/TechnicianDetails';
 import Loading from '../../components/Loading'
 
-export default function Technician({data}) {
+export default function Technician(props) {
     const router = useRouter();
     const { id } = router.query;
     const [data, setData] = useState()
