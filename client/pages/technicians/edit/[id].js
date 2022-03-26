@@ -1,20 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import TechnicianForm from '../../../components/technicians/TechnicianForm'
 import Alert from '../../../components/Alert';
+import Loading from '../../../components/Loading'
 
 export default function Edit({data}) {
     const router = useRouter();
     const { id } = router.query;
     const [technicianId, setTechnicianId] = useState();
     const [error, setError] = useState();
+    const [data, setData] = useState()
 
     const styles = {
         button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
     }
+
+    useEffect(() => {
+        if (!router.isReady) return
+    
+        axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`)
+          .then((res) => {
+            setData(res.data)
+          })
+    }, [router.isReady])
     
     const onSubmit = async (data) => {
         axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`, data)
@@ -26,7 +37,7 @@ export default function Edit({data}) {
         })
     }
 
-      // successfully updated technician
+    // successfully updated technician
     if(technicianId){
         return (
             <div className='mt-2'>
@@ -48,6 +59,10 @@ export default function Edit({data}) {
         )
     }
 
+    if (!data) {
+        return (<Loading />)
+    }
+
     return (
         <div className='space-y-4 mt-2'>
             <Head>
@@ -61,16 +76,4 @@ export default function Edit({data}) {
             <TechnicianForm type='Update' data={data} onSubmit={onSubmit}/>
         </div>
     )
-}
-
-// get technician data before loading the page
-export async function getServerSideProps(context){
-    const { id } = context.query;
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`);
-
-    return {
-        props: {
-        data: res.data
-        }
-    }
 }

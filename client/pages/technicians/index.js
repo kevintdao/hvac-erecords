@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import TechnicianTable from '../../components/technicians/TechnicianTable'
 import Link from 'next/link'
+import Loading from '../../components/Loading'
 
 export default function Index(props) {
-    const data = props.data;
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians`)
+        .then((res) => {
+            setData(res.data)
+        })
+    }, [])
+
     const labels = {
         text: ["User ID", "Company ID", "First Name", "Last Name"],
         id: ["user_id", "company_id", "first_name", "last_name"],
@@ -14,6 +23,10 @@ export default function Index(props) {
     const styles = {
         button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
         desc: "font-medium font-gray-900"
+    }
+
+    if (!data) {
+        return (<Loading />)
     }
 
     return (
@@ -33,16 +46,4 @@ export default function Index(props) {
             </div>
         </div>
     )
-}
-
-// get technician data before loading the page
-export async function getServerSideProps(context){
-    const { id } = context.query;
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians`);
-  
-    return {
-        props: {
-            data: res.data
-        }
-    }
 }
