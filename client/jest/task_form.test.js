@@ -47,7 +47,7 @@ test("should render different components based on type", async () => {
   expect(container.querySelector("input#max")).toBeFalsy();
   expect(container.querySelector("input#choices")).toBeTruthy();
 
-  fireEvent.change(typeSelect, { target: { value: 'Numberic' } });
+  fireEvent.change(typeSelect, { target: { value: 'Numeric' } });
   expect(container.querySelector("input#min")).toBeTruthy();
   expect(container.querySelector("input#max")).toBeTruthy();
   expect(container.querySelector("input#choices")).toBeFalsy();
@@ -106,11 +106,11 @@ test('should display error message when fields for Selection type is empty', asy
   }
 })
 
-test('should display error message when fields for Numberic type is empty', async () => {
+test('should display error message when fields for Numeric type is empty', async () => {
   const { container } = render(<TaskForm type="Create" />);
   const typeSelect = container.querySelector("select#type");
 
-  fireEvent.change(typeSelect, { target: { value: 'Numberic' } });
+  fireEvent.change(typeSelect, { target: { value: 'Numeric' } });
 
   const minInput = container.querySelector("input#min");
   const maxInput = container.querySelector("input#max");

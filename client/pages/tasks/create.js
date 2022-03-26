@@ -11,8 +11,8 @@ export default function Create () {
     const type = data.type
     var values = { title: data.title, description: data.description, type: data.type }
     switch(type){
-      case 'Numberic':
-        values.options = data.numberic
+      case 'Numeric':
+        values.options = data.Numeric
         break
       case 'Selection':
         values.options = getSelectionChoices(data.selection)
