@@ -15,7 +15,6 @@ export default function TaskForm ({ type, data, onSubmit }) {
   var rows = []
   for(let i = 0; i < choices; i++) rows.push(i)
 
-
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -87,17 +86,16 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Render selected type */}
           {/* Selection type */}
           {selected == 'Selection' && 
-            <div className={styles.inputs2Cols}>
-              <div className={styles.inputContainer}>
-                <label htmlFor='choices'>{`Number of choices (${choices})`}</label>
-                <input type='range' name='choices' id='choices' min={0} max={10} 
-                  value={choices}
-                  {...register('selection.choices', {
-                    onChange: (e) => setChoices(e.target.value)
-                  })}
-                />
-                <TypeSelection number={choices} register={register} errors={errors} />
-              </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor='choices'>{`Number of choices (${choices})`}</label>
+              <input type='range' name='choices' id='choices' min={0} max={10} 
+                value={choices}
+                className='w-full md:w-1/2 mb-2'
+                {...register('selection.choices', {
+                  onChange: (e) => setChoices(e.target.value)
+                })}
+              />
+              <TypeSelection number={choices} register={register} errors={errors} />
             </div>
           }
 

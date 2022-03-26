@@ -7,6 +7,7 @@ export default function TypeSelection ({ register, errors, number }) {
   const styles = {
     inputContainer: 'flex flex-col space-y-2 mt-2',
     input: 'p-2 border rounded',
+    inputs2Cols: 'grid md:grid-cols-2 gap-x-4 gap-y-1 grid-cols-1',
   }
 
   if (number == 0 || number == null) {
@@ -16,10 +17,10 @@ export default function TypeSelection ({ register, errors, number }) {
   }
 
   return (
-    <div className={styles.inputContainer}>
-      <label htmlFor='choices'>Choices</label>
+    <div className={styles.inputs2Cols}>
       {rows.map((item, index) => (
         <div key={index} className={styles.inputContainer}>
+          <label htmlFor={`selection.c${item}`}>{`Choice ${item}`}</label>
           <input type='text' id={`${item}`} 
             className={`${styles.input} ${errors.selection?.[`c${item}`] ? 'border-red-400' : 'border-gray-300'}`}
             {...register(`selection.c${item}`, {
