@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form'
 import TypeNumberic from './TypeNumberic'
 import TypeSelection from './TypeSelection'
 
-export default function TaskForm ({ type, data, onSubmit, tasks }) {
+export default function TaskForm ({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: data
   })
 
+  const tasks = ['Numberic', 'Selection', 'Text']
   const [selected, setSelected] = useState(tasks[0])
   const [choices, setChoices] = useState(0)
 

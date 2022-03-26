@@ -6,7 +6,6 @@ import Alert from '../../components/Alert'
 export default function Create () {
   const [id, setId] = useState(null)
   const [error, setError] = useState()
-  const tasks = ['Numberic', 'Selection', 'Text']
 
   const onSubmit = async (data) => {
     const type = data.type
@@ -61,7 +60,7 @@ export default function Create () {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <TaskForm type='Create' onSubmit={onSubmit} tasks={tasks} />
+      <TaskForm type='Create' onSubmit={onSubmit} />
     </div>
   )
 }
