@@ -3,13 +3,12 @@ import { useForm } from 'react-hook-form'
 import TypeNumberic from './TypeNumberic'
 import TypeSelection from './TypeSelection'
 
-export default function TaskForm ({ type, data, onSubmit }) {
+export default function TaskForm ({ type, data, onSubmit, tasks }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: data
   })
-  const types = ['Numberic', 'Selection', 'Text']
 
-  const [selected, setSelected] = useState(types[0])
+  const [selected, setSelected] = useState(tasks[0])
   const [choices, setChoices] = useState(0)
 
   var rows = []
@@ -76,7 +75,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
                 onChange: renderSelected
               })}
             >
-              {types.map((item, index) => (
+              {tasks.map((item, index) => (
                 <option value={item} key={index}>{item}</option>
               ))}
             </select>
@@ -89,10 +88,12 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {selected == 'Selection' && 
             <div className={styles.inputs2Cols}>
               <div className={styles.inputContainer}>
-                <label htmlFor='numChoices'>{`Number of choices (${choices})`}</label>
-                <input type='range' name='numChoices' id='numChoices' min={0} max={10} 
+                <label htmlFor='choices'>{`Number of choices (${choices})`}</label>
+                <input type='range' name='choices' id='choices' min={0} max={10} 
                   value={choices}
-                  onChange={(e) => setChoices(e.target.value)}
+                  {...register('selection.choices', {
+                    onChange: (e) => setChoices(e.target.value)
+                  })}
                 />
                 <TypeSelection number={choices} register={register} errors={errors} />
               </div>

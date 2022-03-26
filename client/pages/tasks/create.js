@@ -6,13 +6,36 @@ import Alert from '../../components/Alert'
 export default function Create () {
   const [id, setId] = useState(null)
   const [error, setError] = useState()
+  const tasks = ['Numberic', 'Selection', 'Text']
 
-  const styles = {
-    
+  const onSubmit = async (data) => {
+    const type = data.type
+    var values = { title: data.title, description: data.description }
+    switch(type){
+      case 'Numberic':
+        values.rule = {
+          name: data.type,
+          options: data.numberic
+        }
+        break
+      case 'Selection':
+        values.rule = {
+          name: data.type,
+          options: getSelectionChoices(data.selection)
+        }
+        break
+    }
+    console.log(values)
   }
 
-  const onSubmit = async () => {
-
+  const getSelectionChoices = (selection) => {
+    const numChoices = selection.choices
+    const output = {}
+    for(let i = 1; i <= numChoices; i++){
+      output[i] = selection[i]
+    }
+    output.choices = numChoices
+    return output
   }
 
   if (id) {
@@ -44,7 +67,7 @@ export default function Create () {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <TaskForm type='Create' onSubmit={onSubmit} />
+      <TaskForm type='Create' onSubmit={onSubmit} tasks={tasks} />
     </div>
   )
 }

@@ -12,7 +12,7 @@ export default function TypeNumberic ({ register, errors, ...rest}) {
         <label htmlFor='min'>Minimum value</label>
         <input type='number' name='min' id='min' 
           className={`${styles.input} ${errors.min ? 'border-red-400' : 'border-gray-300'}`}
-          {...register(`min`, {
+          {...register(`numberic.min`, {
             required: {
               value: true,
               message: `Enter a minimum value`
@@ -25,7 +25,7 @@ export default function TypeNumberic ({ register, errors, ...rest}) {
         <label htmlFor='max'>Maximum value</label>
         <input type='number' name='max' id='max' 
           className={`${styles.input} ${errors.max ? 'border-red-400' : 'border-gray-300'}`}
-          {...register(`max`, {
+          {...register(`numberic.max`, {
             required: {
               value: true,
               message: `Enter a maximum value`

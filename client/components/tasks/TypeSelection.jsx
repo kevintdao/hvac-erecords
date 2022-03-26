@@ -20,16 +20,16 @@ export default function TypeSelection ({ register, errors, number, ...rest }) {
       <label htmlFor='choices'>Choices</label>
       {rows.map((items, index) => (
         <div key={index} className={styles.inputContainer}>
-          <input type='text' name={`choice-${index}`} id={`choice-${index}`} 
+          <input type='text' name={`${index + 1}`} id={`${index + 1}`} 
             className={`${styles.input} ${errors[`choice${index}`] ? 'border-red-400' : 'border-gray-300'}`}
-            {...register(`choice${index}`, {
+            {...register(`selection.${index + 1}`, {
               required: {
                 value: true,
-                message: `Enter a value for choice-${index}`
+                message: `Enter a value for choice-${index + 1}`
               }
             })}
           />
-          <span className='text-sm text-red-700 mt-1' id='description-help'>{errors[`choice${index}`]?.message}</span>
+          <span className='text-sm text-red-700 mt-1' id='description-help'>{errors[`${index + 1}`]?.message}</span>
         </div>
       ))}
     </div>
