@@ -11,7 +11,7 @@ afterEach(cleanup);
 test('should watch input correctly', () => {
   const { container } = render(<TaskForm type="Create" />);
   const titleInput = container.querySelector("input#title");
-  const descriptionInput = container.querySelector("input#description");
+  const descriptionInput = container.querySelector("textarea#description");
 
   fireEvent.input(titleInput, { target: { value: input.title } });
   fireEvent.input(descriptionInput, { target: { value: input.description } });
@@ -23,7 +23,7 @@ test('should watch input correctly', () => {
 test("should display error message when inputs are empty", async () => {
   const { container } = render(<TaskForm type="Create" />);
   const titleInput = container.querySelector("input#title");
-  const descriptionInput = container.querySelector("input#description");
+  const descriptionInput = container.querySelector("textarea#description");
 
   const titleError = container.querySelector("span#title-help");
   const descriptionError = container.querySelector("span#description-help");

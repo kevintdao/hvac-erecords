@@ -30,43 +30,40 @@ export default function TaskForm ({ type, data, onSubmit }) {
   return (
     <>
       <form action='' method='post' onSubmit={handleSubmit(onSubmit)} className='space-y-4 mt-2'>
+        {/* Title */}
+        <div className={styles.inputContainer}>
+          <label htmlFor='title'>Title</label>
+          <input 
+            type='text'
+            id='title'
+            name='title'
+            className={`${styles.input} ${errors.title ? 'border-red-400' : 'border-gray-300'}`}
+            {...register('title', {
+              required: {
+                value: true,
+                message: 'Enter a title'
+              }
+            })}           
+          />
+          <span className='text-sm text-red-700 mt-1' id='title-help'>{errors.title?.message}</span>
+        </div>
+
+        {/* Description */}
+        <div className={styles.inputContainer}>
+          <label htmlFor='description'>Description</label>
+          <textarea name='description' id='description' cols='10' rows='4' 
+            className={`${styles.input} ${errors.description ? 'border-red-400' : 'border-gray-300'} resize-none`}
+            {...register('description', {
+              required: {
+                value: true,
+                message: 'Enter a description'
+              }
+            })}
+          />
+          <span className='text-sm text-red-700 mt-1' id='description-help'>{errors.description?.message}</span>
+        </div>
+
         <div className={styles.inputs2Cols}>
-          {/* Title */}
-          <div className={styles.inputContainer}>
-            <label htmlFor='title'>Title</label>
-            <input 
-              type='text'
-              id='title'
-              name='title'
-              className={`${styles.input} ${errors.title ? 'border-red-400' : 'border-gray-300'}`}
-              {...register('title', {
-                required: {
-                  value: true,
-                  message: 'Enter a title'
-                }
-              })}           
-            />
-            <span className='text-sm text-red-700 mt-1' id='title-help'>{errors.title?.message}</span>
-          </div>
-
-          {/* Description */}
-          <div className={styles.inputContainer}>
-            <label htmlFor='description'>Description</label>
-            <input 
-              type='text'
-              id='description'
-              name='description'
-              className={`${styles.input} ${errors.description ? 'border-red-400' : 'border-gray-300'}`}
-              {...register('description', {
-                required: {
-                  value: true,
-                  message: 'Enter a description'
-                }
-              })}           
-            />
-            <span className='text-sm text-red-700 mt-1' id='description-help'>{errors.description?.message}</span>
-          </div>
-
           {/* Type of task selection */}
           <div className={styles.inputContainer}>
             <label htmlFor='type'>Type</label>
