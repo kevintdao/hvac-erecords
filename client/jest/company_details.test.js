@@ -19,7 +19,7 @@ test('should display the data', () => {
     const city = container.querySelector("dd#city");
     const zip_code = container.querySelector("dd#zip_code");
     const country = container.querySelector("dd#country");
-    const phone_number = container.querySelector("dd#production_date");
+    const phone_number = container.querySelector("dd#phone_number");
   
     expect(name.textContent).toEqual(data.name);
     expect(street.textContent).toEqual(data.street);

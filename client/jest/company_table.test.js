@@ -7,6 +7,7 @@ const labels = {
 };
 const data = [
     {
+        id: 1,
         name: "University of Iowa",
         street: "123 Street",
         city: "Iowa City",
@@ -15,6 +16,7 @@ const data = [
         phone_number: "100-100-1000"
     },
     {
+        id: 2,
         name: "University of Wisconsin",
         street: "789 Street",
         city: "Madison",
@@ -37,10 +39,10 @@ test('should display the data', () => {
     data.map((item, index) => {
         const name = container.querySelector(`td#name-${item.id}`);
         const city = container.querySelector(`td#city-${item.id}`);
-        const zip_code = container.querySelector(`td#zip_code-${item.id}`);
+        const zipCode = container.querySelector(`td#zip_code-${item.id}`);
     
         expect(name.textContent).toEqual(item.name);
         expect(city.textContent).toEqual(item.city);
-        expect(zip_code.textContent).toEqual(item.zip_code);
+        expect(zipCode.textContent).toEqual(item.zip_code);
     })
 })

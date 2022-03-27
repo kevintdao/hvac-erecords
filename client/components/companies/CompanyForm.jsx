@@ -68,7 +68,7 @@ export default function CompanyForm({ type, data, onSubmit }) {
                             }
                             })}
                         />
-                        <span className='text-sm text-red-700 mt-1' id="name-help">{errors.city?.message}</span>
+                        <span className='text-sm text-red-700 mt-1' id="city-help">{errors.city?.message}</span>
                     </div>
                 </div>
 

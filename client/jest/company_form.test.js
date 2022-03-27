@@ -17,14 +17,14 @@ test('should watch input correctly', () => {
     const nameInput = container.querySelector("input#name");
     const streetInput = container.querySelector("input#street");
     const cityInput = container.querySelector("input#city");
-    const zipCodeInput = container.querySelector("select#zip_code");
+    const zipCodeInput = container.querySelector("input#zip_code");
     const countryInput = container.querySelector("input#country");
     const phoneNumberInput = container.querySelector("input#phone_number");
 
     fireEvent.input(nameInput, { target: { value: input.name } });
     fireEvent.input(streetInput, { target: { value: input.street } });
     fireEvent.input(cityInput, { target: { value: input.city } });
-    fireEvent.change(zipCodeInput, { target: { value: input.zip_code } });
+    fireEvent.input(zipCodeInput, { target: { value: input.zip_code } });
     fireEvent.input(countryInput, { target: { value: input.country } });
     fireEvent.input(phoneNumberInput, { target: { value: input.phone_number } });
 
@@ -41,7 +41,7 @@ test("should display error message when inputs are empty", async () => {
     const nameInput = container.querySelector("input#name");
     const streetInput = container.querySelector("input#street");
     const cityInput = container.querySelector("input#city");
-    const zipCodeInput = container.querySelector("select#zip_code");
+    const zipCodeInput = container.querySelector("input#zip_code");
     const countryInput = container.querySelector("input#country");
     const phoneNumberInput = container.querySelector("input#phone_number");
 
