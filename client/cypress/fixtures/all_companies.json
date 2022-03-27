@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "University of Iowa",
         "street": "123 Street",
         "city": "Iowa City",
@@ -8,6 +9,7 @@
         "phone_number": "100-100-1000"
     },
     {
+        "id": 2,
         "name": "University of Wisconsin",
         "street": "789 Street",
         "city": "Madison",
