@@ -1,0 +1,18 @@
+[
+    {
+        "name": "University of Iowa",
+        "street": "123 Street",
+        "city": "Iowa City",
+        "zip_code": "52240",
+        "country": "United States",
+        "phone_number": "100-100-1000"
+    },
+    {
+        "name": "University of Wisconsin",
+        "street": "789 Street",
+        "city": "Madison",
+        "zip_code": "12345",
+        "country": "United States",
+        "phone_number": "120-120-1200"
+    }
+]
