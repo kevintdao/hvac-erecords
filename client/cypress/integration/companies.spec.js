@@ -40,12 +40,12 @@ describe('Company details page', () => {
     })
 
     it('should display the company details', () => {
-        cy.get('td#name-1').should('contain', "University of Iowa");
-        cy.get('td#street-1').should('contain', "123 Street");
-        cy.get('td#city-1').should('contain', "Iowa City");
-        cy.get('td#zip_code-1').should('contain', "52240");
-        cy.get('td#country-1').should('contain', "United States");
-        cy.get('td#phone_number-1').should('contain', "100-100-1000");
+        cy.get('td#name').should('contain', "University of Iowa");
+        cy.get('td#street').should('contain', "123 Street");
+        cy.get('td#city').should('contain', "Iowa City");
+        cy.get('td#zip_code').should('contain', "52240");
+        cy.get('td#country').should('contain', "United States");
+        cy.get('td#phone_number').should('contain', "100-100-1000");
     })
 
     it('should navigate to edit company page when click on edit button', () => {
