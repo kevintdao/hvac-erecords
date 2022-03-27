@@ -22,4 +22,6 @@ urlpatterns = [
     path("technicians/<int:pk>/", views.apiTechnician, name="technicians-detail"),
     path("buildings", views.apiBuildings, name="buildings-list"),
     path("buildings/<int:pk>/", views.apiBuilding, name="buildings-detail"),
+    path("companies", views.apiCompanies, name="companies-list"),
+    path("companies/<int:pk>/", views.apiCompany, name="companies-detail"),
 ]

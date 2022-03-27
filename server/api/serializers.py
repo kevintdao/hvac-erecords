@@ -4,6 +4,7 @@ from base.models import Unit
 from base.models import BuildingManager
 from base.models import Technician
 from base.models import Building
+from base.models import Company
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,4 +44,9 @@ class TechnicianSerializer(serializers.ModelSerializer):
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
+        fields = '__all__'
+
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
         fields = '__all__'
