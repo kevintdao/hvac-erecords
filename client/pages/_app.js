@@ -7,7 +7,7 @@ function MyApp ({ Component, pageProps }) {
   return (
     <AppProvider>
       <NavBar role='Maintenance Company' />
-      <div className='max-w-5xl px-2 container mx-auto'>
+      <div className='max-w-5xl px-2 container mx-auto pb-3'>
         <Component {...pageProps} />
       </div>
     </AppProvider>
