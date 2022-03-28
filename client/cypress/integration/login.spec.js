@@ -21,8 +21,12 @@ describe('Login page', () => {
   })
 
   it('should display error when login information is incorrect', () => {
-    cy.intercept('POST', '**/api/token', { statusCode: 404 }).as('loginError');
-
+    cy.intercept('POST', '**/api/token', { 
+      statusCode: 404,
+      body: {
+        detail: "Error"
+      }
+    }).as('loginError');
     cy.get('input#email').type("test@test.com");
     cy.get('input#password').type("Testing123@");
     cy.get('button#login-button').click();
