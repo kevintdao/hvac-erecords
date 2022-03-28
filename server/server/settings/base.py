@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import dj_database_url
 import environ
+from datetime import timedelta
 
 
 # Initialize enviroment variable
@@ -11,7 +12,8 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://hvac-erecords.herokuapp.com"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000",
+                        "https://hvac-erecords.herokuapp.com"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "base",
+    "records",
 ]
 
 MIDDLEWARE = [
@@ -126,3 +129,8 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1)
+}
