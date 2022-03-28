@@ -16,7 +16,8 @@
     "exclude": [
       "components/NavBar.jsx",
       "components/Login.jsx",
-      "components/Register.jsx"
+      "components/Register.jsx",
+      "context/state.js"
     ],
     "excludeAfterRemap": true
   },
