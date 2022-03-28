@@ -24,7 +24,12 @@ class TestTaskAPI(TestCase):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Task.objects.count(), 2)
         self.assertEqual(Task.objects.last().title, 'Unit in good condition')
-        print(Task.objects.first())
+
+    def test_api_list_tasks(self):
+        url = reverse('tasks-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Task.objects.count(), 2)
 
     def test_api_create_task_failure(self):
         data = {

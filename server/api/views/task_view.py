@@ -4,10 +4,14 @@ from records.models import Task
 from api.serializers import TaskSerializer
 from rest_framework import status
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def apiTasks(request):
     # Create task
-    if request.method == 'POST':
+    if request.method == 'GET':
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
