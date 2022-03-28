@@ -40,7 +40,7 @@ describe('Technician details page', () => {
   
     it('should display the technician details', () => {
       cy.get('dd#first_name').should('contain', 'Andrew');
-      cy.get('dd#phone_number').should('contain', '(319) 384-4357');
+      cy.get('dd#phone_number').should('contain', '+13193844357');
     })
   
     it('should navigate to edit technician page when click on edit button', () => {

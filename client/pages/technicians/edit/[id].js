@@ -25,7 +25,7 @@ export default function Edit(props) {
           .then((res) => {
             setData(res.data)
           })
-    }, [router.isReady])
+    }, [id, router.isReady])
     
     const onSubmit = async (data) => {
         axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`, data)
