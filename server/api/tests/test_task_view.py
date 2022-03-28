@@ -43,3 +43,12 @@ class TestTaskAPI(TestCase):
             format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_get_task(self):
+        task = Task.objects.last()
+        response = self.client.get(
+            reverse('tasks-detail',
+            kwargs={'pk':task.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], task.title)
