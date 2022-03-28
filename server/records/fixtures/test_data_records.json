@@ -3,6 +3,7 @@
         "model":  "records.task",
         "pk":  "1",
         "fields": { 
+			"company": 1,
 			"title":  "Record condition of condenser coil",
 			"description":  "",
 			"rule": {		

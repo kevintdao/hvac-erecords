@@ -4,6 +4,7 @@ from base.models import Unit
 from base.models import BuildingManager
 from base.models import Technician
 from base.models import Building
+from records.models import Task
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,4 +48,9 @@ class TechnicianSerializer(serializers.ModelSerializer):
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
+        fields = '__all__'
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
         fields = '__all__'

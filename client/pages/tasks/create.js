@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import axios from 'axios'
 import Header from '../../components/Header'
 import TaskForm from '../../components/tasks/TaskForm'
 import Alert from '../../components/Alert'
@@ -8,18 +9,32 @@ export default function Create () {
   const [id, setId] = useState(null)
   const [error, setError] = useState()
 
+  const styles = {
+    button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
+  }
+
   const onSubmit = async (data) => {
     const type = data.type
-    var values = { title: data.title, description: data.description, type: data.type }
+
+    var values = { title: data.title, description: data.description, rule: {type: data.type} }
     switch(type){
       case 'Numeric':
-        values.options = data.Numeric
+        values.rule.options = data.Numeric
         break
       case 'Selection':
-        values.options = getSelectionChoices(data.selection)
+        values.rule.options = getSelectionChoices(data.selection)
         break
     }
-    console.log(values)
+    
+    values.company = 1
+
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/tasks`, values)
+      .then(res => {
+        setId(res.data.id)
+      })
+      .catch(() => {
+        setError('Error with request')
+    })
   }
 
   const getSelectionChoices = (selection) => {
