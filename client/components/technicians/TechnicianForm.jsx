@@ -13,6 +13,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
         input: "p-2 border rounded",
         inputs2Cols: "grid md:grid-cols-2 gap-4 grid-cols-1",
         inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
+        helpText: "text-sm text-red-700 mt-1",
         button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
     }
 
