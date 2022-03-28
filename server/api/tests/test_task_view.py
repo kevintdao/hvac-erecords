@@ -92,3 +92,11 @@ class TestTaskAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Task.objects.count(), 1)
+
+    
+    def test_api_task_not_found(self):
+        response = self.client.get(
+            reverse('tasks-detail',
+            kwargs={'pk':0}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
