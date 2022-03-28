@@ -24,11 +24,11 @@ class RegisterUserTest(APITestCase):
     def test_access_token(self):
 
         url = 'http://localhost:8000/api/register/'
-        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        data = {'email': 'test44@test.com', 'username': 'test44@test.com' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
         url = 'http://localhost:8000/api/token/'
-        data = {'username': 'test44', 'password': 'Testing44*' }
+        data = {'username': 'test44@test.com', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
 
         self.assertTrue('access' in response.json())
@@ -36,11 +36,11 @@ class RegisterUserTest(APITestCase):
     def test_refresh_token(self):
 
         url = 'http://localhost:8000/api/register/'
-        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        data = {'email': 'test44@test.com','username': 'test44@test.com' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
         url = 'http://localhost:8000/api/token/'
-        data = {'username': 'test44', 'password': 'Testing44*' }
+        data = {'username': 'test44@test.com', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
 
         url = 'http://localhost:8000/api/token/refresh/'
@@ -52,11 +52,11 @@ class RegisterUserTest(APITestCase):
     def test_login_user(self):
 
         url = 'http://localhost:8000/api/register/'
-        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        data = {'email': 'test44@test.com','username': 'test44@test.com' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
 
         url = 'http://localhost:8000/api/token/'
-        data = {'username': 'test44', 'password': 'Testing44*' }
+        data = {'username': 'test44@test.com', 'password': 'Testing44*' }
         response = self.client.post(url, data, format='json')
         #print(response.json()['refresh'])
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.json()['access'])

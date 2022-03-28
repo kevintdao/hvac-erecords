@@ -18,7 +18,7 @@ export default function Manager (props) {
       .then((res) => {
         setData(res.data)
       })
-  }, [router.isReady])
+  }, [id, router.isReady])
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
