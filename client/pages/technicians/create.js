@@ -14,6 +14,7 @@ export default function Create() {
     }
 
     const onSubmit = async (data) => {
+        data.company = 1
         axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/technicians`, data)
         .then(res => {
             setId(res.data.id);
@@ -29,7 +30,7 @@ export default function Create() {
         <div className='mt-2'>
             <Alert 
             title="Successful"
-            text="Successfully created a technician. Click the link below to the newly created technician or all the technicians"
+            text="Successfully created a technician. Click the link below to view the newly created technician or all the technicians"
             type="success"
             />
 

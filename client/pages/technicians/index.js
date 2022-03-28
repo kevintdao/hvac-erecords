@@ -16,8 +16,8 @@ export default function Index(props) {
     }, [])
 
     const labels = {
-        text: ["User ID", "Company", "First Name", "Last Name"],
-        id: ["user_id", "company", "first_name", "last_name"],
+        text: ["Company", "First Name", "Last Name"],
+        id: ["company", "first_name", "last_name"],
     };
 
     const styles = {

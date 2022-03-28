@@ -17,24 +17,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
     return (
         <>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
-                <div className={styles.inputs3Cols}>
-                    {/* Company */}
-                    <div className={styles.inputContainer}>
-                        <label htmlFor="company">Company</label>
-                        <input 
-                        type="number" 
-                        name="company" 
-                        id="company" 
-                        className={`${styles.input} ${errors.company ? "border-red-400" : "border-gray-300"}`}
-                        {...register('company', {
-                            required: {
-                            value: true,
-                            message: "Enter a Company"
-                            }
-                        })}
-                        />
-                        <span className='text-sm text-red-700 mt-1' id="company-help">{errors.company?.message}</span>
-                    </div>
+                <div className={styles.inputs2Cols}>
                     {/* First Name */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="first_name">First Name</label>
@@ -69,22 +52,33 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         />
                         <span className='text-sm text-red-700 mt-1' id="last_name-help">{errors.last_name?.message}</span>
                     </div>
+                </div>
+                <div className={styles.inputs2Cols}>
                     {/* Phone Number */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="phone_number">Phone Number</label>
-                        <input 
-                        type="text" 
-                        name="phone_number" 
-                        id="phone_number" 
-                        className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
-                        {...register('phone_number', {
+                        <Controller 
+                        name='phone_number'
+                        control={control}
+                        rules={{
                             required: {
                             value: true,
                             message: "Enter a Phone Number"
-                            }
-                        })}
+                            },
+                            validate: value => isPossiblePhoneNumber(value) || "Enter a valid Phone Number"
+                        }}
+                        render={({ field: { onChange, value } }) => (
+                            <PhoneInput
+                            country="US"
+                            className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
+                            value={value}
+                            onChange={onChange}
+                            id="phone_number"
+                            />
+                        )}
                         />
-                        <span className='text-sm text-red-700 mt-1' id="phone_number-help">{errors.phone_number?.message}</span>
+                        <span className={styles.helpText} id="phone-help">{errors.phone_number?.message}</span>
+                        <small className="text-gray-400 mt-1">US Phone Number only.</small>
                     </div>
                     {/* License Number */}
                     <div className={styles.inputContainer}>
