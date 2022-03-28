@@ -1,8 +1,10 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
+import PhoneInput from 'react-phone-number-input/input'
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
 
 export default function TechnicianForm({type, data, onSubmit}) {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, control } = useForm({
         defaultValues: data
     });
 
@@ -58,26 +60,26 @@ export default function TechnicianForm({type, data, onSubmit}) {
                     <div className={styles.inputContainer}>
                         <label htmlFor="phone_number">Phone Number</label>
                         <Controller 
-                        name='phone_number'
-                        control={control}
-                        rules={{
-                            required: {
-                            value: true,
-                            message: "Enter a Phone Number"
-                            },
-                            validate: value => isPossiblePhoneNumber(value) || "Enter a valid Phone Number"
-                        }}
-                        render={({ field: { onChange, value } }) => (
-                            <PhoneInput
-                            country="US"
-                            className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
-                            value={value}
-                            onChange={onChange}
-                            id="phone_number"
-                            />
-                        )}
+                            name='phone_number'
+                            control={control}
+                            rules={{
+                                required: {
+                                    value: true,
+                                    message: "Enter a Phone Number"
+                                },
+                                validate: value => isPossiblePhoneNumber(value) || "Enter a valid Phone Number"
+                            }}
+                            render={({ field: { onChange, value } }) => (
+                                <PhoneInput
+                                    country="US"
+                                    className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
+                                    value={value}
+                                    onChange={onChange}
+                                    id="phone_number"
+                                />
+                            )}
                         />
-                        <span className={styles.helpText} id="phone-help">{errors.phone_number?.message}</span>
+                        <span className={styles.helpText} id="phone_number-help">{errors.phone_number?.message}</span>
                         <small className="text-gray-400 mt-1">US Phone Number only.</small>
                     </div>
                     {/* License Number */}
