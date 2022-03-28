@@ -40,7 +40,7 @@ describe('Technician details page', () => {
   
     it('should display the technician details', () => {
       cy.get('dd#first_name').should('contain', 'Andrew');
-      cy.get('dd#phone_number').should('contain', '111-111-1111');
+      cy.get('dd#phone_number').should('contain', '(319) 384-4357');
     })
   
     it('should navigate to edit technician page when click on edit button', () => {
@@ -62,10 +62,9 @@ describe('Technician create page', () => {
         cy.intercept('POST', '**/api/technicians', { fixture: 'technician.json' }).as('createTechnician');
         cy.visit('http://localhost:3000/technicians/create');
 
-        cy.get('input#company').type("3");
         cy.get('input#first_name').type("Ryan");
         cy.get('input#last_name').type("Jones");
-        cy.get('input#phone_number').type("111-000-0001");
+        cy.get('input#phone_number').type("(319) 356-0001");
         cy.get('input#license_number').type("3");
     })
 
@@ -105,18 +104,16 @@ describe('Technician edit page', () => {
     })
   
     it('should pre-filled the inputs with the current information', () => {
-        cy.get('input#company').should('have.value', '1');
         cy.get('input#first_name').should('have.value', 'Andrew');
         cy.get('input#last_name').should('have.value', 'Murley');
-        cy.get('input#phone_number').should('have.value', '111-111-1111');
+        cy.get('input#phone_number').should('have.value', '(319) 384-4357');
         cy.get('input#license_number').should('have.value', '4');
     })
   
     it('should display successful message when technician is updated', () => {
-        cy.get('input#company').clear().type("1");
         cy.get('input#first_name').clear().type("Ryan");
         cy.get('input#last_name').clear().type("Murley");
-        cy.get('input#phone_number').clear().type("101-111-1010");
+        cy.get('input#phone_number').clear().type("(319) 356-0001");
         cy.get('input#license_number').clear().type("4");
     
         cy.get('button#create-button').click();
