@@ -7,3 +7,4 @@ from .building_manager_view import *
 from .technician_view import *
 from .building_view import *
 from .company_view import *
+from .task_view import *

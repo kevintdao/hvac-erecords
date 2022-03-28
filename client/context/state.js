@@ -18,9 +18,9 @@ export function AppProvider ({ children }) {
   // hard-coded value for now since still login with username
   function signup (email, password) {
     const data = {
-      username: 'test',
-      email: 'test@test.com',
-      password: '123456'
+      username: email,
+      email: email,
+      password: password
     }
 
     return axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/register/`, data)
@@ -30,8 +30,8 @@ export function AppProvider ({ children }) {
   // hard-coded value for now since still login with username
   function login (email, password) {
     const data = {
-      username: 'test',
-      password: '123456'
+      username: email,
+      password: password
     }
 
     return axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/token/`, data)
