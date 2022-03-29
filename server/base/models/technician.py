@@ -8,3 +8,7 @@ class Technician(models.Model):
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
     license_number = models.IntegerField()
+
+    # def save(self, *args, **kwargs):
+    #     User.objects.create_user(username="foo", password="bar")
+    #     super(Technician, self).save(*args, **kwargs)
