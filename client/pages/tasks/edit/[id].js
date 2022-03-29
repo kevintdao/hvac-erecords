@@ -28,6 +28,18 @@ export default function Edit (props) {
   }, [id, router.isReady])
 
   const onSubmit = async (data) => {
+    const type = data.type
+
+    var values = { title: data.title, description: data.description, rule: {type: data.type} }
+    switch(type){
+      case 'Numeric':
+        values.rule.options = data.Numeric
+        break
+      case 'Selection':
+        values.rule.options = getSelectionChoices(data.selection)
+        break
+    }
+
     axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/tasks/${id}/`, data)
       .then(res => {
         setTaskId(res.data.id)
@@ -35,6 +47,16 @@ export default function Edit (props) {
       .catch(() => {
         setError('Error with request')
       })
+  }
+
+  const getSelectionChoices = (selection) => {
+    const numChoices = selection.choices
+    const output = {}
+    for(let i = 1; i <= numChoices; i++){
+      output[i] = selection[`c${i}`]
+    }
+    output.choices = numChoices
+    return output
   }
 
   // successfully updated task

@@ -10,7 +10,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
 
   const tasks = ['Numeric', 'Selection', 'Text']
   const [selected, setSelected] = useState(data?.rule.type || tasks[0])
-  const [choices, setChoices] = useState(data?.rule.options.choices || 0)
+  const [choices, setChoices] = useState(data?.rule.options?.choices || 0)
 
   var rows = []
   for(let i = 0; i < choices; i++) rows.push(i)
@@ -99,7 +99,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Numeric type */}
           {selected == 'Numeric' && 
             <div className={styles.inputs2Cols}>
-              <TaskNumeric register={register} errors={errors} />
+              <TaskNumeric register={register} errors={errors} data={data} />
             </div>
           }
         </div>
