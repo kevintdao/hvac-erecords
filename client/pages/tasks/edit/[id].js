@@ -40,7 +40,9 @@ export default function Edit (props) {
         break
     }
 
-    axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/tasks/${id}/`, data)
+    values.company = 1
+
+    axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/tasks/${id}/`, values)
       .then(res => {
         setTaskId(res.data.id)
       })
