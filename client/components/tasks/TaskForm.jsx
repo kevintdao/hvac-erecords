@@ -10,7 +10,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
 
   const tasks = ['Numeric', 'Selection', 'Text']
   const [selected, setSelected] = useState(data?.rule.type || tasks[0])
-  const [choices, setChoices] = useState(data?.rule.options?.choices || 0)
+  const [choices, setChoices] = useState(data?.rule.options?.choices || 2)
 
   var rows = []
   for(let i = 0; i < choices; i++) rows.push(i)
@@ -85,7 +85,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {selected == 'Selection' && 
             <div className={styles.inputContainer}>
               <label htmlFor='choices'>{`Number of choices (${choices})`}</label>
-              <input type='range' name='choices' id='choices' min={0} max={10} 
+              <input type='range' name='choices' id='choices' min={2} max={10} 
                 value={choices}
                 className='w-full md:w-1/2 mb-2'
                 {...register('selection.choices', {

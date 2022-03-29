@@ -10,12 +10,6 @@ export default function TaskSelection ({ register, errors, number, data }) {
     inputs2Cols: 'grid md:grid-cols-2 gap-x-4 gap-y-1 grid-cols-1',
   }
 
-  if (number == 0 || number == null) {
-    return (
-      <></>
-    )
-  }
-
   return (
     <div className={styles.inputs2Cols}>
       {rows.map((item, index) => (

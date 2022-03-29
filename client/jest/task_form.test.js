@@ -73,12 +73,12 @@ test('should display the correct number of options for selection type', async ()
     expect(container.querySelector(`input[name='selection.c${i}']`)).toBeTruthy()
   }
 
-  value = 0;
+  value = 3;
   fireEvent.change(choicesRange, { target: { value: value } });
-  expect(choicesRange.value).toBe("0");
+  expect(choicesRange.value).toBe("3");
   
-  for(let i = 1; i <= 10; i++){
-    expect(container.querySelector(`input[name='selection.c${i}']`)).toBeFalsy()
+  for(let i = 1; i <= value; i++){
+    expect(container.querySelector(`input[name='selection.c${i}']`)).toBeTruthy()
   }
 })
 
