@@ -9,7 +9,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
   })
 
   const tasks = ['Numeric', 'Selection', 'Text']
-  const [selected, setSelected] = useState(tasks[0])
+  const [selected, setSelected] = useState(data?.rule.type || tasks[0])
   const [choices, setChoices] = useState(0)
 
   var rows = []
@@ -67,7 +67,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Type of task selection */}
           <div className={styles.inputContainer}>
             <label htmlFor='type'>Type</label>
-            <select name='type' id='type' className={`${styles.input} border-gray-300`} 
+            <select name='type' id='type' className={`${styles.input} border-gray-300`}  defaultValue={selected}
               {...register('type', {
                 onChange: renderSelected
               })}

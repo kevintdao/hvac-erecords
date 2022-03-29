@@ -37,6 +37,10 @@ export default function TaskDetails ({ data }) {
             ))}
           </>
         )
+      default:
+        return (
+          <></>
+        )
     }
   }
 
