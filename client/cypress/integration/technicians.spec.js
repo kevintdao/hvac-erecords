@@ -70,12 +70,16 @@ describe('Technician create page', () => {
 
     it('should diplay red border around invalid inputs', () => {
         cy.get('input#first_name').clear();
+        cy.get('input#last_name').clear();
         cy.get('input#phone_number').clear();
+        cy.get('input#license_number').clear();
 
         cy.get('button#create-button').click();
 
         cy.get('input#first_name').should('have.class', 'border-red-400');
+        cy.get('input#last_name').should('have.class', 'border-red-400');
         cy.get('input#phone_number').should('have.class', 'border-red-400');
+        cy.get('input#license_number').should('have.class', 'border-red-400');
     })
 
     it('should display successful message when technician is created', () => {
