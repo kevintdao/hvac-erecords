@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "company": 1,
+    "title": "Selection Task",
+    "description": "Description",
+    "rule": {
+      "type": "Selection",
+      "options": {
+        "1": "Choice 1",
+        "2": "Choice 2",
+        "choices": 2
+      }
+    }
+  },
+  {
+    "id": 2,
+    "company": 1,
+    "title": "Numeric Task",
+    "description": "Description",
+    "rule": {
+      "type": "Numeric",
+      "options": {
+        "min": 1,
+        "max": 10
+      }
+    }
+  } 
+]

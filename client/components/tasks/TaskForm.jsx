@@ -9,8 +9,8 @@ export default function TaskForm ({ type, data, onSubmit }) {
   })
 
   const tasks = ['Numeric', 'Selection', 'Text']
-  const [selected, setSelected] = useState(tasks[0])
-  const [choices, setChoices] = useState(0)
+  const [selected, setSelected] = useState(data?.rule.type || tasks[0])
+  const [choices, setChoices] = useState(data?.rule.options?.choices || 2)
 
   var rows = []
   for(let i = 0; i < choices; i++) rows.push(i)
@@ -67,7 +67,7 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {/* Type of task selection */}
           <div className={styles.inputContainer}>
             <label htmlFor='type'>Type</label>
-            <select name='type' id='type' className={`${styles.input} border-gray-300`} 
+            <select name='type' id='type' className={`${styles.input} border-gray-300`}  defaultValue={selected}
               {...register('type', {
                 onChange: renderSelected
               })}
@@ -85,21 +85,21 @@ export default function TaskForm ({ type, data, onSubmit }) {
           {selected == 'Selection' && 
             <div className={styles.inputContainer}>
               <label htmlFor='choices'>{`Number of choices (${choices})`}</label>
-              <input type='range' name='choices' id='choices' min={0} max={10} 
+              <input type='range' name='choices' id='choices' min={2} max={10} 
                 value={choices}
                 className='w-full md:w-1/2 mb-2'
                 {...register('selection.choices', {
                   onChange: (e) => setChoices(e.target.value)
                 })}
               />
-              <TaskSelection number={choices} register={register} errors={errors} />
+              <TaskSelection number={choices} register={register} errors={errors} data={data} />
             </div>
           }
 
           {/* Numeric type */}
           {selected == 'Numeric' && 
             <div className={styles.inputs2Cols}>
-              <TaskNumeric register={register} errors={errors} />
+              <TaskNumeric register={register} errors={errors} data={data} />
             </div>
           }
         </div>
