@@ -16,13 +16,6 @@ describe('Task index page', () => {
     cy.get('td#type-2').should('contain', 'Numeric');
   })
 
-  it('should show message when there is no tasks in database', () => {
-    cy.intercept('GET', '**/api/tasks', []).as('getNoTasks');
-    cy.wait('@getNoTasks');
-
-    cy.get('#no-tasks').should('contain', 'No existing tasks');
-  })
-
   it('should navigate to task info page when click on more info button', () => {
     cy.wait('@getAllTasks');
     cy.get('a[href="/tasks/1"]').click();
@@ -45,11 +38,11 @@ describe('Task index page', () => {
 describe('Task details page', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
-    cy.visit('http://localhost:3000/tasks/1');
   })
 
   it('should display the numeric task details', () => {
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getNumericTask');
+    cy.visit('http://localhost:3000/tasks/1');
     cy.wait('@getNumericTask');
 
     cy.get('dd#title').should('contain', 'Numeric Task');
@@ -61,6 +54,7 @@ describe('Task details page', () => {
 
   it('should display the selection task details', () => {
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_selection.json' }).as('getSelectionTask');
+    cy.visit('http://localhost:3000/tasks/1');
     cy.wait('@getSelectionTask');
     
     cy.get('dd#title').should('contain', 'Selection Task');
@@ -72,6 +66,7 @@ describe('Task details page', () => {
 
   it('should display the text task details', () => {
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_text.json' }).as('getTextTask');
+    cy.visit('http://localhost:3000/tasks/1');
     cy.wait('@getTextTask');
     
     cy.get('dd#title').should('contain', 'Text Task');
@@ -81,6 +76,7 @@ describe('Task details page', () => {
 
   it('should navigate to edit task page when click on edit button', () => {
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getNumericTask');
+    cy.visit('http://localhost:3000/tasks/1');
     cy.wait('@getNumericTask');
 
     cy.get('a#edit').click();
@@ -89,6 +85,7 @@ describe('Task details page', () => {
 
   it('should navigate to all tasks page when click on all tasks button', () => {
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getNumericTask');
+    cy.visit('http://localhost:3000/tasks/1');
     cy.wait('@getNumericTask');
 
     cy.get('a#all-tasks').click();
