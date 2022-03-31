@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Header from '../../components/Header'
 import Alert from '../../components/Alert'
-import ProfileForm from '../../components/profile/ProfileForm'
+import ProfileForm from '../../components/profiles/ProfileForm'
 import Loading from '../../components/Loading'
 
 export default function Create () {
