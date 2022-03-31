@@ -16,8 +16,26 @@ export default function Create () {
       })
   }, [])
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    const tasks = formatTasks(data.tasks)
+    data.tasks = tasks
 
+    // axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/profile`, data)
+    // .then(res => {
+    //   setId(res.data.id)
+    // })
+    // .catch(() => {
+    //   setError('Error with request')
+    // })
+  }
+
+  const formatTasks = (tasks) => {
+    const numTasks = Object.keys(tasks).length
+    const output = {}
+    for(let i = 0; i < numTasks; i++){
+      output[i + 1] = tasks[`t${i}`]
+    }
+    return output
   }
 
   if (!data) {

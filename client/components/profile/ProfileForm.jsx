@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function ProfileForm ({ tasks, onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors }, unregister } = useForm()
   const [tasksList, setTasksList] = useState([{ task_id: tasks[0].id }])
 
   const styles = {
@@ -20,9 +20,13 @@ export default function ProfileForm ({ tasks, onSubmit }) {
   }
 
   const deleteTask = (index) => {
-    console.log(index)
     const list = [...tasksList]
     list.splice(index, 1)
+
+    for(let i = 0; i < tasksList.length; i++){
+      unregister(`tasks.t${i}`)
+    }
+
     setTasksList(list)
   }
 
@@ -31,8 +35,6 @@ export default function ProfileForm ({ tasks, onSubmit }) {
     list[index].task_id = parseInt(e.target.value)
     setTasksList(list)
   }
-
-  console.log(tasksList)
 
   return (
     <>
@@ -75,7 +77,11 @@ export default function ProfileForm ({ tasks, onSubmit }) {
           <label htmlFor='tasks'>Tasks</label>
           {tasksList.map((item, index) => (
             <div className='flex flex-row space-x-2' key={index}>
-              <select name='tasks' id='tasks' value={item.task_id} className={`${styles.input} border-gray-300 ${tasksList.length > 1 ? 'basis-5/6' : 'basis-full'}`} onChange={(e) => changeTask(e, index)}>
+              <select name='tasks' id='tasks' value={item.task_id} className={`${styles.input} border-gray-300 ${tasksList.length > 1 ? 'basis-5/6' : 'basis-full'}`} 
+                {...register(`tasks.t${index}`, {
+                  onChange: (e) => changeTask(e, index)
+                })}
+              >
                 {tasks.map((item, index) => (
                   <option value={item.id} key={item.id}>{`${item.title} (${item.rule.type})`}</option>
                 ))}
