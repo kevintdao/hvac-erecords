@@ -1,11 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Unit
-from base.models import BuildingManager
-from base.models import Technician
-from base.models import Building
-from base.models import Company
-from records.models import Task
+from base.models import Unit, BuildingManager, Technician, Building, Company
+from records.models import Task, Profile
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,4 +56,11 @@ class CompanySerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
+        fields = '__all__'
+
+class ProfileSerializer(serializers.ModelSerializer):
+    tasks = serializer.PrimaryKeyRelatedField(queryset=Task.objects.all(), many=True)
+
+    class Meta:
+        model = Profile
         fields = '__all__'
