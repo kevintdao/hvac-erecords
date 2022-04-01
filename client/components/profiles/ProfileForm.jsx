@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function ProfileForm ({ tasks, onSubmit }) {
+export default function ProfileForm ({ type, tasks, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, unregister } = useForm()
   const [tasksList, setTasksList] = useState([{ task_id: tasks[0].id }])
 
@@ -77,7 +77,7 @@ export default function ProfileForm ({ tasks, onSubmit }) {
           <label htmlFor='tasks'>Tasks</label>
           {tasksList.map((item, index) => (
             <div className='flex flex-row space-x-2' key={index}>
-              <select name='tasks' id='tasks' value={item.task_id} className={`${styles.input} border-gray-300 ${tasksList.length > 1 ? 'basis-5/6' : 'basis-full'}`} 
+              <select name={`tasks.t${index}`} id={`tasks.t${index}`} value={item.task_id} className={`${styles.input} border-gray-300 ${tasksList.length > 1 ? 'basis-5/6' : 'basis-full'}`} 
                 {...register(`tasks.t${index}`, {
                   onChange: (e) => changeTask(e, index)
                 })}
@@ -86,13 +86,13 @@ export default function ProfileForm ({ tasks, onSubmit }) {
                   <option value={item.id} key={item.id}>{`${item.title} (${item.rule.type})`}</option>
                 ))}
               </select>
-              {tasksList.length > 1 && <button type='button' className={`${styles.deleteButton} basis-1/6`} onClick={() => deleteTask(index)}>Delete</button>}
+              {tasksList.length > 1 && <button type='button' className={`${styles.deleteButton} basis-1/6`} id={`delete${index}`} onClick={() => deleteTask(index)}>Delete</button>}
             </div>
           ))}
-          <button type='button' className={styles.addButton} onClick={addTask}>Add Task</button>
+          <button type='button' className={styles.addButton} onClick={addTask} id='add-task'>Add Task</button>
         </div>
 
-        <button className={styles.button}>Create Profile</button>
+        <button className={styles.button} id='create-button'>{type}</button>
       </form>
     </>
   )

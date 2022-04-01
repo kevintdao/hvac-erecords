@@ -50,7 +50,7 @@ export default function Create () {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <ProfileForm tasks={data} onSubmit={onSubmit} />
+      <ProfileForm type='Create' tasks={data} onSubmit={onSubmit} />
     </div>
   )
 }
