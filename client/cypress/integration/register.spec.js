@@ -20,7 +20,12 @@ describe('Register page', () => {
   })
 
   it("should display error message when registration failed", () => {
-    cy.intercept('POST', '**/api/register', { statusCode: 404 }).as('registerError');
+    cy.intercept('POST', '**/api/register', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('registerError');
 
     cy.get('input#email').type("test@test.com");
     cy.get('input#password').type("Testing123!");

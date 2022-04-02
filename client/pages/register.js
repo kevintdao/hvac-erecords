@@ -4,6 +4,7 @@ import { useAppContext } from '../context/state'
 import Register from '../components/Register'
 import Header from '../components/Header'
 import Alert from '../components/Alert'
+import { handleError } from '../utils/errors'
 
 export default function Signup () {
   const { signup } = useAppContext()
@@ -20,7 +21,8 @@ export default function Signup () {
         setSuccess(true)
       })
       .catch(error => {
-        setError(error.message)
+        const output = handleError(error)
+        setError(output)
       })
   }
 

@@ -6,6 +6,7 @@ import axios from 'axios'
 import TechnicianForm from '../../../components/technicians/TechnicianForm'
 import Alert from '../../../components/Alert';
 import Loading from '../../../components/Loading'
+import { handleError } from '../../../utils/errors'
 
 export default function Edit(props) {
     const router = useRouter();
@@ -33,7 +34,8 @@ export default function Edit(props) {
             setTechnicianId(res.data.id);
         })
         .catch(error => {
-            setError("Error with request");
+            const output = handleError(error)
+            setError(output)
         })
     }
 
