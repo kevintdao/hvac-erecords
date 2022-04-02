@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
-from records.models import Task, Profile
+from records.models import Task, Profile, ProfileTask
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,9 +58,45 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
-class ProfileSerializer(serializers.ModelSerializer):
-    tasks = serializer.PrimaryKeyRelatedField(queryset=Task.objects.all(), many=True)
+class ProfileTaskPositionSerializer(serializers.ModelSerializer):
+    task = TaskSerializer(read_only=True)
+    task_id = serializers.PrimaryKeyRelatedField(write_only=True, source='task', queryset=Task.objects.all())
+
+    class Meta:
+        model = ProfileTask
+        fields = ('task', 'task_id', 'position')
+
+        
+class ProfileCreateSerializer(serializers.ModelSerializer):
+    tasks = ProfileTaskPositionSerializer(many=True)
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'tasks')
+
+    def create(self, validated_data):
+        tasks_data = validated_data.pop('tasks')
+        profile = Profile.objects.create(**validated_data)
+        for task_data in tasks_data:
+            ProfileTask.objects.create(
+                profile=profile,
+                task=task_data.get('task'),
+                position=task_data.get('position'))
+        return profile
+
+class ProfileTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileTask
+        fields = ('task_id', 'position')
+
+
+class ProfileDisplaySerializer(serializers.ModelSerializer):
+    tasks = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'title', 'description', 'tasks')
+
+    def get_tasks(self, profile_instance):
+        query_datas = ProfileTask.objects.filter(profile=profile_instance)
+        return [ProfileTaskSerializer(task).data for task in query_datas]
