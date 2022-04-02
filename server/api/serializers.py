@@ -1,3 +1,4 @@
+from re import S
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
@@ -84,11 +85,27 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
                 position=task_data.get('position'))
         return profile
 
+    def update(self, instance, validated_data):
+        tasks_data = validated_data.pop('tasks')
+        # maybe should not do it this way
+        ProfileTask.objects.filter(profile=instance).delete()
+        
+        instance.title = validated_data.get('title')
+        instance.description = validated_data.get('description')
+        instance.save()
+
+        for task_data in tasks_data:
+            ProfileTask.objects.create(
+                profile=instance,
+                task=task_data.get('task'),
+                position=task_data.get('position'))
+                
+        return instance
+
 class ProfileTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileTask
         fields = ('task_id', 'position')
-
 
 class ProfileDisplaySerializer(serializers.ModelSerializer):
     tasks = serializers.SerializerMethodField()
