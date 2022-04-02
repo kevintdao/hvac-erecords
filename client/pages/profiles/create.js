@@ -4,6 +4,7 @@ import Header from '../../components/Header'
 import Alert from '../../components/Alert'
 import ProfileForm from '../../components/profiles/ProfileForm'
 import Loading from '../../components/Loading'
+import { handleError } from '../../utils/errors'
 
 export default function Create () {
   const [data, setData] = useState()
@@ -25,7 +26,8 @@ export default function Create () {
     //   setId(res.data.id)
     // })
     // .catch(() => {
-    //   setError('Error with request')
+      // const output = handleError(error)
+      // setError(output)
     // })
   }
 
