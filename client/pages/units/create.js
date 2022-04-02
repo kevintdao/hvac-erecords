@@ -4,6 +4,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import UnitForm from '../../components/units/UnitForm'
 import Alert from '../../components/Alert'
+import { handleError } from '../../utils/errors'
 
 export default function Create () {
   const [id, setId] = useState(null)
@@ -20,7 +21,8 @@ export default function Create () {
         setId(res.data.id)
       })
       .catch(() => {
-        setError('Error with request')
+        const output = handleError(error)
+        setError(output)
       })
   }
 

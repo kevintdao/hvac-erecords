@@ -6,6 +6,7 @@ import Header from '../../../components/Header'
 import TaskForm from '../../../components/tasks/TaskForm'
 import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
+import { handleError } from '../../../utils/errors'
 
 export default function Edit (props) {
   const router = useRouter()
@@ -47,7 +48,8 @@ export default function Edit (props) {
         setTaskId(res.data.id)
       })
       .catch(() => {
-        setError('Error with request')
+        const output = handleError(error)
+        setError(output)
       })
   }
 
