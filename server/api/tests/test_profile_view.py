@@ -36,4 +36,21 @@ class TestProfileAPI(TestCase):
         # Ensure that the profile has 2 tasks
         self.assertEqual(len(Profile.objects.last().tasks.all()), 2)
 
-    
+    def test_api_list_profiles(self):
+        url = reverse('profiles-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Profile.objects.count(), 2)
+
+    def test_api_create_profile_failure(self):
+        data = {
+            "title": "Routine AC Maintenance",
+            "description": "this is the profile for routine air conditioner maintenance"
+        }
+        self.response = self.client.post(
+            reverse('tasks-list'),
+            data,
+            format="json",
+            content_type="application/json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
