@@ -64,3 +64,13 @@ class TestProfileAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], profile.title)
+
+    def test_api_delete_profile(self):
+        profile = Profile.objects.last()
+        response = self.client.delete(
+            reverse('profiles-detail',
+            kwargs={'pk':profile.id}), format="json",
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Profile.objects.count(), 1)

@@ -30,3 +30,6 @@ def apiProfile(request, pk):
     if request.method == 'GET':
         serializer = ProfileDisplaySerializer(profile, many=False)
         return Response(serializer.data)
+    elif request.method == 'DELETE':
+        profile.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
