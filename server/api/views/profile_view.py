@@ -30,6 +30,15 @@ def apiProfile(request, pk):
     if request.method == 'GET':
         serializer = ProfileDisplaySerializer(profile, many=False)
         return Response(serializer.data)
+    # Update profile
+    elif request.method == 'PUT':
+        serializer = ProfileCreateSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            saved_obj = serializer.save()
+            response_data = ProfileDisplaySerializer(saved_obj).data
+            return Response(response_data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Delete profile
     elif request.method == 'DELETE':
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
