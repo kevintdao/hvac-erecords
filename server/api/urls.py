@@ -26,4 +26,5 @@ urlpatterns = [
     path("companies/<int:pk>/", views.apiCompany, name="companies-detail"),
     path("tasks", views.apiTasks, name="tasks-list"),
     path("tasks/<int:pk>/", views.apiTask, name="tasks-detail"),
+    path("profiles", views.apiProfiles, name="profiles-list")
 ]
