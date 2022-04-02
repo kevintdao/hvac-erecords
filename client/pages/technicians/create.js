@@ -4,6 +4,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import TechnicianForm from '../../components/technicians/TechnicianForm';
 import Alert from '../../components/Alert'
+import { handleError } from '../../utils/errors';
 
 export default function Create() {
     const [id, setId] = useState(null);
@@ -20,7 +21,8 @@ export default function Create() {
             setId(res.data.id);
         })
         .catch(error => {
-            setError("Error with request");
+            const output = handleError(error)
+            setError(output)
         })
     }
 

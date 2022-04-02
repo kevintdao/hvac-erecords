@@ -135,7 +135,12 @@ describe('Task create page', () => {
   })
 
   it('should display error message when there is an error', () => {
-    cy.intercept('POST', '**/api/tasks', { statusCode: 404 }).as('createTaskError');
+    cy.intercept('POST', '**/api/tasks', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('createTaskError');
 
     cy.get('button#create-button').click();
     cy.wait('@createTaskError');

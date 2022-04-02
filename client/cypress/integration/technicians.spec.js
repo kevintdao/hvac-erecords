@@ -90,7 +90,12 @@ describe('Technician create page', () => {
     })
 
     it('should display error message when there is an error', () => {
-        cy.intercept('POST', '**/api/technicians', { statusCode: 404 }).as('createTechnicianError');
+        cy.intercept('POST', '**/api/technicians', { 
+          statusCode: 404,
+          body: {
+            email: "Error message"
+          }
+        }).as('createTechnicianError');
 
         cy.get('button#create-button').click();
         cy.wait('@createTechnicianError');
@@ -127,7 +132,12 @@ describe('Technician edit page', () => {
     })
   
     it('should display error message when there is an error', () => {
-        cy.intercept('PUT', '**/api/technicians/1', { statusCode: 404 }).as('updateTechnicianError');
+        cy.intercept('PUT', '**/api/technicians/1', { 
+          statusCode: 404,
+          body: {
+            email: "Error message"
+          }
+        }).as('updateTechnicianError');
     
         cy.get('button#create-button').click();
         cy.wait('@updateTechnicianError');
