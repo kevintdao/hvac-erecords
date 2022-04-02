@@ -19,3 +19,14 @@ def apiProfiles(request):
             response_data = ProfileDisplaySerializer(saved_obj).data
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apiProfile(request, pk):
+    try:
+        profile = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    # Detail of profile
+    if request.method == 'GET':
+        serializer = ProfileDisplaySerializer(profile, many=False)
+        return Response(serializer.data)

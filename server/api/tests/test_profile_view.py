@@ -54,3 +54,13 @@ class TestProfileAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_get_profile(self):
+        profile = Profile.objects.last()
+        response = self.client.get(
+            reverse('profiles-detail',
+            kwargs={'pk':profile.id}), format="json",
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], profile.title)

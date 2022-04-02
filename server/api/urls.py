@@ -2,6 +2,8 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
+from api.views.profile_view import apiProfile
+
 from . import views
 
 router = routers.DefaultRouter()
@@ -26,5 +28,6 @@ urlpatterns = [
     path("companies/<int:pk>/", views.apiCompany, name="companies-detail"),
     path("tasks", views.apiTasks, name="tasks-list"),
     path("tasks/<int:pk>/", views.apiTask, name="tasks-detail"),
-    path("profiles", views.apiProfiles, name="profiles-list")
+    path("profiles", views.apiProfiles, name="profiles-list"),
+    path("profiles/<int:pk>/", views.apiProfile, name="profiles-detail")
 ]
