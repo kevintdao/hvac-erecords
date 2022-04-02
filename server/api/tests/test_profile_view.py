@@ -94,6 +94,29 @@ class TestProfileAPI(TestCase):
         self.assertEqual(Profile.objects.last().description, 'this is the profile for routine for packed units')
         self.assertEqual(len(Profile.objects.last().tasks.all()), 3)
 
+
+    def test_api_update_profile_failure(self):
+        profile = Profile.objects.last()
+        new_data = {
+            "title": "Routine maintenance for packed units",
+            "tasks": [
+                {
+                    "task_id": 1,
+                    "position": 2
+                },
+                {
+                    "task_id": 2,
+                    "position": 3
+                }
+            ]
+        }
+        response = self.client.put(
+            reverse('profiles-detail',
+            kwargs={'pk':profile.id}), data=new_data, format="json", 
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_api_delete_profile(self):
         profile = Profile.objects.last()
         response = self.client.delete(
@@ -103,3 +126,10 @@ class TestProfileAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Profile.objects.count(), 1)
+
+    def test_api_profile_not_found(self):
+        response = self.client.get(
+            reverse('tasks-detail',
+            kwargs={'pk':0}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
