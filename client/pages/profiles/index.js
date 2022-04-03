@@ -9,10 +9,10 @@ export default function Index () {
   const [data, setData] = useState()
 
   useEffect(() => {
-    // axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
-    //   .then((res) => {
-    //     setData(res.data)
-    //   })
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
+      .then((res) => {
+        setData(res.data)
+      })
   }, [])
 
   const labels = {

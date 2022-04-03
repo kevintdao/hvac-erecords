@@ -25,7 +25,7 @@ export default function ProfileTable ({ data, labels }) {
           {data.map((item, index) => (
             <tr key={index}>
               <td className={styles.cell} id={`title-${item.id}`}>{item.title}</td>
-              <td className={styles.cell} id={`num-tasks-${item.id}`}>{}</td>
+              <td className={styles.cell} id={`num-tasks-${item.id}`}>{item.tasks.length}</td>
               <td>
                 <Link href={`/profiles/${item.id}`}>
                   <a className={styles.link}>More Info</a>

@@ -27,8 +27,6 @@ export default function Create () {
     const tasks = formatTasks(data.tasks)
     data.tasks = tasks
 
-    console.log(data)
-
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`, data)
     .then(res => {
       setId(res.data.id)
