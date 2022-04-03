@@ -17,7 +17,9 @@
       "components/NavBar.jsx",
       "components/Login.jsx",
       "components/Register.jsx",
-      "context/state.js"
+      "components/profiles/ProfileUpdateForm.jsx",
+      "context/state.js",
+      "utils/errors.js"
     ],
     "excludeAfterRemap": true
   },

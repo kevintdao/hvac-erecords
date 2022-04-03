@@ -191,7 +191,12 @@ describe('Task edit page', () => {
   })
 
   it('should display error message when there is an error', () => {
-    cy.intercept('PUT', '**/api/tasks/1', { statusCode: 404 }).as('updateTaskError');
+    cy.intercept('PUT', '**/api/tasks/1', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('updateTaskError');
 
     cy.get('button#create-button').click();
     cy.wait('@updateTaskError');
