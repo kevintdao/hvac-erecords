@@ -9,15 +9,36 @@ import Header from '../../components/Header'
 export default function Profile (props) {
   const router = useRouter()
   const { id } = router.query
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState()
 
   useEffect(() => {
     if (!router.isReady) return
 
-    // axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${id}/`)
-    //   .then((res) => {
-    //     setData(res.data)
-    //   })
+    setLoading(true)
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${id}/`)
+      .then((res) => {
+        let profile = res.data
+        // get all the tasks for the profile
+        let endpoints = []
+        let tasks = res.data.tasks
+        for (let i = 0; i < tasks.length; i++) {
+          endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/tasks/${tasks[i].task_id}/`)
+        }
+
+        let tasksList = []
+        axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+          .then((res) => {
+            for (let i = 0; i < res.length; i++) {
+              tasksList.push(res[i].data)
+            }
+
+            setData({
+              profile: profile,
+              tasks: tasksList
+            })
+        })
+      })
   }, [id, router.isReady])
 
   const styles = {
