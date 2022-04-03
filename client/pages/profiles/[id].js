@@ -9,13 +9,11 @@ import Header from '../../components/Header'
 export default function Profile (props) {
   const router = useRouter()
   const { id } = router.query
-  const [loading, setLoading] = useState(true)
   const [data, setData] = useState()
 
   useEffect(() => {
     if (!router.isReady) return
 
-    setLoading(true)
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${id}/`)
       .then((res) => {
         let profile = res.data
