@@ -147,7 +147,12 @@ describe('Unit edit page', () => {
   })
 
   it('should display error message when there is an error', () => {
-    cy.intercept('PUT', '**/api/units/1', { statusCode: 404 }).as('updateUnitError');
+    cy.intercept('PUT', '**/api/units/1', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('updateUnitError');
 
     cy.get('button#create-button').click();
     cy.wait('@updateUnitError');
