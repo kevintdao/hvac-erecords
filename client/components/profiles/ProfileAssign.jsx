@@ -1,45 +1,61 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-export default function ProfileAssign ({ profiles }) {
-  const [selected, setSelected] = useState()
-
-  const labels = {
-    text: ['Title', 'Description', 'Number of Tasks'],
-    id: ['title', 'description', 'num-tasks']
-  }
+export default function ProfileAssign ({ profiles, onSubmit }) {
+  const { register, handleSubmit, formState: { errors }, unregister } = useForm()
+  const [profilesList, setProfilesList] = useState([{ profile_id: profiles[0].id }])
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
-    table: 'divide-y divide-gray-200 min-w-full table-fixed',
-    header: 'px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
-    body: 'divide-y divide-gray-200 flex-1 sm:flex-none',
-    cell: 'px-2 py-3 text-sm font-medium text-gray-900',
-    link: 'font-medium text-blue-600 hover:text-blue-500',
-    checkbox: 'form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+    addButton: 'p-2 bg-green-700 rounded text-white text-center hover:bg-green-800',
+    deleteButton: 'p-2 bg-red-700 rounded text-white text-center hover:bg-red-800',
+    input: 'p-2 border rounded border-gray-300',
+    inputContainer: 'flex flex-col',
   }
 
+  const addProfile = () => {
+    setProfilesList([...profilesList, { profile_id: profiles[0].id }])
+  }
+
+  const deleteProfile = (index) => {
+    const list = [...profilesList]
+    list.splice(index, 1)
+
+    for(let i = 0; i < profilesList.length; i++){
+      unregister(`profiles.t${i}`)
+    }
+
+    setProfilesList(list)
+  }
+
+  const changeProfile = (e, index) => {
+    const list = [...profilesList]
+    list[index].profile_id = parseInt(e.target.value)
+    setProfilesList(list)
+  }
+
+  console.log(profilesList)
+
   return (
-    <div className='space-y-2'>
-      <table className={styles.table}>
-        <thead className='bg-gray-50'>
-          <tr>
-            <th></th>
-            {labels.id.map((item, index) => (
-              <th key={index} id={labels.id[index]} className={styles.header}>{labels.text[index]}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className={styles.body}>
-          {profiles.map((item, index) => (
-            <tr key={index}>
-              <td className={styles.cell}><input className={styles.checkbox} type='checkbox' name={item.id} id={item.id} /></td>
-              <td className={`${styles.cell} w-1/4`} id={`title-${item.id}`}>{item.title}</td>
-              <td className={`${styles.cell} w-1/2`} id={`description-${item.id}`}>{item.description}</td>
-              <td className={`${styles.cell} w-1/10`} id={`num-tasks-${item.id}`}>{item.tasks.length}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <form action='' method='post' onSubmit={handleSubmit(onSubmit)} className='space-y-4 mt-2'>
+      <div className='space-y-2'>
+        <label htmlFor='profiles'>Profiles</label>
+        {profilesList.map((item, index) => (
+          <div className='flex flex-row space-x-2' key={index}>
+            <select name={`profiles.t${index}`} id={`profiles.t${index}`} value={item.profile_id} className={`${styles.input} border-gray-300 ${profilesList.length > 1 ? 'basis-5/6' : 'basis-full'}`}
+              {...register(`profiles.t${index}`, {
+                onChange: (e) => changeProfile(e, index)
+              })}
+            >
+              {profiles.map((item, index) => (
+                <option value={item.id} key={item.id}>{`${item.title} (${item.description})`}</option>
+              ))}
+            </select>
+            {profilesList.length > 1 && <button type='button' className={`${styles.deleteButton} basis-1/6`} id={`delete${index}`} onClick={() => deleteProfile(index)}>Delete</button>}
+          </div>
+        ))}
+        <button type='button' className={styles.addButton} onClick={addProfile} id='add-profile'>Add Profile</button>
+      </div>
+    </form>
   )
 }
