@@ -6,12 +6,17 @@ import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 import ProfileAssign from '../../components/profiles/ProfileAssign'
+import { handleError } from '../../utils/errors'
 
 export default function Unit (props) {
   const router = useRouter()
   const { id } = router.query
   const [data, setData] = useState()
   const [profiles, setProfiles] = useState()
+
+  const styles = {
+    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
+  }
 
   useEffect(() => {
     if (!router.isReady) return
@@ -28,11 +33,29 @@ export default function Unit (props) {
   }, [id, router.isReady])
 
   const onSubmit = (data) => {
+    const profiles = formatProfiles(data.profiles)
+    data.profiles = profiles
     console.log(data)
+
+    // axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`, data)
+    // .then(res => {
+    //   setId(res.data.id)
+    // })
+    // .catch(error => {
+    //   const output = handleError(error)
+    //   setError(output)
+    // })
   }
 
-  const styles = {
-    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
+  const formatProfiles = (profiles) => {
+    const numProfiles = Object.keys(profiles).length
+    const output = []
+    for(let i = 0; i < numProfiles; i++){
+      output.push({
+        profile_id: profiles[`t${i}`],
+      })
+    }
+    return output
   }
 
   if (!data) {
@@ -63,10 +86,7 @@ export default function Unit (props) {
       <hr />
 
       <div className='space-y-2'>
-        <div className='flex flex-row justify-between'>
-          <h2 className='font-bold text-3xl'>Assign Profile</h2>
-          <button className={styles.button} id='assign-button'>Assign</button>
-        </div>
+        <h2 className='font-bold text-3xl'>Assign Profile</h2>
 
         <ProfileAssign profiles={profiles} onSubmit={onSubmit} />
       </div>

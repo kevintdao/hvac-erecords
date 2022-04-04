@@ -56,6 +56,7 @@ export default function ProfileAssign ({ profiles, onSubmit }) {
         ))}
         <button type='button' className={styles.addButton} onClick={addProfile} id='add-profile'>Add Profile</button>
       </div>
+      <button className={styles.button} id='assign-button'>Assign</button>
     </form>
   )
 }
