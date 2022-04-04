@@ -45,9 +45,17 @@
 		}
 	},
 	{
+		"model": "auth.user",
+		"pk": 1,
+		"fields": {
+			"username": "user@email.com",
+			"email": "user@email.com"
+		}
+	},
+	{
         "model":  "base.technician",
-        "pk":  "1",
         "fields": { 
+			"user": 1,
 			"company": 1,
 			"first_name":  "Bob",
 			"last_name":  "Smith",
