@@ -117,7 +117,12 @@ describe('Manager index page', () => {
     })
   
     it('should display error message when there is an error', () => {
-      cy.intercept('PUT', '**/api/managers/1', { statusCode: 404 }).as('updateManagerError');
+      cy.intercept('PUT', '**/api/managers/1', { 
+        statusCode: 404,
+        body: {
+          email: "Error message"
+        }
+      }).as('updateManagerError');
   
       cy.get('button#create-button').click();
       cy.wait('@updateManagerError');

@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "company": 1,
+  "title": "Text Task",
+  "description": "Description",
+  "rule": {
+    "type": "Text"
+  }
+}
+  

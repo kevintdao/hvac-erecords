@@ -3,12 +3,52 @@
         "model":  "records.task",
         "pk":  "1",
         "fields": { 
+			"company": 1,
 			"title":  "Record condition of condenser coil",
 			"description":  "",
 			"rule": {		
 				"type": 1,
 				"name": "response"
 			}
+		}
+	},
+	{
+        "model":  "records.task",
+        "pk":  "2",
+        "fields": { 
+			"company": 1,
+			"title":  "Record condition of filter",
+			"description":  "",
+			"rule": {		
+				"type": 1,
+				"name": "response"
+			}
+		}
+	},
+	{
+		"model": "records.profile", 
+		"pk": 1, 
+		"fields": {
+			"title": "Set of tasks",
+			"description": "test"
+		}
+	},
+	{
+		"model": "records.profiletask", 
+		"pk": 1, 
+		"fields": {
+			"profile": 1, 
+			"task": 1, 
+			"position": 1
+		}
+	}, 
+	{
+		"model": "records.profiletask", 
+		"pk": 2, 
+		"fields": {
+			"profile": 1, 
+			"task": 2, 
+			"position": 2
 		}
 	}
 ]

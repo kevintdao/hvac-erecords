@@ -5,6 +5,7 @@ import Login from '../components/Login'
 import Header from '../components/Header'
 import Alert from '../components/Alert'
 import axios from 'axios'
+import { handleError } from '../utils/errors'
 
 export default function LoginPage () {
   const { login, data, setData } = useAppContext()
@@ -35,7 +36,8 @@ export default function LoginPage () {
         router.push('/')
       })
       .catch(error => {
-        setError(error.message)
+        const output = handleError(error)
+        setError(output)
       })
   }
 
