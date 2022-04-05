@@ -62,13 +62,14 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.last()
         new_data = {
+            'user': technician.user_id,
             'company' : 1,
             'first_name' : 'Andrew',
             'last_name' : 'Murley',
             'phone_number' : '010-010-0101',
             'license_number' : 2
         }
-        print(technician.user_id)
+
         response = self.client.put(
             reverse('technicians-detail',
             kwargs={'pk':technician.user_id}), data=new_data, format="json",
@@ -80,7 +81,7 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician_failure(self):
         technician = Technician.objects.last()
         new_data = {
-            'user_id': '2',
+            'user': '2',
         }
         response = self.client.put(
             reverse('technicians-detail',
