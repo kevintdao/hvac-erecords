@@ -48,7 +48,7 @@ class TestProfileAPI(TestCase):
             "description": "this is the profile for routine air conditioner maintenance"
         }
         self.response = self.client.post(
-            reverse('tasks-list'),
+            reverse('profiles-list'),
             data,
             format="json",
             content_type="application/json"
@@ -129,7 +129,7 @@ class TestProfileAPI(TestCase):
 
     def test_api_profile_not_found(self):
         response = self.client.get(
-            reverse('tasks-detail',
+            reverse('profiles-detail',
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
