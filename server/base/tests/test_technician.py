@@ -8,7 +8,7 @@ class TechnicianModelTests(TestCase):
 
     def test_created_valid_technician(self):
         Technician.objects.create(company=Company.objects.first(), first_name = 'John', last_name = 'Doe', phone_number = '101-101-1010', license_number = 5, user_id=1)
-        self.assert_(Technician.objects.filter(company=Company.objects.first(), first_name = 'John', last_name = 'Doe', phone_number = '101-101-1010', license_number = 5).exists())
+        self.assert_(Technician.objects.filter(company=Company.objects.first(), first_name = 'John', last_name = 'Doe', phone_number = '101-101-1010', license_number = 5, user_id=1).exists())
 
     def test_created_invalid_technician(self):
         with self.assertRaises(DataError):
