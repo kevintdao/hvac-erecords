@@ -7,6 +7,7 @@ class TestBuildingManagerAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
+        self.initial_count = BuildingManager.objects.count()
         self.data = {
             'company': 1,
             'name': 'Joe Smith',
@@ -20,14 +21,14 @@ class TestBuildingManagerAPI(TestCase):
 
     def test_api_create_building_manager(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(BuildingManager.objects.count(), 2)
+        self.assertEqual(BuildingManager.objects.count(), self.initial_count+1)
         self.assertEqual(BuildingManager.objects.last().name, 'Joe Smith')
 
     def test_api_list_building_manager(self):
         url = reverse('managers-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(BuildingManager.objects.count(), 2)
+        self.assertEqual(BuildingManager.objects.count(), self.initial_count+1)
 
     def test_api_get_building_manager(self):
         building_manager = BuildingManager.objects.last()
@@ -72,7 +73,7 @@ class TestBuildingManagerAPI(TestCase):
             kwargs={'pk':building_manager.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(BuildingManager.objects.count(), 1)
+        self.assertEqual(BuildingManager.objects.count(), self.initial_count)
 
     def test_api_building_manager_not_found(self):
         response = self.client.get(
