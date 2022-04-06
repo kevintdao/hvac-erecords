@@ -25,7 +25,7 @@ test("Should display preset company data", () => {
     expect(owner_id.textContent).toEqual(data.owner_id.toString());
     expect(site_name.textContent).toEqual(data.site_name);
     expect(street.textContent).toEqual(data.street);
-    expect(city.textContent).toEqual(data.zip_code);
+    expect(city.textContent).toEqual(data.city);
     expect(zip_code.textContent).toEqual(data.zip_code);
     expect(country.textContent).toEqual(data.country);
 })

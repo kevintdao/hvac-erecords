@@ -2,9 +2,6 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
-from api.views.profile_view import apiProfile
-from server.api.views.building_view import apiBuildings
-
 from . import views
 
 router = routers.DefaultRouter()

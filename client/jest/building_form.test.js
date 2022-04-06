@@ -29,12 +29,12 @@ test('Should watch building input correctly', () => {
     fireEvent.input(zipCodeInput, { target: { value: input.zip_code} });
     fireEvent.input(countryInput, { target: { value: input.country} });
 
-    expect(ownerIdInput.textContent).toEqual(data.owner_id.toString());
-    expect(siteNameInput.textContent).toEqual(data.site_name);
-    expect(streetInput.textContent).toEqual(data.street);
-    expect(cityInput.textContent).toEqual(data.zip_code);
-    expect(zipCodeInput.textContent).toEqual(data.zip_code);
-    expect(countryInput.textContent).toEqual(data.country);
+    expect(ownerIdInput.value).toEqual(input.owner_id.toString());
+    expect(siteNameInput.value).toEqual(input.site_name);
+    expect(streetInput.value).toEqual(input.street);
+    expect(cityInput.value).toEqual(input.city);
+    expect(zipCodeInput.value).toEqual(input.zip_code);
+    expect(countryInput.value).toEqual(input.country);
 })
 
 test("Should display error message when building inputs are empty", async () => {
@@ -49,7 +49,7 @@ test("Should display error message when building inputs are empty", async () => 
     const ownerIdError = container.querySelector("span#owner_id-help");
     const siteNameError = container.querySelector("span#site_name-help");
     const streetError = container.querySelector("span#street-help");
-    const cityError = container.querySelector("span#city");
+    const cityError = container.querySelector("span#city-help");
     const zipCodeError = container.querySelector("span#zip_code-help");
     const countryError = container.querySelector("span#country-help");
 
