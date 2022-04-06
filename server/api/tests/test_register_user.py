@@ -16,7 +16,7 @@ class RegisterUserTest(APITestCase):
     
     def test_register_user(self):
         url = 'http://localhost:8000/api/register/'
-        data = {'email': 'test44@test.com','username': 'test44' ,'password': 'Testing44*'}
+        data = {'email': 'test44@test.com','username': 'test44@test.com' ,'password': 'Testing44*'}
         response = self.client.post(url, data, format = 'json')
         
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

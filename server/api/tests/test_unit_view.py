@@ -8,6 +8,7 @@ class TestUnitAPI(TestCase):
     fixtures = ['test_data.json',]
     
     def setUp(self):
+        self.initial_count = Unit.objects.count()
         self.data = {
             'building': 1,
             'external_id': '',
@@ -26,14 +27,14 @@ class TestUnitAPI(TestCase):
 
     def test_api_create_unit(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Unit.objects.count(), 1)
+        self.assertEqual(Unit.objects.count(), self.initial_count+1)
         self.assertEqual(Unit.objects.last().manufacturer, 'Trane')
 
     def test_api_list_unit(self):
         url = reverse('units-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Unit.objects.count(), 1)
+        self.assertEqual(Unit.objects.count(), self.initial_count+1)
 
     def test_api_get_unit(self):
         unit = Unit.objects.last()
@@ -82,7 +83,7 @@ class TestUnitAPI(TestCase):
             kwargs={'pk':unit.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Unit.objects.count(), 0)
+        self.assertEqual(Unit.objects.count(), self.initial_count)
 
     def test_api_unit_not_found(self):
         response = self.client.get(
