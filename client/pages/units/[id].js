@@ -6,16 +6,23 @@ import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 import ProfileAssign from '../../components/profiles/ProfileAssign'
+import ProfilesAssignTable from '../../components/profiles/ProfilesAssignTable'
 import { handleError } from '../../utils/errors'
 
 export default function Unit (props) {
   const router = useRouter()
   const { id } = router.query
   const [data, setData] = useState()
+  const [plans, setPlans] = useState()
   const [profiles, setProfiles] = useState()
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
+  }
+
+  const labels = {
+    text: ['Title'],
+    id: ['title']
   }
 
   useEffect(() => {
@@ -24,7 +31,9 @@ export default function Unit (props) {
     const fetchData = async () => {
       const details = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
+      const plans = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans`)
 
+      setPlans(plans.data)
       setProfiles(profiles.data)
       setData(details.data)
     }
@@ -33,11 +42,10 @@ export default function Unit (props) {
   }, [id, router.isReady])
 
   const onSubmit = (data) => {
-    const profiles = formatProfiles(data.profiles)
-    data.profiles = profiles
+    data.unit = id
     console.log(data)
 
-    // axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`, data)
+    // axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/plan`, data)
     // .then(res => {
     //   setId(res.data.id)
     // })
@@ -45,17 +53,6 @@ export default function Unit (props) {
     //   const output = handleError(error)
     //   setError(output)
     // })
-  }
-
-  const formatProfiles = (profiles) => {
-    const numProfiles = Object.keys(profiles).length
-    const output = []
-    for(let i = 0; i < numProfiles; i++){
-      output.push({
-        profile_id: profiles[`t${i}`],
-      })
-    }
-    return output
   }
 
   if (!data) {
@@ -86,8 +83,19 @@ export default function Unit (props) {
       <hr />
 
       <div className='space-y-2'>
-        <h2 className='font-bold text-3xl'>Assign Profile</h2>
+        <h2 className='font-bold text-3xl'>Assigned Profile</h2>
 
+        {plans.length === 0 ? 
+          <p className={styles.desc} id='no-plans'>No profiles are assigned to this unit</p> : 
+          <ProfilesAssignTable data={plans} labels={labels} />
+        }
+      </div>
+
+      <hr />
+
+      <div className='space-y-2'>
+        <h2 className='font-bold text-3xl'>Assign a Profile</h2>
+        
         <ProfileAssign profiles={profiles} onSubmit={onSubmit} />
       </div>
     </div>
