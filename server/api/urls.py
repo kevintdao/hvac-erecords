@@ -29,5 +29,7 @@ urlpatterns = [
     path("profiles", views.apiProfiles, name="profiles-list"),
     path("profiles/<int:pk>/", views.apiProfile, name="profiles-detail"),
     path("buildings", views.apiBuildings, name="buildings-list"),
-    path("buildings/<int:pk>/", views.apiBuilding, name="buildings-detail")
+    path("buildings/<int:pk>/", views.apiBuilding, name="buildings-detail"),
+    path("plans", views.apiProfilePlans, name="plans-list"),
+    path("plans/<int:pk>/", views.apiProfilePlan, name="plans-detail")
 ]
