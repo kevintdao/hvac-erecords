@@ -31,4 +31,5 @@ urlpatterns = [
     path("profiles", views.apiProfiles, name="profiles-list"),
     path("profiles/<int:pk>/", views.apiProfile, name="profiles-detail"),
     path("plans", views.apiProfilePlans, name="plans-list"),
+    path("plans/<int:pk>/", views.apiProfilePlan, name="plans-detail"),
 ]
