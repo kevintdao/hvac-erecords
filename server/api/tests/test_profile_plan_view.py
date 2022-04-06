@@ -11,7 +11,6 @@ class TestProfilePlanAPI(TestCase):
 
     def setUp(self):
         self.initial_count = ProfilePlan.objects.count()
-
         self.data = {
             "profile": 1,
             "unit": 1,
@@ -20,7 +19,6 @@ class TestProfilePlanAPI(TestCase):
             "is_required": True,
             "is_repeating": True
         }
-
         self.response = self.client.post(
             reverse('plans-list'),
             self.data,

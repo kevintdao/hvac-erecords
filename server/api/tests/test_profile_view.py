@@ -7,6 +7,7 @@ class TestProfileAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
     
     def setUp(self):
+        self.initial_count = Profile.objects.count()
         self.data = {
             "title": "Routine AC Maintenance",
             "description": "this is the profile for routine air conditioner maintenance",
@@ -31,7 +32,7 @@ class TestProfileAPI(TestCase):
 
     def test_api_create_profile(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Profile.objects.count(), 2)
+        self.assertEqual(Profile.objects.count(), self.initial_count+1)
         self.assertEqual(Profile.objects.last().title, 'Routine AC Maintenance')
         # Ensure that the profile has 2 tasks
         self.assertEqual(len(Profile.objects.last().tasks.all()), 2)
@@ -40,7 +41,7 @@ class TestProfileAPI(TestCase):
         url = reverse('profiles-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Profile.objects.count(), 2)
+        self.assertEqual(Profile.objects.count(), self.initial_count+1)
 
     def test_api_create_profile_failure(self):
         data = {
@@ -125,7 +126,7 @@ class TestProfileAPI(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Profile.objects.count(), 1)
+        self.assertEqual(Profile.objects.count(), self.initial_count)
 
     def test_api_profile_not_found(self):
         response = self.client.get(
