@@ -8,6 +8,7 @@ class TestTechnicianAPI(TestCase):
 
     def setUp(self):
         self.data = {
+            'email' : 'test@testmail.com',
             'company' : 1,
             'first_name' : 'John',
             'last_name' : 'Doe',
@@ -27,7 +28,7 @@ class TestTechnicianAPI(TestCase):
     
     def test_api_create_technician_failure(self):
         data = {
-            'id': '2',
+            'email': '33@test.com',
         }
         self.response = self.client.post(
             reverse('technicians-list'),
@@ -46,7 +47,7 @@ class TestTechnicianAPI(TestCase):
         technician = Technician.objects.last()
         response = self.client.get(
             reverse('technicians-detail',
-            kwargs={'pk':technician.id}), format="json"
+            kwargs={'pk':technician.user_id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['first_name'], technician.first_name)
@@ -61,15 +62,17 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.last()
         new_data = {
+            'user': technician.user_id,
             'company' : 1,
             'first_name' : 'Andrew',
             'last_name' : 'Murley',
             'phone_number' : '010-010-0101',
             'license_number' : 2
         }
+
         response = self.client.put(
             reverse('technicians-detail',
-            kwargs={'pk':technician.id}), data=new_data, format="json",
+            kwargs={'pk':technician.user_id}), data=new_data, format="json",
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -78,11 +81,11 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician_failure(self):
         technician = Technician.objects.last()
         new_data = {
-            'id': '2',
+            'user': '2',
         }
         response = self.client.put(
             reverse('technicians-detail',
-            kwargs={'pk':technician.id}), data=new_data, format="json",
+            kwargs={'pk':technician.user_id}), data=new_data, format="json",
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -91,7 +94,7 @@ class TestTechnicianAPI(TestCase):
         technician = Technician.objects.last()
         response = self.client.delete(
             reverse('technicians-detail',
-            kwargs={'pk':technician.id}), format="json"
+            kwargs={'pk':technician.user_id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Technician.objects.count(), 1)

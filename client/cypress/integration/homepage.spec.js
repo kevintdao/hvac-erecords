@@ -3,7 +3,7 @@ describe('Home page', () => {
     cy.visit('http://localhost:3000/');
   })
 
-  it('should be at the register page', () => {
-    cy.get('div').should('contain', 'Home');
+  it('should be at the home page', () => {
+    cy.get('h2').should('contain', 'Welcome');
   })
 })

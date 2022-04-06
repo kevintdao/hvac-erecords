@@ -16,9 +16,12 @@ def apiTechnicians(request):
     elif request.method == 'POST':
         user = User.objects.create_user(
             email=request.data['email'],
-            username=request.data['email'],
-            password=request.data['password']
+            username=request.data['email']
         )
+        keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
+        for key in keys:
+            if key not in request.data:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         serializer = TechnicianSerializer(data={'user': user.id, 'first_name': request.data['first_name'], 'last_name': request.data['last_name'], 'phone_number': request.data['phone_number'], 'license_number': request.data['license_number'], 'company': request.data['company'] })
         if serializer.is_valid():
             serializer.save()

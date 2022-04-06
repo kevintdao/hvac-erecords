@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "company": 1,
+        "first_name": "Andrew",
+        "last_name": "Murley",
+        "phone_number": "+13193844357",
+        "license_number": 4
+    },
+    {
+        "id": 2,
+        "user_id": 2,
+        "company": 1,
+        "first_name": "Ryan",
+        "last_name": "Doe",
+        "phone_number": "+13193560001",
+        "license_number": 5
+    }
+]
