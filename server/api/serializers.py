@@ -2,7 +2,7 @@ from re import S
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
-from records.models import Task, Profile, ProfileTask
+from records.models import Task, Profile, ProfileTask, ProfilePlan
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -117,3 +117,8 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
     def get_tasks(self, profile_instance):
         query_datas = ProfileTask.objects.filter(profile=profile_instance)
         return [ProfileTaskSerializer(task).data for task in query_datas]
+
+class ProfilePlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePlan
+        fields = '__all__'
