@@ -6,10 +6,12 @@ from base.models import Unit
 import datetime
 
 
-class TestProfileAPI(TestCase):
+class TestProfilePlanAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
-    
+
     def setUp(self):
+        self.initial_count = ProfilePlan.objects.count()
+
         self.data = {
             "profile": 1,
             "unit": 1,
@@ -28,11 +30,11 @@ class TestProfileAPI(TestCase):
 
     def test_api_create_profile_plan(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(ProfilePlan.objects.count(), 1)
+        self.assertEqual(ProfilePlan.objects.count(), self.initial_count+1)
         self.assertEqual(ProfilePlan.objects.last().start_date, datetime.date(2022,5,30))
 
     def test_api_list_profile_plans(self):
         url = reverse('plans-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(ProfilePlan.objects.count(), 1)
+        self.assertEqual(ProfilePlan.objects.count(), self.initial_count+1)
