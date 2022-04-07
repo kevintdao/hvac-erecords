@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
-import ProfileAssign from '../../components/profiles/ProfileAssign'
-import ProfilesAssignTable from '../../components/profiles/ProfilesAssignTable'
+import PlanForm from '../../components/plans/PlanForm'
+import PlanTable from '../../components/plans/PlanTable'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 
@@ -18,7 +18,6 @@ export default function Unit (props) {
   const [data, setData] = useState()
   const [plans, setPlans] = useState()
   const [profiles, setProfiles] = useState()
-  const [profilesList, setProfilesList] = useState()
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -126,11 +125,11 @@ export default function Unit (props) {
       <hr />
 
       <div className='space-y-2'>
-        <h2 className='font-bold text-3xl'>Assigned Profile</h2>
+        <h2 className='font-bold text-3xl'>Assigned Profiles</h2>
 
         {plans.length === 0 ? 
           <p className={styles.desc} id='no-plans'>No profiles are assigned to this unit</p> : 
-          <ProfilesAssignTable data={plans} labels={labels} />
+          <PlanTable data={plans} labels={labels} />
         }
       </div>
 
@@ -141,7 +140,7 @@ export default function Unit (props) {
 
         {error && <Alert title='Error' text={error} type='error' />}
         
-        <ProfileAssign profiles={profiles} onSubmit={onSubmit} />
+        <PlanForm profiles={profiles} onSubmit={onSubmit} />
       </div>
     </div>
   )

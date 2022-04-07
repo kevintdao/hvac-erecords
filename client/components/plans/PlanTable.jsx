@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-export default function ProfilesAssignTable ({ data, labels }) {
+export default function PlanTable ({ data, labels }) {
   const styles = {
     header: "px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
     body: "divide-y divide-gray-200",

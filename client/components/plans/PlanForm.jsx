@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function ProfileAssign ({ profiles, plan, onSubmit }) {
+export default function PlanForm ({ profiles, plan, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, unregister } = useForm({
     defaultValues: plan
   })

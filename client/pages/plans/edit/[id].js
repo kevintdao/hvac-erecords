@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import ProfileAssign from '../../../components/profiles/ProfileAssign'
+import PlanForm from '../../../components/plans/PlanForm'
 import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import Header from '../../../components/Header'
@@ -78,7 +78,7 @@ export default function Plan () {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <ProfileAssign profiles={data.profile} plan={data.plan} onSubmit={onSubmit} />
+      <PlanForm profiles={data.profile} plan={data.plan} onSubmit={onSubmit} />
     </div>
   )
 }
