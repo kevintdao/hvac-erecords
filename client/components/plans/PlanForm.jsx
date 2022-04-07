@@ -64,7 +64,7 @@ export default function PlanForm ({ profiles, plan, onSubmit }) {
                   }
                 })}
               />
-              <span className='text-sm text-red-700 mt-1' id="start_date-help">{errors.start_date?.message}</span>
+              <span className='text-sm text-red-700 mt-1' id="start-date-help">{errors.start_date?.message}</span>
             </div>
             <div className={styles.inputContainer}>
               <label htmlFor='end-date'>End Date</label>
@@ -76,7 +76,7 @@ export default function PlanForm ({ profiles, plan, onSubmit }) {
                   }
                 })}
               />
-              <span className='text-sm text-red-700 mt-1' id="end_date-help">{errors.end_date?.message}</span>
+              <span className='text-sm text-red-700 mt-1' id="end-date-help">{errors.end_date?.message}</span>
             </div>
           </div>
         }

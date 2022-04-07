@@ -90,9 +90,7 @@ export default function Unit (props) {
         />
 
         <div className='mt-4 space-x-4'>
-          <Link href={`/units/${id}`}>
-            <a className={styles.button}>Unit Details</a>
-          </Link>
+          <a className={styles.button} onClick={() => window.location = `/units/${id}`}>Unit Details</a>
         </div>
       </div>
     )

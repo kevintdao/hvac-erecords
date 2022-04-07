@@ -71,7 +71,7 @@ export default function Plan () {
   }
 
   return (
-    <div>
+    <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 
       <h2 className='font-bold text-3xl'>Update Plan</h2>
