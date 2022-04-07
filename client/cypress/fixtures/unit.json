@@ -7,5 +7,16 @@
   "manufacturer": "Test",
   "production_date": "2022-03-09",
   "installation_date": "2022-03-09",
-  "building": 1
+  "building": 1,
+  "plans": [
+    {
+      "id": 1,
+      "unit": 1,
+      "profile": 1,
+      "is_repeating": true,
+      "is_required": false,
+      "start_date": "1970-01-01",
+      "end_date": "1970-01-01"
+    }
+  ]
 }
