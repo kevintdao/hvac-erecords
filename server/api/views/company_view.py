@@ -36,7 +36,7 @@ def apiCompany(request,pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # Delete technician
+    # Delete company
     elif request.method == 'DELETE':
         building.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

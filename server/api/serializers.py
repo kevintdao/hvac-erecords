@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
 from records.models import Task, Profile, ProfileTask, ProfilePlan
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
