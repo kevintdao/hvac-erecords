@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "owner_id": 1,
+        "site_name": "Iowa",
+        "street": "123 Street",
+        "city": "Iowa City",
+        "zip_code": "52240",
+        "country": "United States"
+    },
+    {
+        "id": 2,
+        "owner_id": 1,
+        "site_name": "Iowa",
+        "street": "789 Street",
+        "city": "Iowa City",
+        "zip_code": "52242",
+        "country": "United States"
+    }
+]
