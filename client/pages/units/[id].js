@@ -25,8 +25,8 @@ export default function Unit (props) {
   }
 
   const labels = {
-    text: ['Title', 'Is Planned', 'Repeat', 'Start Date', 'End Date'],
-    id: ['title', 'is-required', 'is-repeat', 'start-date', 'end-date']
+    text: ['Unit ID', 'Title', 'Is Planned', 'Repeat', 'Start Date', 'End Date'],
+    id: ['unit-id', 'title', 'is-required', 'is-repeat', 'start-date', 'end-date']
   }
 
   useEffect(() => {

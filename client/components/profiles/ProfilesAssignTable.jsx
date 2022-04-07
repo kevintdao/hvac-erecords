@@ -24,6 +24,7 @@ export default function ProfilesAssignTable ({ data, labels }) {
         <tbody className={styles.body}>
           {data.plan.map((item, i) => (
             <tr key={i}>
+              <td className={styles.cell} id={`unit-${item.id}`}>{item.unit}</td>
               <td className={styles.cell} id={`title-${item.id}`}>{data.profile[i].title}</td>
               <td className={styles.cell} id={`is-required-${item.id}`}>
                 <input className={styles.checkbox_disable} type='checkbox' name={`is-required-${item.id}`} id={`is-required-${item.id}`} checked={item.is_required} readOnly disabled />
