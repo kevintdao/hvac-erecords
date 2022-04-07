@@ -20,7 +20,7 @@ export default function MaintenanceCompanyRegister() {
         <div className='mt-2'>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
                 <h2 className='font-bold text-3xl'>Maintenance Company Account Creation</h2>
-        
+
                 <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
                     {/* Company Name */}
                     <div className={styles.inputContainer}>
@@ -39,7 +39,64 @@ export default function MaintenanceCompanyRegister() {
                         />
                         <span className={styles.helpText} id="name-help">{errors.name?.message}</span>
                     </div>
-            
+
+                    {/* Email */}
+                    <div className={styles.inputContainer}>
+                        <label htmlFor="email">Email</label>
+                        <input 
+                        type="text" 
+                        name="email" 
+                        id="email" 
+                        className={`${styles.input} ${errors.email ? "border-red-400" : "border-gray-300"}`} 
+                        {...register('email', {
+                            required: {
+                            value: true,
+                            message: "Enter an Email"
+                            },
+                            pattern: {
+                            value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                            message: "Enter a Valid Email"
+                            },
+                            maxLength: {
+                            value: 320,
+                            message: "Email address should not exceed 320 characters"
+                            }
+                        })}
+                        />
+                        <span className={styles.helpText} id="email-help">{errors.email?.message}</span>
+                        <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className={styles.inputContainer}>
+                        <label htmlFor="phone">Phone Number</label>
+                        <Controller 
+                        name='phone'
+                        control={control}
+                        rules={{
+                            required: {
+                            value: true,
+                            message: "Enter a Phone Number"
+                            },
+                            validate: value => isPossiblePhoneNumber(value) || "Enter a Valid Phone Number"
+                        }}
+                        render={({ field: { onChange, value } }) => (
+                            <PhoneInput
+                            country="US"
+                            className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
+                            value={value}
+                            onChange={onChange}
+                            id="phone"
+                            />
+                        )}
+                        />
+                        
+                        <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
+                        <small className="text-gray-400 mt-1">US phone number only.</small>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 grid-cols-1">
                     {/* Street */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="street">Street</label>
@@ -77,7 +134,7 @@ export default function MaintenanceCompanyRegister() {
                     </div>
                 </div>
         
-                <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
+                <div className="grid md:grid-cols-2 gap-4 grid-cols-1">
                     {/* Zip Code */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="zip_code">Zip Code</label>
@@ -112,34 +169,6 @@ export default function MaintenanceCompanyRegister() {
                         })}
                         />
                         <span className={styles.helpText} id="country-help">{errors.country?.message}</span>
-                    </div>
-        
-                    {/* Phone Number */}
-                    <div className={styles.inputContainer}>
-                        <label htmlFor="phone">Phone Number</label>
-                        <Controller 
-                        name='phone'
-                        control={control}
-                        rules={{
-                            required: {
-                            value: true,
-                            message: "Enter a Phone Number"
-                            },
-                            validate: value => isPossiblePhoneNumber(value) || "Enter a Valid Phone Number"
-                        }}
-                        render={({ field: { onChange, value } }) => (
-                            <PhoneInput
-                            country="US"
-                            className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
-                            value={value}
-                            onChange={onChange}
-                            id="phone"
-                            />
-                        )}
-                        />
-                        
-                        <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
-                        <small className="text-gray-400 mt-1">US phone number only.</small>
                     </div>
                 </div>
         
