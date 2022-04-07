@@ -50,5 +50,17 @@
 			"task": 2, 
 			"position": 2
 		}
+	},
+	{
+		"model": "records.profileplan", 
+		"pk": 1, 
+		"fields": {
+			"profile": 1, 
+			"unit": 1, 
+			"start_date": "2022-03-08",
+			"end_date": "2022-06-08",
+			"is_required": "True",
+			"is_repeating": "True"
+		}
 	}
 ]
