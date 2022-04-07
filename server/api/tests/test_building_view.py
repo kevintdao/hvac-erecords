@@ -7,6 +7,7 @@ class TestBuildingAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
+        self.initial_count = Building.objects.count()
         self.data = {
             'manager': 1,
             'site_name' : 'Seamans Center',
@@ -24,14 +25,14 @@ class TestBuildingAPI(TestCase):
 
     def test_api_create_building(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Building.objects.count(), 3)
+        self.assertEqual(Building.objects.count(), self.initial_count+1)
         self.assertEqual(Building.objects.last().site_name, 'Seamans Center')
 
     def test_api_list_building(self):
         url = reverse('buildings-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Building.objects.count(), 3)
+        self.assertEqual(Building.objects.count(), self.initial_count+1)
 
     def test_api_get_building(self):
         building = Building.objects.last()
@@ -80,7 +81,7 @@ class TestBuildingAPI(TestCase):
             kwargs={'pk':building.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Building.objects.count(), 2)
+        self.assertEqual(Building.objects.count(), self.initial_count)
 
     def test_api_building_not_found(self):
         response = self.client.get(

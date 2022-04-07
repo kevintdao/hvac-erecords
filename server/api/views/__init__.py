@@ -9,3 +9,4 @@ from .building_view import *
 from .company_view import *
 from .task_view import *
 from .profile_view import *
+from .profile_plan_view import *

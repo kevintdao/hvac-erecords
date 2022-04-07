@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from base.models import Technician
 from api.serializers import TechnicianSerializer
 from rest_framework import status
+from django.contrib.auth.models import User
 
 @api_view(['GET','POST'])
 def apiTechnicians(request):
@@ -13,7 +14,15 @@ def apiTechnicians(request):
         return Response(serializer.data)
     # Create technician
     elif request.method == 'POST':
-        serializer = TechnicianSerializer(data=request.data)
+        user = User.objects.create_user(
+            email=request.data['email'],
+            username=request.data['email']
+        )
+        keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
+        for key in keys:
+            if key not in request.data:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = TechnicianSerializer(data={'user': user.id, 'first_name': request.data['first_name'], 'last_name': request.data['last_name'], 'phone_number': request.data['phone_number'], 'license_number': request.data['license_number'], 'company': request.data['company'] })
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
