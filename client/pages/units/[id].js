@@ -104,7 +104,7 @@ export default function Unit (props) {
 
       <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Unit Details</h2>
-        <UnitDetails data={data} />
+        <UnitDetails data={data.unit} />
 
         <div className='space-x-4 mt-2'>
           <Link href='/units'>
