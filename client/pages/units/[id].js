@@ -16,7 +16,6 @@ export default function Unit (props) {
   const [planId, setPlanId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
-  const [plans, setPlans] = useState()
   const [profiles, setProfiles] = useState()
 
   const styles = {
@@ -32,12 +31,11 @@ export default function Unit (props) {
     if (!router.isReady) return
 
     const fetchData = async () => {
-      const details = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      const units = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
-      const plans = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans`)
 
       let endpoints = []
-      let plansRes = plans.data
+      let plansRes = units.data.plans
       for (let i = 0; i < plansRes.length; i++) {
         endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${plansRes[i].profile}/`)
       }
@@ -48,14 +46,13 @@ export default function Unit (props) {
         pList.push(res[i].data)
       }
 
-      setPlans({
-        plan: plans.data,
+      setProfiles(profiles.data)
+      setData({
+        unit: units.data,
+        plan: units.data.plans,
         profile: pList
       })
-      setProfiles(profiles.data)
-      setData(details.data)
     }
-
     fetchData()
   }, [id, router.isReady])
 
@@ -127,9 +124,9 @@ export default function Unit (props) {
       <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Assigned Profiles</h2>
 
-        {plans.length === 0 ? 
+        {data.unit.plans.length === 0 ? 
           <p className={styles.desc} id='no-plans'>No profiles are assigned to this unit</p> : 
-          <PlanTable data={plans} labels={labels} />
+          <PlanTable data={data} labels={labels} />
         }
       </div>
 
