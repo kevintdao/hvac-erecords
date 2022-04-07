@@ -94,7 +94,7 @@ export default function NavBar ({ role }) {
           {/* left */}
           <div className='flex space-x-4 items-center'>
             {/* logo */}
-            <Link href='/'>
+            <Link href='/dashboard'>
               <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>HVAC E-Records</a>
             </Link>
 
