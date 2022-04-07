@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function ProfileAssign ({ profiles, onSubmit }) {
-  const { register, handleSubmit, formState: { errors }, unregister } = useForm()
-  const [checked, setChecked] = useState(false)
+export default function ProfileAssign ({ profiles, plan, onSubmit }) {
+  const { register, handleSubmit, formState: { errors }, unregister } = useForm({
+    defaultValues: plan
+  })
+  const [checked, setChecked] = useState(plan?.is_required || false)
 
   const styles = {
     inputs2Cols: 'grid md:grid-cols-2 gap-4 grid-cols-1',
