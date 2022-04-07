@@ -13,8 +13,8 @@ describe('Plan table', () => {
 
     cy.get('td#unit-1').should('contain', '1');
     cy.get('td#title-1').should('contain', 'Profile 1');
-    cy.get('td#start-date-1').should('contain', '1970-01-01');
-    cy.get('td#end-date-1').should('contain', '1970-01-01');
+    cy.get('td#start-date-1').should('contain', '-');
+    cy.get('td#end-date-1').should('contain', '-');
   })
 })
 

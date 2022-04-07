@@ -32,8 +32,8 @@ export default function PlanTable ({ data, labels }) {
               <td className={styles.cell} id={`is-repeating-${item.id}`}>
                 <input className={styles.checkbox_disable} type='checkbox' name={`is-repeating-${item.id}`} id={`is-repeating-${item.id}`} checked={item.is_repeating} readOnly disabled/>
               </td>
-              <td className={styles.cell} id={`start-date-${item.id}`}>{item.start_date}</td>
-              <td className={styles.cell} id={`end-date-${item.id}`}>{item.end_date}</td>
+              <td className={styles.cell} id={`start-date-${item.id}`}>{item.is_required ? item.start_date : '-'}</td>
+              <td className={styles.cell} id={`end-date-${item.id}`}>{item.is_required ? item.end_date : '-'}</td>
               <td>
                 <Link href={`/plans/edit/${item.id}`}>
                   <a className={styles.link}>Edit</a>
