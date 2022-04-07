@@ -29,11 +29,6 @@ class LoginUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'last_login', 'username', 'email']
 
-class UnitSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Unit
-        fields = '__all__'
-
 class BuildingManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = BuildingManager
@@ -121,4 +116,11 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 class ProfilePlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfilePlan
+        fields = '__all__'
+
+class UnitSerializer(serializers.ModelSerializer):
+    plans = ProfilePlanSerializer(many=True,read_only=True)
+
+    class Meta:
+        model = Unit
         fields = '__all__'
