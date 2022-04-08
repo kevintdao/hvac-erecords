@@ -18,7 +18,7 @@ def apiManagers(request):
         user = User.objects.create_user(
             email=request.data['email'],
             username=request.data['email'],
-            password=request.data['password']
+            # password=request.data['password']
         )
         serializer = BuildingManagerSerializer(data=request.data)
         if serializer.is_valid():

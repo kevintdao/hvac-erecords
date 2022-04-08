@@ -35,9 +35,22 @@ class UnitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = BuildingManager
         fields = '__all__'
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+
+        user = User.objects.create_user(
+            email=data['email'],
+            username=data['email']
+        )
+
+        bm = BuildingManager.objects.create()
+        
+        
 
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
