@@ -67,7 +67,7 @@ export default function Service () {
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />
 
-      <h2 className='font-bold text-3xl'>Service Visit</h2>
+      <h2 className='font-bold text-3xl'>Service Plans</h2>
 
       <div>
         <h4 className='font-bold text-xl'>Unit Details</h4>
