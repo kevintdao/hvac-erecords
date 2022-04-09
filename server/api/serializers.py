@@ -35,20 +35,24 @@ class UnitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
-    
+    users = UserSerializer(many=True)
+
     class Meta:
         model = BuildingManager
         fields = '__all__'
 
-    def create(self, request, *args, **kwargs):
-        data = request.data
-
-        user = User.objects.create_user(
-            email=data['email'],
-            username=data['email']
-        )
-
-        bm = BuildingManager.objects.create()
+    def create(self, validated_data):
+        data = validated_data.pop('users')
+    
+        buildingmanager = BuildingManager.objects.create(**validated_data)
+        
+        for u in data:
+            user = User.objects.create_user(
+                email=u['email'],
+                username=u['email']
+            )
+            buildingmanager.users.add(user)
+        # bm = BuildingManager.objects.create()
         
         
 
