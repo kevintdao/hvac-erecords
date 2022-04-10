@@ -33,4 +33,5 @@ urlpatterns = [
     path("plans", views.apiProfilePlans, name="plans-list"),
     path("plans/<int:pk>/", views.apiProfilePlan, name="plans-detail"),
     path("visits", views.apiVisits, name="visits-list"),
+    path("visits/<int:pk>/", views.apiVisit, name="visits-detail"),
 ]
