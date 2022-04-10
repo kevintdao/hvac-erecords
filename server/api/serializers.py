@@ -2,7 +2,8 @@ from re import S
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
-from records.models import Task, Profile, ProfileTask, ProfilePlan
+from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
+from django.utils import timezone
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -123,3 +124,13 @@ class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
         fields = '__all__'
+
+class ServiceVisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceVisit
+        fields = '__all__'
+
+    def validate(self, data):
+        if data['end_time'] is not None and data['start_time'] > data['end_time']:
+            raise serializers.ValidationError("End time must occur after start time")
+        return data
