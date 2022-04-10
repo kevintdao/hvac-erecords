@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ServiceSelection ({ task, index }) {
+export default function ServiceSelection ({ register, errors, task, index }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -24,7 +24,7 @@ export default function ServiceSelection ({ task, index }) {
     <div className={styles.inputContainer}>
       {choices.map((item, i) => (
         <label key={`selection-${index+1}-${i+1}`}>
-          <input type='radio' name={index+1} id={`task-${index+1}-${i+1}`} />
+          <input type='radio' name={index+1} id={`task-${index+1}-${i+1}`} value={item} {...register(`task-${task.id}`)}/>
           {item}
         </label>
       ))}

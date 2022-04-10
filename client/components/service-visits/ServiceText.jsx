@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ServiceText ({ task, index }) {
+export default function ServiceText ({ register, errors, task, index }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -9,7 +9,10 @@ export default function ServiceText ({ task, index }) {
 
   return (
     <div className={styles.inputContainer}>
-      <textarea className={`${styles.input} border-gray-300`}></textarea>
+      <textarea className={`${styles.input} border-gray-300`}
+        {...register(`task-${task.id}`)}
+      >
+      </textarea>
     </div>
   )
 }

@@ -42,6 +42,10 @@ export default function ServiceProfile () {
     return (<Loading />)
   }
 
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
@@ -52,7 +56,7 @@ export default function ServiceProfile () {
 
         <hr />
       
-        <ServiceForm data={data.tasks} />
+        <ServiceForm data={data.tasks} onSubmit={onSubmit} />
       </div>
     </div>
   )
