@@ -16,8 +16,8 @@ export default function ServiceForm ({ data, onSubmit }) {
       <form action='' className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
         {data.map((item, index) => (
           <div key={index} id={`task-${index+1}-container`}>
-            <h4 className='font-bold text-xl'>{item.title}</h4>
-            <p className='mb-1'>{item.description}</p>
+            <h4 className='font-bold text-xl' id={`title-${index+1}`}>{item.title}</h4>
+            <p className='mb-1' id={`desc-${index+1}`}>{item.description}</p>
             {
               item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} /> :
               item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} /> :

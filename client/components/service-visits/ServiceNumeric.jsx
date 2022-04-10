@@ -28,7 +28,7 @@ export default function ServiceNumeric ({ register, errors, task, index }) {
         })}
       />
       <input type='hidden' name='numeric' {...register(`${task.id}.type`)} value='Numeric' />
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
+      <span className='text-sm text-red-700 mt-1' id={`task-${index+1}-help`}>{errors[task.id]?.value.message}</span>
     </div>
   )
 }

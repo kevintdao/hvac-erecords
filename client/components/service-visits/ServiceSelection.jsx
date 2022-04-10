@@ -38,7 +38,7 @@ export default function ServiceSelection ({ register, errors, task, index }) {
         </label>
       ))}
       <input type='hidden' name='selection' {...register(`${task.id}.type`)} value='Selection' />
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
+      <span className='text-sm text-red-700 mt-1' id={`task-${index+1}-help`}>{errors[task.id]?.value.message}</span>
     </div>
   )
 }

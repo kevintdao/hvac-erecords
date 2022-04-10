@@ -7,9 +7,10 @@ export default function ServiceText ({ register, errors, task, index }) {
     helpText: 'text-sm text-red-700 mt-1',
   }
 
+  console.log(task)
   return (
     <div className={styles.inputContainer}>
-      <textarea className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
+      <textarea id={`task-${index+1}`} className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
         {...register(`${task.id}.value`, {
           required: {
             value: true,
@@ -19,7 +20,7 @@ export default function ServiceText ({ register, errors, task, index }) {
       >
       </textarea>
       <input type='hidden' name='text' {...register(`${task.id}.type`)} value='Text' />
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
+      <span className='text-sm text-red-700 mt-1' id={`task-${index+1}-help`}>{errors[task.id]?.value.message}</span>
     </div>
   )
 }
