@@ -11,8 +11,8 @@ export default function ServiceNumeric ({ register, errors, task, index }) {
     <div className={styles.inputContainer}>
       <label className='text-gray-500'>{`Minimum value: ${task.rule.options.min} | Maximum value: ${task.rule.options.max}`}</label>
       <input type='number' id={`task-${index+1}`} 
-        className={`${styles.input} ${errors[task.id] ? 'border-red-400' : 'border-gray-300'}`}
-        {...register(`${task.id}`, {
+        className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
+        {...register(`${task.id}.value`, {
           required: {
             value: true,
             message: 'This field is required'
@@ -27,7 +27,8 @@ export default function ServiceNumeric ({ register, errors, task, index }) {
           }
         })}
       />
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.message}</span>
+      <input type='hidden' name='numeric' {...register(`${task.id}.type`)} value='numeric' />
+      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
     </div>
   )
 }

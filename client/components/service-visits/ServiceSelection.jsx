@@ -26,8 +26,8 @@ export default function ServiceSelection ({ register, errors, task, index }) {
       {choices.map((item, i) => (
         <label key={`selection-${index+1}-${i+1}`}>
           <input type='radio' name={index+1} id={`task-${index+1}-${i+1}`} value={item}
-            className={`${styles.radio_button} ${errors[task.id] ? 'border-red-400' : 'border-gray-300'}`}
-            {...register(`${task.id}`, {
+            className={`${styles.radio_button} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
+            {...register(`${task.id}.value`, {
               required: {
                 value: true,
                 message: 'Please select one of the options'
@@ -37,7 +37,8 @@ export default function ServiceSelection ({ register, errors, task, index }) {
           {item}
         </label>
       ))}
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.message}</span>
+      <input type='hidden' name='selection' {...register(`${task.id}.type`)} value='selection' />
+      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
     </div>
   )
 }

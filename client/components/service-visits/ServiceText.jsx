@@ -9,8 +9,8 @@ export default function ServiceText ({ register, errors, task, index }) {
 
   return (
     <div className={styles.inputContainer}>
-      <textarea className={`${styles.input} ${errors[task.id] ? 'border-red-400' : 'border-gray-300'}`}
-        {...register(`${task.id}`, {
+      <textarea className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
+        {...register(`${task.id}.value`, {
           required: {
             value: true,
             message: 'This field is required'
@@ -18,7 +18,8 @@ export default function ServiceText ({ register, errors, task, index }) {
         })}
       >
       </textarea>
-      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.message}</span>
+      <input type='hidden' name='text' {...register(`${task.id}.type`)} value='text' />
+      <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
     </div>
   )
 }
