@@ -5,8 +5,8 @@ export function setCookie (name, value, path) {
   document.cookie = `${name}=${value}; path=${path}; expires=${expiry.toUTCString()}`
 }
 
-export function getCookie (name) {
-
+export function getCookie (name, path) {
+  
 }
 
 export function deleteCookie (name, path) {

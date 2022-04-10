@@ -5,11 +5,14 @@ import Header from '../../components/Header'
 import ServiceForm from '../../components/service-visits/ServiceForm'
 import Loading from '../../components/Loading'
 import { deleteCookie } from '../../utils/cookies'
+import { Temporal } from '@js-temporal/polyfill'
 
 export default function ServiceProfile () {
   const router = useRouter()
   const { id } = router.query    // profile id
   const [data, setData] = useState()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState();
 
   useEffect(() => {
     if (!router.isReady) return
@@ -45,7 +48,22 @@ export default function ServiceProfile () {
 
   const onSubmit = (data) => {
     console.log(data)
-    deleteCookie('start_time', router.asPath)
+    const endTime = Temporal.Now.instant()
+    const startTime = endTime.subtract({ minutes: 10 })
+
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
+      technician: 1,    // hardcoded technician for now
+      plan: id,
+      start_time: startTime.round('second').toString(),
+      end_time: endTime.round('second').toString()
+    })
+    .then(res => {
+        console.log(res.data.id)
+    })
+    .catch(error => {
+      const output = handleError(error)
+      setError(output)
+    })
   }
 
   return (

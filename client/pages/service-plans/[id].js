@@ -26,6 +26,8 @@ export default function Service () {
       const unit = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
 
       let plans = unit.data.plans
+      console.log(plans)
+
       let output = {
         availible: [],
         other: []
