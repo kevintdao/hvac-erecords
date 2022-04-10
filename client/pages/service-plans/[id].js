@@ -13,6 +13,8 @@ export default function Service () {
   const { id } = router.query    // unit id
   const [data, setData] = useState()
 
+  console.log(data)
+
   const labels = {
     text: ['Title', 'Repeat', 'Start Date', 'End Date'],
     id: ['title', 'is-repeat', 'start-date', 'end-date']
@@ -26,7 +28,6 @@ export default function Service () {
       const unit = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
 
       let plans = unit.data.plans
-      console.log(plans)
 
       let output = {
         availible: [],
