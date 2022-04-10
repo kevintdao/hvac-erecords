@@ -24,13 +24,15 @@ export default function ServiceForm ({ data, onSubmit }) {
     }
   }
 
+  console.log('rerender')
+
   return (
     <>
       <form action='' className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
         {data.map((item, index) => (
           <div key={index} id={`task-${index+1}-container`}>
             <h4 className='font-bold text-xl'>{item.title}</h4>
-            <p>{item.description}</p>
+            <p className='mb-1'>{item.description}</p>
             <RenderComponent type={item.rule.type} task={item} index={index} register={register} errors={errors} />
           </div>
         ))}
