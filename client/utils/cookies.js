@@ -9,6 +9,6 @@ export function getCookie (name) {
 
 }
 
-export function deleteCookie (name) {
-
+export function deleteCookie (name, path) {
+  document.cookie = `${name}=; path=${path}; expires=Thu, 01 Jan 1970 00:00:00 UTC`
 }

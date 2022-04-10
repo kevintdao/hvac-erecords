@@ -4,6 +4,7 @@ import axios from 'axios'
 import Header from '../../components/Header'
 import ServiceForm from '../../components/service-visits/ServiceForm'
 import Loading from '../../components/Loading'
+import { deleteCookie } from '../../utils/cookies'
 
 export default function ServiceProfile () {
   const router = useRouter()
@@ -44,6 +45,7 @@ export default function ServiceProfile () {
 
   const onSubmit = (data) => {
     console.log(data)
+    deleteCookie('start_time', router.asPath)
   }
 
   return (
