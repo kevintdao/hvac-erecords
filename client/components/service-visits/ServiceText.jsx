@@ -7,7 +7,6 @@ export default function ServiceText ({ register, errors, task, index }) {
     helpText: 'text-sm text-red-700 mt-1',
   }
 
-  console.log(task)
   return (
     <div className={styles.inputContainer}>
       <textarea id={`task-${index+1}`} className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
