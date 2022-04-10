@@ -18,7 +18,7 @@ export default function ServiceText ({ register, errors, task, index }) {
         })}
       >
       </textarea>
-      <input type='hidden' name='text' {...register(`${task.id}.type`)} value='text' />
+      <input type='hidden' name='text' {...register(`${task.id}.type`)} value='Text' />
       <span className='text-sm text-red-700 mt-1' id='title-help'>{errors[task.id]?.value.message}</span>
     </div>
   )

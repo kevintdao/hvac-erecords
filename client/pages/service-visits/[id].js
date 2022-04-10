@@ -11,7 +11,6 @@ export default function ServiceProfile () {
   const router = useRouter()
   const { id } = router.query    // profile id
   const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -47,7 +46,6 @@ export default function ServiceProfile () {
   }
 
   const onSubmit = (data) => {
-    console.log(data)
     const endTime = Temporal.Now.instant()
     const startTime = endTime.subtract({ minutes: 10 })
 
@@ -58,12 +56,48 @@ export default function ServiceProfile () {
       end_time: endTime.round('second').toString()
     })
     .then(res => {
-        console.log(res.data.id)
+        const serviceId = res.data.id
+        let taskData = formatData(serviceId, data)
+        taskData.map(async (item, index) => {
+          const completionRes = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/completions`, item)
+        })
     })
     .catch(error => {
       const output = handleError(error)
       setError(output)
     })
+  }
+
+  function formatData (serviceId, data) {
+    let output = []
+    
+    for (const key in data) {
+      const value = data[key]
+      let taskData = {
+        task: key,
+        service_visit: serviceId,
+        completed_at: Temporal.Now.instant().round('second').toString(),  // hardcoded value for now
+        selection: null,
+        response: '',
+        value: null,
+      }
+
+      switch(value.type) {
+        case 'Numeric':
+          taskData.value = value.value
+          break
+        case 'Selection':
+          taskData.selection = value.value
+          break
+        case 'Text':
+          taskData.response = value.value
+          break
+        default:
+          break
+      }
+      output.push(taskData)
+    }
+    return output
   }
 
   return (
