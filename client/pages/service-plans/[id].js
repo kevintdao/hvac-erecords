@@ -13,7 +13,9 @@ export default function Service () {
   const { id } = router.query    // unit id
   const [data, setData] = useState()
 
-  console.log(data)
+  const styles = {
+    desc: 'font-medium font-gray-900'
+  }
 
   const labels = {
     text: ['Title', 'Repeat', 'Start Date', 'End Date'],
@@ -30,7 +32,7 @@ export default function Service () {
       let plans = unit.data.plans
 
       let output = {
-        availible: [],
+        available: [],
         other: []
       }
       for(let i = 0; i < plans.length; i++){
@@ -45,7 +47,7 @@ export default function Service () {
           const endDate = Temporal.PlainDate.from({ year: eYear, month: eMonth, day: eDay })
 
           if(Temporal.PlainDate.compare(currentDate, startDate) == 1 && Temporal.PlainDate.compare(endDate, currentDate)) {
-            output.availible.push(plans[i])
+            output.available.push(plans[i])
           }
           else{
             output.other.push(plans[i])
@@ -79,12 +81,12 @@ export default function Service () {
 
       <div>
         <h4 className='font-bold text-xl'>Available Plans</h4>
-        <AvailablePlans data={data.plans.availible} labels={labels} />
+        {data.plans.available.length === 0 ? <p className={styles.desc} id='no-available'>None</p> : <AvailablePlans data={data.plans.available} labels={labels} />}
       </div>
 
       <div>
         <h4 className='font-bold text-xl'>Other Plans</h4>
-        <OtherPlans data={data.plans.other} labels={labels} />
+        {data.plans.other.length === 0 ? <p className={styles.desc} id='no-other'>None</p> : <OtherPlans data={data.plans.other} labels={labels} />}
       </div>
     </div>
   )
