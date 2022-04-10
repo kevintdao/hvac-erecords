@@ -1,17 +1,20 @@
+from datetime import datetime
 from django.db import DataError
 from django.test import TestCase
 
-from records.models import ServiceVisit
+from records.models import ServiceVisit, ProfilePlan
 from base.models import Technician
 
 from django.utils import timezone
+import datetime
 
 class ServiceVisitModelTests(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json'] 
     
     def test_created_valid_service_visit(self):
         technician = Technician.objects.first()
-        service_visit = ServiceVisit(technician=technician)
+        plan = ProfilePlan.objects.first()
+        service_visit = ServiceVisit(technician=technician, start_time = timezone.now() - datetime.timedelta(minutes=15), plan=plan)
         service_visit.save()
         self.assert_(ServiceVisit.objects.filter(technician=technician).exists())
         end_time = timezone.now()
