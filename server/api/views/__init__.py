@@ -10,3 +10,5 @@ from .company_view import *
 from .task_view import *
 from .profile_view import *
 from .profile_plan_view import *
+from .service_visit_view import *
+from .task_completion_view import *
