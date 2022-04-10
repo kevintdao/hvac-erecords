@@ -6,12 +6,14 @@ import ServiceForm from '../../components/service-visits/ServiceForm'
 import Loading from '../../components/Loading'
 import { deleteCookie } from '../../utils/cookies'
 import { Temporal } from '@js-temporal/polyfill'
+import Alert from '../../components/Alert'
 
 export default function ServiceProfile () {
   const router = useRouter()
   const { id } = router.query    // profile id
   const [data, setData] = useState()
-  const [error, setError] = useState();
+  const [serviceId, setServiceId] = useState(null)
+  const [error, setError] = useState()
 
   useEffect(() => {
     if (!router.isReady) return
@@ -61,6 +63,7 @@ export default function ServiceProfile () {
         taskData.map(async (item, index) => {
           const completionRes = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/completions`, item)
         })
+        setServiceId(serviceId)
     })
     .catch(error => {
       const output = handleError(error)
@@ -100,6 +103,19 @@ export default function ServiceProfile () {
     return output
   }
 
+  // successfully submitted
+  if(serviceId){
+    return (
+    <div className='mt-2'>
+      <Alert 
+      title='Successful'
+      text='Successfully submited!'
+      type='success'
+      />
+    </div>
+    )
+  }
+
   return (
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
@@ -107,6 +123,8 @@ export default function ServiceProfile () {
       <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>{data.profile.title}</h2>
         <p>{data.profile.description}</p>
+
+        {error && <Alert title="Error" text={error} type="error" />}
 
         <hr />
       
