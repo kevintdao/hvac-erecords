@@ -1,7 +1,15 @@
 import React from 'react'
 
-export default function ServiceText() {
+export default function ServiceText ({ task, index }) {
+  const styles = {
+    inputContainer: 'flex flex-col',
+    input: 'p-2 border rounded',
+    helpText: 'text-sm text-red-700 mt-1',
+  }
+
   return (
-    <div>ServiceText</div>
+    <div className={styles.inputContainer}>
+      <textarea className={`${styles.input} border-gray-300`}></textarea>
+    </div>
   )
 }
