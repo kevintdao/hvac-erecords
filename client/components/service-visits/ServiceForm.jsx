@@ -11,21 +11,6 @@ export default function ServiceForm ({ data, onSubmit }) {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
   }
 
-  function RenderComponent ({ type, task, index, register, errors }) {
-    switch(type){
-      case 'Numeric':
-        return <ServiceNumeric task={task} index={index} register={register} errors={errors} />
-      case 'Selection':
-        return <ServiceSelection task={task} index={index} register={register} errors={errors} />
-      case 'Text':
-        return <ServiceText task={task} index={index} register={register} errors={errors} />
-      default:
-        return <></>
-    }
-  }
-
-  console.log('rerender')
-
   return (
     <>
       <form action='' className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
@@ -33,7 +18,11 @@ export default function ServiceForm ({ data, onSubmit }) {
           <div key={index} id={`task-${index+1}-container`}>
             <h4 className='font-bold text-xl'>{item.title}</h4>
             <p className='mb-1'>{item.description}</p>
-            <RenderComponent type={item.rule.type} task={item} index={index} register={register} errors={errors} />
+            {
+              item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} /> :
+              item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} /> :
+              item.rule.type == 'Text' ? <ServiceText task={item} index={index} register={register} errors={errors} /> : ''
+            }
           </div>
         ))}
         <div>

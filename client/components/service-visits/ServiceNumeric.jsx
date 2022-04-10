@@ -10,12 +10,20 @@ export default function ServiceNumeric ({ register, errors, task, index }) {
   return (
     <div className={styles.inputContainer}>
       <label className='text-gray-500'>{`Minimum value: ${task.rule.options.min} | Maximum value: ${task.rule.options.max}`}</label>
-      <input type='number' min={task.rule.options.min} max={task.rule.options.max} id={`task-${index+1}`} 
+      <input type='number' id={`task-${index+1}`} 
         className={`${styles.input} ${errors[task.id] ? 'border-red-400' : 'border-gray-300'}`}
         {...register(`${task.id}`, {
           required: {
             value: true,
             message: 'This field is required'
+          },
+          min: {
+            value: task.rule.options.min,
+            message: `Value must be greater than or equal to ${task.rule.options.min}`
+          },
+          max: {
+            value: task.rule.options.max,
+            message: `Value must be less than or equal to ${task.rule.options.max}`
           }
         })}
       />
