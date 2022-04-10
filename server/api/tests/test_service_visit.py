@@ -61,3 +61,62 @@ class TestServiceVisitAPI(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(ServiceVisit.objects.count(), self.initial_count+1)
+
+    def test_api_get_service_visit(self):
+        visit = ServiceVisit.objects.last()
+        response = self.client.get(
+            reverse('visits-detail',
+            kwargs={'pk':visit.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['start_time'], "2022-03-20T17:41:28Z")
+
+    def test_api_update_service_visit(self):
+        visit = ServiceVisit.objects.last()
+        new_data = {
+            "technician": 1, 
+            "plan": 1, 
+            "start_time": "2022-03-20T17:41:28+00:00",
+            "end_time": "2022-03-23T17:41:28+00:00"
+        }
+        response = self.client.put(
+            reverse('visits-detail',
+            kwargs={'pk':visit.id}), data=new_data, format="json", 
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(str(ServiceVisit.objects.last().end_time), "2022-03-23 17:41:28+00:00")
+        self.assertEqual(ServiceVisit.objects.count(), self.initial_count+1)
+
+    def test_api_update_service_visit_failure(self):
+        visit = ServiceVisit.objects.last()
+        new_data = {
+            "technician": 1, 
+            "plan": 1, 
+            "start_time": "2022-03-20T17:41:28+00:00",
+            "end_time": "2022-03-19T17:41:28+00:00"
+        }
+        response = self.client.put(
+            reverse('visits-detail',
+            kwargs={'pk':visit.id}), data=new_data, format="json", 
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_delete_profile_plan(self):
+        visit = ServiceVisit.objects.last()
+        response = self.client.delete(
+            reverse('visits-detail',
+            kwargs={'pk':visit.id}), format="json",
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(ServiceVisit.objects.count(), self.initial_count)
+
+
+    def test_api_service_visit_not_found(self):
+        response = self.client.get(
+            reverse('visits-detail',
+            kwargs={'pk':0}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
