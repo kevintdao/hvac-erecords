@@ -20,7 +20,8 @@ class TestBuildingManagerAPI(TestCase):
         self.response = self.client.post(
             reverse('managers-list'),
             self.data,
-            format="json"
+            format="json",
+            content_type="application/json"
         )
 
     def test_api_create_building_manager(self):
