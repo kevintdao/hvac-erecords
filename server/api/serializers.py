@@ -52,6 +52,8 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
                 username=u['email']
             )
             buildingmanager.users.add(user)
+        return buildingmanager
+        
         # bm = BuildingManager.objects.create()
         
         
