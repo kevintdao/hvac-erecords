@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "base",
     "records",
+    "rolepermissions",
 ]
 
 MIDDLEWARE = [
