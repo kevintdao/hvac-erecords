@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
 
-class User(User):
+class User(AbstractBaseUser):
     COMPANY = 1
     MANAGER = 2
     TECHNICIAN = 3
@@ -15,3 +15,7 @@ class User(User):
     )
 
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
+
+    # def set_role(self, id):
+    #     self.role = id
+    #     self.save()
