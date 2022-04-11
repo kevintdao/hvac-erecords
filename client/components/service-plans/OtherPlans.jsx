@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { setCookie } from '../../utils/cookies'
+import { setCookie } from '../../utils/local_storage'
 
 export default function OtherPlans ({ data, labels }) {
   const styles = {
@@ -34,7 +34,7 @@ export default function OtherPlans ({ data, labels }) {
                 <td className={`${styles.cell} w-1/4`} id={`end-date-${item.id}`}>{item.is_required ? item.end_date : '-'}</td>
                 <td>
                 <Link href={`/service-visits/${item.id}`}>
-                  <a className={`${styles.link} w-1/8`} onClick={() => setCookie('start_time', Date.now(), `/service-visits/${item.id}`)}>Complete</a>
+                  <a className={`${styles.link} w-1/8`} onClick={() => setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString()})}>Complete</a>
                 </Link>
               </td>
               </tr>

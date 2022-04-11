@@ -4,7 +4,6 @@ import axios from 'axios'
 import Header from '../../components/Header'
 import ServiceForm from '../../components/service-visits/ServiceForm'
 import Loading from '../../components/Loading'
-import { deleteCookie } from '../../utils/cookies'
 import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
 
