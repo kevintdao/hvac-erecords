@@ -7,6 +7,7 @@ class TestTechnicianAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
+        self.initial_count = Technician.objects.count()
         self.data = {
             'email' : 'test@testmail.com',
             'company' : 1,
@@ -23,7 +24,7 @@ class TestTechnicianAPI(TestCase):
 
     def test_api_create_technician(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Technician.objects.count(), 2)
+        self.assertEqual(Technician.objects.count(), self.initial_count+1)
         self.assertEqual(Technician.objects.last().first_name, 'John')
     
     def test_api_create_technician_failure(self):
@@ -41,7 +42,7 @@ class TestTechnicianAPI(TestCase):
         url = reverse('technicians-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Technician.objects.count(), 2)
+        self.assertEqual(Technician.objects.count(), self.initial_count+1)
 
     def test_api_get_technician(self):
         technician = Technician.objects.last()
@@ -97,4 +98,4 @@ class TestTechnicianAPI(TestCase):
             kwargs={'pk':technician.user_id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Technician.objects.count(), 1)
+        self.assertEqual(Technician.objects.count(), self.initial_count)

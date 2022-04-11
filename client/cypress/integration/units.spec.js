@@ -6,7 +6,6 @@ describe('Unit index page', () => {
   })
 
   it('should see all units when on the index page', () => {
-    cy.wait('@getAllUnits');
     cy.get('td#ex-id-1').should('contain', '123456');
     cy.get('td#model-1').should('contain', 'model 1');
     cy.get('td#serial-1').should('contain', 'serial 1');
@@ -15,9 +14,12 @@ describe('Unit index page', () => {
   })
 
   it('should navigate to unit info page when click on more info button', () => {
+    cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
+    cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.wait('@getAllUnits');
     cy.get('a[href="/units/1"]').click();
     cy.url().should('include', '/units/1');
+    cy.wait(['@getUnit', '@getAllProfiles'])
   })
 
   it('should navigate to new unit page when click on new unit button', () => {
@@ -37,11 +39,15 @@ describe('Unit details page', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
+    cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
+    cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
+
     cy.visit('http://localhost:3000/units/1');
-    cy.wait('@getUnit');
   })
 
   it('should display the unit details', () => {
+    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+
     cy.get('dd#external_id').should('contain', '12345');
     cy.get('dd#model_number').should('contain', '12345');
     cy.get('dd#serial_number').should('contain', 'ABC123');
@@ -52,11 +58,13 @@ describe('Unit details page', () => {
   })
 
   it('should navigate to edit unit page when click on edit button', () => {
+    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
     cy.get('a#edit').click();
     cy.url().should('include', '/units/edit/1');
   })
 
   it('should navigate to all units page when click on all units button', () => {
+    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
     cy.get('a#all-units').click();
     cy.wait('@getAllUnits');
     cy.url().should('include', '/units');
@@ -104,7 +112,12 @@ describe('Unit create page', () => {
   })
 
   it('should display error message when there is an error', () => {
-    cy.intercept('POST', '**/api/units', { statusCode: 404 }).as('createUnitError');
+    cy.intercept('POST', '**/api/units', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('createUnitError');
 
     cy.get('button#create-button').click();
     cy.wait('@createUnitError');

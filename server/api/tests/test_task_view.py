@@ -8,6 +8,7 @@ class TestTaskAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
     
     def setUp(self):
+        self.initial_count = Task.objects.count()
         self.data = {
 			"company": 1,
 			"title":  "Unit in good condition",
@@ -22,14 +23,14 @@ class TestTaskAPI(TestCase):
 
     def test_api_create_task(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Task.objects.count(), 3)
+        self.assertEqual(Task.objects.count(), self.initial_count+1)
         self.assertEqual(Task.objects.last().title, 'Unit in good condition')
 
     def test_api_list_tasks(self):
         url = reverse('tasks-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Task.objects.count(), 3)
+        self.assertEqual(Task.objects.count(), self.initial_count+1)
 
     def test_api_create_task_failure(self):
         data = {
@@ -91,7 +92,7 @@ class TestTaskAPI(TestCase):
             kwargs={'pk':task.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Task.objects.count(), 2)
+        self.assertEqual(Task.objects.count(), self.initial_count)
 
     
     def test_api_task_not_found(self):

@@ -28,10 +28,10 @@ export default function dashboard () {
         </div>
 
         <div className={styles.colContainer}>
-          <h3 className={styles.colHeader}>Technicians</h3>
+          <h3 className={styles.colHeader}>Buildings</h3>
           <div className={styles.buttonDiv}>
-            <Link href='/technicians'><a className={styles.button}>View all</a></Link>
-            <Link href='/technicians/create'><a className={styles.button}>Create</a></Link>
+            <Link href='/buildings'><a className={styles.button}>View all</a></Link>
+            <Link href='/buildings/create'><a className={styles.button}>Create</a></Link>
           </div>
         </div>
 
@@ -40,6 +40,14 @@ export default function dashboard () {
           <div className={styles.buttonDiv}>
             <Link href='/units'><a className={styles.button}>View all</a></Link>
             <Link href='/units/create'><a className={styles.button}>Create</a></Link>
+          </div>
+        </div>
+
+        <div className={styles.colContainer}>
+          <h3 className={styles.colHeader}>Technicians</h3>
+          <div className={styles.buttonDiv}>
+            <Link href='/technicians'><a className={styles.button}>View all</a></Link>
+            <Link href='/technicians/create'><a className={styles.button}>Create</a></Link>
           </div>
         </div>
 

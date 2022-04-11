@@ -1,0 +1,9 @@
+{
+    "id": 1,
+    "owner_id": 1,
+    "site_name": "Iowa",
+    "street": "456 Street",
+    "city": "Iowa City",
+    "zip_code": "52241",
+    "country": "United States"
+}

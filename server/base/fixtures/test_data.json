@@ -74,5 +74,19 @@
 			"phone_number":  "123-321-4213",
 			"license_number":  "131251003"
 		}
+	},
+	{
+        "model":  "base.unit",
+        "pk":  "1",
+        "fields": { 
+			"building": 1, 
+			"external_id": "test", 
+			"category": "Duct free", 
+			"serial_number": "132", 
+			"model_number": "123", 
+			"manufacturer": "test",
+			"production_date": "2022-04-06", 
+			"installation_date": "2022-03-08"
+		}
 	}
 ]

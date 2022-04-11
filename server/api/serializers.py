@@ -2,8 +2,8 @@ from re import S
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
-from records.models import Task, Profile, ProfileTask
-
+from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
+from django.utils import timezone
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,11 +28,6 @@ class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'last_login', 'username', 'email']
-
-class UnitSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Unit
-        fields = '__all__'
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = UserSerializer(many=True)
@@ -148,3 +143,36 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
     def get_tasks(self, profile_instance):
         query_datas = ProfileTask.objects.filter(profile=profile_instance)
         return [ProfileTaskSerializer(task).data for task in query_datas]
+
+class ProfilePlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePlan
+        fields = '__all__'
+
+class UnitSerializer(serializers.ModelSerializer):
+    plans = ProfilePlanSerializer(many=True,read_only=True)
+
+    class Meta:
+        model = Unit
+        fields = '__all__'
+
+class ServiceVisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceVisit
+        fields = '__all__'
+
+    def validate(self, data):
+        if data['end_time'] is not None and data['start_time'] > data['end_time']:
+            raise serializers.ValidationError("End time must occur after start time")
+        return data
+
+class TaskCompletionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskCompletion
+        fields = '__all__'
+
+    def validate(self, data):
+        service_visit = data['service_visit']
+        if (data['completed_at'] < service_visit.start_time) or (service_visit.end_time is not None and data['completed_at'] > service_visit.end_time):
+            raise serializers.ValidationError("Task completion is not in service visit start/end time range")
+        return data

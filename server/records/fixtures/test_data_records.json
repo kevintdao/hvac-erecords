@@ -7,8 +7,7 @@
 			"title":  "Record condition of condenser coil",
 			"description":  "",
 			"rule": {		
-				"type": 1,
-				"name": "response"
+				"type": "Text"
 			}
 		}
 	},
@@ -17,11 +16,30 @@
         "pk":  "2",
         "fields": { 
 			"company": 1,
-			"title":  "Record condition of filter",
-			"description":  "",
+			"title":  "Record temperature",
+			"description":  "record temperature of unit",
 			"rule": {		
-				"type": 1,
-				"name": "response"
+				"type": "Numeric",
+				"options": {
+					"min": "0",
+					"max": "40"
+				}
+			}
+		}
+	},
+	{
+        "model":  "records.task",
+        "pk":  "3",
+        "fields": { 
+			"company": 1,
+			"title":  "Change filter",
+			"description":  "change the filter and respond",
+			"rule": {		
+				"type": "Selection",
+				"options": {
+					"1": "Choice 1",
+					"2": "Choice 2"
+				}
 			}
 		}
 	},
@@ -49,6 +67,28 @@
 			"profile": 1, 
 			"task": 2, 
 			"position": 2
+		}
+	},
+	{
+		"model": "records.profileplan", 
+		"pk": 1, 
+		"fields": {
+			"profile": 1, 
+			"unit": 1, 
+			"start_date": "2022-03-08",
+			"end_date": "2022-06-08",
+			"is_required": "True",
+			"is_repeating": "True"
+		}
+	},
+	{
+		"model": "records.servicevisit", 
+		"pk": 1, 
+		"fields": {
+			"technician": 1, 
+			"plan": 1, 
+			"start_time": "2022-04-1T17:41:28+00:00",
+			"end_time": "2022-04-2T17:41:28+00:00"
 		}
 	}
 ]
