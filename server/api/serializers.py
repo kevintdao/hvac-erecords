@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company
 from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +48,17 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
                 email=u['email'],
                 username=u['email']
             )
-            buildingmanager.users.add(user)
+            buildingmanager.users.add(user)            
+            name = validated_data['name']
+            subject = 'Email to building manager'
+            message = f'Hello {name}. Set password'
+            from_email = settings.EMAIL_HOST_USER
+            to_email = u['email']
+
+            send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
+
+        
         return buildingmanager
 
         # bm = BuildingManager.objects.create()
