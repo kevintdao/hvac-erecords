@@ -47,6 +47,8 @@ jobs:
       - name: Run Tests
         env:
           DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
+          EMAIL_HOST_USER: ${{secrets.EMAIL_HOST_USER}}
+          EMAIL_HOST_PASS: ${{secrets.EMAIL_HOST_PASS}}
           DB_NAME: postgres
           DB_USER: postgres
           DB_PASS: postgres
