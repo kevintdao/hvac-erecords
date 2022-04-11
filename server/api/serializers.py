@@ -30,9 +30,40 @@ class LoginUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'last_login', 'username', 'email']
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
+    users = UserSerializer(many=True)
+
     class Meta:
         model = BuildingManager
         fields = '__all__'
+
+    def create(self, validated_data):
+        data = validated_data.pop('users')
+    
+        buildingmanager = BuildingManager.objects.create(**validated_data)
+        
+        for u in data:
+            user = User.objects.create_user(
+                email=u['email'],
+                username=u['email']
+            )
+            buildingmanager.users.add(user)
+        return buildingmanager
+
+        # bm = BuildingManager.objects.create()
+
+    def update(self, instance, validated_data):  
+        # data = validated_data.pop('users')
+        
+        #BuildingManager.objects.filter(name=validated_data['name']).delete()
+        # u = User.objects.filter(username=data)
+        instance.name=validated_data['name']
+        instance.phone_number=validated_data['phone_number']
+        instance.company=validated_data['company']
+        instance.save()
+
+        return instance
+          
+        
 
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:

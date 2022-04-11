@@ -9,14 +9,20 @@ class TestBuildingManagerAPI(TestCase):
     def setUp(self):
         self.initial_count = BuildingManager.objects.count()
         self.data = {
-            'company': 1,
-            'name': 'Joe Smith',
-            'phone_number': '512-513-5123'
+            "company": 1,
+            "name": 'Joe Smith',
+            "phone_number": '512-513-5123',
+            "users": [
+	            {"email": "js@email.com",
+                "password": "jspass",
+                "username": "js@email.com"},
+	        ]
         }
         self.response = self.client.post(
             reverse('managers-list'),
             self.data,
-            format="json"
+            format="json",
+            content_type="application/json"
         )
 
     def test_api_create_building_manager(self):
@@ -42,6 +48,11 @@ class TestBuildingManagerAPI(TestCase):
     def test_api_update_building_manager(self):
         building_manager = BuildingManager.objects.last()
         new_data = {
+            'users': [{
+                "email": "georgejohnson@uiowa.edu",
+                "username": "georgejohnson@uiowa.edu",
+                "password": "1234"
+            }],
             'company': 1,
             "name": "George Johnson",
             "phone_number": "512-513-0000",
