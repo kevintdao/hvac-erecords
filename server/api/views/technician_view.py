@@ -4,6 +4,8 @@ from base.models import Technician
 from api.serializers import TechnicianSerializer
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
 
 @api_view(['GET','POST'])
 def apiTechnicians(request):
@@ -25,6 +27,13 @@ def apiTechnicians(request):
         serializer = TechnicianSerializer(data={'user': user.id, 'first_name': request.data['first_name'], 'last_name': request.data['last_name'], 'phone_number': request.data['phone_number'], 'license_number': request.data['license_number'], 'company': request.data['company'] })
         if serializer.is_valid():
             serializer.save()
+            name = request.data['first_name']
+            subject = 'Email to technician'
+            message = f'Hello {name}. Set password'
+            from_email = settings.EMAIL_HOST_USER
+            to_email = request.data['email']
+
+            send_mail(subject, message, from_email, [to_email], fail_silently=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
