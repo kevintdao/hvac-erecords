@@ -5,3 +5,9 @@ export function setObject (key, obj) {
 export function getObject (key) {
   localStorage.getItem(key)
 }
+
+export function updateObject (key, property, value) {
+  var obj = getObject(key)
+  obj[property] = value
+  setObject(key, obj)
+}

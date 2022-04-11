@@ -3,8 +3,9 @@ import ServiceNumeric from './ServiceNumeric'
 import ServiceSelection from './ServiceSelection'
 import ServiceText from './ServiceText'
 import { useForm } from 'react-hook-form'
+import { getObject } from '../../utils/local_storage'
 
-export default function ServiceForm ({ data, onSubmit }) {
+export default function ServiceForm ({ data, savedData, name, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const styles = {
@@ -19,9 +20,9 @@ export default function ServiceForm ({ data, onSubmit }) {
             <h4 className='font-bold text-xl' id={`title-${index+1}`}>{item.title}</h4>
             <p className='mb-1' id={`desc-${index+1}`}>{item.description}</p>
             {
-              item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} /> :
-              item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} /> :
-              item.rule.type == 'Text' ? <ServiceText task={item} index={index} register={register} errors={errors} /> : ''
+              item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} name={name} /> :
+              item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} name={name} /> :
+              item.rule.type == 'Text' ? <ServiceText task={item} index={index} register={register} errors={errors} name={name} /> : ''
             }
           </div>
         ))}

@@ -11,8 +11,14 @@ export default function ServiceProfile () {
   const router = useRouter()
   const { id } = router.query    // profile id
   const [data, setData] = useState()
+  const [savedData, setSavedData] = useState(null)
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
+
+  function loadStorage () {
+    const storage = localStorage.getItem(router.asPath)
+    if(storage) setSavedData(storage)
+  }
 
   useEffect(() => {
     if (!router.isReady) return
@@ -40,6 +46,7 @@ export default function ServiceProfile () {
       })
     }
     fetchData()
+    loadStorage()
   }, [id, router.isReady])
 
   if (!data) {
@@ -127,7 +134,7 @@ export default function ServiceProfile () {
 
         <hr />
       
-        <ServiceForm data={data.tasks} onSubmit={onSubmit} />
+        <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={savedData} name={router.asPath} />
       </div>
     </div>
   )
