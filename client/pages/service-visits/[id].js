@@ -15,11 +15,6 @@ export default function ServiceProfile () {
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
 
-  function loadStorage () {
-    const storage = localStorage.getItem(router.asPath)
-    if(storage) setSavedData(storage)
-  }
-
   useEffect(() => {
     if (!router.isReady) return
 
@@ -45,9 +40,15 @@ export default function ServiceProfile () {
         tasks: tList 
       })
     }
+
+    function loadStorage () {
+      const storage = localStorage.getItem(router.asPath)
+      if(storage) setSavedData(storage)
+    }
+
     fetchData()
     loadStorage()
-  }, [id, router.isReady])
+  }, [id, router.isReady, router.asPath])
 
   if (!data) {
     return (<Loading />)

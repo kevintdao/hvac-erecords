@@ -3,6 +3,8 @@
   "title": "Profile 1",
   "description": "Desc 1",
   "tasks": [
-    { "task_id": 1, "position": 1 }
+    { "task_id": 1, "position": 1 },
+    { "task_id": 2, "position": 1 },
+    { "task_id": 3, "position": 1 }
   ]
 }
