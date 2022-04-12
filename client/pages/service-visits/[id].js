@@ -134,7 +134,7 @@ export default function ServiceProfile () {
 
         <hr />
       
-        <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={savedData} name={router.asPath} />
+        <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={JSON.parse(savedData)} name={router.asPath} />
       </div>
     </div>
   )

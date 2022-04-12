@@ -6,7 +6,9 @@ import { useForm } from 'react-hook-form'
 import { getObject } from '../../utils/local_storage'
 
 export default function ServiceForm ({ data, savedData, name, onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: savedData
+  })
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
