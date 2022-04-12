@@ -25,6 +25,7 @@ describe('Profile index page', () => {
   it('should navigate to new profile page when click on new profile button', () => {
     cy.wait('@getAllProfiles');
     cy.get('a[href="/profiles/create"]').click();
+    cy.wait('@getAllTasks');
     cy.url().should('include', '/profiles/create');
   })
 
