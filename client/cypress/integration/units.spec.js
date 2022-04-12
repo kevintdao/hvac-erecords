@@ -18,8 +18,8 @@ describe('Unit index page', () => {
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.wait('@getAllUnits');
     cy.get('a[href="/units/1"]').click();
-    cy.url().should('include', '/units/1');
     cy.wait(['@getUnit', '@getAllProfiles'])
+    cy.url().should('include', '/units/1');
   })
 
   it('should navigate to new unit page when click on new unit button', () => {
