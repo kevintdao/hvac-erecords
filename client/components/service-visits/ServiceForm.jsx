@@ -14,6 +14,16 @@ export default function ServiceForm ({ data, savedData, name, onSubmit }) {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
   }
 
+  const onChange = (taskId, name, e) => {
+    let obj = JSON.parse(localStorage.getItem(name))
+    let key = {
+      value: e.target.value,
+      completed_at: Temporal.Now.instant().round('second').toString()
+    }
+    obj[taskId] = key
+    localStorage.setItem(name, JSON.stringify(obj))
+  }
+
   return (
     <>
       <form action='' className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
@@ -22,9 +32,9 @@ export default function ServiceForm ({ data, savedData, name, onSubmit }) {
             <h4 className='font-bold text-xl' id={`title-${index+1}`}>{item.title}</h4>
             <p className='mb-1' id={`desc-${index+1}`}>{item.description}</p>
             {
-              item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} name={name} /> :
-              item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} name={name} /> :
-              item.rule.type == 'Text' ? <ServiceText task={item} index={index} register={register} errors={errors} name={name} /> : ''
+              item.rule.type == 'Numeric' ? <ServiceNumeric task={item} index={index} register={register} errors={errors} name={name} onChange={onChange} /> :
+              item.rule.type == 'Selection' ? <ServiceSelection task={item} index={index} register={register} errors={errors} name={name} onChange={onChange} /> :
+              item.rule.type == 'Text' ? <ServiceText task={item} index={index} register={register} errors={errors} name={name} onChange={onChange} /> : ''
             }
           </div>
         ))}

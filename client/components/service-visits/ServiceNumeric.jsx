@@ -1,21 +1,11 @@
 import { Temporal } from '@js-temporal/polyfill'
 import React from 'react'
 
-export default function ServiceNumeric ({ register, errors, task, index, name }) {
+export default function ServiceNumeric ({ register, errors, task, index, name, onChange }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
     helpText: 'text-sm text-red-700 mt-1',
-  }
-
-  const onChange = (e) => {
-    let obj = JSON.parse(localStorage.getItem(name))
-    let key = {
-      value: e.target.value,
-      completed_at: Temporal.Now.instant().round('second').toString()
-    }
-    obj[task.id] = key
-    localStorage.setItem(name, JSON.stringify(obj))
   }
 
   return (
@@ -36,7 +26,7 @@ export default function ServiceNumeric ({ register, errors, task, index, name })
             value: task.rule.options.max,
             message: `Value must be less than or equal to ${task.rule.options.max}`
           },
-          onChange: (e) => onChange(e)
+          onChange: (e) => onChange(task.id, name, e)
         })}
       />
       <input type='hidden' name='numeric' {...register(`${task.id}.type`)} value='Numeric' />

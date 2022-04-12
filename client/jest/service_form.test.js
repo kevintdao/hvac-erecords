@@ -32,7 +32,7 @@ const data = [
 afterEach(cleanup);
 
 test('should watch input correctly', () => {
-  const { container } = render(<ServiceForm data={data} />);
+  const { container } = render(<ServiceForm data={data} name="service-visits" savedData={{"start_time":"2022-04-12T02:26:21Z"}}/>);
   const t1Textarea = container.querySelector("textarea#task-1");
   const t2Input = container.querySelector("input#task-2");
   const t3Choice1 = container.querySelector("input#task-3-1");
@@ -43,26 +43,4 @@ test('should watch input correctly', () => {
 
   expect(t1Textarea.value).toEqual('test');
   expect(t2Input.value).toEqual('1');
-})
-
-test("should display error message when inputs are empty", async () => {
-  const { container } = render(<ServiceForm data={data} />);
-  const t1Textarea = container.querySelector("textarea#task-1");
-  const t2Input = container.querySelector("input#task-2");
-  const t3Choice1 = container.querySelector("input#task-3-1");
-  const t3Choice2 = container.querySelector("input#task-3-2");
-
-  const t1Error = container.querySelector("span#task-1-help");
-  const t2Error = container.querySelector("span#task-2-help");
-  const t3Error = container.querySelector("span#task-3-help");
-
-  const submitButton = container.querySelector("button#submit-button");
-
-  await act(async () => { fireEvent.submit(submitButton); });
-
-  expect(t1Textarea.value.length).toEqual(0);
-  expect(t2Input.value.length).toEqual(0);
-  expect(t1Error.textContent).toBe("This field is required");
-  expect(t2Error.textContent).toBe("This field is required");
-  expect(t3Error.textContent).toBe("Please select one of the options");
 })

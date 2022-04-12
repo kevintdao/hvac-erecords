@@ -1,7 +1,7 @@
 import { Temporal } from '@js-temporal/polyfill'
 import React from 'react'
 
-export default function ServiceSelection ({ register, errors, task, index, name }) {
+export default function ServiceSelection ({ register, errors, task, index, name, onChange }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -22,16 +22,6 @@ export default function ServiceSelection ({ register, errors, task, index, name 
     return output
   }
 
-  const onChange = (e) => {
-    let obj = JSON.parse(localStorage.getItem(name))
-    let key = {
-      value: e.target.value,
-      completed_at: Temporal.Now.instant().round('second').toString()
-    }
-    obj[task.id] = key
-    localStorage.setItem(name, JSON.stringify(obj))
-  }
-
   return (
     <div className={styles.inputContainer}>
       {choices.map((item, i) => (
@@ -43,7 +33,7 @@ export default function ServiceSelection ({ register, errors, task, index, name 
                 value: true,
                 message: 'Please select one of the options'
               },
-              onChange: (e) => onChange(e)
+              onChange: (e) => onChange(task.id, name, e)
             })}
           />
           {item}
