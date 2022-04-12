@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { setObject } from '../../utils/local_storage'
 import { Temporal } from '@js-temporal/polyfill'
+import { setObject } from '../../utils/local_storage'
 
 export default function AvailablePlans ({ data, labels }) {
   const styles = {

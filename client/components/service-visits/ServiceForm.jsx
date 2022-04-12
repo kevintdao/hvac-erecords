@@ -3,7 +3,7 @@ import ServiceNumeric from './ServiceNumeric'
 import ServiceSelection from './ServiceSelection'
 import ServiceText from './ServiceText'
 import { useForm } from 'react-hook-form'
-import { getObject } from '../../utils/local_storage'
+import { Temporal } from '@js-temporal/polyfill'
 
 export default function ServiceForm ({ data, savedData, name, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
