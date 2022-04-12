@@ -7,6 +7,7 @@ import OtherPlans from '../../components/service-plans/OtherPlans'
 import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 import { Temporal } from '@js-temporal/polyfill'
+import { handleError } from '../../utils/errors'
 
 export default function Service () {
   const router = useRouter()

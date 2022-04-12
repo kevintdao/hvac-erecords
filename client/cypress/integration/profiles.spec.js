@@ -45,7 +45,7 @@ describe('Profile details page', () => {
   it('should navigate to edit profile page when click on edit button', () => {
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.visit('http://localhost:3000/profiles/1');
-    cy.wait('@getProfile');
+    cy.wait(['@getProfile', '@getNumericTask'])
 
     cy.get('a#edit').click();
     cy.url().should('include', '/profiles/edit/1');
@@ -54,7 +54,7 @@ describe('Profile details page', () => {
   it('should navigate to all tasks page when click on all tasks button', () => {
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.visit('http://localhost:3000/profiles/1');
-    cy.wait('@getProfile');
+    cy.wait(['@getProfile', '@getNumericTask'])
 
     cy.get('a#all-profiles').click();
     cy.wait('@getAllProfiles');
