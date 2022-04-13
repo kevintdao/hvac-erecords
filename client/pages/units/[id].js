@@ -9,6 +9,7 @@ import PlanForm from '../../components/plans/PlanForm'
 import PlanTable from '../../components/plans/PlanTable'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
+import { QRCodeCanvas } from 'qrcode.react'
 
 export default function Unit (props) {
   const router = useRouter()
@@ -17,6 +18,7 @@ export default function Unit (props) {
   const [error, setError] = useState()
   const [data, setData] = useState()
   const [profiles, setProfiles] = useState()
+  const qrValue = `${process.env.NEXT_PUBLIC_URL}/service-plans/${id}`
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -75,6 +77,19 @@ export default function Unit (props) {
     })
   }
 
+  const downloadQRCode = () => {
+    const canvas = document.getElementById("qr-gen");
+    const pngUrl = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = `${qrValue}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
   if (!data) {
     return (<Loading />)
   }
@@ -103,7 +118,16 @@ export default function Unit (props) {
       </Head>
 
       <div className='space-y-2'>
-        <h2 className='font-bold text-3xl'>Unit Details</h2>
+        <div className=''>
+          <h2 className='font-bold text-3xl'>Unit Details</h2>
+          <QRCodeCanvas id='qr-gen' value={qrValue} />
+          <a onClick={downloadQRCode}>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+        </div>
+
         <UnitDetails data={data.unit} />
 
         <div className='space-x-4 mt-2'>
