@@ -4,6 +4,7 @@ from base.models import Technician
 from api.serializers import TechnicianSerializer
 from rest_framework import status
 from django.contrib.auth.models import User
+from rolepermissions.roles import assign_role
 
 @api_view(['GET','POST'])
 def apiTechnicians(request):
@@ -18,6 +19,7 @@ def apiTechnicians(request):
             email=request.data['email'],
             username=request.data['email']
         )
+        assign_role(user, 'technician')
         keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
         for key in keys:
             if key not in request.data:
