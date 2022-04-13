@@ -7,6 +7,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from rolepermissions.roles import assign_role
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
@@ -22,6 +23,7 @@ def apiTechnicians(request):
             email=request.data['email'],
             username=request.data['email']
         )
+        assign_role(user, 'technician')
         keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
         for key in keys:
             if key not in request.data:
