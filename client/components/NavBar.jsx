@@ -4,18 +4,21 @@ import { useAppContext } from '../context/state'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
-export default function NavBar ({ role }) {
+export default function NavBar () {
   const { data, setData, logout } = useAppContext()
   const isLoggedIn = data.isLoggedIn
+  const role = data.user.role.toLowerCase()
 
   const mcLinks = [
-    { name: 'Manage', href: '/managers' },
-    { name: 'Units', href: '/units' },
-    { name: 'Users', href: '/users'}
+    { name: 'Managers', href: '/managers' },
+    { name: 'Buildings', href: '/buildings' },
+    { name: 'Tasks', href: '/tasks'},
+    { name: 'Profiles', href: '/profiles'},
   ]
 
   const boLinks = [
-    { name: 'Data', href: '/' }
+    { name: 'Buildings', href: '/buildings' },
+    { name: 'Units', href: '/units' }
   ]
 
   const iLinks = [
@@ -128,10 +131,10 @@ export default function NavBar ({ role }) {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {/* nav links */}
-                    { role == 'Maintenance Company' && <MaintenanceCompanyLinks /> }
-                    { role == 'Building Owner' && <BuildingOwnerLinks /> }
-                    { role == 'Inspector' && <InspectorLinks /> }
-                    { role == 'Technician' && <TechnicianLinks /> }
+                    { role == 'company' && <MaintenanceCompanyLinks /> }
+                    { role == 'manager' && <BuildingOwnerLinks /> }
+                    { role == 'inspector' && <InspectorLinks /> }
+                    { role == 'technician' && <TechnicianLinks /> }
                   </div>
                 </div>
               </div>
@@ -147,10 +150,10 @@ export default function NavBar ({ role }) {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* mobile nav links */}
-              { role == 'Maintenance Company' && <MaintenanceCompanyLinks mobile /> }
-              { role == 'Building Owner' && <BuildingOwnerLinks mobile /> }
-              { role == 'Inspector' && <InspectorLinks mobile /> }
-              { role == 'Technician' && <TechnicianLinks mobile /> }
+              { role == 'company' && <MaintenanceCompanyLinks mobile /> }
+              { role == 'manager' && <BuildingOwnerLinks mobile /> }
+              { role == 'inspector' && <InspectorLinks mobile /> }
+              { role == 'technician' && <TechnicianLinks mobile /> }
             </div>
           </Disclosure.Panel>
         </>
