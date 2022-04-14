@@ -123,7 +123,7 @@ export default function Unit (props) {
           <h2 className='font-bold text-3xl'>Unit Details</h2>
           <div className='flex flex-col space-y-2 border border-gray-300 p-2 rounded'>
             <QRCodeCanvas id='qr-gen' value={qrValue} size={64} />
-            <a onClick={downloadQRCode} className='flex justify-center'>
+            <a onClick={downloadQRCode} className='flex justify-center' id='qr-download'>
               <DownloadIcon className='h-5 w-5 hover:cursor-pointer' />
             </a>
           </div>
