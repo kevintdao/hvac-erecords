@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Header from '../components/Header'
 import { useAppContext } from '../context/state'
 
-export default function dashboard () {
+export default function Dashboard () {
   const { data } = useAppContext()
   const role = data.user.role.toLowerCase()
   const isCompany = role == 'company'
@@ -19,8 +19,6 @@ export default function dashboard () {
     buttonDiv: 'space-y-3 flex flex-col',
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
   }
-
-  console.log(role)
 
   return (
     <div className='space-y-4 mt-2'>
