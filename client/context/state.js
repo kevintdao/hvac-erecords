@@ -57,6 +57,8 @@ export function AppProvider ({ children }) {
   }
 
   async function loadData () {
+    setLoading(true)
+
     const access = localStorage.getItem('access_token')
     const refresh = localStorage.getItem('refresh_token')
     var user = null
@@ -86,12 +88,12 @@ export function AppProvider ({ children }) {
       user: hardCodedUser,
       relog: relog
     })
+
+    setLoading(false)
   }
 
   useEffect(() => {
-    setLoading(true)
     loadData()
-    setLoading(false)
   }, [])
 
   if(loading){
@@ -100,7 +102,6 @@ export function AppProvider ({ children }) {
     )
   }
 
-  console.log(data)
   if(data.relog){
     const relogin = () => {
       localStorage.removeItem('access_token')
