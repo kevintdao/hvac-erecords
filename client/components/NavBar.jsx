@@ -7,7 +7,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 export default function NavBar () {
   const { data, setData, logout } = useAppContext()
   const isLoggedIn = data.isLoggedIn
-  const role = data.user.role.toLowerCase()
+  const role = data.user?.role?.toLowerCase()
 
   const mcLinks = [
     { name: 'Managers', href: '/managers' },
