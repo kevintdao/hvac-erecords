@@ -21,19 +21,24 @@ export default function LoginPage () {
           }
         })
 
+        const hardCodedUser = {
+          ...user.data,
+          role: 'Company'
+        }
+
         setData(data => ({
           ...data,
           accessToken: res.data.access,
           refreshToken: res.data.refresh,
           isLoggedIn: true,
-          user: user.data
+          user: hardCodedUser
         }))
 
         // save tokens to localStorage
         localStorage.setItem('access_token', res.data.access)
         localStorage.setItem('refresh_token', res.data.refresh)
 
-        router.push('/')
+        router.push('/dashboard')
       })
       .catch(error => {
         const output = handleError(error)
