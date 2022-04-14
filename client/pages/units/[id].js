@@ -85,7 +85,7 @@ export default function Unit (props) {
       .replace("image/png", "image/octet-stream");
     let downloadLink = document.createElement("a");
     downloadLink.href = pngUrl;
-    downloadLink.download = `${qrValue}.png`;
+    downloadLink.download = `unit-${id}.png`;
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -119,12 +119,14 @@ export default function Unit (props) {
       </Head>
 
       <div className='space-y-2'>
-        <div className=''>
+        <div className='flex justify-between'>
           <h2 className='font-bold text-3xl'>Unit Details</h2>
-          <QRCodeCanvas id='qr-gen' value={qrValue} />
-          <a onClick={downloadQRCode}>
-            <DownloadIcon className='h-5 w-5 hover:cursor-pointer' />
-          </a>
+          <div className='flex flex-col space-y-2 border border-gray-300 p-2 rounded'>
+            <QRCodeCanvas id='qr-gen' value={qrValue} size={64} />
+            <a onClick={downloadQRCode} className='flex justify-center'>
+              <DownloadIcon className='h-5 w-5 hover:cursor-pointer' />
+            </a>
+          </div>
         </div>
 
         <UnitDetails data={data.unit} />
