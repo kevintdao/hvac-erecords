@@ -5,7 +5,7 @@ import { useAppContext } from '../context/state'
 
 export default function Dashboard () {
   const { data } = useAppContext()
-  const role = data.user.role.toLowerCase()
+  const role = data.user?.role.toLowerCase()
   const isCompany = role == 'company'
   const isTechnician = role == 'technician'
   const isManager = role == 'manager'
