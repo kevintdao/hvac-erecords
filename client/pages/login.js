@@ -10,7 +10,7 @@ import { handleError } from '../utils/errors'
 export default function LoginPage () {
   const { login, data, setData } = useAppContext()
   const router = useRouter()
-  const [error, setError] = useState()
+  const [error, setError] = useState(router.query?.error)
 
   const onSubmit = async (inputData) => {
     login(inputData.email, inputData.password)
