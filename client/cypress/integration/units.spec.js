@@ -69,6 +69,14 @@ describe('Unit details page', () => {
     cy.wait('@getAllUnits');
     cy.url().should('include', '/units');
   })
+
+  it('should download the qr code', () => {
+    const path = require('path');
+    const downloadsFolder = Cypress.config("downloadsFolder");
+    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.get('a#qr-download').click();
+    cy.readFile(path.join(downloadsFolder, 'unit-1.png')).should('exist');
+  })
 })
 
 describe('Unit create page', () => {
