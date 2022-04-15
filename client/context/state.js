@@ -57,18 +57,25 @@ export function AppProvider ({ children }) {
   }
 
   async function loadData () {
+    setLoading(true)
+
     const access = localStorage.getItem('access_token')
     const refresh = localStorage.getItem('refresh_token')
     var user = null
     var relog = false
 
+    let hardCodedUser
     if (access) {
       await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/`, {
         headers: {
           Authorization: `Bearer ${access}`
         }
       }).then(res => {
-        user = res.data
+        hardCodedUser = {
+          ...res.data,
+          role: 'Company'
+        }
+        // user = res.data
       }).catch(error => {
         relog = true
       })
@@ -78,15 +85,15 @@ export function AppProvider ({ children }) {
       accessToken: access,
       refreshToken: refresh,
       isLoggedIn: access != null && refresh != null,
-      user: user,
+      user: hardCodedUser,
       relog: relog
     })
+
+    setLoading(false)
   }
 
   useEffect(() => {
-    setLoading(true)
     loadData()
-    setLoading(false)
   }, [])
 
   if(loading){
