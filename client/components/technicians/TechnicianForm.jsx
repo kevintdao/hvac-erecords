@@ -101,6 +101,22 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         <span className='text-sm text-red-700 mt-1' id="license_number-help">{errors.license_number?.message}</span>
                     </div>
                 </div>
+                <div className={styles.inputContainer}>
+                        <label htmlFor="email">Email</label>
+                        <input 
+                        type="text" 
+                        name="email" 
+                        id="email" 
+                        className={`${styles.input} ${errors.last_name ? "border-red-400" : "border-gray-300"}`}
+                        {...register('email', {
+                            required: {
+                            value: true,
+                            message: "Enter an email address"
+                            }
+                        })}
+                        />
+                        {/* <span className='text-sm text-red-700 mt-1' id="last_name-help">{errors.last_name?.message}</span> */}
+                    </div>
                 <div>
                     <button className={styles.button} id='create-button'>{type}</button>
                 </div>
