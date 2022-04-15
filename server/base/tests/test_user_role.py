@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_role
 
-class UserModelTests(TestCase):
+class UserModelRoleTests(TestCase):
         fixtures = ['test_data.json',] 
 
         def test_created_valid_user(self):
