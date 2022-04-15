@@ -27,7 +27,7 @@ export default function QRCodeRedirect() {
     else{
       router.push(`${process.env.NEXT_PUBLIC_URL}/dashboard`)
     }
-  }, [id, router.isReady, role])
+  }, [id, router, role])
   
   
   return (
