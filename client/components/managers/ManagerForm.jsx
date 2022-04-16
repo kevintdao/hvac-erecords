@@ -82,7 +82,7 @@ export default function ManagerForm({ type, data, onSubmit }) {
                 }
               })}
             />
-            <span className='text-sm text-red-700 mt-1' id="name-help">{errors.email?.message}</span>
+            <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
           </div>
         </div>
 

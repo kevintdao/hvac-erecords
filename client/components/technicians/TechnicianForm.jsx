@@ -107,7 +107,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         type="text" 
                         name="email" 
                         id="email" 
-                        className={`${styles.input} ${errors.last_name ? "border-red-400" : "border-gray-300"}`}
+                        className={`${styles.input} ${errors.email ? "border-red-400" : "border-gray-300"}`}
                         {...register('email', {
                             required: {
                             value: true,
@@ -115,7 +115,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
                             }
                         })}
                         />
-                        {/* <span className='text-sm text-red-700 mt-1' id="last_name-help">{errors.last_name?.message}</span> */}
+                        <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
                     </div>
                 <div>
                     <button className={styles.button} id='create-button'>{type}</button>
