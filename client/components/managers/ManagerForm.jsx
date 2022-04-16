@@ -66,6 +66,24 @@ export default function ManagerForm({ type, data, onSubmit }) {
             <span className={styles.helpText} id="phone-help">{errors.phone_number?.message}</span>
             <small className="text-gray-400 mt-1">US phone number only.</small>
           </div>
+
+          {/* Email */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="email">Email address</label>
+            <input 
+              type="text" 
+              name="email" 
+              id="email" 
+              className={`${styles.input} ${errors.email ? "border-red-400" : "border-gray-300"}`}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Enter an email address"
+                }
+              })}
+            />
+            <span className='text-sm text-red-700 mt-1' id="name-help">{errors.email?.message}</span>
+          </div>
         </div>
 
         <div>
