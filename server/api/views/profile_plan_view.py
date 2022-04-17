@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from records.models import ProfilePlan
 from api.serializers import ProfilePlanSerializer
 from rest_framework import status
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def apiProfilePlans(request):
     # List profile plans
     if request.method == 'GET':
@@ -21,6 +23,7 @@ def apiProfilePlans(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def apiProfilePlan(request, pk):
     try:
         profile_plan = ProfilePlan.objects.get(pk=pk)

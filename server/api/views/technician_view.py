@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Technician
 from api.serializers import TechnicianSerializer
@@ -8,6 +9,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def apiTechnicians(request):
     # List technicians
     if request.method == 'GET':
@@ -38,6 +40,7 @@ def apiTechnicians(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAuthenticated])
 def apiTechnician(request,pk):
     try:
         technician = Technician.objects.get(pk=pk)

@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from records.models import Profile
 from api.serializers import ProfileCreateSerializer, ProfileDisplaySerializer
 from rest_framework import status
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def apiProfiles(request):
     # List profiles
     if request.method == 'GET':
@@ -21,6 +23,7 @@ def apiProfiles(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def apiProfile(request, pk):
     try:
         profile = Profile.objects.get(pk=pk)

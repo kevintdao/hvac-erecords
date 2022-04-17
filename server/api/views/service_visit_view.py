@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from records.models import ServiceVisit
 from api.serializers import ServiceVisitSerializer
 from rest_framework import status
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def apiVisits(request):
     # List service visits
     if request.method == 'GET':
@@ -20,6 +22,7 @@ def apiVisits(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def apiVisit(request, pk):
     try:
         visit = ServiceVisit.objects.get(pk=pk)
