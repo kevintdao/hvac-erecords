@@ -18,8 +18,8 @@ describe('Unit index page', () => {
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.wait('@getAllUnits');
     cy.get('a[href="/units/1"]').click();
-    cy.url().should('include', '/units/1');
     cy.wait(['@getUnit', '@getAllProfiles'])
+    cy.url().should('include', '/units/1');
   })
 
   it('should navigate to new unit page when click on new unit button', () => {
@@ -68,6 +68,14 @@ describe('Unit details page', () => {
     cy.get('a#all-units').click();
     cy.wait('@getAllUnits');
     cy.url().should('include', '/units');
+  })
+
+  it('should download the qr code', () => {
+    const path = require('path');
+    const downloadsFolder = Cypress.config("downloadsFolder");
+    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.get('a#qr-download').click();
+    cy.readFile(path.join(downloadsFolder, 'unit-1.png')).should('exist');
   })
 })
 

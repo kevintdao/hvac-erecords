@@ -1,6 +1,7 @@
+import { Temporal } from '@js-temporal/polyfill'
 import React from 'react'
 
-export default function ServiceNumeric ({ register, errors, task, index }) {
+export default function ServiceNumeric ({ register, errors, task, index, name, onChange }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -24,7 +25,8 @@ export default function ServiceNumeric ({ register, errors, task, index }) {
           max: {
             value: task.rule.options.max,
             message: `Value must be less than or equal to ${task.rule.options.max}`
-          }
+          },
+          onChange: (e) => onChange(task.id, name, e)
         })}
       />
       <input type='hidden' name='numeric' {...register(`${task.id}.type`)} value='Numeric' />

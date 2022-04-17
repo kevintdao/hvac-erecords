@@ -4,14 +4,15 @@ import axios from 'axios'
 import Header from '../../components/Header'
 import ServiceForm from '../../components/service-visits/ServiceForm'
 import Loading from '../../components/Loading'
-import { deleteCookie } from '../../utils/cookies'
 import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
+import { handleError } from '../../utils/errors'
 
 export default function ServiceProfile () {
   const router = useRouter()
   const { id } = router.query    // profile id
   const [data, setData] = useState()
+  const [savedData, setSavedData] = useState(null)
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
 
@@ -40,29 +41,40 @@ export default function ServiceProfile () {
         tasks: tList 
       })
     }
+
+    function loadStorage () {
+      const storage = localStorage.getItem(router.asPath)
+      if(storage) setSavedData(storage)
+    }
+
     fetchData()
-  }, [id, router.isReady])
+    loadStorage()
+  }, [id, router.isReady, router.asPath])
 
   if (!data) {
     return (<Loading />)
   }
 
   const onSubmit = (data) => {
-    const endTime = Temporal.Now.instant()
-    const startTime = endTime.subtract({ minutes: 10 })
+    const localStorageData = JSON.parse(localStorage.getItem(router.asPath))
+    const endTime = Temporal.Now.instant().round('second').toString()
+    const startTime = localStorageData.start_time
+
+    delete data.start_time
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
       technician: 1,    // hardcoded technician for now
       plan: id,
-      start_time: startTime.round('second').toString(),
-      end_time: endTime.round('second').toString()
+      start_time: startTime,
+      end_time: endTime
     })
     .then(res => {
         const serviceId = res.data.id
-        let taskData = formatData(serviceId, data)
+        let taskData = formatData(serviceId, data, localStorageData)
         taskData.map(async (item, index) => {
           const completionRes = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/completions`, item)
         })
+        localStorage.removeItem(router.asPath)
         setServiceId(serviceId)
     })
     .catch(error => {
@@ -71,7 +83,7 @@ export default function ServiceProfile () {
     })
   }
 
-  function formatData (serviceId, data) {
+  function formatData (serviceId, data, localStorageData) {
     let output = []
     
     for (const key in data) {
@@ -79,7 +91,7 @@ export default function ServiceProfile () {
       let taskData = {
         task: key,
         service_visit: serviceId,
-        completed_at: Temporal.Now.instant().round('second').toString(),  // hardcoded value for now
+        completed_at: localStorageData[key].completed_at,
         selection: null,
         response: '',
         value: null,
@@ -128,7 +140,7 @@ export default function ServiceProfile () {
 
         <hr />
       
-        <ServiceForm data={data.tasks} onSubmit={onSubmit} />
+        <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={JSON.parse(savedData)} name={router.asPath} />
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 {
-  "id": 1,
+  "id": 2,
   "company": 1,
   "title": "Selection Task",
   "description": "Description",
@@ -8,7 +8,7 @@
     "options": {
       "1": "Choice 1",
       "2": "Choice 2",
-      "choice": 2
+      "choices": 2
     }
   }
 }

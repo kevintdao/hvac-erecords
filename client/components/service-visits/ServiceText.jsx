@@ -1,6 +1,7 @@
+import { Temporal } from '@js-temporal/polyfill'
 import React from 'react'
 
-export default function ServiceText ({ register, errors, task, index }) {
+export default function ServiceText ({ register, errors, task, index, name, onChange }) {
   const styles = {
     inputContainer: 'flex flex-col',
     input: 'p-2 border rounded',
@@ -14,8 +15,9 @@ export default function ServiceText ({ register, errors, task, index }) {
           required: {
             value: true,
             message: 'This field is required'
-          }
-        })}
+          },
+          onChange: (e) => onChange(task.id, name, e)
+         })}
       >
       </textarea>
       <input type='hidden' name='text' {...register(`${task.id}.type`)} value='Text' />

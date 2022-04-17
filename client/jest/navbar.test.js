@@ -40,7 +40,6 @@ test("Logged in navigation bar", () => {
   </AppContext.Provider>
   );
 
-  expect(wrapper.queryByText("Profile")).toBeTruthy();
   expect(wrapper.queryByText("Sign Out")).toBeTruthy();
 })
 
@@ -50,17 +49,19 @@ test("Maintenance company navigation bar", () => {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
-      user: null,
+      user: {
+        role: 'company'
+      },
       relog: false,
     }
   };
   const wrapper = render(
   <AppContext.Provider value={contextValue}>
-    <NavBar role="Maintenance Company" />
+    <NavBar />
   </AppContext.Provider>
   );
   const testData = [
-    "Manage", "Units", "Users"
+    "Managers", "Buildings", "Tasks", "Profiles"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -74,17 +75,19 @@ test("Building owner navigation bar", () => {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
-      user: null,
+      user: {
+        role: 'manager'
+      },
       relog: false,
     }
   };
   const wrapper = render(
   <AppContext.Provider value={contextValue}>
-    <NavBar role="Building Owner" />
+    <NavBar />
   </AppContext.Provider>
   );
   const testData = [
-    "Data"
+    "Buildings", "Units"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -98,13 +101,15 @@ test("Inspector navigation bar", () => {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
-      user: null,
+      user: {
+        role: 'inspector'
+      },
       relog: false,
     }
   };
   const wrapper = render(
   <AppContext.Provider value={contextValue}>
-    <NavBar role="Inspector" />
+    <NavBar />
   </AppContext.Provider>
   );
   const testData = [
@@ -122,13 +127,15 @@ test("Technician navigation bar", () => {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
-      user: null,
+      user: {
+        role: 'technician'
+      },
       relog: false,
     }
   };
   const wrapper = render(
   <AppContext.Provider value={contextValue}>
-    <NavBar role="Technician" />
+    <NavBar />
   </AppContext.Provider>
   );
   const testData = [
