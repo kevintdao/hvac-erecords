@@ -2,14 +2,20 @@ from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
 from records.models import ServiceVisit, ProfilePlan
-from base.models import Technician
-from django.utils import timezone
-import datetime
+from base.models import Technician, User
+from rest_framework.test import APIClient
 
 class TestServiceVisitAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
     
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.initial_count = ServiceVisit.objects.count()
         self.data = {
             "technician": 1, 
@@ -81,8 +87,7 @@ class TestServiceVisitAPI(TestCase):
         }
         response = self.client.put(
             reverse('visits-detail',
-            kwargs={'pk':visit.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':visit.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(str(ServiceVisit.objects.last().end_time), "2022-03-23 17:41:28+00:00")
@@ -98,8 +103,7 @@ class TestServiceVisitAPI(TestCase):
         }
         response = self.client.put(
             reverse('visits-detail',
-            kwargs={'pk':visit.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':visit.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -107,8 +111,7 @@ class TestServiceVisitAPI(TestCase):
         visit = ServiceVisit.objects.last()
         response = self.client.delete(
             reverse('visits-detail',
-            kwargs={'pk':visit.id}), format="json",
-            content_type="application/json"
+            kwargs={'pk':visit.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ServiceVisit.objects.count(), self.initial_count)

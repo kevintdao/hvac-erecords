@@ -2,12 +2,21 @@ from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
 from records.models import Task
+from base.models import User
+from rest_framework.test import APIClient
 import datetime
 
 class TestTaskAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
     
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.initial_count = Task.objects.count()
         self.data = {
 			"company": 1,
@@ -64,8 +73,7 @@ class TestTaskAPI(TestCase):
         }
         response = self.client.put(
             reverse('tasks-detail',
-            kwargs={'pk':task.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':task.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Task.objects.last().description, 'choose the appropriate option') 
@@ -80,8 +88,7 @@ class TestTaskAPI(TestCase):
         }
         response = self.client.put(
             reverse('tasks-detail',
-            kwargs={'pk':task.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':task.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

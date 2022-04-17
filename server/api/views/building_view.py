@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Building
 from api.serializers import BuildingSerializer
 from rest_framework import status
 
-@api_view(['GET','POST'])   
+@api_view(['GET','POST'])  
+@permission_classes([IsAuthenticated])
 def apiBuildings(request):
     # List buildings
     if request.method == 'GET':
@@ -20,7 +22,8 @@ def apiBuildings(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-@api_view(['GET','PUT','DELETE'])   
+@api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAuthenticated])   
 def apiBuilding(request,pk):
     try:
         building = Building.objects.get(pk=pk)
