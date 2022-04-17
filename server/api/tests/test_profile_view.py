@@ -2,11 +2,20 @@ from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
 from records.models import Profile
+from base.models import User
+from rest_framework.test import APIClient
 
 class TestProfileAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
     
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.initial_count = Profile.objects.count()
         self.data = {
             "title": "Routine AC Maintenance",
@@ -26,8 +35,7 @@ class TestProfileAPI(TestCase):
         self.response = self.client.post(
             reverse('profiles-list'),
             self.data,
-            format="json", 
-            content_type="application/json"
+            format="json"
         )
 
     def test_api_create_profile(self):
@@ -51,8 +59,7 @@ class TestProfileAPI(TestCase):
         self.response = self.client.post(
             reverse('profiles-list'),
             data,
-            format="json",
-            content_type="application/json"
+            format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -60,8 +67,7 @@ class TestProfileAPI(TestCase):
         profile = Profile.objects.last()
         response = self.client.get(
             reverse('profiles-detail',
-            kwargs={'pk':profile.id}), format="json",
-            content_type="application/json"
+            kwargs={'pk':profile.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], profile.title)
@@ -88,8 +94,7 @@ class TestProfileAPI(TestCase):
         }
         response = self.client.put(
             reverse('profiles-detail',
-            kwargs={'pk':profile.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':profile.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Profile.objects.last().description, 'this is the profile for routine for packed units')
@@ -113,8 +118,7 @@ class TestProfileAPI(TestCase):
         }
         response = self.client.put(
             reverse('profiles-detail',
-            kwargs={'pk':profile.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':profile.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -122,8 +126,7 @@ class TestProfileAPI(TestCase):
         profile = Profile.objects.last()
         response = self.client.delete(
             reverse('profiles-detail',
-            kwargs={'pk':profile.id}), format="json",
-            content_type="application/json"
+            kwargs={'pk':profile.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Profile.objects.count(), self.initial_count)
