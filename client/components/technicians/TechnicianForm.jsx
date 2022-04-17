@@ -116,6 +116,10 @@ export default function TechnicianForm({type, data, onSubmit}) {
                             pattern: {
                                 value : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                 message: "Enter valid email"
+                            },
+                            maxLength: {
+                              value: 320,
+                              message: "Email address should not exceed 320 characters"
                             }
                         })}
                         />
