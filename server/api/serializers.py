@@ -74,9 +74,6 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-          
-        
-
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
