@@ -64,16 +64,19 @@ describe('Manager index page', () => {
   
       cy.get('input#name').type("Test");
       cy.get('input#phone_number').type("(223) 321 1231");
+      cy.get('input#email').type("Test@test.com");
     })
   
     it('should diplay red border around invalid inputs', () => {
       cy.get('input#name').clear();
       cy.get('input#phone_number').clear();
-  
+      cy.get('input#email').clear();
+
       cy.get('button#create-button').click();
   
       cy.get('input#name').should('have.class', 'border-red-400');
       cy.get('input#phone_number').should('have.class', 'border-red-400');
+      cy.get('button#create-button').should('have.class', 'border-red-400');
     })
   
     it('should display successful message when manager is created', () => {
