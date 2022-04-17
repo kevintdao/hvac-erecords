@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import BuildingDetails from '../../components/buildings/BuildingDetails'
 import Loading from '../../components/Loading'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Building(props) {
     const router = useRouter();
@@ -29,6 +30,7 @@ export default function Building(props) {
     }
 
     return (
+        <PrivateRoute isAllowed={['company', 'manager']}>
         <div className='space-y-4 mt-2'>
             <Head>
                 <title>Building Details</title>
@@ -48,5 +50,6 @@ export default function Building(props) {
                 </Link>
             </div>
         </div>
+        </PrivateRoute>
     )
 }

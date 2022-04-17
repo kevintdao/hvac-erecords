@@ -6,6 +6,7 @@ import Alert from '../../components/Alert'
 import ProfileForm from '../../components/profiles/ProfileForm'
 import Loading from '../../components/Loading'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Create () {
   const [id, setId] = useState(null)
@@ -75,6 +76,7 @@ export default function Create () {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 
@@ -84,5 +86,6 @@ export default function Create () {
 
       <ProfileForm type='Create' tasks={data} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

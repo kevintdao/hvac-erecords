@@ -8,6 +8,7 @@ import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 import { Temporal } from '@js-temporal/polyfill'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Service () {
   const router = useRouter()
@@ -70,6 +71,7 @@ export default function Service () {
   }
 
   return (
+    <PrivateRoute isAllowed={['technician']}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />
 
@@ -90,5 +92,6 @@ export default function Service () {
         {data.plans.other.length === 0 ? <p className={styles.desc} id='no-other'>None</p> : <OtherPlans data={data.plans.other} labels={labels} />}
       </div>
     </div>
+    </PrivateRoute>
   )
 }

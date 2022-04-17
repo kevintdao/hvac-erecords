@@ -8,6 +8,7 @@ import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import Header from '../../../components/Header'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Plan () {
   const router = useRouter()
@@ -71,6 +72,7 @@ export default function Plan () {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 
@@ -80,5 +82,6 @@ export default function Plan () {
 
       <PlanForm profiles={data.profile} plan={data.plan} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

@@ -5,6 +5,7 @@ import axios from 'axios'
 import TaskDetails from '../../components/tasks/TaskDetails'
 import Loading from '../../components/Loading'
 import Header from '../../components/Header'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Manager (props) {
   const router = useRouter()
@@ -29,6 +30,7 @@ export default function Manager (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Task Details' />
 
@@ -46,5 +48,6 @@ export default function Manager (props) {
         </Link>
       </div>
     </div>
+    </PrivateRoute>
   )
 }

@@ -5,6 +5,7 @@ import axios from 'axios'
 import ProfileDetails from '../../components/profiles/ProfileDetails'
 import Loading from '../../components/Loading'
 import Header from '../../components/Header'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Profile (props) {
   const router = useRouter()
@@ -48,6 +49,7 @@ export default function Profile (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Profile Details' />
 
@@ -65,5 +67,6 @@ export default function Profile (props) {
         </Link>
       </div>
     </div>
+    </PrivateRoute>
   )
 }

@@ -4,6 +4,7 @@ import axios from 'axios'
 import TechnicianTable from '../../components/technicians/TechnicianTable'
 import Link from 'next/link'
 import Loading from '../../components/Loading'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Index(props) {
     const [data, setData] = useState()
@@ -30,6 +31,7 @@ export default function Index(props) {
     }
 
     return (
+        <PrivateRoute isAllowed={['company']}>
         <div className='space-y-4 mt-2'>
             <Head>
             <title>Technicians</title>
@@ -45,5 +47,6 @@ export default function Index(props) {
                 </Link>
             </div>
         </div>
+        </PrivateRoute>
     )
 }
