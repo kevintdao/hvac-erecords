@@ -46,7 +46,7 @@ test('Should watch technician input correctly', () => {
     const lastNameError = container.querySelector("span#last_name-help");
     const phoneNumberError = container.querySelector("span#phone_number-help");
     const licenseNumberError = container.querySelector("span#license_number-help");
-    const emailError = container.querySelector("input#email-help");
+    const emailError = container.querySelector("span#email-help");
 
     const createButton = container.querySelector("button#create-button");
 

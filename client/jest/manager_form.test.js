@@ -33,7 +33,7 @@ test("should display error message when inputs are empty", async () => {
 
   const nameError = container.querySelector("span#name-help");
   const phoneError = container.querySelector("span#phone-help");
-  const emailError = container.querySelector("input#email-help");
+  const emailError = container.querySelector("span#email-help");
 
   const createButton = container.querySelector("button#create-button");
 
@@ -44,6 +44,6 @@ test("should display error message when inputs are empty", async () => {
   expect(emailInput.value.length).toEqual(0);
   expect(nameError.textContent).toBe("Enter a name");
   expect(phoneError.textContent).toBe("Enter a phone number");
-  expect(emailError.textContent).toBe("Enter valid email address")
+  expect(emailError.textContent).toBe("Enter a valid email address")
 
 })
