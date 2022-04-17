@@ -1,7 +1,10 @@
-
-
 describe('Task index page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getTasks');
     cy.visit('http://localhost:3000/tasks');
@@ -36,7 +39,12 @@ describe('Task index page', () => {
 })
 
 describe('Task details page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
   })
 
@@ -95,7 +103,12 @@ describe('Task details page', () => {
 })
 
 describe('Task create page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('POST', '**/api/tasks', { fixture: 'task_numeric.json' }).as('createTask');
     cy.visit('http://localhost:3000/tasks/create');
 
@@ -162,7 +175,12 @@ describe('Task create page', () => {
 })
 
 describe('Task edit page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getTask');
     cy.intercept('PUT', '**/api/tasks/*', { fixture: 'updated_task.json' }).as('updateTask');
     cy.visit('http://localhost:3000/tasks/edit/1');

@@ -1,5 +1,10 @@
 describe('Profile index page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
@@ -37,7 +42,12 @@ describe('Profile index page', () => {
 })
 
 describe('Profile details page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getNumericTask');
@@ -64,7 +74,12 @@ describe('Profile details page', () => {
 })
 
 describe('Profile create page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('POST', '**/api/profiles', { fixture: 'profile.json' }).as('createProfile');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');
     cy.intercept('GET', '**/api/tasks/*', { fixture: 'task_numeric.json' }).as('getNumericTask');
@@ -124,7 +139,12 @@ describe('Profile create page', () => {
 })
 
 describe('Profile edit page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.intercept('PUT', '**/api/profiles/*', { fixture: 'updated_profile.json' }).as('updateProfile');
     cy.intercept('GET', '**/api/tasks', { fixture: 'all_tasks.json' }).as('getAllTasks');

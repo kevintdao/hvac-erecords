@@ -1,5 +1,10 @@
 describe('Service visit page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('technician');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('GET', '**/api/plans/*', { fixture: 'plan.json' }).as('getPlan');
     cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');

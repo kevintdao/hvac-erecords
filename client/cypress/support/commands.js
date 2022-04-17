@@ -23,3 +23,26 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (role) => {
+  cy.intercept('POST', '**/api/token', { fixture: 'token.json' }).as('login');
+  cy.intercept('GET', '**/api/user', {
+    body: {
+      id: 1,
+      email: "test@test.com",
+      role: role
+    }
+  }).as('getUser');
+
+  cy.visit('http://localhost:3000/login');
+
+  cy.get('input#email').type("test@test.com");
+  cy.get('input#password').type("Testing123!");
+  cy.get('button#login-button').click();
+
+  cy.wait(['@login', '@getUser']);
+})
+
+Cypress.Commands.add('logout', () => {
+  cy.get('a#sign-out').click()
+})

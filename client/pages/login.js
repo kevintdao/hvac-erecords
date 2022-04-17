@@ -23,7 +23,7 @@ export default function LoginPage () {
 
         const hardCodedUser = {
           ...user.data,
-          role: 'Company'
+          role: user.data.role ? user.data.role : 'Company'
         }
 
         setData(data => ({
