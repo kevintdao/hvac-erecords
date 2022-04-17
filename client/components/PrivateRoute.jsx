@@ -16,7 +16,7 @@ export default function PrivateRoute ({ isAllowed, children }) {
   }
 
   if (!isAllowed.includes(role)) {
-    return <div>You don't have access to this page</div>
+    return <div className='mt-2 font-bold text-lg'>You don't have access to this page</div>
   }
 
 
