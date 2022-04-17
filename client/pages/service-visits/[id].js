@@ -7,6 +7,7 @@ import Loading from '../../components/Loading'
 import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function ServiceProfile () {
   const router = useRouter()
@@ -129,6 +130,7 @@ export default function ServiceProfile () {
   }
 
   return (
+    <PrivateRoute isAllowed={['technician']}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
 
@@ -143,5 +145,6 @@ export default function ServiceProfile () {
         <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={JSON.parse(savedData)} name={router.asPath} />
       </div>
     </div>
+    </PrivateRoute>
   )
 }

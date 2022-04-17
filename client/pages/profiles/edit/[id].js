@@ -7,6 +7,7 @@ import Alert from '../../../components/Alert'
 import ProfileUpdateForm from '../../../components/profiles/ProfileUpdateForm'
 import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Edit (props) {
   const router = useRouter()
@@ -104,6 +105,7 @@ export default function Edit (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 
@@ -113,5 +115,6 @@ export default function Edit (props) {
 
       <ProfileUpdateForm profile={data.profile} currTasks={data.curr_tasks} allTasks={data.all_tasks} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

@@ -1,5 +1,10 @@
 describe('Building index page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('manager');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings');
@@ -31,7 +36,12 @@ describe('Building index page', () => {
 })
 
 describe('Building details page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('manager');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings/1');
@@ -56,7 +66,12 @@ describe('Building details page', () => {
 })
 
 describe('Building create page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+        cy.login('manager');
         cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('POST', '**/api/buildings', { fixture: 'building.json' }).as('createBuilding');
@@ -111,7 +126,12 @@ describe('Building create page', () => {
 })
 
 describe('Building edit page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+        cy.login('manager');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('PUT', '**/api/buildings/*', { fixture: 'updated_building.json' }).as('updateBuilding');
         cy.visit('http://localhost:3000/buildings/edit/1');

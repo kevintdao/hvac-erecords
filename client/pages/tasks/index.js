@@ -4,6 +4,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import TaskTable from '../../components/tasks/TaskTable'
 import Loading from '../../components/Loading'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Index () {
   const [data, setData] = useState()
@@ -30,6 +31,7 @@ export default function Index () {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Tasks' />
 
@@ -43,5 +45,6 @@ export default function Index () {
         </Link>
       </div>
     </div>
+    </PrivateRoute>
   )
 }

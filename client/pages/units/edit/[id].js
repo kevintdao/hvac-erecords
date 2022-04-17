@@ -7,6 +7,7 @@ import UnitForm from '../../../components/units/UnitForm'
 import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Edit (props) {
   const router = useRouter()
@@ -66,6 +67,7 @@ export default function Edit (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company', 'manager']}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Update Unit</title>
@@ -77,5 +79,6 @@ export default function Edit (props) {
 
       <UnitForm type='Update' data={data} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

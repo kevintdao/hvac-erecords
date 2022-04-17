@@ -1,5 +1,10 @@
 describe('Unit index page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.visit('http://localhost:3000/units');
@@ -36,7 +41,12 @@ describe('Unit index page', () => {
 }) 
 
 describe('Unit details page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
@@ -80,7 +90,12 @@ describe('Unit details page', () => {
 })
 
 describe('Unit create page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('POST', '**/api/units', { fixture: 'unit.json' }).as('createUnit');
@@ -135,7 +150,12 @@ describe('Unit create page', () => {
 })
 
 describe('Unit edit page', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('PUT', '**/api/units/*', { fixture: 'updated_unit.json' }).as('updateUnit');
     cy.visit('http://localhost:3000/units/edit/1');

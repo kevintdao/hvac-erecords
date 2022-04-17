@@ -11,6 +11,7 @@ import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import { QRCodeCanvas } from 'qrcode.react'
 import { DownloadIcon } from '@heroicons/react/solid'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Unit (props) {
   const router = useRouter()
@@ -113,6 +114,7 @@ export default function Unit (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company', 'manager']}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Unit Details</title>
@@ -163,5 +165,6 @@ export default function Unit (props) {
         <PlanForm profiles={profiles} onSubmit={onSubmit} />
       </div>
     </div>
+    </PrivateRoute>
   )
 }
