@@ -32,7 +32,7 @@ class LoginUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'last_login', 'username', 'email']
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True)
+    users = RegisterUserSerializer(many=True)
 
     class Meta:
         model = BuildingManager
