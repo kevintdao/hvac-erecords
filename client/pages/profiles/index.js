@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import axios from 'axios'
 import ProfileTable from '../../components/profiles/ProfileTable'
@@ -7,6 +8,7 @@ import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Index () {
+  const router = useRouter()
   const [data, setData] = useState()
 
   useEffect(() => {
@@ -14,7 +16,14 @@ export default function Index () {
       .then((res) => {
         setData(res.data)
       })
-  }, [])
+      .catch(err => {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      })
+  }, [router])
 
   const labels = {
     text: ['Title', 'Number of tasks'],

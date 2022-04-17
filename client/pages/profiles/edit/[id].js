@@ -47,7 +47,14 @@ export default function Edit (props) {
         curr_tasks: tasksList
       })
     })
-  }, [id, router.isReady])
+    .catch(err => {
+      router.push({
+        pathname: '/login',
+        query: { error: 'You must be logged in to access this page' }
+      }, '/login')
+      return
+    })
+  }, [id, router])
 
   const onSubmit = async (data) => {
     console.log(data)

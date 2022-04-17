@@ -26,6 +26,18 @@ export default function Plan () {
 
     const fetchData = async () => {
       const plans = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}/`)
+      .catch(err => {
+        return
+      })
+
+      if (!plans) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
       const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
 
       setData({
@@ -35,7 +47,7 @@ export default function Plan () {
     }
 
     fetchData()
-  }, [id, router.isReady])
+  }, [id, router])
 
   const onSubmit = (data) => {
     axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}/`, data)

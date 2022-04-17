@@ -22,6 +22,18 @@ export default function ServiceProfile () {
 
     const fetchData = async () => {
       const plan = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}`)
+      .catch(err => {
+        return
+      })
+
+      if (!plan) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
       const profileId = plan.data.profile
       const profile = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${profileId}`)
       
@@ -50,7 +62,7 @@ export default function ServiceProfile () {
 
     fetchData()
     loadStorage()
-  }, [id, router.isReady, router.asPath])
+  }, [id, router])
 
   if (!data) {
     return (<Loading />)

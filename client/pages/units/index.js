@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import UnitTable from '../../components/units/UnitTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Index (props) {
+  const router = useRouter()
   const [data, setData] = useState()
 
   useEffect(() => {
@@ -14,7 +16,14 @@ export default function Index (props) {
       .then((res) => {
         setData(res.data)
       })
-  }, [])
+      .catch(err => {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      })
+  }, [router])
 
   const labels = {
     text: ['External ID', 'Model Number', 'Serial Number', 'Type', 'Manufacturer'],
