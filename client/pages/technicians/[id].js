@@ -19,7 +19,14 @@ export default function Technician(props) {
           .then((res) => {
             setData(res.data)
           })
-    }, [id, router.isReady])
+          .catch(err => {
+            router.push({
+              pathname: '/login',
+              query: { error: 'You must be logged in to access this page' }
+            }, '/login')
+            return
+          })
+    }, [id, router])
 
     const styles = {
         button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",

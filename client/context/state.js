@@ -82,6 +82,7 @@ export function AppProvider ({ children }) {
       })
     }
 
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
     setData({
       accessToken: access,
       refreshToken: refresh,

@@ -30,6 +30,17 @@ export default function Service () {
     const fetchData = async () => {
       const currentDate = Temporal.Now.plainDateISO()
       const unit = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      .catch(err => {
+        return
+      })
+
+      if (!unit) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
 
       let plans = unit.data.plans
 
@@ -64,7 +75,7 @@ export default function Service () {
     }
 
     fetchData()
-  }, [id, router.isReady])
+  }, [id, router])
 
   if (!data) {
     return (<Loading />)

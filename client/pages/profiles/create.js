@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import Header from '../../components/Header'
 import Alert from '../../components/Alert'
@@ -9,6 +10,7 @@ import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Create () {
+  const router = useRouter()
   const [id, setId] = useState(null)
   const [data, setData] = useState()
   const [error, setError] = useState()
@@ -22,7 +24,14 @@ export default function Create () {
       .then((res) => {
         setData(res.data)
       })
-  }, [])
+      .catch(err => {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      })
+  }, [router])
 
   const onSubmit = async (data) => {
     const tasks = formatTasks(data.tasks)
