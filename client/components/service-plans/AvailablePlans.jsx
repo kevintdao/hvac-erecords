@@ -27,15 +27,15 @@ export default function AvailablePlans ({ data, labels }) {
         <tbody className={styles.body}>
             {data.map((item, index) => (
               <tr key={index}>
-                <td className={`${styles.cell} w-1/4`} id={`title-${item.id}`}>{item.title}</td>
+                <td className={`${styles.cell} w-1/4`} id={`title-${item.id}`}>{item.profile.title}</td>
                 <td className={`${styles.cell} w-1/8`} id={`is-repeating-${item.id}`}>
                   <input className={styles.checkbox_disable} type='checkbox' name={`is-repeating-${item.id}`} id={`is-repeating-${item.id}`} checked={item.is_repeating} readOnly disabled/>
                 </td>
                 <td className={`${styles.cell} w-1/4`} id={`start-date-${item.id}`}>{item.is_required ? item.start_date : '-'}</td>
                 <td className={`${styles.cell} w-1/4`} id={`end-date-${item.id}`}>{item.is_required ? item.end_date : '-'}</td>
                 <td>
-                <Link href={`/service-visits/${item.id}`}>
-                  <a className={`${styles.link} w-1/8`} onClick={() => setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString()})}>Complete</a>
+                <Link href={`/service-visits/${item.profile.id}`}>
+                  <a className={`${styles.link} w-1/8`} onClick={() => setObject(`/service-visits/${item.profile.id}`, { start_time: Temporal.Now.instant().round('second').toString()})}>Complete</a>
                 </Link>
               </td>
               </tr>
