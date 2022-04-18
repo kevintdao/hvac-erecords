@@ -157,7 +157,6 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
         return [ProfileTaskSerializer(task).data for task in query_datas]
 
 class ProfilePlanSerializer(serializers.ModelSerializer):
-    profile = ProfileDisplaySerializer(read_only=True)
     class Meta:
         model = ProfilePlan
         fields = '__all__'

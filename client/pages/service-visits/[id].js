@@ -34,10 +34,11 @@ export default function ServiceProfile () {
         return
       }
 
-      const profile = plan.data.profile
+      const profileId = plan.data.profile
+      const profile = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${profileId}`)
       
       let endpoints = []
-      let profileRes = profile.tasks
+      let profileRes = profile.data.tasks
       for (let i = 0; i < profileRes.length; i++) {
         endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/tasks/${profileRes[i].task_id}/`)
       }
@@ -49,7 +50,7 @@ export default function ServiceProfile () {
       }
       
       setData({
-        profile: profile,
+        profile: profile.data,
         tasks: tList 
       })
     }
@@ -139,8 +140,6 @@ export default function ServiceProfile () {
     </div>
     )
   }
-
-  console.log(data)
 
   return (
     <PrivateRoute isAllowed={['technician']}>
