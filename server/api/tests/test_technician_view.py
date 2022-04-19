@@ -4,6 +4,7 @@ from django.test import TestCase
 from base.models import Technician, User
 from rest_framework.test import APIClient
 from base.models import Technician, Company
+from users.models import CustomUser
 # from django.contrib.auth.models import User
 from rolepermissions.checkers import has_role
 
@@ -102,7 +103,7 @@ class TestTechnicianAPI(TestCase):
     
     def test_role_technician(self):
         technician = Technician.objects.last()
-        user = User.objects.get(pk=technician.user_id)
+        user = CustomUser.objects.get(pk=technician.user_id)
         self.assert_(has_role(user, 'technician'))
 
     def test_api_delete_technician(self):

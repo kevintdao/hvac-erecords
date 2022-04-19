@@ -24,3 +24,8 @@ class Inspector(AbstractUserRole):
     available_permissions = {
         
     }
+
+class User(AbstractUserRole):
+    available_permissions = {
+
+    }
