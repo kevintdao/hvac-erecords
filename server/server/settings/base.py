@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from telnetlib import AUTHENTICATION
 import dj_database_url
 import environ
 from datetime import timedelta
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     "base",
     "records",
     "rolepermissions",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocalMiddleware"
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -138,3 +141,9 @@ SIMPLE_JWT = {
 
 
 ROLEPERMISSIONS_MODULE = 'server.settings.roles'
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend'
+)
