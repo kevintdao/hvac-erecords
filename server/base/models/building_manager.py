@@ -1,6 +1,10 @@
 from django.db import models
 from .company import *
-from django.contrib.auth.models import User
+from .user import *
+# from django.contrib.auth.models import User
+# from users.models import CustomUser
+# from django.conf import settings
+# User = settings.AUTH_USER_MODEL
 
 class BuildingManager(models.Model):
     users = models.ManyToManyField(User)

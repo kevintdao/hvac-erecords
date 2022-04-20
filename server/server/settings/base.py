@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "base",
     "records",
     "rolepermissions",
-    "users",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +57,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.locale.LocalMiddleware"
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -150,7 +148,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASS")
 
 ROLEPERMISSIONS_MODULE = 'server.settings.roles'
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'base.User'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'

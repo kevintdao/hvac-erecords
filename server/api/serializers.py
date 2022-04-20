@@ -1,22 +1,23 @@
 from re import S
 from rest_framework import serializers
 # from django.contrib.auth.models import User
-from base.models import Unit, BuildingManager, Technician, Building, Company
+from base.models import Unit, BuildingManager, Technician, Building, Company, User
 from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
-from users.models import CustomUser
+from records.models import Task, Profile, ProfileTask, ProfilePlan
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['id', 'username', 'email', 'password', 'date_joined']
 
 class RegisterUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(
+        user = User.objects.create_user(
             email=validated_data['email'],
             username=validated_data['email'],
             password=validated_data['password']
@@ -24,12 +25,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return user
         
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['id', 'username', 'email', 'password', 'date_joined']
 
 class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['id', 'last_login', 'username', 'email', 'role']
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
