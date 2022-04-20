@@ -28,14 +28,17 @@ describe('Unit index page', () => {
   })
 
   it('should navigate to new unit page when click on new unit button', () => {
+    cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
     cy.wait('@getAllUnits');
     cy.get('a[href="/units/create"]').click();
+    cy.wait('@getAllBuildings')
     cy.url().should('include', '/units/create');
   })
 
   it('should navigate to edit unit page when click on edit button', () => {
-    cy.wait('@getAllUnits');
+    cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
     cy.get('a[href="/units/edit/1"]').click();
+    cy.wait('@getAllBuildings')
     cy.url().should('include', '/units/edit/1');
   })
 }) 
@@ -68,8 +71,10 @@ describe('Unit details page', () => {
   })
 
   it('should navigate to edit unit page when click on edit button', () => {
+    cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
     cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
     cy.get('a#edit').click();
+    cy.wait('@getAllBuildings')
     cy.url().should('include', '/units/edit/1');
   })
 
@@ -99,7 +104,10 @@ describe('Unit create page', () => {
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('POST', '**/api/units', { fixture: 'unit.json' }).as('createUnit');
+    cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
     cy.visit('http://localhost:3000/units/create');
+
+    cy.wait('@getAllBuildings');
 
     cy.get('input#external_id').type("12345");
     cy.get('input#model_number').type("12345");
@@ -158,8 +166,9 @@ describe('Unit edit page', () => {
     cy.login('company');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('PUT', '**/api/units/*', { fixture: 'updated_unit.json' }).as('updateUnit');
+    cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
     cy.visit('http://localhost:3000/units/edit/1');
-    cy.wait('@getUnit');
+    cy.wait(['@getUnit', '@getAllBuildings']);
   })
 
   it('should pre-filled the inputs with the current information', () => {

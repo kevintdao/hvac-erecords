@@ -38,7 +38,7 @@ export default function Create () {
     }
 
     fetchData()
-  }, [])
+  }, [router])
   
 
   const onSubmit = async (data) => {
