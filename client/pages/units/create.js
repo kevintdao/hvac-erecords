@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import axios from 'axios'
@@ -6,17 +7,41 @@ import UnitForm from '../../components/units/UnitForm'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import Loading from '../../components/Loading'
 
 export default function Create () {
+  const router = useRouter()
   const [id, setId] = useState(null)
   const [error, setError] = useState()
+  const [data, setData] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const buildings = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/buildings`)
+      .catch(err => {
+        return
+      })
+
+      if (!buildings) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
+      setData(buildings.data)
+    }
+
+    fetchData()
+  }, [router])
+  
+
   const onSubmit = async (data) => {
-    data.building = 1
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, data)
       .then(res => {
         setId(res.data.id)
@@ -25,6 +50,10 @@ export default function Create () {
         const output = handleError(error)
         setError(output)
       })
+  }
+
+  if (!data) {
+    return (<Loading />)
   }
 
   // successfully created unit
@@ -60,7 +89,7 @@ export default function Create () {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <UnitForm type='Create' onSubmit={onSubmit} />
+      <UnitForm type='Create' buildings={data} onSubmit={onSubmit} />
     </div>
     </PrivateRoute>
   )
