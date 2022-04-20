@@ -42,7 +42,6 @@ export default function Create () {
   
 
   const onSubmit = async (data) => {
-    data.building = 1
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/units`, data)
       .then(res => {
         setId(res.data.id)
