@@ -11,7 +11,7 @@ import PrivateRoute from '../../components/PrivateRoute'
 
 export default function ServiceProfile () {
   const router = useRouter()
-  const { id } = router.query    // profile id
+  const { id, unit } = router.query    // profile id, unit id
   const [data, setData] = useState()
   const [savedData, setSavedData] = useState(null)
   const [serviceId, setServiceId] = useState(null)
