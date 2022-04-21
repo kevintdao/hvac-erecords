@@ -66,7 +66,7 @@ describe('Technician create page', () => {
         cy.get('input#last_name').type("Jones");
         cy.get('input#phone_number').type("(319) 356-0001");
         cy.get('input#license_number').type("3");
-        cy.get('input#email').type("ryanjones@googlemail.com");
+        cy.get('input#email').type("ry-jones@test.com");
     })
 
     it('should diplay red border around invalid inputs', () => {
@@ -120,6 +120,7 @@ describe('Technician edit page', () => {
         cy.get('input#last_name').should('have.value', 'Murley');
         cy.get('input#phone_number').should('have.value', '(319) 384-4357');
         cy.get('input#license_number').should('have.value', '4');
+        cy.get('input#email').should('have.value', 'andrew-murley@test.com');
     })
   
     it('should display successful message when technician is updated', () => {
@@ -127,7 +128,7 @@ describe('Technician edit page', () => {
         cy.get('input#last_name').clear().type("Murley");
         cy.get('input#phone_number').clear().type("(319) 356-0001");
         cy.get('input#license_number').clear().type("4");
-    
+        cy.get('input#email').clear().type("ryan-murley@test.com");
         cy.get('button#create-button').click();
         cy.wait('@updateTechnician');
     
