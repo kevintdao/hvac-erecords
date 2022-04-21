@@ -18,7 +18,8 @@ class TestServiceVisitAPI(TestCase):
 
         self.initial_count = ServiceVisit.objects.count()
         self.data = {
-            "technician": 1, 
+            "technician": 1,
+            "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",
             "end_time": "2022-03-22T17:41:28+00:00"
@@ -38,6 +39,7 @@ class TestServiceVisitAPI(TestCase):
     def test_api_create_service_visit_failure(self):
         data = {
             "technician": 1, 
+            "unit": 1, 
             "plan": 1, 
             "end_time": "2022-03-22T17:41:28+00:00",
         }
@@ -51,6 +53,7 @@ class TestServiceVisitAPI(TestCase):
     def test_api_create_service_visit_failure_start_after_end(self):
         data = {
             "technician": 1, 
+            "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-29T17:41:28+00:00",
             "end_time": "2022-03-22T17:41:28+00:00",
@@ -81,6 +84,7 @@ class TestServiceVisitAPI(TestCase):
         visit = ServiceVisit.objects.last()
         new_data = {
             "technician": 1, 
+            "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",
             "end_time": "2022-03-23T17:41:28+00:00"
@@ -97,6 +101,7 @@ class TestServiceVisitAPI(TestCase):
         visit = ServiceVisit.objects.last()
         new_data = {
             "technician": 1, 
+            "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",
             "end_time": "2022-03-19T17:41:28+00:00"
