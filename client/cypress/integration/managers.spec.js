@@ -64,16 +64,19 @@ describe('Manager index page', () => {
   
       cy.get('input#name').type("Test");
       cy.get('input#phone_number').type("(223) 321 1231");
+      cy.get('input#email').type("test@testemail.com");
     })
   
     it('should diplay red border around invalid inputs', () => {
       cy.get('input#name').clear();
       cy.get('input#phone_number').clear();
-  
+      cy.get('input#email').clear();
+
       cy.get('button#create-button').click();
   
       cy.get('input#name').should('have.class', 'border-red-400');
       cy.get('input#phone_number').should('have.class', 'border-red-400');
+      cy.get('input#email').should('have.class', 'border-red-400');
     })
   
     it('should display successful message when manager is created', () => {
@@ -104,12 +107,14 @@ describe('Manager index page', () => {
     it('should pre-filled the inputs with the current information', () => {
       cy.get('input#name').should('have.value', 'University of Iowa');
       cy.get('input#phone_number').should('have.value', '(252) 354-3230');
+      cy.get('input#email').should('have.value', 'uiowa@test.com');
     })
   
     it('should display successful message when manager is updated', () => {
       cy.get('input#name').clear().type("University of Ohio");
       cy.get('input#phone_number').clear().type("(752) 354-3230");
-  
+      cy.get('input#email').clear().type("ohio@testemail.edu");
+      
       cy.get('button#create-button').click();
       cy.wait('@updateManager');
   
