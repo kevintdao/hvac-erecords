@@ -1,17 +1,17 @@
 [
-	{
-        "model":  "base.company",
-        "pk":  "1",
-        "fields": { 
-			"name":  "HVAC Company #1",
-			"street":  "112 Railroad Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States",
-			"phone_number":  "555-555-5554"
-		}
-	},
-	{
+    {
+        "model": "base.company",
+        "pk": 1,
+        "fields": {
+            "name": "HVAC Company #1",
+            "street": "112 Railroad Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States",
+            "phone_number": "312-423-3125"
+        }
+    },
+    {
 		"model": "auth.user",
 		"pk": 1,
 		"fields": {
@@ -19,44 +19,7 @@
 			"email": "user@email.com"
 		}
 	},
-	{
-        "model":  "base.buildingmanager",
-        "pk":  "1",
-        "fields": { 
-			"users": [
-				1
-			],
-			"name":  "University of Iowa",
-			"phone_number":  "555-555-5555",
-			"company": 1
-		}
-	},
     {
-        "model":  "base.building",
-        "pk":  "1",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Seamans Center",
-			"street":  "103 South Capitol Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
-    {
-        "model":  "base.building",
-        "pk":  "2",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Main Library",
-			"street":  "125 West Washington Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
-
-	{
 		"model": "auth.user",
 		"pk": 2,
 		"fields": {
@@ -64,29 +27,74 @@
 			"email": "user2@email.com"
 		}
 	},
-	{
-        "model":  "base.technician",
-        "fields": { 
-			"user": 1,
-			"company": 1,
-			"first_name":  "Bob",
-			"last_name":  "Smith",
-			"phone_number":  "123-321-4213",
-			"license_number":  "131251003"
-		}
-	},
-	{
-        "model":  "base.unit",
-        "pk":  "1",
-        "fields": { 
-			"building": 1, 
-			"external_id": "test", 
-			"category": "Duct free", 
-			"serial_number": "132", 
-			"model_number": "123", 
-			"manufacturer": "test",
-			"production_date": "2022-04-06", 
-			"installation_date": "2022-03-08"
-		}
-	}
+    {
+        "model": "base.buildingmanager",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "name": "University of Iowa",
+            "phone_number": "555-555-5555",
+            "users": [1]
+        }
+    },
+    {
+        "model": "base.buildingmanager",
+        "pk": 2,
+        "fields": {
+            "company": 1,
+            "name": "Commerce Store",
+            "phone_number": "555-312-4231",
+            "users": [2]
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 1,
+        "fields": {
+            "manager": 1,
+            "site_name": "Seamans Center",
+            "street": "103 South Capitol Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States"
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 2,
+        "fields": {
+            "manager": 1,
+            "site_name": "Main Library",
+            "street": "125 West Washington Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States"
+        }
+    },
+    {
+        "model": "base.unit",
+        "pk": 1,
+        "fields": {
+            "building": 1,
+            "external_id": "50030",
+            "category": "Duct free",
+            "serial_number": "AA000312341",
+            "model_number": "AB412",
+            "manufacturer": "Trane",
+            "production_date": "2022-02-01",
+            "installation_date": "2022-03-08"
+        }
+    },
+    {
+        "model": "base.technician",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "company": 1,
+            "first_name": "Bob",
+            "last_name": "Smith",
+            "phone_number": "123-321-4213",
+            "license_number": 131251003
+        }
+    }
 ]

@@ -1,94 +1,173 @@
 [
-	{
-        "model":  "records.task",
-        "pk":  "1",
-        "fields": { 
-			"company": 1,
-			"title":  "Record condition of condenser coil",
-			"description":  "",
-			"rule": {		
-				"type": "Text"
-			}
-		}
-	},
-	{
-        "model":  "records.task",
-        "pk":  "2",
-        "fields": { 
-			"company": 1,
-			"title":  "Record temperature",
-			"description":  "record temperature of unit",
-			"rule": {		
-				"type": "Numeric",
-				"options": {
-					"min": "0",
-					"max": "40"
-				}
-			}
-		}
-	},
-	{
-        "model":  "records.task",
-        "pk":  "3",
-        "fields": { 
-			"company": 1,
-			"title":  "Change filter",
-			"description":  "change the filter and respond",
-			"rule": {		
-				"type": "Selection",
-				"options": {
-					"1": "Choice 1",
-					"2": "Choice 2"
-				}
-			}
-		}
-	},
-	{
-		"model": "records.profile", 
-		"pk": 1, 
-		"fields": {
-			"title": "Set of tasks",
-			"description": "test"
-		}
-	},
-	{
-		"model": "records.profiletask", 
-		"pk": 1, 
-		"fields": {
-			"profile": 1, 
-			"task": 1, 
-			"position": 1
-		}
-	}, 
-	{
-		"model": "records.profiletask", 
-		"pk": 2, 
-		"fields": {
-			"profile": 1, 
-			"task": 2, 
-			"position": 2
-		}
-	},
-	{
-		"model": "records.profileplan", 
-		"pk": 1, 
-		"fields": {
-			"profile": 1, 
-			"unit": 1, 
-			"start_date": "2022-03-08",
-			"end_date": "2022-06-08",
-			"is_required": "True",
-			"is_repeating": "True"
-		}
-	},
-	{
-		"model": "records.servicevisit", 
-		"pk": 1, 
-		"fields": {
-			"technician": 1, 
-			"plan": 1, 
-			"start_time": "2022-04-1T17:41:28+00:00",
-			"end_time": "2022-04-2T17:41:28+00:00"
-		}
-	}
+    {
+        "model": "records.task",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "title": "Record condition of condenser coil",
+            "description": "",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 2,
+        "fields": {
+            "company": 1,
+            "title": "Record temperature",
+            "description": "Record temperature of unit",
+            "rule": {
+                "type": "Numeric",
+                "options": {
+                    "max": 40,
+                    "min": 0
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 3,
+        "fields": {
+            "company": 1,
+            "title": "Check if filter needs to be changed",
+            "description": "check if the filter needs to be changed",
+            "rule": {
+                "type": "Selection",
+                "options": {
+                    "1": "OK",
+                    "2": "Needs Action"
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 4,
+        "fields": {
+            "company": 1,
+            "title": "Break fix",
+            "description": "Technician says what is wrong with the unit",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.profile",
+        "pk": 1,
+        "fields": {
+            "title": "Routine Maintenance for AC Units",
+            "description": "this is a list of tasks for maintenance of an air conditioner"
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 4,
+        "fields": {
+            "profile": 1,
+            "task": 1,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 5,
+        "fields": {
+            "profile": 1,
+            "task": 2,
+            "position": 2
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 6,
+        "fields": {
+            "profile": 1,
+            "task": 3,
+            "position": 3
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "unit": 1,
+            "start_date": "2022-03-08",
+            "end_date": "2022-06-08",
+            "is_required": true,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 2,
+        "fields": {
+            "profile": 1,
+            "unit": 1,
+            "start_date": "2022-08-01",
+            "end_date": "2022-12-31",
+            "is_required": true,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 1,
+        "fields": {
+            "technician": 1,
+            "start_time": "2022-04-01T17:41:28Z",
+            "end_time": "2022-04-02T17:41:28Z",
+            "plan": 1
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 2,
+        "fields": {
+            "technician": 1,
+            "start_time": "2022-04-18T16:46:29Z",
+            "end_time": "2022-04-18T16:47:39Z",
+            "plan": 1
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 1,
+        "fields": {
+            "task": 2,
+            "service_visit": 2,
+            "completed_at": "2022-04-18T16:47:17Z",
+            "selection": null,
+            "response": "",
+            "value": 20
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 2,
+        "fields": {
+            "task": 3,
+            "service_visit": 2,
+            "completed_at": "2022-04-18T16:47:38Z",
+            "selection": 1,
+            "response": "",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 3,
+        "fields": {
+            "task": 1,
+            "service_visit": 2,
+            "completed_at": "2022-04-18T16:46:57Z",
+            "selection": null,
+            "response": "Good condition",
+            "value": null
+        }
+    }
 ]
