@@ -25,10 +25,13 @@ class ServiceVisitDisplaySerializer(serializers.ModelSerializer):
 
 class TaskCompletionDisplaySerializer(serializers.ModelSerializer):
     visit = serializers.PrimaryKeyRelatedField(source='service_visit',read_only=True)
+    task_id = serializers.PrimaryKeyRelatedField(source='task', read_only=True)
+    task_title = serializers.CharField(source='task.title',read_only=True)
+    task_description = serializers.CharField(source='task.description',read_only=True)
 
     class Meta:
         model = TaskCompletion
-        fields = ['id','task','completed_at','selection','response','value','visit']
+        fields = ['id','task_id','task_title','task_description','completed_at','selection','response','value','visit']
 
 class UnitRecordsSerializer(serializers.ModelSerializer):
     building = BuildingDisplaySerializer(many=False,read_only=True)
