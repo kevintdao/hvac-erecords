@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .record_serializers import ProfilePlanSerializer
+from .records_serializers import ProfilePlanSerializer
 from .user_serializers import UserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
