@@ -12,7 +12,7 @@ from records.models import Task, Profile, ProfileTask, ProfilePlan
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'date_joined']
+        fields = ['id', 'username', 'email', 'password', 'date_joined', 'role']
 
 class RegisterUserSerializer(serializers.ModelSerializer):
 
@@ -26,7 +26,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'date_joined']
+        fields = ['id', 'username', 'email', 'password', 'date_joined', 'role']
 
 class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:

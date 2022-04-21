@@ -1,7 +1,7 @@
 from re import T
 from django.test import TestCase
-from base.models import Technician, Company
-from django.contrib.auth.models import User
+from base.models import Technician, Company, User
+# from django.contrib.auth.models import User
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_role
 

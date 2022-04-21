@@ -151,5 +151,5 @@ ROLEPERMISSIONS_MODULE = 'server.settings.roles'
 AUTH_USER_MODEL = 'base.User'
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
 )
