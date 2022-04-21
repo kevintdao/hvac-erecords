@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Unit, Building
+from base.models import Unit, Building, Technician
 from records.models import ServiceVisit, TaskCompletion
 
 
@@ -8,6 +8,14 @@ class BuildingDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
         fields = ['site_name', 'street', 'city', 'zip_code', 'country']
+
+class TechnicianDisplaySerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(source='user',read_only=True)
+    affiliation = serializers.CharField(source='company.name',read_only=True)
+
+    class Meta:
+        model = Technician
+        fields = ['id', 'first_name', 'last_name', 'license_number', 'affiliation']
 
 class ServiceVisitDisplaySerializer(serializers.ModelSerializer):
 
@@ -25,13 +33,14 @@ class TaskCompletionDisplaySerializer(serializers.ModelSerializer):
 class UnitRecordsSerializer(serializers.ModelSerializer):
     building = BuildingDisplaySerializer(many=False,read_only=True)
     visits = ServiceVisitDisplaySerializer(many=True,read_only=True)
+    technicians = serializers.SerializerMethodField()
     task_completions = serializers.SerializerMethodField()
 
     class Meta:
         model = Unit
         fields = ['id', 'external_id', 'category', 'serial_number', 
         'model_number', 'manufacturer', 'production_date', 'installation_date',
-        'building', 'visits', 'task_completions']
+        'building', 'visits', 'task_completions', 'technicians']
 
     def get_task_completions(self, unit):
         task_completions = TaskCompletion.objects.filter(
@@ -39,5 +48,14 @@ class UnitRecordsSerializer(serializers.ModelSerializer):
         )
         return TaskCompletionDisplaySerializer(
             task_completions,
+            many=True
+        ).data
+    
+    def get_technicians(self, unit):
+        technicians = Technician.objects.filter(
+            visits__unit=unit
+        )
+        return TechnicianDisplaySerializer(
+            technicians,
             many=True
         ).data
