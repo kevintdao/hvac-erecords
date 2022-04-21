@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from base.models import Unit
 from rest_framework import status
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def apiUnitRecords(request, pk):
     try:
