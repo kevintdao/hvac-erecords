@@ -3,12 +3,22 @@
         "id": 1,
         "name": "Scott Community College",
         "phone_number": "+15232432342",
-        "company": 1
+        "company": 1,
+        "users": [{
+            "email": "scc@test.com",
+            "username": "scc@test.com",
+            "password": "sccpass"
+        }]
     },
     {
         "id": 2,
         "name": "University of Iowa",
         "phone_number": "+115232432343",
-        "company": 1
+        "company": 1,
+        "users": [{
+            "email": "uiowa@test.com",
+            "username": "uiowa@test.com",
+            "password": "uiowapass"
+        }]
     }
   ]
