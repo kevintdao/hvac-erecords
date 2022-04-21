@@ -77,6 +77,7 @@ export default function ServiceProfile () {
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
       technician: 1,    // hardcoded technician for now
+      unit: unit,
       plan: id,
       start_time: startTime,
       end_time: endTime
