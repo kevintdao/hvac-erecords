@@ -101,6 +101,30 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         <span className='text-sm text-red-700 mt-1' id="license_number-help">{errors.license_number?.message}</span>
                     </div>
                 </div>
+                <div className={styles.inputContainer}>
+                        <label htmlFor="email">Email</label>
+                        <input 
+                        type="text" 
+                        name="email" 
+                        id="email" 
+                        className={`${styles.input} ${errors.email ? "border-red-400" : "border-gray-300"}`}
+                        {...register('email', {
+                            required: {
+                            value: true,
+                            message: "Enter a valid email address"
+                            },
+                            pattern: {
+                                value : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                message: "Enter a valid email address"
+                            },
+                            maxLength: {
+                              value: 320,
+                              message: "Email address should not exceed 320 characters"
+                            }
+                        })}
+                        />
+                        <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
+                    </div>
                 <div>
                     <button className={styles.button} id='create-button'>{type}</button>
                 </div>

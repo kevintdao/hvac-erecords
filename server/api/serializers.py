@@ -32,7 +32,7 @@ class LoginUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'last_login', 'username', 'email']
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True)
+    users = RegisterUserSerializer(many=True)
 
     class Meta:
         model = BuildingManager
@@ -68,15 +68,15 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         
         #BuildingManager.objects.filter(name=validated_data['name']).delete()
         # u = User.objects.filter(username=data)
+        # for u in instance.objects:
+        #     u.email = validated_data
+        #     u.save()
         instance.name=validated_data['name']
         instance.phone_number=validated_data['phone_number']
         instance.company=validated_data['company']
         instance.save()
 
         return instance
-          
-        
-
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician

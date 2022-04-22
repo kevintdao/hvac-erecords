@@ -5,5 +5,6 @@
     "first_name": "Andrew",
     "last_name": "Murley",
     "phone_number": "+13193844357",
-    "license_number": 4
+    "license_number": 4,
+    "email": "andrew-murley@test.com"
 }
