@@ -5,10 +5,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .records_serializers import ProfilePlanSerializer
-from .user_serializers import UserSerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True)
+    users = RegisterUserSerializer(many=True)
 
     class Meta:
         model = BuildingManager
@@ -39,6 +39,9 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         # data = validated_data.pop('users')
         #BuildingManager.objects.filter(name=validated_data['name']).delete()
         # u = User.objects.filter(username=data)
+        # for u in instance.objects:
+        #     u.email = validated_data
+        #     u.save()
         instance.name=validated_data['name']
         instance.phone_number=validated_data['phone_number']
         instance.company=validated_data['company']
