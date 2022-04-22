@@ -2,5 +2,6 @@
     "id": 1,
     "name": "University of Ohio",
     "phone_number": "+17523543230",
-    "company": 1
+    "company": 1,
+    "email": "ohio@testemail.edu"
 }
