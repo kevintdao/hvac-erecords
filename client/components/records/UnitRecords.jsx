@@ -11,10 +11,10 @@ export default function UnitRecords ({ data, unitId }) {
   const [csvData, setCsvData] = useState()
 
   const styles = {
-    visit_container: 'border border-gray-300 rounded p-2',
-    grid_2: 'grid md:grid-cols-2 gap-2 grid-cols-1',
-    grid_3: 'grid md:grid-cols-3 gap-2 grid-cols-1',
-    grid_4: 'grid md:grid-cols-4 gap-2 grid-cols-1',
+    visit_container: 'border border-gray-300 rounded p-2 space-y-2',
+    grid_2: 'grid md:grid-cols-2 md:gap-0 gap-2 grid-cols-1',
+    grid_3: 'grid md:grid-cols-3 md:gap-0 gap-2 grid-cols-1',
+    grid_4: 'grid md:grid-cols-4 md:gap-0 gap-2 grid-cols-1',
     button: 'flex p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
@@ -103,41 +103,52 @@ export default function UnitRecords ({ data, unitId }) {
 
       {visits.map((item, i) => (
         <div key={item.visit.id} className={styles.visit_container}>
-          <h5>{`Visit ${item.visit.id}`}</h5>
-          <div className={styles.grid_2}>
-            <span>{`Start time: ${formatDate(item.visit.start_time)}`}</span>
-            <span>{`End time: ${formatDate(item.visit.end_time)}`}</span>
+          <div>
+            <h3 className='font-bold text-2xl'>{`Visit ${item.visit.id}`}</h3>
+            <div className={styles.grid_2}>
+              <span><u>Start time:</u>{` ${formatDate(item.visit.start_time)}`}</span>
+              <span><u>End time:</u>{` ${formatDate(item.visit.end_time)}`}</span>
+            </div>
           </div>
-          
-          <h5>{`Plan`}</h5>
-          <div className='flex flex-col'>
-            <span>{`Title: ${item.plan.profile_title}`}</span>
-            <span>{`Description: ${item.plan.profile_description}`}</span>
-          </div>
+          <hr />
 
-          <h5>{`Technician`}</h5>
-          <div className={styles.grid_2}>
-            <span>{`First name: ${item.technician.first_name}`}</span>
-            <span>{`Last name: ${item.technician.last_name}`}</span>
-            <span>{`Affiliation: ${item.technician.affiliation}`}</span>
-            <span>{`License number: ${item.technician.license_number}`}</span>
+          <div>
+            <h5 className='font-bold text-xl'>{`Plan`}</h5>
+            <div className='flex flex-col'>
+              <span><u>Title:</u>{` ${item.plan.profile_title}`}</span>
+              <span><u>Description:</u>{` ${item.plan.profile_description}`}</span>
+            </div>
           </div>
+          <hr />
 
-          <h5>{`Tasks`}</h5>
-          <div className={styles.grid_2}>
-            {item.tasks.map(task => (
-              <div key={task.id} className='flex flex-col'>
-                <span>{`Title: ${task.task_title}`}</span>
-                <span>{`Description: ${task.task_description}`}</span>
-                <div>
-                  {task.task_rule.type == 'Text' ? <RecordsText data={task} /> :
-                   task.task_rule.type == 'Selection' ? <RecordsSelection data={task} /> :
-                   task.task_rule.type == 'Numeric' ? <RecordsNumeric data={task} /> :
-                   ''
-                  }
+          <div>
+            <h5 className='font-bold text-xl'>{`Technician`}</h5>
+            <div className={styles.grid_2}>
+              <span><u>First name:</u>{` ${item.technician.first_name}`}</span>
+              <span><u>Last name:</u>{` ${item.technician.last_name}`}</span>
+              <span><u>Affiliation:</u>{` ${item.technician.affiliation}`}</span>
+              <span><u>License number:</u>{` ${item.technician.license_number}`}</span>
+            </div>
+          </div>
+          <hr />
+
+          <div>
+            <h5 className='font-bold text-xl'>{`Tasks`}</h5>
+            <div className={styles.grid_2}>
+              {item.tasks.map(task => (
+                <div key={task.id} className='flex flex-col'>
+                  <span><u>Title:</u>{` ${task.task_title}`}</span>
+                  <span><u>Description:</u>{` ${task.task_description}`}</span>
+                  <div>
+                    {task.task_rule.type == 'Text' ? <RecordsText data={task} /> :
+                    task.task_rule.type == 'Selection' ? <RecordsSelection data={task} /> :
+                    task.task_rule.type == 'Numeric' ? <RecordsNumeric data={task} /> :
+                    ''
+                    }
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       ))}

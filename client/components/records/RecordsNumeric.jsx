@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function RecordsNumeric ({ data }) {
   return (
-    <span>{`Input: ${data.value}`}</span>
+    <span><u>Input:</u>{` ${data.value}`}</span>
   )
 }
