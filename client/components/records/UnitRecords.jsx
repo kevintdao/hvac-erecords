@@ -43,10 +43,39 @@ export default function UnitRecords ({ data, unitId }) {
     }
 
     const formatCSV = () => {
+      let output = []
+      for (const [key, value] of Object.entries(data.visits)) {
+        for (const [tKey, tValue] of Object.entries(data.task_completions)) {
+          if(tValue.visit == key) {
+            const planId = value.plan
+            const techId = value.technician
+            const rule = tValue.task_rule
 
+            output.push({
+              "Visit ID": value.id,
+              "Technician": `${data.technicians[techId].first_name} ${data.technicians[techId].last_name}`,
+              "Company": data.technicians[techId].affiliation,
+              "License Number": data.technicians[techId].license_number,
+              "Plan": data.plans[planId].profile_title,
+              "Visit Start Time": value.start_time,
+              "Visit End Time": value.end_time,
+              "Task Title": tValue.task_title,
+              "Task Description": tValue.task_description,
+              "User Input": 
+                rule.type == 'Numeric' ? tValue.value :
+                rule.type == 'Selection' ? rule.options[tValue.selection] :
+                rule.type == 'Text' ? tValue.response :
+                ''
+              })
+          }
+        }
+      }
+
+      setCsvData(output)
     }
 
     formatData()
+    formatCSV()
   }, [])
 
   if(!visits) {
@@ -59,12 +88,12 @@ export default function UnitRecords ({ data, unitId }) {
     return correctParsedOffsetDateTime
   }
 
-  console.log(visits)
+  console.log(csvData)
 
   return (
     <div className='space-y-2'>
       <div className='flex space-x-2'>
-        <CSVLink className={styles.button} data={visits} filename={`unit-${unitId}-records`}>
+        <CSVLink className={styles.button} data={csvData} filename={`unit-${unitId}-records`}>
         <DownloadIcon className='h-5 w-5 mr-2' />
           CSV
         </CSVLink>
