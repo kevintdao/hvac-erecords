@@ -104,10 +104,10 @@ export default function UnitRecords ({ data, unitId }) {
       {visits.map((item, i) => (
         <div key={item.visit.id} className={styles.visit_container}>
           <div>
-            <h3 className='font-bold text-2xl'>{`Visit ${item.visit.id}`}</h3>
+            <h3 className='font-bold text-2xl' id={`visit-${item.visit.id}`}>{`Visit ${item.visit.id}`}</h3>
             <div className={styles.grid_2}>
-              <span><u>Start time:</u>{` ${formatDate(item.visit.start_time)}`}</span>
-              <span><u>End time:</u>{` ${formatDate(item.visit.end_time)}`}</span>
+              <span id={`visit-${item.visit.id}-start`}><u>Start time:</u>{` ${formatDate(item.visit.start_time)}`}</span>
+              <span id={`visit-${item.visit.id}-end`}><u>End time:</u>{` ${formatDate(item.visit.end_time)}`}</span>
             </div>
           </div>
           <hr />
@@ -115,8 +115,8 @@ export default function UnitRecords ({ data, unitId }) {
           <div>
             <h5 className='font-bold text-xl'>{`Plan`}</h5>
             <div className='flex flex-col'>
-              <span><u>Title:</u>{` ${item.plan.profile_title}`}</span>
-              <span><u>Description:</u>{` ${item.plan.profile_description}`}</span>
+              <span id={`plan-${item.visit.id}-title`}><u>Title:</u>{` ${item.plan.profile_title}`}</span>
+              <span id={`plan-${item.visit.id}-desc`}><u>Description:</u>{` ${item.plan.profile_description}`}</span>
             </div>
           </div>
           <hr />
@@ -124,10 +124,10 @@ export default function UnitRecords ({ data, unitId }) {
           <div>
             <h5 className='font-bold text-xl'>{`Technician`}</h5>
             <div className={styles.grid_2}>
-              <span><u>First name:</u>{` ${item.technician.first_name}`}</span>
-              <span><u>Last name:</u>{` ${item.technician.last_name}`}</span>
-              <span><u>Affiliation:</u>{` ${item.technician.affiliation}`}</span>
-              <span><u>License number:</u>{` ${item.technician.license_number}`}</span>
+              <span id={`tech-${item.visit.id}-fname`}><u>First name:</u>{` ${item.technician.first_name}`}</span>
+              <span id={`tech-${item.visit.id}-lname`}><u>Last name:</u>{` ${item.technician.last_name}`}</span>
+              <span id={`tech-${item.visit.id}-company`}><u>Affiliation:</u>{` ${item.technician.affiliation}`}</span>
+              <span id={`tech-${item.visit.id}-license`}><u>License number:</u>{` ${item.technician.license_number}`}</span>
             </div>
           </div>
           <hr />
