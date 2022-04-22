@@ -1,96 +1,5 @@
-from re import S
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from base.models import Unit, BuildingManager, Technician, Building, Company
 from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
-from django.utils import timezone
-from django.core.mail import send_mail
-from django.conf import settings
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password', 'date_joined']
-
-class RegisterUserSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            username=validated_data['email'],
-            password=validated_data['password']
-        )
-        return user
-        
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password', 'date_joined']
-
-class LoginUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'last_login', 'username', 'email']
-
-class BuildingManagerSerializer(serializers.ModelSerializer):
-    users = RegisterUserSerializer(many=True)
-
-    class Meta:
-        model = BuildingManager
-        fields = '__all__'
-
-    def create(self, validated_data):
-        data = validated_data.pop('users')
-    
-        buildingmanager = BuildingManager.objects.create(**validated_data)
-        
-        for u in data:
-            user = User.objects.create_user(
-                email=u['email'],
-                username=u['email']
-            )
-            buildingmanager.users.add(user)            
-            name = validated_data['name']
-            subject = 'Email to building manager'
-            message = f'Hello {name}. Set password'
-            from_email = settings.EMAIL_HOST_USER
-            to_email = u['email']
-
-            send_mail(subject, message, from_email, [to_email], fail_silently=False)
-
-
-        
-        return buildingmanager
-
-        # bm = BuildingManager.objects.create()
-
-    def update(self, instance, validated_data):  
-        # data = validated_data.pop('users')
-        
-        #BuildingManager.objects.filter(name=validated_data['name']).delete()
-        # u = User.objects.filter(username=data)
-        # for u in instance.objects:
-        #     u.email = validated_data
-        #     u.save()
-        instance.name=validated_data['name']
-        instance.phone_number=validated_data['phone_number']
-        instance.company=validated_data['company']
-        instance.save()
-
-        return instance
-class TechnicianSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Technician
-        fields = '__all__'
-
-class BuildingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Building
-        fields = '__all__'
-
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = '__all__'
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
@@ -159,13 +68,6 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 class ProfilePlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfilePlan
-        fields = '__all__'
-
-class UnitSerializer(serializers.ModelSerializer):
-    plans = ProfilePlanSerializer(many=True,read_only=True)
-
-    class Meta:
-        model = Unit
         fields = '__all__'
 
 class ServiceVisitSerializer(serializers.ModelSerializer):

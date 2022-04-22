@@ -95,12 +95,12 @@ export default function Service () {
 
       <div>
         <h4 className='font-bold text-xl'>Available Plans</h4>
-        {data.plans.available.length === 0 ? <p className={styles.desc} id='no-available'>None</p> : <AvailablePlans data={data.plans.available} labels={labels} />}
+        {data.plans.available.length === 0 ? <p className={styles.desc} id='no-available'>None</p> : <AvailablePlans unitId={id} data={data.plans.available} labels={labels} />}
       </div>
 
       <div>
         <h4 className='font-bold text-xl'>Other Plans</h4>
-        {data.plans.other.length === 0 ? <p className={styles.desc} id='no-other'>None</p> : <OtherPlans data={data.plans.other} labels={labels} />}
+        {data.plans.other.length === 0 ? <p className={styles.desc} id='no-other'>None</p> : <OtherPlans unitId={id} data={data.plans.other} labels={labels} />}
       </div>
     </div>
     </PrivateRoute>
