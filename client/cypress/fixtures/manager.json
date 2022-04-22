@@ -3,9 +3,5 @@
     "name": "University of Iowa",
     "phone_number": "+12523543230",
     "company": 1,
-    "users": [{
-        "email": "uiowa@test.com",
-        "username": "uiowa@test.com",
-        "password": "uiowapass"
-    }]
+    "email": "uiowa@test.com"
 }
