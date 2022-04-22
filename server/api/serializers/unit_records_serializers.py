@@ -52,10 +52,11 @@ class TaskCompletionDisplaySerializer(serializers.ModelSerializer):
     task_id = serializers.PrimaryKeyRelatedField(source='task', read_only=True)
     task_title = serializers.CharField(source='task.title',read_only=True)
     task_description = serializers.CharField(source='task.description',read_only=True)
+    task_rule = serializers.JSONField(source='task.rule', read_only=True)
 
     class Meta:
         model = TaskCompletion
-        fields = ['id','task_id','task_title','task_description','completed_at','selection','response','value','visit']
+        fields = ['id','task_id','task_title','task_description','task_rule','completed_at','selection','response','value','visit']
         list_serializer_class = DictSerializer
 
 class ProfilePlanDisplaySerializer(serializers.ModelSerializer):
