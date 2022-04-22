@@ -1,5 +1,10 @@
 describe('Technician index page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/technicians', { fixture: 'all_technicians.json' }).as('getAllTechnicians');
       cy.intercept('GET', '**/api/technicians/*', { fixture: 'technician.json' }).as('getTechnician');
       cy.visit('http://localhost:3000/technicians');
@@ -31,7 +36,12 @@ describe('Technician index page', () => {
 })
 
 describe('Technician details page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/technicians', { fixture: 'all_technicians.json' }).as('getAllTechnicians');
       cy.intercept('GET', '**/api/technicians/*', { fixture: 'technician.json' }).as('getTechnician');
       cy.visit('http://localhost:3000/technicians/1');
@@ -56,7 +66,12 @@ describe('Technician details page', () => {
 })
 
 describe('Technician create page', () => {
-    beforeEach(() => {
+      after(() => {
+        cy.logout();
+      })
+
+      beforeEach(() => {
+        cy.login('company');
         cy.intercept('GET', '**/api/technicians', { fixture: 'all_technicians.json' }).as('getAllTechnicians');
         cy.intercept('GET', '**/api/technicians/*', { fixture: 'technician.json' }).as('getTechnician');
         cy.intercept('POST', '**/api/technicians', { fixture: 'technician.json' }).as('createTechnician');
@@ -108,7 +123,12 @@ describe('Technician create page', () => {
 })
 
 describe('Technician edit page', () => {
-    beforeEach(() => {
+      after(() => {
+        cy.logout();
+      })
+
+      beforeEach(() => {
+        cy.login('company');
         cy.intercept('GET', '**/api/technicians/*', { fixture: 'technician.json' }).as('getTechnician');
         cy.intercept('PUT', '**/api/technicians/*', { fixture: 'updated_technician.json' }).as('updateTechnician');
         cy.visit('http://localhost:3000/technicians/edit/1');

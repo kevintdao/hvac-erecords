@@ -71,14 +71,19 @@ export function AppProvider ({ children }) {
           Authorization: `Bearer ${access}`
         }
       }).then(res => {
+        console.log(res.data.role)
         hardCodedUser = {
           ...res.data,
-          role: 'Company'
+          role: res.data.role ? res.data.role : 'Company'
         }
         // user = res.data
       }).catch(error => {
         relog = true
       })
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+    }
+    else {
+      delete axios.defaults.headers.common["Authorization"];
     }
 
     setData({

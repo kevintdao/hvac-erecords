@@ -7,6 +7,7 @@ import Loading from '../../components/Loading'
 import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function ServiceProfile () {
   const router = useRouter()
@@ -21,6 +22,18 @@ export default function ServiceProfile () {
 
     const fetchData = async () => {
       const plan = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}`)
+      .catch(err => {
+        return
+      })
+
+      if (!plan) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
       const profileId = plan.data.profile
       const profile = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${profileId}`)
       
@@ -49,7 +62,7 @@ export default function ServiceProfile () {
 
     fetchData()
     loadStorage()
-  }, [id, router.isReady, router.asPath])
+  }, [id, router])
 
   if (!data) {
     return (<Loading />)
@@ -129,6 +142,7 @@ export default function ServiceProfile () {
   }
 
   return (
+    <PrivateRoute isAllowed={['technician']}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
 
@@ -143,5 +157,6 @@ export default function ServiceProfile () {
         <ServiceForm data={data.tasks} onSubmit={onSubmit} savedData={JSON.parse(savedData)} name={router.asPath} />
       </div>
     </div>
+    </PrivateRoute>
   )
 }

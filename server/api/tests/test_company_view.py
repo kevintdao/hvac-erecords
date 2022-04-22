@@ -1,12 +1,20 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Technician, Company
+from base.models import Company, User
+from rest_framework.test import APIClient
 
 class TestMaintenanceCompanyAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.data = {
             "name": "University of Iowa",
             "street": "123 Street",
@@ -53,8 +61,7 @@ class TestMaintenanceCompanyAPI(TestCase):
         }
         response = self.client.put(
             reverse('companies-detail',
-            kwargs={'pk':company.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':company.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Company.objects.last().zip_code, '52245')
@@ -66,8 +73,7 @@ class TestMaintenanceCompanyAPI(TestCase):
         }
         response = self.client.put(
             reverse('companies-detail',
-            kwargs={'pk':company.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':company.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
     

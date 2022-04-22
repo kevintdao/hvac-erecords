@@ -1,15 +1,23 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from records.models import ProfilePlan, Profile
-from base.models import Unit
+from records.models import ProfilePlan
+from base.models import User
 import datetime
+from rest_framework.test import APIClient
 
 
 class TestProfilePlanAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
 
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.initial_count = ProfilePlan.objects.count()
         self.data = {
             "profile": 1,
@@ -22,8 +30,7 @@ class TestProfilePlanAPI(TestCase):
         self.response = self.client.post(
             reverse('plans-list'),
             self.data,
-            format="json", 
-            content_type="application/json"
+            format="json"
         )
 
     def test_api_create_profile_plan(self):
@@ -49,8 +56,7 @@ class TestProfilePlanAPI(TestCase):
         self.response = self.client.post(
             reverse('plans-list'),
             data,
-            format="json",
-            content_type="application/json"
+            format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -58,8 +64,7 @@ class TestProfilePlanAPI(TestCase):
         plan = ProfilePlan.objects.last()
         response = self.client.get(
             reverse('plans-detail',
-            kwargs={'pk':plan.id}), format="json",
-            content_type="application/json"
+            kwargs={'pk':plan.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['end_date'], str(plan.end_date))
@@ -76,8 +81,7 @@ class TestProfilePlanAPI(TestCase):
         }
         response = self.client.put(
             reverse('plans-detail',
-            kwargs={'pk':plan.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':plan.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(ProfilePlan.objects.last().end_date, datetime.date(2022,12,25))
@@ -96,8 +100,7 @@ class TestProfilePlanAPI(TestCase):
         }
         response = self.client.put(
             reverse('plans-detail',
-            kwargs={'pk':plan.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':plan.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -105,8 +108,7 @@ class TestProfilePlanAPI(TestCase):
         plan = ProfilePlan.objects.last()
         response = self.client.delete(
             reverse('plans-detail',
-            kwargs={'pk':plan.id}), format="json",
-            content_type="application/json"
+            kwargs={'pk':plan.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ProfilePlan.objects.count(), self.initial_count)

@@ -8,6 +8,7 @@ import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import Header from '../../../components/Header'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Plan () {
   const router = useRouter()
@@ -25,6 +26,18 @@ export default function Plan () {
 
     const fetchData = async () => {
       const plans = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}/`)
+      .catch(err => {
+        return
+      })
+
+      if (!plans) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
       const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
 
       setData({
@@ -34,7 +47,7 @@ export default function Plan () {
     }
 
     fetchData()
-  }, [id, router.isReady])
+  }, [id, router])
 
   const onSubmit = (data) => {
     axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}/`, data)
@@ -71,6 +84,7 @@ export default function Plan () {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 
@@ -80,5 +94,6 @@ export default function Plan () {
 
       <PlanForm profiles={data.profile} plan={data.plan} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

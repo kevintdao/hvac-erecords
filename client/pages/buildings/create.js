@@ -5,6 +5,7 @@ import axios from 'axios'
 import BuildingForm from '../../components/buildings/BuildingForm'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Create() {
     const [id, setId] = useState(null);
@@ -49,6 +50,7 @@ export default function Create() {
     }
 
     return (
+        <PrivateRoute isAllowed={['company', 'manager']}>
         <div className='space-y-4 mt-2'>
             <Head>
             <title>Create Building</title>
@@ -60,5 +62,6 @@ export default function Create() {
 
             <BuildingForm type='Create' onSubmit={onSubmit}/>
         </div>
+        </PrivateRoute>
     )
 }

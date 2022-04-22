@@ -1,10 +1,12 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Company
 from api.serializers import CompanySerializer
 from rest_framework import status
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def apiCompanies(request):
     # List companies
     if request.method == 'GET':
@@ -19,7 +21,8 @@ def apiCompanies(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT','DELETE'])   
+@api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAuthenticated]) 
 def apiCompany(request,pk):
     try:
         building = Company.objects.get(pk=pk)

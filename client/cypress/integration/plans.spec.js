@@ -1,5 +1,10 @@
 describe('Plan table', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
@@ -19,7 +24,12 @@ describe('Plan table', () => {
 })
 
 describe('Adding plan', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
     cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
@@ -71,7 +81,12 @@ describe('Adding plan', () => {
 })
 
 describe('Updating plan', () => {
+  after(() => {
+    cy.logout();
+  })
+
   beforeEach(() => {
+    cy.login('company');
     cy.intercept('GET', '**/api/plans/*', { fixture: 'plan.json' }).as('getPlan');
     cy.intercept('PUT', '**/api/plans/*', { fixture: 'updated_plan.json' }).as('updatePlan');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');

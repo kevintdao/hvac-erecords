@@ -1,5 +1,10 @@
 describe('Manager index page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.intercept('GET', '**/api/managers/*', { fixture: 'manager.json' }).as('getManager');
       cy.visit('http://localhost:3000/managers');
@@ -31,7 +36,12 @@ describe('Manager index page', () => {
   }) 
   
   describe('Manager details page', () => {
-    beforeEach(() => {
+      after(() => {
+        cy.logout();
+      })
+
+      beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.intercept('GET', '**/api/managers/*', { fixture: 'manager.json' }).as('getManager');
       cy.visit('http://localhost:3000/managers/1');
@@ -56,7 +66,12 @@ describe('Manager index page', () => {
   })
   
   describe('Manager create page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.intercept('GET', '**/api/managers/*', { fixture: 'manager.json' }).as('getManager');
       cy.intercept('POST', '**/api/managers', { fixture: 'manager.json' }).as('createManager');
@@ -97,7 +112,12 @@ describe('Manager index page', () => {
   })
   
   describe('Manager edit page', () => {
+    after(() => {
+      cy.logout();
+    })
+
     beforeEach(() => {
+      cy.login('company');
       cy.intercept('GET', '**/api/managers/*', { fixture: 'manager.json' }).as('getManager');
       cy.intercept('PUT', '**/api/managers/*', { fixture: 'updated_manager.json' }).as('updateManager');
       cy.visit('http://localhost:3000/managers/edit/1');

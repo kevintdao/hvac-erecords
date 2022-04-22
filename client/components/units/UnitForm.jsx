@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 
-export default function UnitForm({ type, data, onSubmit }) {
+export default function UnitForm({ type, data, buildings, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: data
   });
@@ -24,6 +24,21 @@ export default function UnitForm({ type, data, onSubmit }) {
   return (
     <>
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+        <div className={styles.inputContainer}>
+          <label htmlFor="building">Building</label>
+          <select 
+            type="text" 
+            name="building" 
+            id="building" 
+            className={`${styles.input} border-gray-300`}
+            {...register('building')}
+          >
+            {buildings.map((building, i) => (
+              <option value={building.id} key={building.id}>{`${building.site_name} (${building.street} ${building.city} ${building.zip_code})`}</option>
+            ))}
+          </select>
+        </div>
+        
         <div className={styles.inputs3Cols}>
           {/* External ID */}
           <div className={styles.inputContainer}>

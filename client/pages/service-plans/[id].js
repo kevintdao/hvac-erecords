@@ -8,6 +8,7 @@ import UnitDetails from '../../components/units/UnitDetails'
 import Loading from '../../components/Loading'
 import { Temporal } from '@js-temporal/polyfill'
 import { handleError } from '../../utils/errors'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Service () {
   const router = useRouter()
@@ -29,6 +30,17 @@ export default function Service () {
     const fetchData = async () => {
       const currentDate = Temporal.Now.plainDateISO()
       const unit = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      .catch(err => {
+        return
+      })
+
+      if (!unit) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
 
       let plans = unit.data.plans
 
@@ -63,13 +75,14 @@ export default function Service () {
     }
 
     fetchData()
-  }, [id, router.isReady])
+  }, [id, router])
 
   if (!data) {
     return (<Loading />)
   }
 
   return (
+    <PrivateRoute isAllowed={['technician']}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />
 
@@ -90,5 +103,6 @@ export default function Service () {
         {data.plans.other.length === 0 ? <p className={styles.desc} id='no-other'>None</p> : <OtherPlans data={data.plans.other} labels={labels} />}
       </div>
     </div>
+    </PrivateRoute>
   )
 }

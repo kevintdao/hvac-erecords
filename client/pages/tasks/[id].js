@@ -5,6 +5,7 @@ import axios from 'axios'
 import TaskDetails from '../../components/tasks/TaskDetails'
 import Loading from '../../components/Loading'
 import Header from '../../components/Header'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Manager (props) {
   const router = useRouter()
@@ -18,7 +19,14 @@ export default function Manager (props) {
       .then((res) => {
         setData(res.data)
       })
-  }, [id, router.isReady])
+      .catch(err => {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      })
+  }, [id, router])
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -29,6 +37,7 @@ export default function Manager (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Task Details' />
 
@@ -46,5 +55,6 @@ export default function Manager (props) {
         </Link>
       </div>
     </div>
+    </PrivateRoute>
   )
 }

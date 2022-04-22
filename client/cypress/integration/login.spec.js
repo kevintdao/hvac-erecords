@@ -4,7 +4,7 @@ describe('Login page', () => {
     cy.intercept('GET', '**/api/user', [{
       id: 1,
       email: "test@test.com",
-      role: "Maintenance Company"
+      role: "Company"
     }]).as('getUser');
     cy.visit('http://localhost:3000/login');
   })
@@ -17,7 +17,7 @@ describe('Login page', () => {
     cy.wait('@login');
     cy.wait('@getUser');
 
-    cy.url().should('include', '/');
+    cy.url().should('include', '/dashboard');
   })
 
   it('should display error when login information is incorrect', () => {

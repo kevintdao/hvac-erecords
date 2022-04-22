@@ -7,6 +7,7 @@ import TaskForm from '../../../components/tasks/TaskForm'
 import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Edit (props) {
   const router = useRouter()
@@ -26,7 +27,14 @@ export default function Edit (props) {
       .then((res) => {
         setData(res.data)
       })
-  }, [id, router.isReady])
+      .catch(err => {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      })
+  }, [id, router])
 
   const onSubmit = async (data) => {
     const type = data.type
@@ -90,6 +98,7 @@ export default function Edit (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company']}>
     <div className='space-y-4 mt-2'>
       <Header title='Update Task' />
 
@@ -99,5 +108,6 @@ export default function Edit (props) {
 
       <TaskForm type='Update' data={data} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

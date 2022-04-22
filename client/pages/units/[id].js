@@ -11,6 +11,7 @@ import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import { QRCodeCanvas } from 'qrcode.react'
 import { DownloadIcon } from '@heroicons/react/solid'
+import PrivateRoute from '../../components/PrivateRoute'
 
 export default function Unit (props) {
   const router = useRouter()
@@ -35,6 +36,18 @@ export default function Unit (props) {
 
     const fetchData = async () => {
       const units = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      .catch(err => {
+        return
+      })
+
+      if (!units) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
       const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
 
       let endpoints = []
@@ -57,7 +70,7 @@ export default function Unit (props) {
       })
     }
     fetchData()
-  }, [id, router.isReady])
+  }, [id, router])
 
   const onSubmit = (data) => {
     data.unit = id
@@ -113,6 +126,7 @@ export default function Unit (props) {
   }
 
   return (
+    <PrivateRoute isAllowed={['company', 'manager']}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Unit Details</title>
@@ -163,5 +177,6 @@ export default function Unit (props) {
         <PlanForm profiles={profiles} onSubmit={onSubmit} />
       </div>
     </div>
+    </PrivateRoute>
   )
 }

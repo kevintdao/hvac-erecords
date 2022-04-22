@@ -7,6 +7,7 @@ import UnitForm from '../../../components/units/UnitForm'
 import Alert from '../../../components/Alert'
 import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
+import PrivateRoute from '../../../components/PrivateRoute'
 
 export default function Edit (props) {
   const router = useRouter()
@@ -14,6 +15,7 @@ export default function Edit (props) {
   const [unitId, setUnitId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [buildings, setBuildings] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -22,11 +24,28 @@ export default function Edit (props) {
   useEffect(() => {
     if (!router.isReady) return
 
-    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
-      .then((res) => {
-        setData(res.data)
+    const fetchData = async () => {
+      const detail = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
+      .catch(err => {
+        return
       })
-  }, [id, router.isReady])
+
+      if (!detail) {
+        router.push({
+          pathname: '/login',
+          query: { error: 'You must be logged in to access this page' }
+        }, '/login')
+        return
+      }
+
+      const buildingsDetail = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/buildings`)
+
+      setBuildings(buildingsDetail.data)
+      setData(detail.data)
+    }
+
+    fetchData()
+  }, [id, router])
 
   const onSubmit = async (data) => {
     axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`, data)
@@ -65,7 +84,10 @@ export default function Edit (props) {
     return (<Loading />)
   }
 
+  console.log(buildings)
+
   return (
+    <PrivateRoute isAllowed={['company', 'manager']}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Update Unit</title>
@@ -75,7 +97,8 @@ export default function Edit (props) {
 
       {error && <Alert title='Error' text={error} type='error' />}
 
-      <UnitForm type='Update' data={data} onSubmit={onSubmit} />
+      <UnitForm type='Update' buildings={buildings} data={data} onSubmit={onSubmit} />
     </div>
+    </PrivateRoute>
   )
 }

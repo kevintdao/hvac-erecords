@@ -1,12 +1,20 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import BuildingManager, Company
+from base.models import BuildingManager, User
+from rest_framework.test import APIClient
 
 class TestBuildingManagerAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
+        self.user = User.objects.create(
+            username="test@example.com",
+            email="test@example.com"
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+
         self.initial_count = BuildingManager.objects.count()
         self.data = {
             "company": 1,
@@ -21,8 +29,7 @@ class TestBuildingManagerAPI(TestCase):
         self.response = self.client.post(
             reverse('managers-list'),
             self.data,
-            format="json",
-            content_type="application/json"
+            format="json"
         )
 
     def test_api_create_building_manager(self):
@@ -59,8 +66,7 @@ class TestBuildingManagerAPI(TestCase):
         }
         response = self.client.put(
             reverse('managers-detail',
-            kwargs={'pk':building_manager.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':building_manager.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(BuildingManager.objects.last().name, 'George Johnson') 
@@ -72,8 +78,7 @@ class TestBuildingManagerAPI(TestCase):
         }
         response = self.client.put(
             reverse('managers-detail',
-            kwargs={'pk':building_manager.id}), data=new_data, format="json", 
-            content_type="application/json"
+            kwargs={'pk':building_manager.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

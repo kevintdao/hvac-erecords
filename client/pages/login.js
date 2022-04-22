@@ -10,7 +10,7 @@ import { handleError } from '../utils/errors'
 export default function LoginPage () {
   const { login, data, setData } = useAppContext()
   const router = useRouter()
-  const [error, setError] = useState()
+  const [error, setError] = useState(router.query?.error)
 
   const onSubmit = async (inputData) => {
     login(inputData.email, inputData.password)
@@ -23,7 +23,7 @@ export default function LoginPage () {
 
         const hardCodedUser = {
           ...user.data,
-          role: 'Company'
+          role: user.data.role ? user.data.role : 'Company'
         }
 
         setData(data => ({
@@ -37,6 +37,8 @@ export default function LoginPage () {
         // save tokens to localStorage
         localStorage.setItem('access_token', res.data.access)
         localStorage.setItem('refresh_token', res.data.refresh)
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
         router.push('/dashboard')
       })
