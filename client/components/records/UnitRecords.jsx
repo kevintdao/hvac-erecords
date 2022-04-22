@@ -59,6 +59,13 @@ export default function UnitRecords ({ data, unitId }) {
 
             output.push({
               "Visit ID": value.id,
+              "Unit Category": data.category,
+              "Unit Serial Number": data.serial_number,
+              "Unit Model Number": data.model_number,
+              "Unit Manufacturer": data.manufacturer,
+              "Unit Production Date": data.production_date,
+              "Unit Installation Date": data.installation_date,
+              "Building": `${data.building.site_name} (${data.building.street} ${data.building.city}, ${data.building.zip_code})`,
               "Technician": `${data.technicians[techId].first_name} ${data.technicians[techId].last_name}`,
               "Company": data.technicians[techId].affiliation,
               "License Number": data.technicians[techId].license_number,
