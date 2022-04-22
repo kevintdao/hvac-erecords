@@ -4,9 +4,12 @@ import { Temporal } from '@js-temporal/polyfill'
 import RecordsNumeric from './RecordsNumeric'
 import RecordsSelection from './RecordsSelection'
 import RecordsText from './RecordsText'
+import { CSVLink } from 'react-csv'
 
-export default function UnitRecords ({ data }) {
+export default function UnitRecords ({ data, unitId }) {
   const [visits, setVisits] = useState()
+  const [csvData, setCsvData] = useState()
+
   const styles = {
     visit_container: 'border border-gray-300 rounded p-2',
     grid_2: 'grid md:grid-cols-2 gap-2 grid-cols-1',
@@ -38,6 +41,11 @@ export default function UnitRecords ({ data }) {
       }
       setVisits(output)
     }
+
+    const formatCSV = () => {
+
+    }
+
     formatData()
   }, [])
 
@@ -56,10 +64,10 @@ export default function UnitRecords ({ data }) {
   return (
     <div className='space-y-2'>
       <div className='flex space-x-2'>
-        <button className={styles.button}>
+        <CSVLink className={styles.button} data={visits} filename={`unit-${unitId}-records`}>
         <DownloadIcon className='h-5 w-5 mr-2' />
           CSV
-        </button>
+        </CSVLink>
 
         <button className={styles.button}>
         <DownloadIcon className='h-5 w-5 mr-2' />
@@ -76,9 +84,9 @@ export default function UnitRecords ({ data }) {
           </div>
           
           <h5>{`Plan`}</h5>
-          <div className={styles.grid_2}>
-            <span>{`Start time: ${item.visit.start_time}`}</span>
-            <span>{`End time: ${item.visit.end_time}`}</span>
+          <div className='flex flex-col'>
+            <span>{`Title: ${item.plan.profile_title}`}</span>
+            <span>{`Description: ${item.plan.profile_description}`}</span>
           </div>
 
           <h5>{`Technician`}</h5>

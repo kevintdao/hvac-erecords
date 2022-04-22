@@ -50,7 +50,7 @@ export default function Record() {
         <UnitDetails data={data} />
 
         <h4 className='font-bold text-xl'>Records</h4>
-        <UnitRecords data={data} />
+        <UnitRecords data={data} unitId={id} />
       </div>
 
     </div>
