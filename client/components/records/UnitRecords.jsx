@@ -18,6 +18,12 @@ export default function UnitRecords ({ data, unitId }) {
     button: 'flex p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
+  const formatDate = (date) => {
+    const offsetZone = Temporal.TimeZone.from(date);
+    const correctParsedOffsetDateTime = Temporal.Instant.from(date).toZonedDateTimeISO(offsetZone).toLocaleString();
+    return correctParsedOffsetDateTime
+  }
+
   useEffect(() => {
     const formatData = () => {
       let output = []
@@ -57,8 +63,8 @@ export default function UnitRecords ({ data, unitId }) {
               "Company": data.technicians[techId].affiliation,
               "License Number": data.technicians[techId].license_number,
               "Plan": data.plans[planId].profile_title,
-              "Visit Start Time": value.start_time,
-              "Visit End Time": value.end_time,
+              "Visit Start Time": formatDate(value.start_time),
+              "Visit End Time": formatDate(value.end_time),
               "Task Title": tValue.task_title,
               "Task Description": tValue.task_description,
               "User Input": 
@@ -70,7 +76,6 @@ export default function UnitRecords ({ data, unitId }) {
           }
         }
       }
-
       setCsvData(output)
     }
 
@@ -81,14 +86,6 @@ export default function UnitRecords ({ data, unitId }) {
   if(!visits) {
     return <></>
   }
-
-  const formatDate = (date) => {
-    const offsetZone = Temporal.TimeZone.from(date);
-    const correctParsedOffsetDateTime = Temporal.Instant.from(date).toZonedDateTimeISO(offsetZone);
-    return correctParsedOffsetDateTime
-  }
-
-  console.log(csvData)
 
   return (
     <div className='space-y-2'>
@@ -108,8 +105,8 @@ export default function UnitRecords ({ data, unitId }) {
         <div key={item.visit.id} className={styles.visit_container}>
           <h5>{`Visit ${item.visit.id}`}</h5>
           <div className={styles.grid_2}>
-            <span>{`Start time: ${item.visit.start_time}`}</span>
-            <span>{`End time: ${item.visit.end_time}`}</span>
+            <span>{`Start time: ${formatDate(item.visit.start_time)}`}</span>
+            <span>{`End time: ${formatDate(item.visit.end_time)}`}</span>
           </div>
           
           <h5>{`Plan`}</h5>
