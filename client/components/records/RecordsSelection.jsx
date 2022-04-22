@@ -16,7 +16,7 @@ export default function RecordsSelection ({ data }) {
       })
     }
     setChoices(output)
-  }, [])
+  }, [data])
 
   if(!choices) {
     return <div></div>

@@ -81,7 +81,7 @@ export default function UnitRecords ({ data, unitId }) {
 
     formatData()
     formatCSV()
-  }, [])
+  }, [data])
 
   if(!visits) {
     return <></>

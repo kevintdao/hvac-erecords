@@ -32,7 +32,7 @@ export default function Record() {
     }
 
     fetchData()
-  }, [router])
+  }, [router, id])
 
   if (!data) {
     return (<Loading />)
