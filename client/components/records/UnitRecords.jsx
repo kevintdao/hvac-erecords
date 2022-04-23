@@ -104,14 +104,18 @@ export default function UnitRecords ({ data, unitId }) {
             CSV
         </CSVLink>
 
-        <button className={styles.button}>
-          <DownloadIcon className='h-5 w-5 mr-2' />
-          <PDFDownloadLink document={<RecordsPDF data={visits} />} fileName="records.pdf">
-            {({ blob, url, loading, error }) => (loading ? 
-              'Loading document...' : 'PDF'
-            )}
-          </PDFDownloadLink>
-        </button>
+        <PDFDownloadLink document={<RecordsPDF data={visits} />} fileName="records.pdf">
+          {({ blob, url, loading, error }) => (loading ? 
+            <button className={styles.button}>
+              <DownloadIcon className='h-5 w-5 mr-2' />
+              Loading
+            </button> : 
+            <button className={styles.button}>
+              <DownloadIcon className='h-5 w-5 mr-2' />
+              PDF
+            </button> 
+          )}
+        </PDFDownloadLink>
       </div>
 
       {visits.map((item, i) => (
