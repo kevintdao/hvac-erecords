@@ -5,6 +5,8 @@ import RecordsNumeric from './RecordsNumeric'
 import RecordsSelection from './RecordsSelection'
 import RecordsText from './RecordsText'
 import { CSVLink } from 'react-csv'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import RecordsPDF from './RecordsPDF'
 
 export default function UnitRecords ({ data, unitId }) {
   const [visits, setVisits] = useState()
@@ -98,13 +100,17 @@ export default function UnitRecords ({ data, unitId }) {
     <div className='space-y-2'>
       <div className='flex space-x-2'>
         <CSVLink className={styles.button} data={csvData} filename={`unit-${unitId}-records`}>
-        <DownloadIcon className='h-5 w-5 mr-2' />
-          CSV
+          <DownloadIcon className='h-5 w-5 mr-2' />
+            CSV
         </CSVLink>
 
         <button className={styles.button}>
-        <DownloadIcon className='h-5 w-5 mr-2' />
-          PDF
+          <DownloadIcon className='h-5 w-5 mr-2' />
+          <PDFDownloadLink document={<RecordsPDF data={visits} />} fileName="records.pdf">
+            {({ blob, url, loading, error }) => (loading ? 
+              'Loading document...' : 'PDF'
+            )}
+          </PDFDownloadLink>
         </button>
       </div>
 
