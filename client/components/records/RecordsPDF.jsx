@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginVertical: 1
   },
   section: {
     marginVertical: 4,
@@ -24,7 +23,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   text: {
-    fontSize: 12
+    fontSize: 12,
+    paddingVertical: 1
   }
 })
 
@@ -41,8 +41,14 @@ export default function RecordPDF ({ data, visits }) {
         <Page size='A4' style={styles.page} key={item.visit.id}>
           <View style={styles.section}>
             <Text style={styles.header}>{`Visit ${item.visit.id}`}</Text>
-            <Text style={styles.text}>{`Start time: ${formatDate(item.visit.start_time)}`}</Text>
-            <Text style={styles.text}>{`End time: ${formatDate(item.visit.end_time)}`}</Text>
+            <View style={styles.row}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.text}>{`Start time: ${formatDate(item.visit.start_time)}`}</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.text}>{`End time: ${formatDate(item.visit.end_time)}`}</Text>
+              </View>
+            </View>
           </View>
 
           <View style={styles.section}>
