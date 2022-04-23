@@ -104,11 +104,11 @@ export default function UnitRecords ({ data, unitId }) {
             CSV
         </CSVLink>
 
-        <PDFDownloadLink document={<RecordsPDF data={data} visits={visits} />} fileName="records.pdf">
+        <PDFDownloadLink document={<RecordsPDF data={data} visits={visits} />} fileName={`unit-${unitId}-records.pdf`}>
           {({ blob, url, loading, error }) => (loading ? 
             <button className={styles.button}>
               <DownloadIcon className='h-5 w-5 mr-2' />
-              Loading
+              PDF
             </button> : 
             <button className={styles.button}>
               <DownloadIcon className='h-5 w-5 mr-2' />
