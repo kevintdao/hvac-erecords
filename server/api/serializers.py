@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from records.models import Task, Profile, ProfileTask, ProfilePlan
-
+from rolepermissions.roles import assign_role
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +19,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(
             email=validated_data['email'],
-            username=validated_data['email'],
+            # username=validated_data['email'],
             password=validated_data['password']
         )
         return user
@@ -50,6 +50,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
                 email=u['email'],
                 username=u['email']
             )
+            assign_role(user, 'manager')
             buildingmanager.users.add(user)            
             name = validated_data['name']
             subject = 'Email to building manager'
