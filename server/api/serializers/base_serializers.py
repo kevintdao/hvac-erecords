@@ -3,6 +3,7 @@ from base.models import Unit, BuildingManager, Technician, Building, Company
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from rolepermissions.roles import assign_role
 
 from .records_serializers import ProfilePlanSerializer
 from .user_serializers import UserSerializer, RegisterUserSerializer
@@ -24,6 +25,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
                 email=u['email'],
                 username=u['email']
             )
+            assign_role(user, 'manager')
             buildingmanager.users.add(user)            
             name = validated_data['name']
             subject = 'Email to building manager'
