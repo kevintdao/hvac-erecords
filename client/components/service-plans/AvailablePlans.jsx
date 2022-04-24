@@ -1,9 +1,10 @@
 import React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Temporal } from '@js-temporal/polyfill'
 import { setObject } from '../../utils/local_storage'
 
-export default function AvailablePlans ({ data, labels }) {
+export default function AvailablePlans ({ unitId, data, labels }) {
+  const router = useRouter()
   const styles = {
     table: "divide-y divide-gray-200 min-w-full table-fixed",
     header: "px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
@@ -34,9 +35,13 @@ export default function AvailablePlans ({ data, labels }) {
                 <td className={`${styles.cell} w-1/4`} id={`start-date-${item.id}`}>{item.is_required ? item.start_date : '-'}</td>
                 <td className={`${styles.cell} w-1/4`} id={`end-date-${item.id}`}>{item.is_required ? item.end_date : '-'}</td>
                 <td>
-                <Link href={`/service-visits/${item.id}`}>
-                  <a className={`${styles.link} w-1/8`} onClick={() => setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString()})}>Complete</a>
-                </Link>
+                  <button id={item.id} className={`${styles.link} w-1/8`} onClick={() => {
+                    setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString()})
+                    router.push({
+                        pathname: `/service-visits/${item.id}`,
+                        query: { unit: unitId }
+                      }, `/service-visits/${item.id}`)
+                  }}>Complete</button>
               </td>
               </tr>
             ))}

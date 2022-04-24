@@ -4,7 +4,7 @@ from .service_visit import ServiceVisit
 
 class TaskCompletion(models.Model):
     task = models.ForeignKey(Task, on_delete=models.PROTECT)
-    service_visit = models.ForeignKey(ServiceVisit, on_delete=models.PROTECT)
+    service_visit = models.ForeignKey(ServiceVisit, on_delete=models.PROTECT, related_name='completions')
     completed_at = models.DateTimeField()
     selection = models.IntegerField(null=True, blank=True) 
     response = models.TextField(blank=True)

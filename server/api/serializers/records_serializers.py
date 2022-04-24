@@ -1,4 +1,3 @@
-from re import S
 from rest_framework import serializers
 # from django.contrib.auth.models import User
 from base.models import Unit, BuildingManager, Technician, Building, Company, User
@@ -6,7 +5,7 @@ from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
-from records.models import Task, Profile, ProfileTask, ProfilePlan
+from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
 from rolepermissions.roles import assign_role
 
 class UserSerializer(serializers.ModelSerializer):
@@ -162,13 +161,6 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 class ProfilePlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfilePlan
-        fields = '__all__'
-
-class UnitSerializer(serializers.ModelSerializer):
-    plans = ProfilePlanSerializer(many=True,read_only=True)
-
-    class Meta:
-        model = Unit
         fields = '__all__'
 
 class ServiceVisitSerializer(serializers.ModelSerializer):

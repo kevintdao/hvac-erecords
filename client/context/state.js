@@ -80,9 +80,12 @@ export function AppProvider ({ children }) {
       }).catch(error => {
         relog = true
       })
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+    }
+    else {
+      delete axios.defaults.headers.common["Authorization"];
     }
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
     setData({
       accessToken: access,
       refreshToken: refresh,

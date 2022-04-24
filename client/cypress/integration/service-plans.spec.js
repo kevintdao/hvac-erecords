@@ -41,7 +41,7 @@ describe('Service plans page', () => {
   it('should nagivate to service-visits page for available plans', () => {
     cy.wait(['@getUnit'])
 
-    cy.get('a[href="/service-visits/2"]').click();
+    cy.get('button#2').click();
     cy.url().should('include', '/service-visits/2');
     cy.wait(['@getPlan', '@getProfile', '@getNumericTask', '@getSelectionTask', '@getTextTask'])
   })
@@ -49,7 +49,7 @@ describe('Service plans page', () => {
   it('should nagivate to service-visits page for other plans', () => {
     cy.wait(['@getUnit'])
 
-    cy.get('a[href="/service-visits/1"]').click();
+    cy.get('button#1').click();
     cy.url().should('include', '/service-visits/1');
     cy.wait(['@getPlan', '@getProfile', '@getNumericTask', '@getSelectionTask', '@getTextTask'])
   })

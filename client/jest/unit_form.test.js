@@ -11,10 +11,21 @@ const input = {
   installation_date: "2022-03-09",
 }
 
+const buildings = [{
+  "id": 1,
+  "owner_id": 1,
+  "site_name": "Iowa",
+  "street": "123 Street",
+  "city": "Iowa City",
+  "zip_code": "52240",
+  "country": "United States"
+}]
+
+
 afterEach(cleanup);
 
 test('should watch input correctly', () => {
-  const { container } = render(<UnitForm type="Create"/>);
+  const { container } = render(<UnitForm buildings={buildings} type="Create"/>);
   const idInput = container.querySelector("input#external_id");
   const modelInput = container.querySelector("input#model_number");
   const serialInput = container.querySelector("input#serial_number");
@@ -41,7 +52,7 @@ test('should watch input correctly', () => {
 })
 
 test("should display error message when inputs are empty", async () => {
-  const { container } = render(<UnitForm type="Create"/>);
+  const { container } = render(<UnitForm buildings={buildings} type="Create"/>);
   const idInput = container.querySelector("input#external_id");
   const modelInput = container.querySelector("input#model_number");
   const serialInput = container.querySelector("input#serial_number");
