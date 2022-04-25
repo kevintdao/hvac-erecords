@@ -18,7 +18,6 @@ export function AppProvider ({ children }) {
   // hard-coded value for now since still login with username
   function signup (email, password) {
     const data = {
-      username: email,
       email: email,
       password: password
     }
@@ -30,7 +29,7 @@ export function AppProvider ({ children }) {
   // hard-coded value for now since still login with username
   function login (email, password) {
     const data = {
-      username: email,
+      email: email,
       password: password
     }
 

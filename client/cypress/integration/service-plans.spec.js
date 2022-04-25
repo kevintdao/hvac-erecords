@@ -53,4 +53,13 @@ describe('Service plans page', () => {
     cy.url().should('include', '/service-visits/1');
     cy.wait(['@getPlan', '@getProfile', '@getNumericTask', '@getSelectionTask', '@getTextTask'])
   })
+
+  it('should navigate to unit records page when click the amintenance data button', () => {
+    cy.wait(['@getUnit'])
+
+    cy.intercept('GET', '**/api/units/*/records/', { fixture: 'record.json' }).as('getRecord');
+    cy.get('#data').click();
+    cy.wait('@getRecord')
+    cy.url().should('include', '/units/records/1');
+  })
 })
