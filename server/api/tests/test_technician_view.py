@@ -1,15 +1,18 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import Technician, User
 from rest_framework.test import APIClient
+from base.models import Technician, Company, User
+# from users.models import CustomUser
+# from django.contrib.auth.models import User
+from rolepermissions.checkers import has_role
 
 class TestTechnicianAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
         self.user = User.objects.create(
-            username="test@example.com",
+            # username="test@example.com",
             email="test@example.com"
         )
         self.client = APIClient()
@@ -96,6 +99,11 @@ class TestTechnicianAPI(TestCase):
             kwargs={'pk':technician.user_id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_role_technician(self):
+        technician = Technician.objects.last()
+        user = User.objects.get(pk=technician.user_id)
+        self.assert_(has_role(user, 'technician'))
 
     def test_api_delete_technician(self):
         technician = Technician.objects.last()

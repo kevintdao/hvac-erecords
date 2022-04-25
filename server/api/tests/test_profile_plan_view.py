@@ -12,7 +12,7 @@ class TestProfilePlanAPI(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            username="test@example.com",
+            # username="test@example.com",
             email="test@example.com"
         )
         self.client = APIClient()

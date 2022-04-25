@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/input'
 import { isPossiblePhoneNumber } from 'react-phone-number-input'
 
-export default function BuildingOwnerRegister() {
+export default function TechnicianRegister() {
   const { register, handleSubmit, formState: { errors }, control } = useForm();
 
   const styles = {

@@ -7,7 +7,7 @@ class TestRegisterUser(APITestCase):
     def setUp(self):
         self.data = {
             'email': 'test44@test.com',
-            'username': 'test44@test.com',
+            # 'username': 'test44@test.com',
             'password': 'Testing44*'
         }
     

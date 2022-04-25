@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from telnetlib import AUTHENTICATION
 import dj_database_url
 import environ
 from datetime import timedelta
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "base",
     "records",
+    "rolepermissions",
 ]
 
 MIDDLEWARE = [
@@ -135,9 +137,19 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1)
 }
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASS")
+
+
+ROLEPERMISSIONS_MODULE = 'server.settings.roles'
+
+AUTH_USER_MODEL = 'base.User'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
