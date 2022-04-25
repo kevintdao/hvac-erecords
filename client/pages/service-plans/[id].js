@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Header from '../../components/Header'
@@ -16,7 +17,8 @@ export default function Service () {
   const [data, setData] = useState()
 
   const styles = {
-    desc: 'font-medium font-gray-900'
+    desc: 'font-medium font-gray-900',
+    button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
   const labels = {
@@ -92,6 +94,14 @@ export default function Service () {
         <h4 className='font-bold text-xl'>Unit Details</h4>
         <UnitDetails data={data.unit} />
       </div>
+
+      <div className='my-2'>
+        <Link href={`/units/records/${id}`}>
+          <a className={styles.button} id='data'>Maintenance Data</a>
+        </Link>
+      </div>
+      
+      <hr />
 
       <div>
         <h4 className='font-bold text-xl'>Available Plans</h4>
