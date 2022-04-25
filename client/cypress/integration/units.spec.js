@@ -41,6 +41,13 @@ describe('Unit index page', () => {
     cy.wait('@getAllBuildings')
     cy.url().should('include', '/units/edit/1');
   })
+
+  it('should navigate to unit records page when click the data button', () => {
+    cy.intercept('GET', '**/api/units/*/records/', { fixture: 'record.json' }).as('getRecord');
+    cy.get('a[href="/units/records/1"]').click();
+    cy.wait('@getRecord')
+    cy.url().should('include', '/units/records/1');
+  })
 }) 
 
 describe('Unit details page', () => {
