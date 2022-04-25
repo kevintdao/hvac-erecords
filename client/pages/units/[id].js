@@ -153,6 +153,10 @@ export default function Unit (props) {
           <Link href={`/units/edit/${id}`}>
             <a className={styles.button} id='edit'>Edit</a>
           </Link>
+
+          <Link href={`/units/records/${id}`}>
+            <a className={styles.button} id='data'>Maintenance Data</a>
+          </Link>
         </div>
       </div>
 

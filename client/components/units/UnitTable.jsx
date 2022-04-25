@@ -19,6 +19,7 @@ export default function UnitTable({ data, labels }) {
             ))}
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody className={styles.body}>
@@ -32,6 +33,11 @@ export default function UnitTable({ data, labels }) {
               <td>
                 <Link href={`/units/${item.id}`}>
                   <a className={styles.link}>More Info</a>
+                </Link>
+              </td>
+              <td>
+                <Link href={`/units/records/${item.id}`}>
+                  <a className={styles.link}>Data</a>
                 </Link>
               </td>
               <td>
