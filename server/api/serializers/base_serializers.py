@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from base.models import Unit, BuildingManager, Technician, Building, Company
-from django.contrib.auth.models import User
+from base.models import Unit, BuildingManager, Technician, Building, Company, User
+# from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
