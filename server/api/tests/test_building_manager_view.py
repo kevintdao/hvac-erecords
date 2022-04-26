@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import BuildingManager, User
+from base.models import BuildingManager, User, Company
 from rest_framework.test import APIClient
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_role
@@ -11,8 +11,8 @@ class TestBuildingManagerAPI(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            # username="test@example.com",
-            email="test@example.com"
+            email="test@example.com",
+            company = Company.objects.first()
         )
         assign_role(self.user, 'manager')
         self.client = APIClient()

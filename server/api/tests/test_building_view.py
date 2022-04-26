@@ -2,15 +2,15 @@ from django.urls import reverse
 from rest_framework import status 
 from rest_framework.test import APIClient
 from django.test import TestCase
-from base.models import Building, User
+from base.models import Building, User, Company
 
 class TestBuildingAPI(TestCase):
     fixtures = ['test_data.json',]
 
     def setUp(self):
         self.user = User.objects.create(
-            # username="test@example.com",
-            email="test@example.com"
+            email="test@example.com",
+            company = Company.objects.first()
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)

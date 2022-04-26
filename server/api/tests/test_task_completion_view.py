@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
 from records.models import TaskCompletion, ServiceVisit
-from base.models import User
+from base.models import User, Company
 from rest_framework.test import APIClient
 import datetime
 
@@ -11,8 +11,8 @@ class TestTaskCompletionAPI(TestCase):
     
     def setUp(self):
         self.user = User.objects.create(
-            # username="test@example.com",
-            email="test@example.com"
+            email="test@example.com",
+            company = Company.objects.first()
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
