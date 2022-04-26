@@ -1,11 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from .company import *
 from django.utils.translation import gettext_lazy as _
 from .user_manager import *
 
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

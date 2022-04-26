@@ -9,7 +9,7 @@ class UserModelRoleTests(TestCase):
         fixtures = ['test_data.json',] 
 
         def test_created_valid_user(self):
-                user = User.objects.create(email = 'test@test.com')
+                user = User.objects.create(email = 'test@test.com', company = Company.objects.first())
                 self.assert_(User.objects.filter(email = 'test@test.com').exists())
                 assign_role(user, 'admin')
                 self.assert_(has_role(user, 'admin') == True)
