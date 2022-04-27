@@ -130,8 +130,6 @@ describe('Task create page', () => {
 
     cy.get('input#title').should('have.class', 'border-red-400');
     cy.get('textarea#description').should('have.class', 'border-red-400');
-    cy.get('input#min').should('have.class', 'border-red-400');
-    cy.get('input#max').should('have.class', 'border-red-400');
 
     cy.get('select#type').select("Selection");
     cy.get('button#create-button').click();
