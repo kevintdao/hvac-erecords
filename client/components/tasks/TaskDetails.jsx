@@ -14,14 +14,14 @@ export default function TaskDetails ({ data }) {
       case 'Numeric':
         return (
           <>
-            <div className={`${styles.div}`}>
+            {data.rule.options?.min && <div className={`${styles.div}`}>
               <dt className={styles.label} id='min-label'>Minimum value</dt>
               <dd className={styles.text} id='min'>{data.rule.options.min}</dd> 
-            </div>
-            <div className={`${styles.div}`}>
+            </div>}
+            {data.rule.options?.max && <div className={`${styles.div}`}>
               <dt className={styles.label} id='max-label'>Maximum value</dt>
               <dd className={styles.text} id='max'>{data.rule.options.max}</dd> 
-            </div>
+            </div>}
           </>
         )
       case 'Selection':
