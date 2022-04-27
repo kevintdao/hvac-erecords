@@ -25,8 +25,7 @@ class TestBuildingManagerAPI(TestCase):
             "phone_number": '512-513-5123',
             "users": [
 	            {"email": "js@email.com",
-                "password": "jspass",
-                "username": "js@email.com"},
+                "password": "jspass"},
 	        ]
         }
         self.response = self.client.post(
