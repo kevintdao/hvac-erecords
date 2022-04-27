@@ -21,7 +21,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         buildingmanager = BuildingManager.objects.create(**validated_data)
         
         for u in data:
-            user = User.objects.create(email=u['email'], company= validated_data['company'])
+            user = User.objects.create(email=u['email'], company=validated_data['company'])
             user.save()
             assign_role(user, 'manager')
             buildingmanager.users.add(user)            

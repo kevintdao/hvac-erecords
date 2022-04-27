@@ -100,10 +100,15 @@ class TestTechnicianAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
     
-    def test_role_technician(self):
+    def test_technician_role(self):
         technician = Technician.objects.last()
         user = User.objects.get(pk=technician.user_id)
         self.assert_(has_role(user, 'technician'))
+
+    def test_technician_company(self):
+        technician = Technician.objects.last()
+        user = technician.user
+        self.assertEqual(user.company, Company.objects.first())
 
     def test_api_delete_technician(self):
         technician = Technician.objects.last()

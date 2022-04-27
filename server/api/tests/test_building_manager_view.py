@@ -14,7 +14,6 @@ class TestBuildingManagerAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
-        assign_role(self.user, 'manager')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -85,8 +84,14 @@ class TestBuildingManagerAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
     
     def test_building_manager_role(self):
-        manager = self.user
-        self.assert_(has_role(manager, 'manager'))
+        manager = BuildingManager.objects.last()
+        user = manager.users.first()
+        self.assert_(has_role(user, 'manager'))
+
+    def test_building_manager_company(self):
+        manager = BuildingManager.objects.last()
+        user = manager.users.first()
+        self.assertEqual(user.company, Company.objects.first())
 
     def test_api_delete_building_manager(self):
         building_manager = BuildingManager.objects.last()
