@@ -7,7 +7,7 @@ from .user_manager import *
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
