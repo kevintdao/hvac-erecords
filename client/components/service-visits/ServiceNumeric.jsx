@@ -8,9 +8,24 @@ export default function ServiceNumeric ({ register, errors, task, index, name, o
     helpText: 'text-sm text-red-700 mt-1',
   }
 
+  const min = task.rule.options?.min && {
+    value: task.rule.options.min,
+    message: `Value must be greater than or equal to ${task.rule.options.min}`
+  }
+
+  const max = task.rule.options?.max && {
+    value: task.rule.options?.max,
+    message: `Value must be less than or equal to ${task.rule.options.max}`
+  }
+
   return (
     <div className={styles.inputContainer}>
-      <label className='text-gray-500'>{`Minimum value: ${task.rule.options.min} | Maximum value: ${task.rule.options.max}`}</label>
+      {task.rule.options?.min && <label className='text-gray-500'>
+        {`Minimum value: ${task.rule.options?.min}`}
+      </label>}
+      {task.rule.options?.max && <label className='text-gray-500'>
+        {`Maximum value: ${task.rule.options?.max}`}
+      </label>}
       <input type='number' id={`task-${index+1}`} 
         className={`${styles.input} ${errors[task.id]?.value ? 'border-red-400' : 'border-gray-300'}`}
         {...register(`${task.id}.value`, {
@@ -18,14 +33,8 @@ export default function ServiceNumeric ({ register, errors, task, index, name, o
             value: true,
             message: 'This field is required'
           },
-          min: {
-            value: task.rule.options.min,
-            message: `Value must be greater than or equal to ${task.rule.options.min}`
-          },
-          max: {
-            value: task.rule.options.max,
-            message: `Value must be less than or equal to ${task.rule.options.max}`
-          },
+          min,
+          max,
           onChange: (e) => onChange(task.id, name, e)
         })}
       />
