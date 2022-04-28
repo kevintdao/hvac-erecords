@@ -15,8 +15,30 @@
 		"model": "base.user",
 		"pk": 1,
 		"fields": {
-			"email": "user@email.com",
-            "company": 1
+			"email": "company@example.com",
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "company": 1,
+            "role": 1
+		}
+	},
+    {
+		"model": "base.user",
+		"pk": 2,
+		"fields": {
+			"email": "manager@example.com",
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "company": 1,
+            "role": 2
+		}
+	},
+    {
+		"model": "base.user",
+		"pk": 3,
+		"fields": {
+			"email": "technician@example.com",
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "company": 1,
+            "role": 3
 		}
 	},
     {
@@ -43,15 +65,6 @@
 			"country":  "United States"
 		}
 	},
-
-	{
-		"model": "base.user",
-		"pk": 2,
-		"fields": {
-			"email": "user2@email.com",
-            "company": 1
-		}
-	},
     {
         "model": "base.buildingmanager",
         "pk": 1,
@@ -59,16 +72,6 @@
             "company": 1,
             "name": "University of Iowa",
             "phone_number": "555-555-5555",
-            "users": [1]
-        }
-    },
-    {
-        "model": "base.buildingmanager",
-        "pk": 2,
-        "fields": {
-            "company": 1,
-            "name": "Commerce Store",
-            "phone_number": "555-312-4231",
             "users": [2]
         }
     },
