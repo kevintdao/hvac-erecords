@@ -87,7 +87,7 @@ export default function Edit (props) {
   console.log(buildings)
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager']}>
+    <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Update Unit</title>

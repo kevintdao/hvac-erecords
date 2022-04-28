@@ -46,7 +46,7 @@ export default function Record() {
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager', 'technician']}>
+    <PrivateRoute isAllowed={[1,2,4]}>
     <div className='space-y-4 mt-2'>
       <Header title='Unit Records' />  
 

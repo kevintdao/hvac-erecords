@@ -79,7 +79,7 @@ export default function Create () {
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager']}>
+    <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Create Unit</title>
