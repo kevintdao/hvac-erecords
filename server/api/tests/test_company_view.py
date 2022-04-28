@@ -9,8 +9,8 @@ class TestMaintenanceCompanyAPI(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            # username="test@example.com",
-            email="test@example.com"
+            email="test@example.com",
+            company = Company.objects.first()
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)

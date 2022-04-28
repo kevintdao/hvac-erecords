@@ -1,13 +1,13 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+from base.models import Company
 
 
 class TestRegisterUser(APITestCase):
     def setUp(self):
         self.data = {
             'email': 'test44@test.com',
-            # 'username': 'test44@test.com',
             'password': 'Testing44*'
         }
     

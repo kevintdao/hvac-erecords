@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from base.models import BuildingManager, User
+from base.models import BuildingManager, User, Company
 from rest_framework.test import APIClient
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_role
@@ -11,10 +11,9 @@ class TestBuildingManagerAPI(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            # username="test@example.com",
-            email="test@example.com"
+            email="test@example.com",
+            company = Company.objects.first()
         )
-        assign_role(self.user, 'manager')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -25,8 +24,7 @@ class TestBuildingManagerAPI(TestCase):
             "phone_number": '512-513-5123',
             "users": [
 	            {"email": "js@email.com",
-                "password": "jspass",
-                "username": "js@email.com"},
+                "password": "jspass"},
 	        ]
         }
         self.response = self.client.post(
@@ -86,8 +84,14 @@ class TestBuildingManagerAPI(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
     
     def test_building_manager_role(self):
-        manager = self.user
-        self.assert_(has_role(manager, 'manager'))
+        manager = BuildingManager.objects.last()
+        user = manager.users.first()
+        self.assert_(has_role(user, 'manager'))
+
+    def test_building_manager_company(self):
+        manager = BuildingManager.objects.last()
+        user = manager.users.first()
+        self.assertEqual(user.company, Company.objects.first())
 
     def test_api_delete_building_manager(self):
         building_manager = BuildingManager.objects.last()

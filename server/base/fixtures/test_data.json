@@ -15,7 +15,8 @@
 		"model": "base.user",
 		"pk": 1,
 		"fields": {
-			"email": "user@email.com"
+			"email": "user@email.com",
+            "company": 1
 		}
 	},
     {
@@ -47,7 +48,8 @@
 		"model": "base.user",
 		"pk": 2,
 		"fields": {
-			"email": "user2@email.com"
+			"email": "user2@email.com",
+            "company": 1
 		}
 	},
     {

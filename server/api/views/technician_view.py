@@ -1,7 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Technician
+from base.models import Technician, Company
 from api.serializers import TechnicianSerializer
 from rest_framework import status
 # from django.contrib.auth.models import User
@@ -20,10 +20,16 @@ def apiTechnicians(request):
         return Response(serializer.data)
     # Create technician
     elif request.method == 'POST':
-        user = User.objects.create_user(
+        if 'company' not in request.data.keys():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        company = Company.objects.get(pk=request.data['company'])
+        if not company:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.create(
             email=request.data['email'],
-            # username=request.data['email']
+            company=company
         )
+        user.save()
         assign_role(user, 'technician')
         keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
         for key in keys:
