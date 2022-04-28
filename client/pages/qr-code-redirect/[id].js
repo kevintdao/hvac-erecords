@@ -7,7 +7,7 @@ export default function QRCodeRedirect() {
   const router = useRouter()
   const { id } = router.query
   const { data } = useAppContext()
-  const role = data.user?.role.toLowerCase()
+  const role = data.user?.role
 
   // check user role and direct to the correct page based on user type
   useEffect(() => {
@@ -18,10 +18,10 @@ export default function QRCodeRedirect() {
       return
     }
     
-    if (role == 'technician') {
+    if (role == 4) {
       router.push(`${process.env.NEXT_PUBLIC_URL}/service-plans/${id}`)
     }
-    else if (role == 'manager') {
+    else if (role == 2) {
       router.push(`${process.env.NEXT_PUBLIC_URL}/units/${id}`)
     }
     else{

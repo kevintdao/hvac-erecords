@@ -46,7 +46,7 @@ export default function Record() {
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager', 'technician']}>
+    <PrivateRoute isAllowed={[1,2,4]}>
     <div className='space-y-4 mt-2'>
       <Header title='Unit Records' />  
 
@@ -58,7 +58,7 @@ export default function Record() {
           <UnitDetails data={records} />
         </div>
 
-        {data.user?.role.toLowerCase() == 'technician' && <div>
+        {data.user?.role == 4 && <div>
           <div className='py-2'>
             <Link href={`/service-plans/${id}`}>
               <a className={styles.button} id='data'>Back to Service Plans</a>

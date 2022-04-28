@@ -5,7 +5,7 @@ import { useAppContext } from '../context/state'
 export default function PrivateRoute ({ isAllowed, children }) {
   const router = useRouter()
   const { data } = useAppContext()
-  const role = data.user?.role.toLowerCase()
+  const role = data.user?.role
 
   if (!role) {
     router.push({

@@ -7,7 +7,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 export default function NavBar () {
   const { data, setData, logout } = useAppContext()
   const isLoggedIn = data.isLoggedIn
-  const role = data.user?.role?.toLowerCase()
+  const role = data.user?.role
 
   const mcLinks = [
     { name: 'Managers', href: '/managers' },
@@ -131,10 +131,10 @@ export default function NavBar () {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {/* nav links */}
-                    { role == 'company' && <MaintenanceCompanyLinks /> }
-                    { role == 'manager' && <BuildingOwnerLinks /> }
-                    { role == 'inspector' && <InspectorLinks /> }
-                    { role == 'technician' && <TechnicianLinks /> }
+                    { role == 1 && <MaintenanceCompanyLinks /> }
+                    { role == 2 && <BuildingOwnerLinks /> }
+                    { role == 4 && <InspectorLinks /> }
+                    { role == 3 && <TechnicianLinks /> }
                   </div>
                 </div>
               </div>
@@ -150,10 +150,10 @@ export default function NavBar () {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* mobile nav links */}
-              { role == 'company' && <MaintenanceCompanyLinks mobile /> }
-              { role == 'manager' && <BuildingOwnerLinks mobile /> }
-              { role == 'inspector' && <InspectorLinks mobile /> }
-              { role == 'technician' && <TechnicianLinks mobile /> }
+              { role == 1 && <MaintenanceCompanyLinks mobile /> }
+              { role == 2 && <BuildingOwnerLinks mobile /> }
+              { role == 4 && <InspectorLinks mobile /> }
+              { role == 3 && <TechnicianLinks mobile /> }
             </div>
           </Disclosure.Panel>
         </>

@@ -21,17 +21,12 @@ export default function LoginPage () {
           }
         })
 
-        const hardCodedUser = {
-          ...user.data,
-          role: user.data.role ? user.data.role : 'Company'
-        }
-
         setData(data => ({
           ...data,
           accessToken: res.data.access,
           refreshToken: res.data.refresh,
           isLoggedIn: true,
-          user: hardCodedUser
+          user: user.data
         }))
 
         // save tokens to localStorage

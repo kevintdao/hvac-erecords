@@ -56,7 +56,7 @@ export default function Profile (props) {
   }
 
   return (
-    <PrivateRoute isAllowed={['company']}>
+    <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>
       <Header title='Profile Details' />
 

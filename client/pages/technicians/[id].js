@@ -37,7 +37,7 @@ export default function Technician(props) {
     }
 
     return (
-        <PrivateRoute isAllowed={['company']}>
+        <PrivateRoute isAllowed={[1]}>
         <div className='space-y-4 mt-2'>
             <Head>
                 <title>Technician Details</title>
