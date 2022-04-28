@@ -50,7 +50,7 @@ test("Maintenance company navigation bar", () => {
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'company'
+        role: 1
       },
       relog: false,
     }
@@ -76,7 +76,7 @@ test("Building owner navigation bar", () => {
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'manager'
+        role: 2
       },
       relog: false,
     }
@@ -102,7 +102,7 @@ test("Inspector navigation bar", () => {
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'inspector'
+        role: 4
       },
       relog: false,
     }
@@ -128,7 +128,7 @@ test("Technician navigation bar", () => {
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'technician'
+        role: 3
       },
       relog: false,
     }
