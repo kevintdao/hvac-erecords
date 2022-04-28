@@ -6,11 +6,11 @@ import PrivateRoute from '../components/PrivateRoute'
 
 export default function Dashboard () {
   const { data } = useAppContext()
-  const role = data.user?.role.toLowerCase()
-  const isCompany = role == 'company'
-  const isTechnician = role == 'technician'
-  const isManager = role == 'manager'
-  const isInspector = role == 'inspector'
+  const role = data.user?.role
+  const isCompany = role == 1
+  const isTechnician = role == 4
+  const isManager = role == 2
+  const isInspector = role == 3
 
   const styles = {
     cols2: 'grid md:grid-cols-2 gap-y-6 gap-4 grid-cols-1',
