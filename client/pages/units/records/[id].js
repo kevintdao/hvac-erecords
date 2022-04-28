@@ -58,7 +58,7 @@ export default function Record() {
           <UnitDetails data={records} />
         </div>
 
-        {data.user?.role.toLowerCase() == 'technician' && <div>
+        {data.user?.role == 4 && <div>
           <div className='py-2'>
             <Link href={`/service-plans/${id}`}>
               <a className={styles.button} id='data'>Back to Service Plans</a>
