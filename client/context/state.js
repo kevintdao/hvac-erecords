@@ -63,19 +63,14 @@ export function AppProvider ({ children }) {
     var user = null
     var relog = false
 
-    let hardCodedUser
     if (access) {
       await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/`, {
         headers: {
           Authorization: `Bearer ${access}`
         }
       }).then(res => {
-        console.log(res.data.role)
-        hardCodedUser = {
-          ...res.data,
-          role: res.data.role ? res.data.role : 'Company'
-        }
-        // user = res.data
+        user = res.data
+        console.log(user)
       }).catch(error => {
         relog = true
       })
@@ -89,7 +84,7 @@ export function AppProvider ({ children }) {
       accessToken: access,
       refreshToken: refresh,
       isLoggedIn: access != null && refresh != null,
-      user: hardCodedUser,
+      user: user,
       relog: relog
     })
 
