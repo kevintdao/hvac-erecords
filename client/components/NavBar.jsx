@@ -132,7 +132,7 @@ export default function NavBar () {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo */}
-                  <Link href='/dashboard'>
+                  <Link href={role ? '/dashboard' : '/'}>
                     <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>HVAC E-Records</a>
                   </Link>
                 </div>
@@ -159,6 +159,7 @@ export default function NavBar () {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* mobile nav links */}
+              { !role && <NotLoggedInLinks mobile /> }
               { role == 1 && <MaintenanceCompanyLinks mobile /> }
               { role == 2 && <BuildingOwnerLinks mobile /> }
               { role == 4 && <InspectorLinks mobile /> }
