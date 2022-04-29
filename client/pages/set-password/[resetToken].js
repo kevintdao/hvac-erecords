@@ -36,7 +36,7 @@ export default function ResetPassword() {
                         <div className={styles.inputContainer}>
                         <label htmlFor="confirmpassword">Confirm Password</label>
                         <input 
-                            type="confirmpassword"
+                            type="password"
                             name="confirmpassword"
                             id="confirmpassword"
                             className={`${styles.input} ${errors.name ? "border-red-400" : "border-gray-300"}`}
