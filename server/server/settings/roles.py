@@ -49,7 +49,7 @@ class Admin(AbstractUserRole):
         'update_visits': True,
         'delete_visits': True,
         'get_completions': True,
-        'create_completion': True,
+        'create_completions': True,
         'view_completions': True,
         'update_completions': True,
         'delete_completions': True,
@@ -63,7 +63,7 @@ class Technician(AbstractUserRole):
         'view_profiles': True,
         'view_plans': True,
         'create_visits': True,
-        'create_completion': True,
+        'create_completions': True,
     }
 
 class Company(AbstractUserRole):
