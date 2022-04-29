@@ -18,7 +18,7 @@ export default function QRCodeRedirect() {
       return
     }
     
-    if (role == 4) {
+    if (role == 3) {
       router.push(`${process.env.NEXT_PUBLIC_URL}/service-plans/${id}`)
     }
     else if (role == 2) {
