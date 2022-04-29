@@ -14,20 +14,24 @@ export default function NavBar () {
     { name: 'Buildings', href: '/buildings' },
     { name: 'Tasks', href: '/tasks'},
     { name: 'Profiles', href: '/profiles'},
+    { name: 'Help', href: '/help'},
   ]
 
   const boLinks = [
     { name: 'Buildings', href: '/buildings' },
-    { name: 'Units', href: '/units' }
+    { name: 'Units', href: '/units' },
+    { name: 'Help', href: '/help'},
   ]
 
   const iLinks = [
-    { name: 'Data', href: '/' }
+    { name: 'Data', href: '/' },
+    { name: 'Help', href: '/help'},
   ]
 
   const tLinks = [
     { name: 'Data', href: '/' },
-    { name: 'Report', href: '/' }
+    { name: 'Report', href: '/' },
+    { name: 'Help', href: '/help'},
   ]
 
   function createNavLinks(links, mobile){
@@ -73,6 +77,10 @@ export default function NavBar () {
 
   function TechnicianLinks ({ mobile }){
     return createNavLinks(tLinks, mobile);
+  }
+
+  function NotLoggedInLinks ({ mobile }){
+    return createNavLinks([{ name: 'Help', href: '/help'}], mobile);
   }
 
   function NotSignedInOptions(){
@@ -131,6 +139,7 @@ export default function NavBar () {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {/* nav links */}
+                    { !role && <NotLoggedInLinks /> }
                     { role == 1 && <MaintenanceCompanyLinks /> }
                     { role == 2 && <BuildingOwnerLinks /> }
                     { role == 4 && <InspectorLinks /> }
