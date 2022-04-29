@@ -1,10 +1,11 @@
+from base.models import BuildingManager, Company, User
+from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from django.test import TestCase
-from base.models import BuildingManager, User, Company
 from rest_framework.test import APIClient
-from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_role
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestBuildingManagerAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -120,3 +121,15 @@ class TestBuildingManagerAPI(TestCase):
             format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_building_manager_noperm(self):
+        clear_roles(self.user)
+        url = reverse('managers-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        building_manager = BuildingManager.objects.last()
+        self.response = self.client.get(
+            reverse('managers-detail',
+            kwargs={'pk':building_manager.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)

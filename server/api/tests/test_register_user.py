@@ -1,7 +1,7 @@
+from base.models import Company
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from base.models import Company
 
 
 class TestRegisterUser(APITestCase):

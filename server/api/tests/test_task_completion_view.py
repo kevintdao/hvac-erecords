@@ -1,11 +1,13 @@
-from django.urls import reverse
-from rest_framework import status
-from django.test import TestCase
-from records.models import TaskCompletion, ServiceVisit
-from base.models import User, Company
-from rest_framework.test import APIClient
 import datetime
-from rolepermissions.roles import assign_role
+
+from base.models import Company, User
+from django.test import TestCase
+from django.urls import reverse
+from records.models import ServiceVisit, TaskCompletion
+from rest_framework import status
+from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestTaskCompletionAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
@@ -111,3 +113,15 @@ class TestTaskCompletionAPI(TestCase):
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_api_task_completion_noperm(self):
+        clear_roles(self.user)
+        url = reverse('completions-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        task_completion = TaskCompletion.objects.last()
+        self.response = self.client.get(
+            reverse('completions-detail',
+            kwargs={'pk':task_completion.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)

@@ -1,10 +1,11 @@
+from base.models import Company, Technician, User
+from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from django.test import TestCase
 from rest_framework.test import APIClient
-from base.models import Technician, Company, User
 from rolepermissions.checkers import has_role
-from rolepermissions.roles import assign_role
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestTechnicianAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -118,3 +119,15 @@ class TestTechnicianAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Technician.objects.count(), self.initial_count)
+
+    def test_api_technician_noperm(self):
+        clear_roles(self.user)
+        url = reverse('technicians-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        technician = Technician.objects.last()
+        self.response = self.client.get(
+            reverse('technicians-detail',
+            kwargs={'pk':technician.user_id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)

@@ -1,9 +1,9 @@
+from base.models import Company, Unit, User
+from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from django.test import TestCase
-from base.models import Unit, User, Company
 from rest_framework.test import APIClient
-from rolepermissions.roles import assign_role
+from rolepermissions.roles import assign_role, clear_roles
 
 
 class TestUnitRecordsAPI(TestCase):
@@ -25,3 +25,12 @@ class TestUnitRecordsAPI(TestCase):
             kwargs={'pk':unit.id}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_unit_records_noperm(self):
+        clear_roles(self.user)
+        unit = Unit.objects.last()
+        self.response = self.client.get(
+            reverse('units-records',
+            kwargs={'pk':unit.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)

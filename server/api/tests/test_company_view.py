@@ -1,9 +1,10 @@
+from base.models import Company, User
+from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from django.test import TestCase
-from base.models import Company, User
 from rest_framework.test import APIClient
-from rolepermissions.roles import assign_role
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestMaintenanceCompanyAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -105,3 +106,15 @@ class TestMaintenanceCompanyAPI(TestCase):
             format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_company_noperm(self):
+        clear_roles(self.user)
+        url = reverse('companies-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        company = Company.objects.last()
+        self.response = self.client.get(
+            reverse('companies-detail',
+            kwargs={'pk':company.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
