@@ -8,9 +8,9 @@ export default function Dashboard () {
   const { data } = useAppContext()
   const role = data.user?.role
   const isCompany = role == 1
-  const isTechnician = role == 4
+  const isTechnician = role == 3
   const isManager = role == 2
-  const isInspector = role == 3
+  const isInspector = role == 4
 
   const styles = {
     cols2: 'grid md:grid-cols-2 gap-y-6 gap-4 grid-cols-1',

@@ -20,7 +20,7 @@ export default function Unit (props) {
   const [error, setError] = useState()
   const [data, setData] = useState()
   const [profiles, setProfiles] = useState()
-  const qrValue = `${process.env.NEXT_PUBLIC_URL}/service-plans/${id}`
+  const qrValue = `${process.env.NEXT_PUBLIC_URL}/qr-code-redirect/${id}`
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'

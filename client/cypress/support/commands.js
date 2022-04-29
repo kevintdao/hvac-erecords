@@ -33,10 +33,10 @@ Cypress.Commands.add('login', (role) => {
       role = 2
       break
     case 'inspector':
-      role = 3
+      role = 4
       break
     case 'technician':
-      role = 4
+      role = 3
       break
     default:
       break

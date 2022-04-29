@@ -143,7 +143,7 @@ export default function ServiceProfile () {
   }
 
   return (
-    <PrivateRoute isAllowed={[4]}>
+    <PrivateRoute isAllowed={[3]}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
 
