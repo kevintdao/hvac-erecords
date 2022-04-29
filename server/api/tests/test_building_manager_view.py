@@ -14,6 +14,7 @@ class TestBuildingManagerAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 

@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from django.test import TestCase
 from base.models import Building, User, Company
+from rolepermissions.roles import assign_role
 
 class TestBuildingAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -12,6 +13,7 @@ class TestBuildingAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 

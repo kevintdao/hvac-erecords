@@ -5,6 +5,7 @@ from records.models import TaskCompletion, ServiceVisit
 from base.models import User, Company
 from rest_framework.test import APIClient
 import datetime
+from rolepermissions.roles import assign_role
 
 class TestTaskCompletionAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
@@ -14,6 +15,7 @@ class TestTaskCompletionAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 

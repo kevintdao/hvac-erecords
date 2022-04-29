@@ -5,6 +5,7 @@ from records.models import ProfilePlan
 from base.models import User, Company
 import datetime
 from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role
 
 
 class TestProfilePlanAPI(TestCase):
@@ -15,6 +16,7 @@ class TestProfilePlanAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 

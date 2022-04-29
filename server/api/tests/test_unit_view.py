@@ -4,6 +4,7 @@ from django.test import TestCase
 from base.models import Unit, User, Company
 from rest_framework.test import APIClient
 import datetime
+from rolepermissions.roles import assign_role
 
 class TestUnitAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -13,6 +14,7 @@ class TestUnitAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 

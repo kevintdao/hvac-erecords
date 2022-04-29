@@ -4,6 +4,7 @@ from django.test import TestCase
 from records.models import ServiceVisit, ProfilePlan
 from base.models import Technician, User, Company
 from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role
 
 class TestServiceVisitAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
@@ -13,6 +14,7 @@ class TestServiceVisitAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
