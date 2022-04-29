@@ -4,6 +4,7 @@ import NotLoggedIn from '../components/help/NotLoggedIn'
 import CompanyHelp from '../components/help/CompanyHelp'
 import ManagerHelp from '../components/help/ManagerHelp'
 import TechnicianHelp from '../components/help/TechnicianHelp'
+import Header from '../components/Header'
 
 export default function Help() {
   const { data } = useAppContext()
@@ -14,7 +15,10 @@ export default function Help() {
   const isInspector = role == 4
 
   return (
-    <div>
+    <div className='space-y-4 mt-2'>
+      <Header title='Help' />
+      <h2 className='font-bold text-3xl'>Help</h2>
+
       {!role && <NotLoggedIn />}
       {isCompany && <CompanyHelp />}
       {isManager && <ManagerHelp />}
