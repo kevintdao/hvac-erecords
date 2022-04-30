@@ -8,11 +8,7 @@ export default function PrivateRoute ({ isAllowed, children }) {
   const role = data.user?.role
 
   if (!role) {
-    router.push({
-      pathname: '/login',
-      query: { error: 'You must be logged in to access this page' }
-    }, '/login')
-    return <div></div>
+    return <div className='mt-2 font-bold text-lg' id='message'>You must be logged in to access this page</div>
   }
 
   if (isAllowed && !isAllowed.includes(role)) {
