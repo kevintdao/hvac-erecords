@@ -15,6 +15,10 @@ def apiUnits(request):
             managers = BuildingManager.objects.filter(company=request.user.company)
             buildings = Building.objects.filter(manager__in=managers)
             units = Unit.objects.filter(building__in=buildings)
+        elif (has_role(request.user,'manager')):
+            manager = request.user.managers.first()
+            buildings = Building.objects.filter(manager=manager)
+            units = Unit.objects.filter(building__in=buildings)
         serializer = UnitSerializer(units, many=True)
         return Response(serializer.data)
     # Create unit
@@ -34,6 +38,10 @@ def apiUnit(request, pk):
         if (has_role(request.user,'company')):
             managers = BuildingManager.objects.filter(company=request.user.company)
             buildings = Building.objects.filter(manager__in=managers)
+            unit = Unit.objects.filter(building__in=buildings).get(pk=pk)
+        elif (has_role(request.user,'manager')):
+            manager = request.user.managers.first()
+            buildings = Building.objects.filter(manager=manager)
             unit = Unit.objects.filter(building__in=buildings).get(pk=pk)
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)

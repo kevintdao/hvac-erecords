@@ -126,7 +126,7 @@ class TestFilteringAPI(TestCase):
         response = self.client.get(reverse('units-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         for unit in response.data:
-            self.assert_(buildings.filter(pk=unit['building']).exists())
+            self.assert_(units.filter(pk=unit['id']).exists())
         
         unit_related = units.first()
         response = self.client.get(
@@ -163,5 +163,30 @@ class TestFilteringAPI(TestCase):
         response = self.client.get(
             reverse('buildings-detail',
             kwargs={'pk':building_not_related.id}), format="json"
+        )
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_filter_unit_as_manager(self):
+        self.client.force_authenticate(user=self.user_manager)
+        buildings = Building.objects.filter(manager=self.manager)
+        units = Unit.objects.filter(building__in=buildings)
+
+        response = self.client.get(reverse('units-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for unit in response.data:
+            self.assert_(units.filter(pk=unit['id']).exists())
+        
+        unit_related = units.first()
+        response = self.client.get(
+            reverse('units-detail',
+            kwargs={'pk':unit_related.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        unit_not_related = Unit.objects.exclude(building__in=buildings).first()
+        response = self.client.get(
+            reverse('units-detail',
+            kwargs={'pk':unit_not_related.id}), format="json"
         )
         self.assertNotEqual(response.status_code, status.HTTP_200_OK)
