@@ -100,6 +100,28 @@
         }
     },
     {
+        "model": "base.buildingmanager",
+        "pk": 2,
+        "fields": {
+            "company": 1,
+            "name": "Building owner 2",
+            "phone_number": "555-555-0303",
+            "users": []
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 3,
+        "fields": {
+            "manager": 2,
+            "site_name": "Main Library",
+            "street": "4615 Desert Broom Court",
+            "city": "Jersey City",
+            "zip_code": 11357,
+            "country": "United States"
+        }
+    },
+    {
         "model": "base.unit",
         "pk": 1,
         "fields": {
@@ -114,11 +136,109 @@
         }
     },
     {
+        "model": "base.unit",
+        "pk": 2,
+        "fields": {
+            "building": 2,
+            "external_id": "513",
+            "category": "Duct free",
+            "serial_number": "AA032",
+            "model_number": "AB413",
+            "manufacturer": "Trane",
+            "production_date": "2022-02-01",
+            "installation_date": "2022-03-08"
+        }
+    },
+    {
+        "model": "base.unit",
+        "pk": 3,
+        "fields": {
+            "building": 3,
+            "external_id": "514",
+            "category": "Duct free",
+            "serial_number": "AA032",
+            "model_number": "AB413",
+            "manufacturer": "Trane",
+            "production_date": "2022-02-01",
+            "installation_date": "2022-03-08"
+        }
+    },
+    {
         "model": "base.technician",
         "pk": 1,
         "fields": {
             "user": 1,
             "company": 1,
+            "first_name": "Bob",
+            "last_name": "Smith",
+            "phone_number": "123-321-4213",
+            "license_number": 131251003
+        }
+    },
+    {
+        "model":  "base.company",
+        "pk":  2,
+        "fields": { 
+			"name":  "HVAC Company #2",
+			"street":  "152 Main Street",
+			"city":  "Coralville",
+			"zip_code":  52243,
+			"country":  "United States",
+			"phone_number":  "312-423-4000"
+		}
+	},
+    {
+        "model": "base.buildingmanager",
+        "pk": 3,
+        "fields": {
+            "company": 2,
+            "name": "Building owner 3",
+            "phone_number": "555-555-0344",
+            "users": []
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 4,
+        "fields": {
+            "manager": 3,
+            "site_name": "Restaurant",
+            "street": "3826 Bailey Drive",
+            "city": "Frederika",
+            "zip_code": 50630,
+            "country": "United States"
+        }
+    },
+    {
+        "model": "base.unit",
+        "pk": 4,
+        "fields": {
+            "building": 4,
+            "external_id": "514",
+            "category": "Duct free",
+            "serial_number": "AA032333",
+            "model_number": "AB4143",
+            "manufacturer": "Unknown",
+            "production_date": "2022-02-01",
+            "installation_date": "2022-03-08"
+        }
+    },
+    {
+		"model": "base.user",
+		"pk": 4,
+		"fields": {
+			"email": "technician2@example.com",
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "company": 2,
+            "role": 3
+		}
+	},
+    {
+        "model": "base.technician",
+        "pk": 2,
+        "fields": {
+            "user": 4,
+            "company": 2,
             "first_name": "Bob",
             "last_name": "Smith",
             "phone_number": "123-321-4213",
