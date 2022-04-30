@@ -169,3 +169,42 @@ describe('Technician edit page', () => {
         cy.get('#alert-title').should('contain', 'Error');
     })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error on index page', () => {
+    cy.intercept('GET', '**/api/technicians', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getAllTechniciansError');
+    cy.visit('http://localhost:3000/technicians');
+    cy.wait('@getAllTechniciansError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on details page', () => {
+    cy.intercept('GET', '**/api/technicians/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getTechnicianError');
+    cy.visit('http://localhost:3000/technicians/1');
+    cy.wait('@getTechnicianError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on edit page', () => {
+    cy.intercept('GET', '**/api/technicians/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getTechnicianError');
+    cy.visit('http://localhost:3000/technicians/edit/1');
+    cy.wait('@getTechnicianError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})
+  

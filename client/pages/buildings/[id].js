@@ -6,6 +6,7 @@ import axios from 'axios'
 import BuildingDetails from '../../components/buildings/BuildingDetails'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
 export default function Building(props) {
     const router = useRouter();
