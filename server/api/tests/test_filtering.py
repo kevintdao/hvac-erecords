@@ -20,6 +20,8 @@ class TestFilteringAPI(TestCase):
 
         self.company = Company.objects.get(pk=1)
 
+        self.manager = BuildingManager.objects.filter(users=self.user_manager).first()
+
         self.client = APIClient()
 
 
@@ -137,5 +139,29 @@ class TestFilteringAPI(TestCase):
         response = self.client.get(
             reverse('units-detail',
             kwargs={'pk':unit_not_related.id}), format="json"
+        )
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_filter_building_as_manager(self):
+        self.client.force_authenticate(user=self.user_manager)
+        buildings = Building.objects.filter(manager=self.manager)
+
+        response = self.client.get(reverse('buildings-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for building in response.data:
+            self.assertEqual(building['manager'], self.manager.id)
+        
+        building_related = buildings.first()
+        response = self.client.get(
+            reverse('buildings-detail',
+            kwargs={'pk':building_related.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        building_not_related = Building.objects.exclude(manager=self.manager).first()
+        response = self.client.get(
+            reverse('buildings-detail',
+            kwargs={'pk':building_not_related.id}), format="json"
         )
         self.assertNotEqual(response.status_code, status.HTTP_200_OK)

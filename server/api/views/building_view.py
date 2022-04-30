@@ -14,6 +14,9 @@ def apiBuildings(request):
         if (has_role(request.user,'company')):
             managers = BuildingManager.objects.filter(company=request.user.company)
             buildings = Building.objects.filter(manager__in=managers)
+        elif (has_role(request.user,'manager')):
+            manager = request.user.managers.first()
+            buildings = Building.objects.filter(manager=manager)
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
     # Create building
@@ -33,6 +36,9 @@ def apiBuilding(request,pk):
         if (has_role(request.user,'company')):
             managers = BuildingManager.objects.filter(company=request.user.company)
             building = Building.objects.filter(manager__in=managers).get(pk=pk)
+        elif (has_role(request.user,'manager')):
+            manager = request.user.managers.first()
+            building = Building.objects.filter(manager=manager).get(pk=pk)
     except Building.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of building
