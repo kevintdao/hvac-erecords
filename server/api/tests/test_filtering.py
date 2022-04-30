@@ -1,6 +1,7 @@
 import datetime
 
 from base.models import Company, Unit, User, Building, BuildingManager, Technician
+from records.models import ServiceVisit, Task, Profile, ProfileTask, ProfilePlan, TaskCompletion
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
@@ -9,7 +10,7 @@ from rolepermissions.roles import assign_role, clear_roles
 
 
 class TestFilteringAPI(TestCase):
-    fixtures = ['test_data_filtering.json']
+    fixtures = ['test_data_filtering.json', 'test_data_records_filtering.json']
 
     def setUp(self):
         self.user_company = User.objects.get(pk=1)
@@ -190,3 +191,28 @@ class TestFilteringAPI(TestCase):
             kwargs={'pk':unit_not_related.id}), format="json"
         )
         self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_filter_service_visits_as_company(self):
+            self.client.force_authenticate(user=self.user_company)
+            technicians = Technician.objects.filter(company=self.company)
+            visits = ServiceVisit.objects.filter(technician__in=technicians)
+
+            response = self.client.get(reverse('visits-list'))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for visit in response.data:
+                self.assert_(visits.filter(pk=visit['id']).exists())
+            
+            visit_related = visits.first()
+            response = self.client.get(
+                reverse('visits-detail',
+                kwargs={'pk':visit_related.id}), format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            visit_not_related =ServiceVisit.objects.exclude(technician__in=technicians).first()
+            response = self.client.get(
+                reverse('visits-detail',
+                kwargs={'pk':visit_not_related.id}), format="json"
+            )
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)

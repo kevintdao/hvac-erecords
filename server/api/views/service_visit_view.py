@@ -1,17 +1,27 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from base.models import Technician
 from records.models import ServiceVisit
 from api.serializers import ServiceVisitSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
+def filter_service_visits(user):
+    if has_role(user,'company'):
+        technicians = Technician.objects.filter(company=user.company)
+        return ServiceVisit.objects.filter(technician__in=technicians)
+    elif has_role(user,'admin'):
+        return ServiceVisit.objects.all()
+    else:
+        return ServiceVisit.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiVisits(request):
     # List service visits
     if request.method == 'GET' and has_permission(request.user, 'get_visits'):
-        visits = ServiceVisit.objects.all()
+        visits = filter_service_visits(request.user)
         serializer = ServiceVisitSerializer(visits, many=True)
         return Response(serializer.data)
     # Create service visit
@@ -27,7 +37,7 @@ def apiVisits(request):
 @permission_classes([IsAuthenticated])
 def apiVisit(request, pk):
     try:
-        visit = ServiceVisit.objects.get(pk=pk)
+        visit = filter_service_visits(request.user).get(pk=pk)
     except ServiceVisit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of visit
