@@ -68,4 +68,49 @@ class TestFilteringAPI(TestCase):
         )
         self.assertNotEqual(response.status_code, status.HTTP_200_OK)
 
-    
+    def test_api_filter_building_manager_as_company(self):
+        self.client.force_authenticate(user=self.user_company)
+        managers = BuildingManager.objects.filter(company=self.company)
+        response = self.client.get(reverse('managers-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for manager in response.data:
+            self.assert_(managers.filter(pk=manager['id']).exists())
+        
+        manager_related = managers.first()
+        response = self.client.get(
+            reverse('managers-detail',
+            kwargs={'pk':manager_related.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        manager_not_related = BuildingManager.objects.exclude(company=self.company).first()
+        response = self.client.get(
+            reverse('managers-detail',
+            kwargs={'pk':manager_not_related.id}), format="json"
+        )
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_filter_building_as_company(self):
+        self.client.force_authenticate(user=self.user_company)
+        managers = BuildingManager.objects.filter(company=self.company)
+        buildings = Building.objects.filter(manager__in=managers)
+
+        response = self.client.get(reverse('buildings-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for building in response.data:
+            self.assert_(managers.filter(pk=building['manager']).exists())
+        
+        building_related = buildings.first()
+        response = self.client.get(
+            reverse('buildings-detail',
+            kwargs={'pk':building_related.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        building_not_related = Building.objects.exclude(manager__in=managers).first()
+        response = self.client.get(
+            reverse('buildings-detail',
+            kwargs={'pk':building_not_related.id}), format="json"
+        )
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)

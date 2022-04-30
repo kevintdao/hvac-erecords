@@ -1,17 +1,19 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Building
+from base.models import Building, BuildingManager
 from api.serializers import BuildingSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
 
 @api_view(['GET','POST'])  
 @permission_classes([IsAuthenticated])
 def apiBuildings(request):
     # List buildings
     if request.method == 'GET' and has_permission(request.user, 'get_buildings'):
-        buildings = Building.objects.all()
+        if (has_role(request.user,'company')):
+            managers = BuildingManager.objects.filter(company=request.user.company)
+            buildings = Building.objects.filter(manager__in=managers)
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
     # Create building
@@ -28,7 +30,9 @@ def apiBuildings(request):
 @permission_classes([IsAuthenticated])   
 def apiBuilding(request,pk):
     try:
-        building = Building.objects.get(pk=pk)
+        if (has_role(request.user,'company')):
+            managers = BuildingManager.objects.filter(company=request.user.company)
+            building = Building.objects.filter(manager__in=managers).get(pk=pk)
     except Building.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of building
