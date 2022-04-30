@@ -4,8 +4,8 @@ import { useAppContext } from '../context/state'
 
 export default function PrivateRoute ({ isAllowed, children }) {
   const router = useRouter()
-  const { data } = useAppContext()
-  const role = data.user?.role
+  const { user } = useAppContext()
+  const role = user.user?.role
 
   if (!role) {
     return <div className='mt-2 font-bold text-lg' id='message'>You must be logged in to access this page</div>

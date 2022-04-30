@@ -6,8 +6,8 @@ import Loading from '../../components/Loading'
 export default function QRCodeRedirect() {
   const router = useRouter()
   const { id } = router.query
-  const { data } = useAppContext()
-  const role = data.user?.role
+  const { user } = useAppContext()
+  const role = user.user?.role
 
   // check user role and direct to the correct page based on user type
   useEffect(() => {
