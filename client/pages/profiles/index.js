@@ -6,10 +6,12 @@ import axios from 'axios'
 import ProfileTable from '../../components/profiles/ProfileTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
 export default function Index () {
   const router = useRouter()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
@@ -17,10 +19,8 @@ export default function Index () {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
   }, [router])
@@ -33,6 +33,10 @@ export default function Index () {
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800',
     desc: 'font-medium font-gray-900'
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {

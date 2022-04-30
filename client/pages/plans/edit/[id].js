@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -16,6 +15,7 @@ export default function Plan () {
   const [planId, setPlanId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -27,14 +27,12 @@ export default function Plan () {
     const fetchData = async () => {
       const plans = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}/`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!plans) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -77,6 +75,10 @@ export default function Plan () {
         </div>
       </div>
     )
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {
