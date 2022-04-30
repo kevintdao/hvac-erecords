@@ -11,7 +11,7 @@ from rolepermissions.checkers import has_permission
 def apiManagers(request):
     # List managers
     if request.method == 'GET' and has_permission(request.user, 'get_managers'):
-        managers = BuildingManager.objects.all()
+        managers = BuildingManager.objects.filter(company=request.user.company)
         serializer = BuildingManagerSerializer(managers, many=True)
         return Response(serializer.data)
     # Create manager
@@ -28,7 +28,7 @@ def apiManagers(request):
 @permission_classes([IsAuthenticated])
 def apiManager(request, pk):
     try:
-        manager = BuildingManager.objects.get(pk=pk)
+        manager = BuildingManager.objects.filter(company=request.user.company).get(pk=pk)
     except BuildingManager.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of manager
