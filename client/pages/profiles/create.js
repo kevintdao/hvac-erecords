@@ -36,6 +36,7 @@ export default function Create () {
   const onSubmit = async (data) => {
     const tasks = formatTasks(data.tasks)
     data.tasks = tasks
+    data.company = 1
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`, data)
     .then(res => {
