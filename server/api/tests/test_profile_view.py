@@ -21,6 +21,7 @@ class TestProfileAPI(TestCase):
 
         self.initial_count = Profile.objects.count()
         self.data = {
+            "company": 1,
             "title": "Routine AC Maintenance",
             "description": "this is the profile for routine air conditioner maintenance",
             "tasks": [
@@ -56,6 +57,7 @@ class TestProfileAPI(TestCase):
 
     def test_api_create_profile_failure(self):
         data = {
+            "company": 1,
             "title": "Routine AC Maintenance",
             "description": "this is the profile for routine air conditioner maintenance"
         }
@@ -78,6 +80,7 @@ class TestProfileAPI(TestCase):
     def test_api_update_profile(self):
         profile = Profile.objects.last()
         new_data = {
+            "company": 1,
             "title": "Routine maintenance for packed units",
             "description": "this is the profile for routine for packed units",
             "tasks": [
@@ -107,6 +110,7 @@ class TestProfileAPI(TestCase):
     def test_api_update_profile_failure(self):
         profile = Profile.objects.last()
         new_data = {
+            "company": 1,
             "title": "Routine maintenance for packed units",
             "tasks": [
                 {
