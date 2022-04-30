@@ -63,3 +63,17 @@ describe('Service plans page', () => {
     cy.url().should('include', '/units/records/1');
   })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error', () => {
+    cy.intercept('GET', '**/api/units/*', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getUnitError');
+    cy.visit('http://localhost:3000/service-plans/1');
+    cy.wait('@getUnitError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})
