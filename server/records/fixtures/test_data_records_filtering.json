@@ -1,0 +1,145 @@
+[
+    {
+        "model": "records.task",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "title": "Record condition of condenser coil",
+            "description": "",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.profile",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "title": "Routine Maintenance for AC Units",
+            "description": "this is a list of tasks for maintenance of an air conditioner"
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "task": 1,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "unit": 1,
+            "start_date": "2022-03-08",
+            "end_date": "2022-06-08",
+            "is_required": true,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 2,
+        "fields": {
+            "profile": 1,
+            "unit": 1,
+            "start_date": "2022-08-01",
+            "end_date": "2022-12-31",
+            "is_required": true,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 1,
+        "fields": {
+            "technician": 1,
+            "unit": 1,
+            "start_time": "2022-04-18T16:46:29Z",
+            "end_time": "2022-04-18T16:47:39Z",
+            "plan": 1
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 1,
+        "fields": {
+            "task": 1,
+            "service_visit": 1,
+            "completed_at": "2022-04-18T16:46:57Z",
+            "selection": null,
+            "response": "Good condition",
+            "value": null
+        }
+    },
+    
+    {
+        "model": "records.task",
+        "pk": 2,
+        "fields": {
+            "company": 2,
+            "title": "Record condition of condenser coil",
+            "description": "",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.profile",
+        "pk": 2,
+        "fields": {
+            "company": 2,
+            "title": "Routine Maintenance for AC Units",
+            "description": "this is a list of tasks for maintenance of an air conditioner"
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 2,
+        "fields": {
+            "profile": 2,
+            "task": 2,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 3,
+        "fields": {
+            "profile": 2,
+            "unit": 4,
+            "start_date": "2022-03-08",
+            "end_date": "2022-06-08",
+            "is_required": true,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 2,
+        "fields": {
+            "technician": 4,
+            "unit": 4,
+            "start_time": "2022-04-18T16:46:29Z",
+            "end_time": "2022-04-18T16:47:39Z",
+            "plan": 3
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 1,
+        "fields": {
+            "task": 2,
+            "service_visit": 2,
+            "completed_at": "2022-04-18T16:46:57Z",
+            "selection": null,
+            "response": "Good condition",
+            "value": null
+        }
+    }
+]
