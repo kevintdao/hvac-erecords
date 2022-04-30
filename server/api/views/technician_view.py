@@ -9,14 +9,23 @@ from base.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
+def filter_technicians(user):
+    if has_role(user,'company'):
+        return Technician.objects.filter(company=user.company)
+    elif has_role(user,'admin'):
+        return Technician.objects.all()
+    else:
+        return Technician.objects.none()
+
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiTechnicians(request):
     # List technicians
     if request.method == 'GET' and has_permission(request.user, 'get_technicians'):
-        technicians = Technician.objects.filter(company=request.user.company)
+        technicians = filter_technicians(request.user)
         serializer = TechnicianSerializer(technicians, many=True)
         return Response(serializer.data)
     # Create technician
@@ -54,7 +63,7 @@ def apiTechnicians(request):
 @permission_classes([IsAuthenticated])
 def apiTechnician(request,pk):
     try:
-        technician = Technician.objects.filter(company=request.user.company).get(pk=pk)
+        technician = filter_technicians(request.user).get(pk=pk)
     except Technician.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of technician

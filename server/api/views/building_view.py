@@ -6,17 +6,24 @@ from api.serializers import BuildingSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
+def filter_buildings(user):
+    if has_role(user,['company', 'technician']):
+        managers = BuildingManager.objects.filter(company=user.company)
+        return Building.objects.filter(manager__in=managers)
+    elif has_role(user,'manager'):
+        manager = user.managers.first()
+        return Building.objects.filter(manager=manager)
+    elif has_role(user,'admin'):
+        return Building.objects.all()
+    else:
+        return Building.objects.none()
+
 @api_view(['GET','POST'])  
 @permission_classes([IsAuthenticated])
 def apiBuildings(request):
     # List buildings
     if request.method == 'GET' and has_permission(request.user, 'get_buildings'):
-        if (has_role(request.user,'company')):
-            managers = BuildingManager.objects.filter(company=request.user.company)
-            buildings = Building.objects.filter(manager__in=managers)
-        elif (has_role(request.user,'manager')):
-            manager = request.user.managers.first()
-            buildings = Building.objects.filter(manager=manager)
+        buildings = filter_buildings(request.user)
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
     # Create building
@@ -33,12 +40,7 @@ def apiBuildings(request):
 @permission_classes([IsAuthenticated])   
 def apiBuilding(request,pk):
     try:
-        if (has_role(request.user,'company')):
-            managers = BuildingManager.objects.filter(company=request.user.company)
-            building = Building.objects.filter(manager__in=managers).get(pk=pk)
-        elif (has_role(request.user,'manager')):
-            manager = request.user.managers.first()
-            building = Building.objects.filter(manager=manager).get(pk=pk)
+        building = filter_buildings(request.user).get(pk=pk)
     except Building.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of building
