@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import axios from 'axios'
@@ -6,16 +6,31 @@ import BuildingForm from '../../components/buildings/BuildingForm'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import Loading from '../../components/Loading'
 import { useAppContext } from '../../context/state'
 
 export default function Create() {
     const [id, setId] = useState(null);
+    const [data, setData] = useState()
     const [error, setError] = useState();
+    const [backendError, setBackendError] = useState()
     const { user } = useAppContext() 
 
     const styles = {
         button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
     }
+
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/managers`)
+        .then(res => {
+            setData(res.data)
+        })
+        .catch(err => {
+            const output = handleError(err)
+            setBackendError(output)
+            return
+        })
+    }, [])
 
     const onSubmit = async (data) => {
         data.company = user.user.company
@@ -51,6 +66,14 @@ export default function Create() {
         )
     }
 
+    if (backendError) {
+        return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+    }
+
+    if (!data) {
+        return (<Loading />)
+    }
+
     return (
         <PrivateRoute isAllowed={[1,2]}>
         <div className='space-y-4 mt-2'>
@@ -62,7 +85,7 @@ export default function Create() {
 
             {error && <Alert title="Error" text={error} type="error" />}
 
-            <BuildingForm type='Create' onSubmit={onSubmit}/>
+            <BuildingForm type='Create' onSubmit={onSubmit} managers={data} />
         </div>
         </PrivateRoute>
     )
