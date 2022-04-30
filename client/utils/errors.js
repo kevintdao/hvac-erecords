@@ -4,6 +4,10 @@ export function handleError (error) {
   }
 
   const data = error.response?.data
+  if (typeof data === 'string' || data instanceof String) {
+    return data
+  }
+
   let output = ''
 
   for (const [key, value] of Object.entries(data)) {

@@ -6,10 +6,12 @@ import axios from 'axios'
 import TaskTable from '../../components/tasks/TaskTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
 export default function Index () {
   const router = useRouter()
   const [data, setData] = useState()
+  const [error, setError] = useState()
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/tasks`)
@@ -17,10 +19,8 @@ export default function Index () {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+        const output = handleError(err)
+        setError(output)
         return
       })
   }, [router])
@@ -35,6 +35,10 @@ export default function Index () {
     desc: 'font-medium font-gray-900'
   }
 
+  if (error) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{error}</div>
+  }
+  
   if (!data) {
     return (<Loading />)
   }

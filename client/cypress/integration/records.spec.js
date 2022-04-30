@@ -36,6 +36,6 @@ describe('Authentication', () => {
   })
 
   it('should redirect to login page when not logged in', () => {
-    cy.url().should('include', '/login');
+    cy.get('#message').should('contain', 'Error message');
   })
 })

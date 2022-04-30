@@ -5,8 +5,8 @@ import { useAppContext } from '../context/state'
 import PrivateRoute from '../components/PrivateRoute'
 
 export default function Dashboard () {
-  const { data } = useAppContext()
-  const role = data.user?.role
+  const { user } = useAppContext()
+  const role = user.user?.role
   const isCompany = role == 1
   const isTechnician = role == 3
   const isManager = role == 2

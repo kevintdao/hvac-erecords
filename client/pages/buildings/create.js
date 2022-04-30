@@ -6,17 +6,19 @@ import BuildingForm from '../../components/buildings/BuildingForm'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function Create() {
     const [id, setId] = useState(null);
     const [error, setError] = useState();
+    const { user } = useAppContext() 
 
     const styles = {
         button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
     }
 
     const onSubmit = async (data) => {
-        data.company = 1
+        data.company = user.user.company
         axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/buildings`, data)
         .then(res => {
             setId(res.data.id);

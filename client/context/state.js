@@ -6,7 +6,7 @@ export const AppContext = createContext()
 
 export function AppProvider ({ children }) {
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState({
+  const [user, setUser] = useState({
     accessToken: null,
     refreshToken: null,
     isLoggedIn: false,
@@ -37,8 +37,8 @@ export function AppProvider ({ children }) {
   }
 
   function logout () {
-    setData({
-      ...data,
+    setUser({
+      ...user,
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -48,8 +48,8 @@ export function AppProvider ({ children }) {
   }
 
   const value = {
-    data,
-    setData,
+    user,
+    setUser,
     signup,
     login,
     logout
@@ -80,7 +80,7 @@ export function AppProvider ({ children }) {
       delete axios.defaults.headers.common["Authorization"];
     }
 
-    setData({
+    setUser({
       accessToken: access,
       refreshToken: refresh,
       isLoggedIn: access != null && refresh != null,
@@ -101,7 +101,7 @@ export function AppProvider ({ children }) {
     )
   }
 
-  if(data.relog){
+  if(user.relog){
     const relogin = () => {
       localStorage.removeItem('access_token')
       localStorage.removeItem('refresh_token')
