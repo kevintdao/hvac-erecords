@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm, Controller } from 'react-hook-form'
 
-export default function BuildingForm({type, data, onSubmit}){
+export default function BuildingForm({ type, data, onSubmit, managers }){
     const { register, handleSubmit, formState: { errors }, control } = useForm({
         defaultValues: data
     });
+
+    console.log(data)
 
     const styles = {
         inputContainer: "flex flex-col",
@@ -19,22 +21,20 @@ export default function BuildingForm({type, data, onSubmit}){
         <>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
                 <div className={styles.inputs2Cols}>
-                    {/* Owner ID */}
+                    {/* Building manager */}
                     <div className={styles.inputContainer}>
-                        <label htmlFor="owner_id">Owner ID</label>
-                        <input 
-                        type="number" 
-                        name="owner_id" 
-                        id="owner_id" 
-                        className={`${styles.input} ${errors.owner_id ? "border-red-400" : "border-gray-300"}`}
-                        {...register('owner_id', {
-                            required: {
-                            value: true,
-                            message: "Enter an Owner ID"
-                            }
-                        })}
-                        />
-                        <span className='text-sm text-red-700 mt-1' id="owner_id-help">{errors.owner_id?.message}</span>
+                        <label htmlFor="manager">Building Manager</label>
+                        <select 
+                            type="text" 
+                            name="manager" 
+                            id="manager" 
+                            className={`${styles.input} border-gray-300`}
+                            {...register('manager')}
+                        >
+                            {managers.map((manager, i) => (
+                                <option value={manager.id} key={manager.id}>{`${manager.name} (${manager.phone_number})`}</option>
+                            ))}
+                        </select>
                     </div>
                     {/* Site Name */}
                     <div className={styles.inputContainer}>
