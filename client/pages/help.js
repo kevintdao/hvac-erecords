@@ -7,8 +7,8 @@ import TechnicianHelp from '../components/help/TechnicianHelp'
 import Header from '../components/Header'
 
 export default function Help() {
-  const { data } = useAppContext()
-  const role = data.user?.role
+  const { user } = useAppContext()
+  const role = user.user?.role
   const isCompany = role == 1
   const isManager = role == 2
   const isTechnician = role == 3
