@@ -9,12 +9,13 @@ import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
 import PrivateRoute from '../../../components/PrivateRoute'
 
-export default function Edit(props) {
+export default function Edit() {
     const router = useRouter();
     const { id } = router.query;
     const [buildingID, setBuildingId] = useState();
     const [error, setError] = useState();
     const [data, setData] = useState();
+    const [backendError, setBackendError] = useState()
 
     const styles = {
         button: "p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800"
@@ -28,10 +29,8 @@ export default function Edit(props) {
             setData(res.data)
           })
           .catch(err => {
-            router.push({
-              pathname: '/login',
-              query: { error: 'You must be logged in to access this page' }
-            }, '/login')
+            const output = handleError(err)
+            setBackendError(output)
             return
           })
     }, [id, router])
@@ -67,6 +66,10 @@ export default function Edit(props) {
                 </div>
             </div>
         )
+    }
+
+    if (backendError) {
+        return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
     }
 
     if (!data) {

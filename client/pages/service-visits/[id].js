@@ -16,6 +16,7 @@ export default function ServiceProfile () {
   const [savedData, setSavedData] = useState(null)
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
+  const [backendError, setBackendError] = useState()
 
   useEffect(() => {
     if (!router.isReady) return
@@ -23,14 +24,12 @@ export default function ServiceProfile () {
     const fetchData = async () => {
       const plan = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!plan) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -63,6 +62,10 @@ export default function ServiceProfile () {
     fetchData()
     loadStorage()
   }, [id, router])
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
 
   if (!data) {
     return (<Loading />)

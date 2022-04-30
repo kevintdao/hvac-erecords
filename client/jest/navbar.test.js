@@ -4,7 +4,7 @@ import { AppContext } from "../context/state"
 
 test("Not logged in navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -24,7 +24,7 @@ test("Not logged in navigation bar", () => {
 
 test("Logged in navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: '123adsf',
       refreshToken: '123asdf',
       isLoggedIn: true,
@@ -45,7 +45,7 @@ test("Logged in navigation bar", () => {
 
 test("Maintenance company navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -71,7 +71,7 @@ test("Maintenance company navigation bar", () => {
 
 test("Building owner navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -97,7 +97,7 @@ test("Building owner navigation bar", () => {
 
 test("Inspector navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -123,7 +123,7 @@ test("Inspector navigation bar", () => {
 
 test("Technician navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,

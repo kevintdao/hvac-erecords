@@ -8,7 +8,7 @@ import axios from 'axios'
 import { handleError } from '../utils/errors'
 
 export default function LoginPage () {
-  const { login, data, setData } = useAppContext()
+  const { login, user, setUser } = useAppContext()
   const router = useRouter()
   const [error, setError] = useState(router.query?.error)
 
@@ -21,7 +21,7 @@ export default function LoginPage () {
           }
         })
 
-        setData(data => ({
+        setUser(data => ({
           ...data,
           accessToken: res.data.access,
           refreshToken: res.data.refresh,

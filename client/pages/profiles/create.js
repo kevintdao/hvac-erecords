@@ -14,6 +14,7 @@ export default function Create () {
   const [id, setId] = useState(null)
   const [data, setData] = useState()
   const [error, setError] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -25,10 +26,8 @@ export default function Create () {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
   }, [router])
@@ -58,6 +57,10 @@ export default function Create () {
       })
     }
     return output
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {

@@ -15,6 +15,7 @@ export default function Service () {
   const router = useRouter()
   const { id } = router.query    // unit id
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     desc: 'font-medium font-gray-900',
@@ -33,14 +34,12 @@ export default function Service () {
       const currentDate = Temporal.Now.plainDateISO()
       const unit = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!unit) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -78,6 +77,10 @@ export default function Service () {
 
     fetchData()
   }, [id, router])
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
 
   if (!data) {
     return (<Loading />)

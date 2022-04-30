@@ -220,3 +220,42 @@ describe('Task edit page', () => {
     cy.get('#alert-title').should('contain', 'Error');
   })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error on index page', () => {
+    cy.intercept('GET', '**/api/tasks', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getAllTasksError');
+    cy.visit('http://localhost:3000/tasks');
+    cy.wait('@getAllTasksError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on details page', () => {
+    cy.intercept('GET', '**/api/tasks/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getTaskError');
+    cy.visit('http://localhost:3000/tasks/1');
+    cy.wait('@getTaskError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on edit page', () => {
+    cy.intercept('GET', '**/api/tasks/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getTaskError');
+    cy.visit('http://localhost:3000/tasks/edit/1');
+    cy.wait('@getTaskError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})
+  

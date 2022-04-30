@@ -75,3 +75,17 @@ describe('Service visit page', () => {
     cy.get('#alert-title').should('contain', 'Error');
   })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error', () => {
+    cy.intercept('GET', '**/api/plans/*', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getPlanError');
+    cy.visit('http://localhost:3000/service-visits/1');
+    cy.wait('@getPlanError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})

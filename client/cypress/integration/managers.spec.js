@@ -155,3 +155,42 @@ describe('Manager index page', () => {
       cy.get('#alert-title').should('contain', 'Error');
     })
   })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error on index page', () => {
+    cy.intercept('GET', '**/api/managers', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getAllManagersError');
+    cy.visit('http://localhost:3000/managers');
+    cy.wait('@getAllManagersError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on details page', () => {
+    cy.intercept('GET', '**/api/managers/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getManagerError');
+    cy.visit('http://localhost:3000/managers/1');
+    cy.wait('@getManagerError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on edit page', () => {
+    cy.intercept('GET', '**/api/managers/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getManagerError');
+    cy.visit('http://localhost:3000/managers/edit/1');
+    cy.wait('@getManagerError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})
+  
