@@ -16,7 +16,7 @@ from rolepermissions.checkers import has_permission
 def apiTechnicians(request):
     # List technicians
     if request.method == 'GET' and has_permission(request.user, 'get_technicians'):
-        technicians = Technician.objects.all()
+        technicians = Technician.objects.filter(company=request.user.company)
         serializer = TechnicianSerializer(technicians, many=True)
         return Response(serializer.data)
     # Create technician
@@ -54,7 +54,7 @@ def apiTechnicians(request):
 @permission_classes([IsAuthenticated])
 def apiTechnician(request,pk):
     try:
-        technician = Technician.objects.get(pk=pk)
+        technician = Technician.objects.filter(company=request.user.company).get(pk=pk)
     except Technician.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of technician
