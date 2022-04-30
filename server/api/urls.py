@@ -2,6 +2,8 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
+from TEAM_001.server.api.views.PasswordTokenCheckAPIView import PasswordTokenCheckAPI
+
 from . import views
 
 router = routers.DefaultRouter()
@@ -36,4 +38,5 @@ urlpatterns = [
     path("visits/<int:pk>/", views.apiVisit, name="visits-detail"),
     path("completions", views.apiCompletions, name="completions-list"),
     path("completions/<int:pk>/", views.apiCompletion, name="completions-detail"),
+    path("password-set/<uidb64>/<token>/", views.PasswordTokenCheckAPI.as_view(), name="password-set-confirm")
 ]
