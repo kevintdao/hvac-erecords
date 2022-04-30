@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 
 export default function ResetPassword() {
     const router = useRouter();
+    const { id, resetToken } = router.query;
+
+
 
     const styles = {
         inputContainer: "flex flex-col",
