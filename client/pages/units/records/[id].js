@@ -8,12 +8,14 @@ import axios from 'axios'
 import UnitDetails from '../../../components/units/UnitDetails'
 import UnitRecords from '../../../components/records/UnitRecords'
 import { useAppContext } from '../../../context/state'
+import { handleError } from '../../../utils/errors'
 
 export default function Record() {
   const router = useRouter()
   const { id } = router.query
   const [records, setRecords] = useState()
   const { data } = useAppContext()
+  const [error, setError] = useState()
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -25,14 +27,12 @@ export default function Record() {
     const fetchData = async () => {
       const details = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/records/`)
       .catch(err => {
+        const output = handleError(err)
+        setError(output)
         return
       })
 
       if (!details) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
       setRecords(details.data)
@@ -40,6 +40,10 @@ export default function Record() {
 
     fetchData()
   }, [router, id])
+
+  if (error) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{error}</div>
+  }
 
   if (!records) {
     return (<Loading />)
