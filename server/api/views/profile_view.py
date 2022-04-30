@@ -1,7 +1,8 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from records.models import Profile
+from base.models import Unit, Building
+from records.models import Profile, ProfilePlan
 from api.serializers import ProfileCreateSerializer, ProfileDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
@@ -9,6 +10,12 @@ from rolepermissions.checkers import has_permission, has_role
 def filter_profiles(user):
     if has_role(user,['company','technician']):
         return Profile.objects.filter(company=user.company)
+    elif has_role(user,'manager'):
+        manager = user.managers.first()
+        buildings = Building.objects.filter(manager=manager)
+        units = Unit.objects.filter(building__in=buildings)
+        plans = ProfilePlan.objects.filter(unit__in=units)
+        return Profile.objects.filter(profileplan__in=plans).distinct()
     elif has_role(user,'admin'):
         return Profile.objects.all()
     else:
@@ -43,7 +50,7 @@ def apiProfile(request, pk):
     if request.method == 'GET' and has_permission(request.user, 'view_profiles'):
         serializer = ProfileDisplaySerializer(profile, many=False)
         return Response(serializer.data)
-    # Update profile
+    # Update profile  
     elif request.method == 'PUT' and has_permission(request.user, 'update_profiles'):
         serializer = ProfileCreateSerializer(profile, data=request.data)
         if serializer.is_valid():

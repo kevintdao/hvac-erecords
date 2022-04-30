@@ -310,3 +310,29 @@ class TestFilteringAPI(TestCase):
                 kwargs={'pk':plan_not_related.id}), format="json"
             )
             self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_filter_profiles_as_manager(self):
+        self.client.force_authenticate(user=self.user_manager)
+        buildings = Building.objects.filter(manager=self.manager)
+        units = Unit.objects.filter(building__in=buildings)
+        plans = ProfilePlan.objects.filter(unit__in=units)
+        profiles = Profile.objects.filter(profileplan__in=plans).distinct()
+
+        response = self.client.get(reverse('profiles-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for profile in response.data:
+            self.assert_(profiles.filter(pk=profile['id']).exists())
+        
+        profile_related = profiles.first()
+        response = self.client.get(
+            reverse('profiles-detail',
+            kwargs={'pk':profile_related.id}), format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        profile_not_related = Profile.objects.exclude(company=self.company).first()
+        response = self.client.get(
+            reverse('profiles-detail',
+            kwargs={'pk':profile_not_related.id}), format="json"
+        )
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
