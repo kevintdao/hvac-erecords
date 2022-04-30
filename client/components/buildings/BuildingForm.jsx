@@ -6,8 +6,6 @@ export default function BuildingForm({ type, data, onSubmit, managers }){
         defaultValues: data
     });
 
-    console.log(data)
-
     const styles = {
         inputContainer: "flex flex-col",
         input: "p-2 border rounded",
