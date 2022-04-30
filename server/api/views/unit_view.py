@@ -1,17 +1,20 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Unit
+from base.models import Unit, BuildingManager, Building
 from api.serializers import UnitSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def apiUnits(request):
     # List units
     if request.method == 'GET' and has_permission(request.user, 'get_units'):
-        units = Unit.objects.all()
+        if (has_role(request.user,'company')):
+            managers = BuildingManager.objects.filter(company=request.user.company)
+            buildings = Building.objects.filter(manager__in=managers)
+            units = Unit.objects.filter(building__in=buildings)
         serializer = UnitSerializer(units, many=True)
         return Response(serializer.data)
     # Create unit
@@ -28,7 +31,10 @@ def apiUnits(request):
 @permission_classes([IsAuthenticated])
 def apiUnit(request, pk):
     try:
-        unit = Unit.objects.get(pk=pk)
+        if (has_role(request.user,'company')):
+            managers = BuildingManager.objects.filter(company=request.user.company)
+            buildings = Building.objects.filter(manager__in=managers)
+            unit = Unit.objects.filter(building__in=buildings).get(pk=pk)
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of unit
