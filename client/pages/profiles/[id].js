@@ -6,11 +6,13 @@ import ProfileDetails from '../../components/profiles/ProfileDetails'
 import Loading from '../../components/Loading'
 import Header from '../../components/Header'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
-export default function Profile (props) {
+export default function Profile () {
   const router = useRouter()
   const { id } = router.query
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   useEffect(() => {
     if (!router.isReady) return
@@ -39,16 +41,17 @@ export default function Profile (props) {
         })
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
-        return
+        const output = handleError(err)
+        setBackendError(output)
       })
   }, [id, router])
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {

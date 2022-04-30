@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 test('Allowed role', () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -31,7 +31,7 @@ test('Allowed role', () => {
 
 test('Not allowed role', () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,

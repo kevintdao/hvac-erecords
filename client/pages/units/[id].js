@@ -20,6 +20,7 @@ export default function Unit (props) {
   const [error, setError] = useState()
   const [data, setData] = useState()
   const [profiles, setProfiles] = useState()
+  const [backendError, setBackendError] = useState()
   const qrValue = `${process.env.NEXT_PUBLIC_URL}/qr-code-redirect/${id}`
 
   const styles = {
@@ -37,14 +38,12 @@ export default function Unit (props) {
     const fetchData = async () => {
       const units = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!units) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -102,6 +101,10 @@ export default function Unit (props) {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {

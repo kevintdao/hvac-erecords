@@ -2,8 +2,7 @@ describe('Private routes', () => {
   it('should redirect to login page when not logged in', () => {
     cy.visit('http://localhost:3000/dashboard');
     
-    cy.url().should('include', '/login');
-    cy.get('#alert-title').should('contain', 'Error');
+    cy.get('#message').should('contain', 'You must be logged in to access this page');
   })
 
   it('should display message when user doesnt have permission to access the page', () => {
