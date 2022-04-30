@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from base.models import Unit
 from rest_framework import status
 from api.serializers import UnitRecordsSerializer
+from rolepermissions.checkers import has_permission
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -13,6 +14,7 @@ def apiUnitRecords(request, pk):
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of unit
-    if request.method == 'GET':
+    if request.method == 'GET' and has_permission(request.user, 'get_unit_records'):
         serializer = UnitRecordsSerializer(unit, many=False)
         return Response(serializer.data)
+    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
