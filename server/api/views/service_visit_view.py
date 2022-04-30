@@ -8,7 +8,7 @@ from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
 def filter_service_visits(user):
-    if has_role(user,'company'):
+    if has_role(user,['company','technician']):
         technicians = Technician.objects.filter(company=user.company)
         return ServiceVisit.objects.filter(technician__in=technicians)
     elif has_role(user,'admin'):

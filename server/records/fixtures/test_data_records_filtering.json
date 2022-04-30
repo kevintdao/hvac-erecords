@@ -132,7 +132,7 @@
     },
     {
         "model": "records.taskcompletion",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "task": 2,
             "service_visit": 2,

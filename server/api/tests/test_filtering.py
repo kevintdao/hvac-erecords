@@ -216,3 +216,97 @@ class TestFilteringAPI(TestCase):
                 kwargs={'pk':visit_not_related.id}), format="json"
             )
             self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_filter_tasks_as_company(self):
+            self.client.force_authenticate(user=self.user_company)
+            tasks = Task.objects.filter(company=self.company)
+
+            response = self.client.get(reverse('tasks-list'))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for task in response.data:
+                self.assert_(tasks.filter(pk=task['id']).exists())
+            
+            task_related = tasks.first()
+            response = self.client.get(
+                reverse('tasks-detail',
+                kwargs={'pk':task_related.id}), format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            task_not_related = Task.objects.exclude(company=self.company).first()
+            response = self.client.get(
+                reverse('tasks-detail',
+                kwargs={'pk':task_not_related.id}), format="json"
+            )
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_filter_profiles_as_company(self):
+            self.client.force_authenticate(user=self.user_company)
+            profiles = Profile.objects.filter(company=self.company)
+
+            response = self.client.get(reverse('profiles-list'))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for profile in response.data:
+                self.assert_(profiles.filter(pk=profile['id']).exists())
+            
+            profile_related = profiles.first()
+            response = self.client.get(
+                reverse('profiles-detail',
+                kwargs={'pk':profile_related.id}), format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            profile_not_related = Profile.objects.exclude(company=self.company).first()
+            response = self.client.get(
+                reverse('profiles-detail',
+                kwargs={'pk':profile_not_related.id}), format="json"
+            )
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_filter_task_completions_as_company(self):
+            self.client.force_authenticate(user=self.user_company)
+            tasks = Task.objects.filter(company=self.company)
+            task_completions = TaskCompletion.objects.filter(task__in=tasks)
+
+            response = self.client.get(reverse('completions-list'))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for task_completion in response.data:
+                self.assert_(task_completions.filter(pk=task_completion['id']).exists())
+            
+            completion_related = task_completions.first()
+            response = self.client.get(
+                reverse('completions-detail',
+                kwargs={'pk':completion_related.id}), format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            completion_not_related = TaskCompletion.objects.exclude(task__in=tasks).first()
+            response = self.client.get(
+                reverse('completions-detail',
+                kwargs={'pk':completion_not_related.id}), format="json"
+            )
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_filter_profile_plans_as_company(self):
+            self.client.force_authenticate(user=self.user_company)
+            profiles = Profile.objects.filter(company=self.company)
+            plans = ProfilePlan.objects.filter(profile__in=profiles)
+
+            response = self.client.get(reverse('plans-list'))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            for plan in response.data:
+                self.assert_(plans.filter(pk=plan['id']).exists())
+            
+            plan_related = plans.first()
+            response = self.client.get(
+                reverse('plans-detail',
+                kwargs={'pk':plan_related.id}), format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            plan_not_related = ProfilePlan.objects.exclude(profile__in=profiles).first()
+            response = self.client.get(
+                reverse('plans-detail',
+                kwargs={'pk':plan_not_related.id}), format="json"
+            )
+            self.assertNotEqual(response.status_code, status.HTTP_200_OK)
