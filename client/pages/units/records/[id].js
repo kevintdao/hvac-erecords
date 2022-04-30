@@ -14,7 +14,7 @@ export default function Record() {
   const router = useRouter()
   const { id } = router.query
   const [records, setRecords] = useState()
-  const { data } = useAppContext()
+  const { user } = useAppContext()
   const [error, setError] = useState()
 
   const styles = {
@@ -62,7 +62,7 @@ export default function Record() {
           <UnitDetails data={records} />
         </div>
 
-        {data.user?.role == 3 && <div>
+        {user.user?.role == 3 && <div>
           <div className='py-2'>
             <Link href={`/service-plans/${id}`}>
               <a className={styles.button} id='data'>Back to Service Plans</a>
