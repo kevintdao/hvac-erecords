@@ -6,6 +6,7 @@ import axios from 'axios'
 import ManagerDetails from '../../components/managers/ManagerDetails'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
 export default function Manager () {
   const router = useRouter()
