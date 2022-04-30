@@ -3,9 +3,11 @@ import Link from 'next/link'
 import { useAppContext } from '../context/state'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { useLoading } from '../context/loading'
 
 export default function NavBar () {
   const { user, logout } = useAppContext()
+  const { loading, setLoading } = useLoading()
   const isLoggedIn = user.isLoggedIn
   const role = user.user?.role
 
@@ -93,6 +95,7 @@ export default function NavBar () {
   }
 
   const signout = async () => {
+    setLoading(true)
     logout()
 
     // remove tokens from localStorage
