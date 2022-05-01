@@ -11,7 +11,7 @@ from rolepermissions.checkers import has_permission
 def apiCompanies(request):
     # List companies
     if request.method == 'GET' and has_permission(request.user, 'get_companies'):
-        companies = Company.objects.all()
+        companies = Company.objects.for_user(request.user)
         serializer = CompanySerializer(companies, many=True)
         return Response(serializer.data)
     # Create company
@@ -27,22 +27,22 @@ def apiCompanies(request):
 @permission_classes([IsAuthenticated]) 
 def apiCompany(request,pk):
     try:
-        building = Company.objects.get(pk=pk)
+        company = Company.objects.for_user(request.user).get(pk=pk)
     except Company.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of company
     if request.method == 'GET' and has_permission(request.user, 'view_companies'):
-        serializer = CompanySerializer(building, many=False)
+        serializer = CompanySerializer(company, many=False)
         return Response(serializer.data)
     # Update company
     elif request.method == 'PUT' and has_permission(request.user, 'update_companies'):
-        serializer = CompanySerializer(building, data=request.data)
+        serializer = CompanySerializer(company, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # Delete company
     elif request.method == 'DELETE' and has_permission(request.user, 'delete_companies'):
-        building.delete()
+        company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
