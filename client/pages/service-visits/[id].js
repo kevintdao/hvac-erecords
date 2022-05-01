@@ -8,6 +8,7 @@ import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function ServiceProfile () {
   const router = useRouter()
@@ -17,6 +18,7 @@ export default function ServiceProfile () {
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
   const [backendError, setBackendError] = useState()
+  const { user } = useAppContext() 
 
   useEffect(() => {
     if (!router.isReady) return
@@ -79,7 +81,7 @@ export default function ServiceProfile () {
     delete data.start_time
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
-      technician: 1,    // hardcoded technician for now
+      technician: user.user.id,
       unit: unit,
       plan: id,
       start_time: startTime,
