@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from base.models import Technician, Unit
 from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -92,6 +93,24 @@ class ServiceVisitSerializer(serializers.ModelSerializer):
         if data['end_time'] is not None and data['start_time'] > data['end_time']:
             raise serializers.ValidationError("End time must occur after start time")
         return data
+
+    def validate_technician(self, value):
+        user = self.context['request'].user
+        if value in Technician.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find technician for this user')
+
+    def validate_unit(self, value):
+        user = self.context['request'].user
+        if value in Unit.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find unit for this user')
+
+    def validate_plan(self, value):
+        user = self.context['request'].user
+        if value in ProfilePlan.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find profile plan for this user')
 
 class TaskCompletionSerializer(serializers.ModelSerializer):
     class Meta:

@@ -18,7 +18,7 @@ def apiVisits(request):
         return Response(serializer.data)
     # Create service visit
     elif request.method == 'POST' and has_permission(request.user, 'create_visits'):
-        serializer = ServiceVisitSerializer(data=request.data)
+        serializer = ServiceVisitSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,7 +38,7 @@ def apiVisit(request, pk):
         return Response(serializer.data)
     # Update visit
     elif request.method == 'PUT' and has_permission(request.user, 'update_visits'):
-        serializer = ServiceVisitSerializer(visit, data=request.data)
+        serializer = ServiceVisitSerializer(visit, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

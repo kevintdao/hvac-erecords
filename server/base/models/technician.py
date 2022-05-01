@@ -9,6 +9,8 @@ class TechnicianQuerySet(models.QuerySet):
     def for_user(self, user):
         if has_role(user,'company'):
             return self.filter(company=user.company)
+        elif has_role(user,'technician'):
+            return self.filter(user=user)
         elif has_role(user,'admin'):
             return self.all()
         else:
