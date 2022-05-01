@@ -16,7 +16,7 @@ def apiUnits(request):
         return Response(serializer.data)
     # Create unit
     elif request.method == 'POST' and has_permission(request.user, 'create_units'):
-        serializer = UnitSerializer(data=request.data)
+        serializer = UnitSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -37,7 +37,7 @@ def apiUnit(request, pk):
         return Response(serializer.data)
     # Update unit
     elif request.method == 'PUT' and has_permission(request.user, 'update_units'):
-        serializer = UnitSerializer(unit, data=request.data)
+        serializer = UnitSerializer(unit, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

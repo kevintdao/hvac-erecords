@@ -75,3 +75,9 @@ class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
         fields = '__all__'
+
+    def validate_building(self, value):
+        user = self.context['request'].user
+        if value in Building.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find building for this user')      

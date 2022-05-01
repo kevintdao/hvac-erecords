@@ -44,3 +44,45 @@ class TestFilteringAPI(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_building_bad_manager_update(self):
+        self.client.force_authenticate(user=self.user_company)
+        manager_not_related = BuildingManager.objects.exclude(company=self.company).first()
+
+        building = Building.objects.first()
+        new_data = {
+            'manager': manager_not_related.id,
+            'site_name' : 'Seamans Center',
+            'street' : '103 South Capitol Strreet',
+            'city' : 'Iowa City',
+            'state' : 'Iowa',
+            'zip_code' : '52241',
+            'country' : 'United States'
+        }
+        response = self.client.put(
+            reverse('buildings-detail',
+            kwargs={'pk':building.id}), data=new_data, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_unit_bad_building(self):
+        self.client.force_authenticate(user=self.user_company)
+        managers = BuildingManager.objects.filter(company=self.company)
+        building_not_related = Building.objects.exclude(manager__in=managers).first()
+
+        data = {
+            'building': building_not_related.id,
+            'external_id': '',
+            'category': 'AC',
+            'serial_number': '24ABC542W003102',
+            'model_number': '1234A00',
+            'manufacturer': 'Trane',
+            'production_date': datetime.date(2015,10,20),
+            'installation_date': datetime.date(2016,1,1)
+        }
+        response = self.client.post(
+            reverse('units-list'),
+            data,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
