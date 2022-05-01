@@ -4,20 +4,11 @@ from rest_framework.response import Response
 from base.models import Technician, Company
 from api.serializers import TechnicianSerializer
 from rest_framework import status
-# from django.contrib.auth.models import User
 from base.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
-from rolepermissions.checkers import has_permission, has_role
-
-def filter_technicians(user):
-    if has_role(user,'company'):
-        return Technician.objects.filter(company=user.company)
-    elif has_role(user,'admin'):
-        return Technician.objects.all()
-    else:
-        return Technician.objects.none()
+from rolepermissions.checkers import has_permission
 
 
 @api_view(['GET','POST'])
@@ -25,7 +16,7 @@ def filter_technicians(user):
 def apiTechnicians(request):
     # List technicians
     if request.method == 'GET' and has_permission(request.user, 'get_technicians'):
-        technicians = filter_technicians(request.user)
+        technicians = Technician.objects.for_user(request.user)
         serializer = TechnicianSerializer(technicians, many=True)
         return Response(serializer.data)
     # Create technician
@@ -63,7 +54,7 @@ def apiTechnicians(request):
 @permission_classes([IsAuthenticated])
 def apiTechnician(request,pk):
     try:
-        technician = filter_technicians(request.user).get(pk=pk)
+        technician = Technician.objects.for_user(request.user).get(pk=pk)
     except Technician.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of technician
