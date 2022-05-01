@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Unit, BuildingManager, Technician, Building, Company, User
+from base.models import Unit, BuildingManager, Technician, Building, Company, User, CompanyUser
 # from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
@@ -44,6 +44,32 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         #     u.save()
         instance.name=validated_data['name']
         instance.phone_number=validated_data['phone_number']
+        instance.company=validated_data['company']
+        instance.save()
+
+        return instance
+
+class CompanyUserSerializer(serializers.ModelSerializer):
+    users = RegisterUserSerializer(many=True)
+
+    class Meta:
+        model = CompanyUser
+        fields = "__all__"
+    
+    def create(self, validated_data):
+        data = validated_data.pop('users')
+
+        companyuser = CompanyUser.objects.create(**validated_data)
+
+        for u in data:
+            user = User.objects.create(email=u['email'], company=validated_data['company'])
+            user.save()
+            assign_role(user, 'company')
+            companyuser.users.add(user)
+        
+        return companyuser
+    
+    def update(self, instance, validated_data):
         instance.company=validated_data['company']
         instance.save()
 
