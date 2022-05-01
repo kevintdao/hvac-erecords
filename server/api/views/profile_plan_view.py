@@ -1,17 +1,26 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from records.models import ProfilePlan
+from records.models import ProfilePlan, Profile
 from api.serializers import ProfilePlanSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
+def filter_profile_plans(user):
+    if has_role(user,['company','technician']):
+        profiles = Profile.objects.filter(company=user.company)
+        return ProfilePlan.objects.filter(profile__in=profiles)
+    elif has_role(user,'admin'):
+        return ProfilePlan.objects.all()
+    else:
+        return ProfilePlan.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiProfilePlans(request):
     # List profile plans
     if request.method == 'GET' and has_permission(request.user, 'get_plans'):
-        profile_plans = ProfilePlan.objects.all()
+        profile_plans = filter_profile_plans(request.user)
         serializer = ProfilePlanSerializer(profile_plans, many=True)
         return Response(serializer.data)
     # Create profile plan
@@ -28,7 +37,7 @@ def apiProfilePlans(request):
 @permission_classes([IsAuthenticated])
 def apiProfilePlan(request, pk):
     try:
-        profile_plan = ProfilePlan.objects.get(pk=pk)
+        profile_plan = filter_profile_plans(request.user).get(pk=pk)
     except ProfilePlan.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of profile plan

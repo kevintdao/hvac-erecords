@@ -20,7 +20,7 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'title', 'description', 'tasks')
+        fields = ('id', 'company', 'title', 'description', 'tasks')
 
     def create(self, validated_data):
         tasks_data = validated_data.pop('tasks')

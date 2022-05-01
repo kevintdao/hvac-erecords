@@ -1,17 +1,26 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from records.models import TaskCompletion
+from records.models import TaskCompletion, Task
 from api.serializers import TaskCompletionSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
+def filter_task_completions(user):
+    if has_role(user,['company','technician']):
+        tasks = Task.objects.filter(company=user.company)
+        return TaskCompletion.objects.filter(task__in=tasks)
+    elif has_role(user,'admin'):
+        return TaskCompletion.objects.all()
+    else:
+        return TaskCompletion.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiCompletions(request):
     # List task completions
     if request.method == 'GET' and has_permission(request.user, 'get_completions'):
-        task_completions = TaskCompletion.objects.all()
+        task_completions = filter_task_completions(request.user)
         serializer = TaskCompletionSerializer(task_completions, many=True)
         return Response(serializer.data)
     # Create task completion
@@ -27,7 +36,7 @@ def apiCompletions(request):
 @permission_classes([IsAuthenticated])
 def apiCompletion(request, pk):
     try:
-        task_completion = TaskCompletion.objects.get(pk=pk)
+        task_completion = filter_task_completions(request.user).get(pk=pk)
     except TaskCompletion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of task completion

@@ -2,16 +2,17 @@ from django.db import DataError
 from django.test import TestCase
 
 from records.models import Profile, Task
+from base.models import Company
 
 class ProfileModelTests(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json'] 
 
     def test_created_valid_profile(self):
-        Profile.objects.create(title='Spring AC Checklist',description='A set of tasks to perform on an air conditioner during spring.')
+        Profile.objects.create(company = Company.objects.first(), title='Spring AC Checklist',description='A set of tasks to perform on an air conditioner during spring.')
         self.assert_(Profile.objects.filter(title='Spring AC Checklist',description='A set of tasks to perform on an air conditioner during spring.').exists())
 
     def test_created_valid_profile_with_tasks(self):
-        profile = Profile(title='Winter AC Checklist',description='A set of tasks to perform on an air conditioner before winter.')
+        profile = Profile(company = Company.objects.first(), title='Winter AC Checklist',description='A set of tasks to perform on an air conditioner before winter.')
         profile.save()
         task1 = Task.objects.first()
         task2 = Task.objects.last()

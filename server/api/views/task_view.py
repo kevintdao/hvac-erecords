@@ -4,14 +4,22 @@ from rest_framework.response import Response
 from records.models import Task
 from api.serializers import TaskSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
+def filter_tasks(user):
+    if has_role(user,['company','technician']):
+        return Task.objects.filter(company=user.company)
+    elif has_role(user,'admin'):
+        return Task.objects.all()
+    else:
+        return Task.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiTasks(request):
     # Create task
     if request.method == 'GET' and has_permission(request.user, 'get_tasks'):
-        tasks = Task.objects.all()
+        tasks = filter_tasks(request.user)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
     elif request.method == 'POST' and has_permission(request.user, 'create_tasks'):
@@ -26,7 +34,7 @@ def apiTasks(request):
 @permission_classes([IsAuthenticated])
 def apiTask(request, pk):
     try:
-        task = Task.objects.get(pk=pk)
+        task = filter_tasks(request.user).get(pk=pk)
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of task

@@ -7,7 +7,7 @@ from .user import *
 # User = settings.AUTH_USER_MODEL
 
 class BuildingManager(models.Model):
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, related_name="managers")
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
