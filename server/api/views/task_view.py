@@ -16,7 +16,7 @@ def apiTasks(request):
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
     elif request.method == 'POST' and has_permission(request.user, 'create_tasks'):
-        serializer = TaskSerializer(data=request.data)
+        serializer = TaskSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -36,7 +36,7 @@ def apiTask(request, pk):
         return Response(serializer.data)
     # Update task
     elif request.method == 'PUT' and has_permission(request.user, 'update_tasks'):
-        serializer = TaskSerializer(task, data=request.data)
+        serializer = TaskSerializer(task, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

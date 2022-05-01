@@ -2,9 +2,16 @@ from rest_framework import serializers
 from records.models import Task, Profile, ProfileTask, ProfilePlan, ServiceVisit, TaskCompletion
 
 class TaskSerializer(serializers.ModelSerializer):
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Task
         fields = '__all__'
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
 
 class ProfileTaskPositionSerializer(serializers.ModelSerializer):
     task = TaskSerializer(read_only=True)

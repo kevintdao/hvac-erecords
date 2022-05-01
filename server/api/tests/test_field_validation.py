@@ -86,3 +86,23 @@ class TestFilteringAPI(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_task_bad_company_update(self):
+        self.client.force_authenticate(user=self.user_company)
+        task = Task.objects.for_user(self.user_company).first()
+        company_not_related = Company.objects.exclude(pk=self.company.id).first()
+
+        self.assertEqual(task.company, self.company)
+        new_data = {
+			"company": company_not_related.id,
+			"title":  "Unit in good condition",
+			"description":  "choose if the condition is in a satisfactory condition",
+            "rule":  '{	"type": "1", "name": "response" }'
+        }
+        response = self.client.put(
+            reverse('tasks-detail',
+            kwargs={'pk':task.id}), data=new_data, format="json"
+        )
+        self.assertNotEqual(task.company, company_not_related)
+        self.assertEqual(task.company, self.company)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
