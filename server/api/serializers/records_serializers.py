@@ -31,6 +31,13 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('id', 'company', 'title', 'description', 'tasks')
 
+    def validate_tasks(self, values):
+        user = self.context['request'].user
+        for value in values:
+            if value['task'] not in Task.objects.for_user(user):
+                raise serializers.ValidationError('Cannot find task for this user')
+        return values
+
     def create(self, validated_data):
         tasks_data = validated_data.pop('tasks')
         profile = Profile.objects.create(**validated_data)
@@ -62,6 +69,7 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         kwargs["company"] = user.company
         return super().save(**kwargs)
+
 
 class ProfileTaskSerializer(serializers.ModelSerializer):
     class Meta:

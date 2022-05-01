@@ -168,7 +168,7 @@ class TestFieldValidationAPI(TestCase):
                 "is_required": True,
                 "is_repeating": True
             }
-            
+
             response = self.client.post(
                 reverse('plans-list'),
                 data_profile,
@@ -179,6 +179,34 @@ class TestFieldValidationAPI(TestCase):
             response = self.client.post(
                 reverse('plans-list'),
                 data_unit,
+                format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_profile_bad_tasks(self):
+            self.client.force_authenticate(user=self.user_company)
+            # TODO: don't use first and last
+            task_related = Task.objects.first()
+            task_not_related = Task.objects.last()
+
+            data_profile = {
+                "title": "Routine AC Maintenance",
+                "description": "this is the profile for routine air conditioner maintenance",
+                "tasks": [
+                    {
+                        "task_id": task_related.id,
+                        "position": 1
+                    },
+                    {
+                        "task_id": task_not_related.id,
+                        "position": 2
+                    }
+                ]
+            }
+
+            response = self.client.post(
+                reverse('profiles-list'),
+                data_profile,
                 format="json"
             )
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
