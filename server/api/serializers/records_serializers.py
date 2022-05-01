@@ -84,6 +84,18 @@ class ProfilePlanSerializer(serializers.ModelSerializer):
         model = ProfilePlan
         fields = '__all__'
 
+    def validate_unit(self, value):
+        user = self.context['request'].user
+        if value in Unit.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find unit for this user')
+
+    def validate_profile(self, value):
+        user = self.context['request'].user
+        if value in Profile.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find profile for this user')
+
 class ServiceVisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceVisit

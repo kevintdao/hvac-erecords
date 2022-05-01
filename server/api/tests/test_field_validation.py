@@ -143,7 +143,46 @@ class TestFieldValidationAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-        
+    def test_api_profile_plan_bad_fields(self):
+            self.client.force_authenticate(user=self.user_company)
+            # TODO: don't use first and last
+            unit_related = Unit.objects.first()
+            profile_related = Profile.objects.first()
+            unit_not_related = Unit.objects.last()
+            profile_not_related = Profile.objects.last()
+
+            data_profile = {
+                "profile": profile_not_related.id,
+                "unit": unit_related.id,
+                "start_date": datetime.date(2022,5,30),
+                "end_date": datetime.date(2022,11,30),
+                "is_required": True,
+                "is_repeating": True
+            }
+
+            data_unit = {
+                "profile": profile_related.id,
+                "unit": unit_not_related.id,
+                "start_date": datetime.date(2022,5,30),
+                "end_date": datetime.date(2022,11,30),
+                "is_required": True,
+                "is_repeating": True
+            }
+            
+            response = self.client.post(
+                reverse('plans-list'),
+                data_profile,
+                format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+            response = self.client.post(
+                reverse('plans-list'),
+                data_unit,
+                format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 
 # Company Field Tests
 
