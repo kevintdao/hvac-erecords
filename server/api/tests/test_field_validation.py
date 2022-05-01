@@ -87,6 +87,9 @@ class TestFilteringAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+
+# Company Field Tests
+
     def test_api_task_bad_company_update(self):
         self.client.force_authenticate(user=self.user_company)
         task = Task.objects.for_user(self.user_company).first()
@@ -105,4 +108,30 @@ class TestFilteringAPI(TestCase):
         )
         self.assertNotEqual(task.company, company_not_related)
         self.assertEqual(task.company, self.company)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_api_profile_bad_company_update(self):
+        self.client.force_authenticate(user=self.user_company)
+        profile = Profile.objects.for_user(self.user_company).first()
+        company_not_related = Company.objects.exclude(pk=self.company.id).first()
+
+        self.assertEqual(profile.company, self.company)
+        new_data = {
+			"company": company_not_related.id,
+            "title": "Routine AC Maintenance",
+            "description": "this is the profile for routine air conditioner maintenance",
+            "tasks": [
+                {
+                    "task_id": 1,
+                    "position": 1
+                },
+            ]
+        }
+        response = self.client.put(
+            reverse('profiles-detail',
+            kwargs={'pk':profile.id}), data=new_data, format="json"
+        )
+        self.assertNotEqual(profile.company, company_not_related)
+        self.assertEqual(profile.company, self.company)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

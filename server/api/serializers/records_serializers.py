@@ -24,6 +24,7 @@ class ProfileTaskPositionSerializer(serializers.ModelSerializer):
         
 class ProfileCreateSerializer(serializers.ModelSerializer):
     tasks = ProfileTaskPositionSerializer(many=True)
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Profile
@@ -55,6 +56,11 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
                 position=task_data.get('position'))
                 
         return instance
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
 
 class ProfileTaskSerializer(serializers.ModelSerializer):
     class Meta:
