@@ -98,7 +98,11 @@ export default function UnitRecords ({ data, unitId }) {
 
   return (
     <div className='space-y-2'>
-      <div className='flex space-x-2'>
+      {visits.length == 0 &&  <div className='flex space-x-2'>
+        No records
+      </div>}
+      
+      {visits.length != 0 && <div className='flex space-x-2'>
         <CSVLink className={styles.button} data={csvData} filename={`unit-${unitId}-records`}>
           <DownloadIcon className='h-5 w-5 mr-2' />
             CSV
@@ -116,7 +120,7 @@ export default function UnitRecords ({ data, unitId }) {
             </button> 
           )}
         </PDFDownloadLink>
-      </div>
+      </div>}
 
       {visits.map((item, i) => (
         <div key={item.visit.id} className={styles.visit_container}>
