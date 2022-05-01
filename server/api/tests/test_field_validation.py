@@ -211,6 +211,42 @@ class TestFieldValidationAPI(TestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_api_task_completion_bad_fields(self):
+        self.client.force_authenticate(user=self.user_technician)
+        # TODO: don't use first and last
+        task_related = Task.objects.first()
+        visit_related = ServiceVisit.objects.first()
+        task_not_related = Task.objects.last()
+        visit_not_related = ServiceVisit.objects.last()
+
+        data_task = {
+			"task": task_not_related.id,
+            "service_visit": visit_related.id,
+            "completed_at": visit_related.start_time + datetime.timedelta(minutes=1),
+            "response": "This is the technician response"
+        }
+
+        data_visit = {
+			"task": task_related.id,
+            "service_visit": visit_not_related.id,
+            "completed_at": visit_not_related.start_time + datetime.timedelta(minutes=1),
+            "response": "This is the technician response"
+        }
+
+        response = self.client.post(
+            reverse('completions-list'),
+            data_task,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        response = self.client.post(
+            reverse('completions-list'),
+            data_visit,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 
 # Company Field Tests
 

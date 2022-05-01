@@ -142,3 +142,15 @@ class TaskCompletionSerializer(serializers.ModelSerializer):
         if (data['completed_at'] < service_visit.start_time) or (service_visit.end_time is not None and data['completed_at'] > service_visit.end_time):
             raise serializers.ValidationError("Task completion is not in service visit start/end time range")
         return data
+
+    def validate_task(self, value):
+        user = self.context['request'].user
+        if value in Task.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find task for this user')
+
+    def validate_service_visit(self, value):
+        user = self.context['request'].user
+        if value in ServiceVisit.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find service visit for this user')
