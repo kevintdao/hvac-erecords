@@ -7,26 +7,13 @@ from api.serializers import ProfileCreateSerializer, ProfileDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
-def filter_profiles(user):
-    if has_role(user,['company','technician']):
-        return Profile.objects.filter(company=user.company)
-    elif has_role(user,'manager'):
-        manager = user.managers.first()
-        buildings = Building.objects.filter(manager=manager)
-        units = Unit.objects.filter(building__in=buildings)
-        plans = ProfilePlan.objects.filter(unit__in=units)
-        return Profile.objects.filter(profileplan__in=plans).distinct()
-    elif has_role(user,'admin'):
-        return Profile.objects.all()
-    else:
-        return Profile.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiProfiles(request):
     # List profiles
     if request.method == 'GET' and has_permission(request.user, 'get_profiles'):
-        profiles = filter_profiles(request.user)
+        profiles = Profile.objects.for_user(request.user)
         serializer = ProfileDisplaySerializer(profiles, many=True)
         return Response(serializer.data)
     # Add profile
@@ -43,7 +30,7 @@ def apiProfiles(request):
 @permission_classes([IsAuthenticated])
 def apiProfile(request, pk):
     try:
-        profile = filter_profiles(request.user).get(pk=pk)
+        profile = Profile.objects.for_user(request.user).get(pk=pk)
     except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of profile
