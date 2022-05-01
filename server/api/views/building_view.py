@@ -16,7 +16,7 @@ def apiBuildings(request):
         return Response(serializer.data)
     # Create building
     elif request.method == 'POST' and has_permission(request.user, 'create_buildings'):
-        serializer = BuildingSerializer(data=request.data)
+        serializer = BuildingSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -37,7 +37,7 @@ def apiBuilding(request,pk):
         return Response(serializer.data)
     # Update building
     elif request.method == 'PUT' and has_permission(request.user, 'update_buildings'):
-        serializer = BuildingSerializer(building, data=request.data)
+        serializer = BuildingSerializer(building, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

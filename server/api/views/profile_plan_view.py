@@ -17,7 +17,7 @@ def apiProfilePlans(request):
         return Response(serializer.data)
     # Create profile plan
     elif request.method == 'POST' and has_permission(request.user, 'create_plans'):
-        serializer = ProfilePlanSerializer(data=request.data)
+        serializer = ProfilePlanSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,7 +38,7 @@ def apiProfilePlan(request, pk):
         return Response(serializer.data)
     # Update profile plan
     elif request.method == 'PUT' and has_permission(request.user, 'update_plans'):
-        serializer = ProfilePlanSerializer(profile_plan, data=request.data)
+        serializer = ProfilePlanSerializer(profile_plan, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

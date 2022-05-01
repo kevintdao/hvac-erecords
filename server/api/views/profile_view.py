@@ -18,7 +18,7 @@ def apiProfiles(request):
         return Response(serializer.data)
     # Add profile
     elif request.method == 'POST' and has_permission(request.user, 'create_profiles'):
-        serializer = ProfileCreateSerializer(data=request.data)
+        serializer = ProfileCreateSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             saved_obj = serializer.save()
             response_data = ProfileDisplaySerializer(saved_obj).data
@@ -39,7 +39,7 @@ def apiProfile(request, pk):
         return Response(serializer.data)
     # Update profile  
     elif request.method == 'PUT' and has_permission(request.user, 'update_profiles'):
-        serializer = ProfileCreateSerializer(profile, data=request.data)
+        serializer = ProfileCreateSerializer(profile, data=request.data, context={'request': request})
         if serializer.is_valid():
             saved_obj = serializer.save()
             response_data = ProfileDisplaySerializer(saved_obj).data
