@@ -1,6 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 import serviceplans from '../../public/screenshots/ServicePlansPage.png'
+import buildingdetails from '../../public/screenshots/BuildingDetailsPage.png'
+import buildingindex from '../../public/screenshots/BuildingIndexPage.png'
+import buildingupdate from '../../public/screenshots/BuildingUpdatePage.png'
+import buildingcreate from '../../public/screenshots/BuildingCreatePage.png'
 
 export default function ManagerHelp() {
   const styles = {
@@ -23,7 +27,7 @@ export default function ManagerHelp() {
             For each building on this page, you can view details on a specific building by clicking on the &quot;More Info&quot;
             button or edit a building by clicking on the &quot;Edit&quot; button.
           </p>
-          <Image src={serviceplans} alt='servicePlansPage' />
+          <Image src={buildingindex} alt='buildingIndexPage' />
         </div>
 
         <div>
@@ -32,26 +36,7 @@ export default function ManagerHelp() {
             On this page, you can see the current building information. There's button for editing the current building
             or go back to the table of all the buildings.
           </p>
-          <Image src={serviceplans} alt='servicePlansPage' />
-        </div>
-
-        <div>
-          <h4 className={styles.sub_header}>Create</h4>
-          <p>
-            On this page, you will need to fill in all the required information for the building as displayed on the page.
-            When you try to submit an empty input field, the page will display a red border and message near the input where
-            you need to fill in the information.
-          </p>
-          <Image src={serviceplans} alt='servicePlansPage' />
-        </div>
-
-        <div>
-          <h4 className={styles.sub_header}>Edit</h4>
-          <p>
-            On this page, the process of editing a building will be similar to creating a building, except that the building
-            information has been prefilled.
-          </p>
-          <Image src={serviceplans} alt='servicePlansPage' />
+          <Image src={buildingdetails} alt='buildingDetailsPage' />
         </div>
       </div>
 

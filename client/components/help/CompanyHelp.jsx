@@ -1,5 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
+import buildingdetails from '../../public/screenshots/BuildingDetailsPage.png'
+import buildingindex from '../../public/screenshots/BuildingIndexPage.png'
+import buildingupdate from '../../public/screenshots/BuildingUpdatePage.png'
+import buildingcreate from '../../public/screenshots/BuildingCreatePage.png'
 
 export default function CompanyHelp() {
   const styles = {
@@ -23,6 +27,7 @@ export default function CompanyHelp() {
             For each building on this page, you can view details on a specific building by clicking on the &quot;More Info&quot;
             button or edit a building by clicking on the &quot;Edit&quot; button.
           </p>
+          <Image src={buildingindex} alt='buildingIndexPage' />
         </div>
 
         <div>
@@ -31,6 +36,7 @@ export default function CompanyHelp() {
             On this page, you can see the current building information. There's button for editing the current building
             or go back to the table of all the buildings.
           </p>
+          <Image src={buildingdetails} alt='buildingDetailsPage' />
         </div>
 
         <div>
@@ -40,6 +46,7 @@ export default function CompanyHelp() {
             When you try to submit an empty input field, the page will display a red border and message near the input where
             you need to fill in the information.
           </p>
+          <Image src={buildingcreate} alt='buildingCreatePage' />
         </div>
 
         <div>
@@ -48,6 +55,7 @@ export default function CompanyHelp() {
             On this page, the process of editing a building will be similar to creating a building, except that the building
             information has been prefilled.
           </p>
+          <Image src={buildingupdate} alt='buildingUpdatePage' />
         </div>
       </div>
 
