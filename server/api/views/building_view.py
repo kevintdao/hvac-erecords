@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Building, BuildingManager
-from api.serializers import BuildingSerializer
+from api.serializers import BuildingSerializer, BuildingDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
@@ -33,7 +33,7 @@ def apiBuilding(request,pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of building
     if request.method == 'GET' and has_permission(request.user, 'view_buildings'):
-        serializer = BuildingSerializer(building, many=False)
+        serializer = BuildingDisplaySerializer(building, many=False)
         return Response(serializer.data)
     # Update building
     elif request.method == 'PUT' and has_permission(request.user, 'update_buildings'):

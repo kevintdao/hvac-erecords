@@ -2,6 +2,15 @@ import { render, fireEvent, screen, cleanup, act } from "@testing-library/react"
 import UnitForm from "../components/units/UnitForm"
 
 const input = {
+  building: {
+    city: "Iowa City",
+    country: "United States",
+    id: 1,
+    manager: 1,
+    site_name: "Seamans Center",
+    street: "103 South Capitol Street",
+    zip_code: "52242"
+  },
   external_id: "12345",
   model_number: "12345",
   serial_number: "ABC123",
