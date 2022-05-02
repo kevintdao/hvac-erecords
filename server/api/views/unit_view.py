@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Unit, BuildingManager, Building
-from api.serializers import UnitSerializer
+from api.serializers import UnitSerializer, UnitDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
@@ -33,7 +33,7 @@ def apiUnit(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of unit
     if request.method == 'GET' and has_permission(request.user, 'view_units'):
-        serializer = UnitSerializer(unit, many=False)
+        serializer = UnitDisplaySerializer(unit, many=False)
         return Response(serializer.data)
     # Update unit
     elif request.method == 'PUT' and has_permission(request.user, 'update_units'):
