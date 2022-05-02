@@ -39,3 +39,17 @@ describe('Authentication', () => {
     cy.get('#message').should('contain', 'Error message');
   })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error', () => {
+    cy.intercept('GET', '**/api/units/*/records', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getRecordsError');
+    cy.visit('http://localhost:3000/units/records/1');
+    cy.wait('@getRecordsError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})

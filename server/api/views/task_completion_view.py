@@ -1,22 +1,23 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from records.models import TaskCompletion
+from records.models import TaskCompletion, Task
 from api.serializers import TaskCompletionSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiCompletions(request):
     # List task completions
     if request.method == 'GET' and has_permission(request.user, 'get_completions'):
-        task_completions = TaskCompletion.objects.all()
+        task_completions = TaskCompletion.objects.for_user(request.user)
         serializer = TaskCompletionSerializer(task_completions, many=True)
         return Response(serializer.data)
     # Create task completion
     elif request.method == 'POST' and has_permission(request.user, 'create_completions'):
-        serializer = TaskCompletionSerializer(data=request.data)
+        serializer = TaskCompletionSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -27,7 +28,7 @@ def apiCompletions(request):
 @permission_classes([IsAuthenticated])
 def apiCompletion(request, pk):
     try:
-        task_completion = TaskCompletion.objects.get(pk=pk)
+        task_completion = TaskCompletion.objects.for_user(request.user).get(pk=pk)
     except TaskCompletion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of task completion
@@ -36,7 +37,7 @@ def apiCompletion(request, pk):
         return Response(serializer.data)
     # Update task completion
     elif request.method == 'PUT' and has_permission(request.user, 'update_completions'):
-        serializer = TaskCompletionSerializer(task_completion, data=request.data)
+        serializer = TaskCompletionSerializer(task_completion, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

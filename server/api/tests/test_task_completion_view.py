@@ -124,4 +124,4 @@ class TestTaskCompletionAPI(TestCase):
             reverse('completions-detail',
             kwargs={'pk':task_completion.id}), format="json"
         )
-        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(self.response.status_code, status.HTTP_404_NOT_FOUND)

@@ -6,12 +6,13 @@ from api.serializers import BuildingManagerSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
 
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def apiManagers(request):
     # List managers
     if request.method == 'GET' and has_permission(request.user, 'get_managers'):
-        managers = BuildingManager.objects.all()
+        managers = BuildingManager.objects.for_user(request.user)
         serializer = BuildingManagerSerializer(managers, many=True)
         return Response(serializer.data)
     # Create manager
@@ -28,7 +29,7 @@ def apiManagers(request):
 @permission_classes([IsAuthenticated])
 def apiManager(request, pk):
     try:
-        manager = BuildingManager.objects.get(pk=pk)
+        manager = BuildingManager.objects.for_user(request.user).get(pk=pk)
     except BuildingManager.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of manager

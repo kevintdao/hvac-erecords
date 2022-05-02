@@ -10,10 +10,10 @@ from rolepermissions.checkers import has_permission
 @permission_classes([IsAuthenticated])
 def apiUnitRecords(request, pk):
     try:
-        unit = Unit.objects.get(pk=pk)
+        unit = Unit.objects.for_user(request.user).get(pk=pk)
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    # Detail of unit
+    # Unit records
     if request.method == 'GET' and has_permission(request.user, 'get_unit_records'):
         serializer = UnitRecordsSerializer(unit, many=False)
         return Response(serializer.data)

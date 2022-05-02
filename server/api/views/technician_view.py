@@ -4,19 +4,19 @@ from rest_framework.response import Response
 from base.models import Technician, Company
 from api.serializers import TechnicianSerializer
 from rest_framework import status
-# from django.contrib.auth.models import User
 from base.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_permission
 
+
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiTechnicians(request):
     # List technicians
     if request.method == 'GET' and has_permission(request.user, 'get_technicians'):
-        technicians = Technician.objects.all()
+        technicians = Technician.objects.for_user(request.user)
         serializer = TechnicianSerializer(technicians, many=True)
         return Response(serializer.data)
     # Create technician
@@ -54,7 +54,7 @@ def apiTechnicians(request):
 @permission_classes([IsAuthenticated])
 def apiTechnician(request,pk):
     try:
-        technician = Technician.objects.get(pk=pk)
+        technician = Technician.objects.for_user(request.user).get(pk=pk)
     except Technician.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of technician

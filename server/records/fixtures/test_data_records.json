@@ -59,6 +59,7 @@
         "model": "records.profile",
         "pk": 1,
         "fields": {
+            "company": 1,
             "title": "Routine Maintenance for AC Units",
             "description": "this is a list of tasks for maintenance of an air conditioner"
         }

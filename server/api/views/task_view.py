@@ -4,18 +4,19 @@ from rest_framework.response import Response
 from records.models import Task
 from api.serializers import TaskSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
+
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiTasks(request):
     # Create task
     if request.method == 'GET' and has_permission(request.user, 'get_tasks'):
-        tasks = Task.objects.all()
+        tasks = Task.objects.for_user(request.user)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
     elif request.method == 'POST' and has_permission(request.user, 'create_tasks'):
-        serializer = TaskSerializer(data=request.data)
+        serializer = TaskSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -26,7 +27,7 @@ def apiTasks(request):
 @permission_classes([IsAuthenticated])
 def apiTask(request, pk):
     try:
-        task = Task.objects.get(pk=pk)
+        task = Task.objects.for_user(request.user).get(pk=pk)
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of task
@@ -35,7 +36,7 @@ def apiTask(request, pk):
         return Response(serializer.data)
     # Update task
     elif request.method == 'PUT' and has_permission(request.user, 'update_tasks'):
-        serializer = TaskSerializer(task, data=request.data)
+        serializer = TaskSerializer(task, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

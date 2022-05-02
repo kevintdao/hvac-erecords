@@ -1,22 +1,22 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Building
+from base.models import Building, BuildingManager
 from api.serializers import BuildingSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission
+from rolepermissions.checkers import has_permission, has_role
 
 @api_view(['GET','POST'])  
 @permission_classes([IsAuthenticated])
 def apiBuildings(request):
     # List buildings
     if request.method == 'GET' and has_permission(request.user, 'get_buildings'):
-        buildings = Building.objects.all()
+        buildings = Building.objects.for_user(request.user)
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
     # Create building
     elif request.method == 'POST' and has_permission(request.user, 'create_buildings'):
-        serializer = BuildingSerializer(data=request.data)
+        serializer = BuildingSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -28,7 +28,7 @@ def apiBuildings(request):
 @permission_classes([IsAuthenticated])   
 def apiBuilding(request,pk):
     try:
-        building = Building.objects.get(pk=pk)
+        building = Building.objects.for_user(request.user).get(pk=pk)
     except Building.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of building
@@ -37,7 +37,7 @@ def apiBuilding(request,pk):
         return Response(serializer.data)
     # Update building
     elif request.method == 'PUT' and has_permission(request.user, 'update_buildings'):
-        serializer = BuildingSerializer(building, data=request.data)
+        serializer = BuildingSerializer(building, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

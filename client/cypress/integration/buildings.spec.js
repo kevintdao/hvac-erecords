@@ -173,3 +173,41 @@ describe('Building edit page', () => {
         cy.get('#alert-title').should('contain', 'Error');
     })
 })
+
+describe('Permission/Not logged in error', () => {
+  it('should display error on index page', () => {
+    cy.intercept('GET', '**/api/buildings', { 
+      statusCode: 404,
+      body: {
+        email: "Error message"
+      }
+    }).as('getAllBuildingsError');
+    cy.visit('http://localhost:3000/buildings');
+    cy.wait('@getAllBuildingsError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on details page', () => {
+    cy.intercept('GET', '**/api/buildings/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getBuildingError');
+    cy.visit('http://localhost:3000/buildings/1');
+    cy.wait('@getBuildingError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+
+  it('should display error on edit page', () => {
+    cy.intercept('GET', '**/api/buildings/*', { 
+      statusCode: 404,
+      body: {
+        detail: "Error message"
+      }
+    }).as('getBuildingError');
+    cy.visit('http://localhost:3000/buildings/edit/1');
+    cy.wait('@getBuildingError');
+    cy.get('#message').should('contain', 'Error message');
+  })
+})

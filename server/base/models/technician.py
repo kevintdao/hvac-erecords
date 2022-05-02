@@ -1,7 +1,21 @@
-from django.db import models
-from .company import *
-# from django.contrib.auth.models import User
 from base.models import User
+from django.db import models
+from rolepermissions.checkers import has_role
+
+from .company import *
+
+
+class TechnicianQuerySet(models.QuerySet):
+    def for_user(self, user):
+        if has_role(user,'company'):
+            return self.filter(company=user.company)
+        elif has_role(user,'technician'):
+            return self.filter(user=user)
+        elif has_role(user,'admin'):
+            return self.all()
+        else:
+            return self.none()
+
 class Technician(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -10,6 +24,4 @@ class Technician(models.Model):
     phone_number = models.CharField(max_length=32)
     license_number = models.IntegerField()
 
-    # def save(self, *args, **kwargs):
-    #     User.objects.create_user(username="foo", password="bar")
-    #     super(Technician, self).save(*args, **kwargs)
+    objects = TechnicianQuerySet.as_manager()
