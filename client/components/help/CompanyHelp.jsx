@@ -4,6 +4,10 @@ import buildingdetails from '../../public/screenshots/BuildingDetailsPage.png'
 import buildingindex from '../../public/screenshots/BuildingIndexPage.png'
 import buildingupdate from '../../public/screenshots/BuildingUpdatePage.png'
 import buildingcreate from '../../public/screenshots/BuildingCreatePage.png'
+import unitcreate from '../../public/screenshots/UnitCreatePage.png'
+import unitdetails from '../../public/screenshots/UnitDetailsPage.png'
+import unitindex from '../../public/screenshots/UnitIndexPage.png'
+import unitupdate from '../../public/screenshots/UnitUpdatePage.png'
 
 export default function CompanyHelp() {
   const styles = {
@@ -99,6 +103,7 @@ export default function CompanyHelp() {
             For each unit on this page, you can view details on a specific unit by clicking on the &quot;More Info&quot;
             button or edit a unit by clicking on the &quot;Edit&quot; button.
           </p>
+          <Image src={unitindex} alt='unitIndexPage' />
         </div>
 
         <div>
@@ -107,6 +112,7 @@ export default function CompanyHelp() {
             On this page, you can see the current unit information. There's button for editing the current unit
             or go back to the table of all the units.
           </p>
+          <Image src={unitdetails} alt='unitDetailsPage' />
         </div>
 
         <div>
@@ -116,6 +122,7 @@ export default function CompanyHelp() {
             When you try to submit an empty input field, the page will display a red border and message near the input where
             you need to fill in the information.
           </p>
+          <Image src={unitcreate} alt='unitCreatePage' />
         </div>
 
         <div>
@@ -124,6 +131,7 @@ export default function CompanyHelp() {
             On this page, the process of editing a unit will be similar to creating a unit, except that the unit
             information has been prefilled.
           </p>
+          <Image src={unitupdate} alt='unitUpdatePage' />
         </div>
       </div>
 
