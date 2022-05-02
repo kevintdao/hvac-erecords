@@ -3,7 +3,11 @@ import BuildingForm from "../components/buildings/BuildingForm"
 
 const input = {
     id: 1,
-    owner_id: 1,
+    manager: {
+        id: 1,
+        name: "University of Iowa",
+        phone_number: "1+2523543230"
+    },
     site_name: "Iowa",
     street: "123 Street",
     city: "Iowa City",

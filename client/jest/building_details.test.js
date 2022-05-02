@@ -3,7 +3,11 @@ import BuildingDetails from "../components/buildings/BuildingDetails"
 
 const data = {
     id: 1,
-    owner_id: 1,
+    manager: {
+        id: 1,
+        name: "University of Iowa",
+        phone_number: "555-555-5555"
+    },
     site_name: "Iowa",
     street: "123 Street",
     city: "Iowa City",
@@ -13,7 +17,7 @@ const data = {
 
 afterEach(cleanup);
 
-test("Should display preset company data", () => {
+test("Should display preset building data", () => {
     const { container } = render(<BuildingDetails data={data}/>);
     const site_name = container.querySelector("dd#site_name");
     const street = container.querySelector("dd#street");

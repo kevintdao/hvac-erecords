@@ -13,8 +13,8 @@ export default function UnitDetails({ data }) {
       <dl>
         {/* Buidling */}
         <div className={`${styles.div} border-none`}>
-          <dt className={styles.label} id='external_id-label'>Building</dt>
-          <dd className={styles.text} id='external_id'>{`${data.building.site_name} (${data.building.street}, ${data.building.city} ${data.building.zip_code})`}</dd> 
+          <dt className={styles.label} id='building-label'>Building</dt>
+          <dd className={styles.text} id='building'>{`${data.building.site_name} (${data.building.street}, ${data.building.city} ${data.building.zip_code})`}</dd> 
         </div>
 
         {/* External ID */}

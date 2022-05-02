@@ -5,7 +5,7 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       ...data,
-      building: data.building.id
+      building: data?.building.id
     }
   });
 
@@ -13,7 +13,8 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
     "Heating and cooling split system",
     "Hybrid split system",
     "Duct free",
-    "Packaged heating and air conditioning system"
+    "Packaged heating and air conditioning system",
+    "Other"
   ]
 
   const styles = {
@@ -23,8 +24,6 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
     inputs3Cols: "grid md:grid-cols-3 gap-4 grid-cols-1",
     button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
   }
-
-  console.log(data)
 
   return (
     <>

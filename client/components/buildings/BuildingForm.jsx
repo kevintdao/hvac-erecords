@@ -5,7 +5,7 @@ export default function BuildingForm({ type, data, onSubmit, managers }){
     const { register, handleSubmit, formState: { errors }, control } = useForm({
         defaultValues: {
             ...data,
-            manager: data.manager.id
+            manager: data?.manager.id
         }
     });
 
