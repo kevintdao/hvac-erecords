@@ -11,18 +11,6 @@ export default function BuildingDetails({data}) {
     return (
         <div className="">
             <dl>
-                {/* ID */}
-                <div className={`${styles.div} border-none`}>
-                <dt className={styles.label} id='id-label'>ID</dt>
-                <dd className={styles.text} id='id'>{data.id}</dd>
-                </div>
-
-                {/* Owner ID */}
-                <div className={styles.div}>
-                <dt className={styles.label} id="owner_id-label">Owner ID</dt>
-                <dd className={styles.text} id="owner_id">{data.owner_id}</dd>
-                </div>
-
                 {/* Site Name */}
                 <div className={styles.div}>
                 <dt className={styles.label} id="site_name-label">Site Name</dt>

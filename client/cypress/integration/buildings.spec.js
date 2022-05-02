@@ -12,7 +12,6 @@ describe('Building index page', () => {
   
     it('should see all buildings when on the index page', () => {
       cy.wait('@getAllBuildings');
-      cy.get('td#owner_id-1').should('contain', '1');
       cy.get('td#site_name-1').should('contain', 'Iowa');
     })
   
@@ -53,7 +52,6 @@ describe('Building details page', () => {
     })
   
     it('should display the building details', () => {
-      cy.get('dd#owner_id').should('contain', '1');
       cy.get('dd#zip_code').should('contain', '52240');
     })
   
