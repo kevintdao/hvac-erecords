@@ -24,3 +24,8 @@ class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'last_login', 'username', 'email', 'role', 'company']
+
+class SetPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(min_length=6, max_length=40, write_only=True)
+    token = serializers.CharField(min_length=1, write_only=True)
+    uidb64 = serializers.CharField(min_length=1, write_only=True)
