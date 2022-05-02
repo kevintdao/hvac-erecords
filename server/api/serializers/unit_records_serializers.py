@@ -25,13 +25,13 @@ class DictSerializer(serializers.ListSerializer):
         return {item[self.dict_key]: item for item in items}
 
 
-class BuildingDisplaySerializer(serializers.ModelSerializer):
+class BuildingRecordsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Building
         fields = ['site_name', 'street', 'city', 'zip_code', 'country']
 
-class TechnicianDisplaySerializer(serializers.ModelSerializer):
+class TechnicianRecordsSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(source='user',read_only=True)
     affiliation = serializers.CharField(source='company.name',read_only=True)
 
@@ -40,14 +40,14 @@ class TechnicianDisplaySerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'license_number', 'affiliation']
         list_serializer_class = DictSerializer
 
-class ServiceVisitDisplaySerializer(serializers.ModelSerializer):
+class ServiceVisitRecordsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ServiceVisit
         fields = ['id', 'technician', 'start_time', 'end_time', 'plan']
         list_serializer_class = DictSerializer
 
-class TaskCompletionDisplaySerializer(serializers.ModelSerializer):
+class TaskCompletionRecordsSerializer(serializers.ModelSerializer):
     visit = serializers.PrimaryKeyRelatedField(source='service_visit',read_only=True)
     task_id = serializers.PrimaryKeyRelatedField(source='task', read_only=True)
     task_title = serializers.CharField(source='task.title',read_only=True)
@@ -59,7 +59,7 @@ class TaskCompletionDisplaySerializer(serializers.ModelSerializer):
         fields = ['id','task_id','task_title','task_description','task_rule','completed_at','selection','response','value','visit']
         list_serializer_class = DictSerializer
 
-class ProfilePlanDisplaySerializer(serializers.ModelSerializer):
+class ProfilePlanRecordsSerializer(serializers.ModelSerializer):
     profile_id = serializers.PrimaryKeyRelatedField(source='profile', read_only=True)
     profile_title = serializers.CharField(source='profile.title',read_only=True)
     profile_description = serializers.CharField(source='profile.description',read_only=True)
@@ -70,11 +70,11 @@ class ProfilePlanDisplaySerializer(serializers.ModelSerializer):
         list_serializer_class = DictSerializer
 
 class UnitRecordsSerializer(serializers.ModelSerializer):
-    building = BuildingDisplaySerializer(many=False,read_only=True)
-    visits = ServiceVisitDisplaySerializer(many=True,read_only=True)
+    building = BuildingRecordsSerializer(many=False,read_only=True)
+    visits = ServiceVisitRecordsSerializer(many=True,read_only=True)
     technicians = serializers.SerializerMethodField()
     task_completions = serializers.SerializerMethodField()
-    plans = ProfilePlanDisplaySerializer(many=True,read_only=True)
+    plans = ProfilePlanRecordsSerializer(many=True,read_only=True)
 
     class Meta:
         model = Unit
@@ -86,7 +86,7 @@ class UnitRecordsSerializer(serializers.ModelSerializer):
         task_completions = TaskCompletion.objects.filter(
             service_visit__unit=unit
         )
-        return TaskCompletionDisplaySerializer(
+        return TaskCompletionRecordsSerializer(
             task_completions,
             many=True
         ).data
@@ -95,7 +95,7 @@ class UnitRecordsSerializer(serializers.ModelSerializer):
         technicians = Technician.objects.filter(
             visits__unit=unit
         )
-        return TechnicianDisplaySerializer(
+        return TechnicianRecordsSerializer(
             technicians,
             many=True
         ).data
