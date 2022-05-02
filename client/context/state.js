@@ -69,7 +69,6 @@ export function AppProvider ({ children }) {
         }
       }).then(res => {
         user = res.data
-        console.log(user)
       }).catch(error => {
         relog = true
       })

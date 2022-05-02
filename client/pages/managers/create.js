@@ -21,7 +21,6 @@ export default function Create () {
     data.company = user.user.company
     data.users = [{"email": data.email, "username": data.email, "password": "tespassword"}] // temporary password is necessary until user model is updated
     delete data.email
-    console.log(data)
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/managers`, data)
       .then(res => {
         setId(res.data.id)

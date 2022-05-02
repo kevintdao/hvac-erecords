@@ -43,8 +43,6 @@ export default function Index(props) {
         return (<Loading />)
     }
 
-    console.log(data)
-
     return (
         <PrivateRoute isAllowed={[1]}>
         <div className='space-y-4 mt-2'>

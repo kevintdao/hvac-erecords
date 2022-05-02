@@ -10,7 +10,6 @@ export function LoadingProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const value = { loading, setLoading };
 
-  console.log(loading)
   if(loading) return (<Loading />)
 
   return (

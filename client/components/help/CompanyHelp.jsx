@@ -37,7 +37,7 @@ export default function CompanyHelp() {
         <div>
           <h4 className={styles.sub_header}>Details</h4>
           <p>
-            On this page, you can see the current building information. There's button for editing the current building
+            On this page, you can see the current building information. There&apos;s button for editing the current building
             or go back to the table of all the buildings.
           </p>
           <Image src={buildingdetails} alt='buildingDetailsPage' />
@@ -109,7 +109,7 @@ export default function CompanyHelp() {
         <div>
           <h4 className={styles.sub_header}>Details</h4>
           <p>
-            On this page, you can see the current unit information. There's button for editing the current unit
+            On this page, you can see the current unit information. There&apos;s button for editing the current unit
             or go back to the table of all the units.
           </p>
           <Image src={unitdetails} alt='unitDetailsPage' />

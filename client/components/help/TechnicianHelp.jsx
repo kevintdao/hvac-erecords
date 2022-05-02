@@ -37,7 +37,7 @@ export default function TechnicianHelp() {
         <p>
           On the Unit Records, you can view the previous maintenance records performed on the current unit.
           You can have an option to download the CSV/PDF version of the record.
-          There's a button that will take you back to the Service Visits page.
+          There&apos;s a button that will take you back to the Service Visits page.
         </p>
         <Image src={records} alt='unitRecords' />
       </div>
@@ -45,7 +45,7 @@ export default function TechnicianHelp() {
       <div>
         <h2 className={styles.header}>Service Visits</h2>
         <p>
-          On the Service Visits page, there's a title and description for the current maintenance plan. Below that are the
+          On the Service Visits page, there&apos;s a title and description for the current maintenance plan. Below that are the
           maintenance tasks associated with the current maintenance plan. After selecting or typing something in the input field,
           those inputs will be saved locally so that if you close the page or want to comeback later, your previous inputs will
           still be saved.
