@@ -26,8 +26,8 @@ export default function Index() {
     }, [router])
 
     const labels = {
-        text: ["Owner ID", "Site Name", "City"],
-        id: ["owner_id", "site_name", "city"],
+        text: ["Site Name", "City"],
+        id: ["site_name", "city"],
     };
 
     const styles = {

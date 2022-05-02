@@ -24,7 +24,6 @@ export default function BuildingTable({data, labels}) {
             <tbody className={styles.body}>
               {data.map((item, index) => (
                 <tr key={index}>
-                    <td className={styles.cell} id={`owner_id-${item.id}`}>{item.owner_id}</td>
                     <td className={styles.cell} id={`site_name-${item.id}`}>{item.site_name}</td>
                     <td className={styles.cell} id={`city-${item.id}`}>{item.city}</td>
                     <td>

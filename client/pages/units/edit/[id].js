@@ -87,8 +87,6 @@ export default function Edit (props) {
     return (<Loading />)
   }
 
-  console.log(buildings)
-
   return (
     <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
