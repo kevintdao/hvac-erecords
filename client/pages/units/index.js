@@ -19,7 +19,6 @@ export default function Index (props) {
         setData(res.data)
       })
       .catch(err => {
-        console.log(err.response?.data)
         const output = handleError(err)
         setError(output)
       })
