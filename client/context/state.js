@@ -6,7 +6,7 @@ import { useLoading } from './loading'
 export const AppContext = createContext()
 
 export function AppProvider ({ children }) {
-  const { loading, setLoading } = useLoading()
+  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState({
     accessToken: null,
     refreshToken: null,
@@ -57,6 +57,7 @@ export function AppProvider ({ children }) {
   }
 
   async function loadData () {
+    setLoading(true)
     const access = localStorage.getItem('access_token')
     const refresh = localStorage.getItem('refresh_token')
     var user = null
@@ -86,12 +87,12 @@ export function AppProvider ({ children }) {
       user: user,
       relog: relog
     })
+    
+    setLoading(false)
   }
 
   useEffect(() => {
-    setLoading(true)
     loadData()
-    setLoading(false)
   }, [])
 
   if(loading){
