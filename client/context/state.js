@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import Loading from '../components/Loading'
-import { useLoading } from './loading'
 
 export const AppContext = createContext()
 
@@ -87,7 +86,7 @@ export function AppProvider ({ children }) {
       user: user,
       relog: relog
     })
-    
+
     setLoading(false)
   }
 
