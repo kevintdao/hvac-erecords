@@ -1,4 +1,4 @@
-from base64 import urlsafe_b64decode
+from base64 import urlsafe_b64decode, urlsafe_b64encode
 from rest_framework.generics import GenericAPIView
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework import status
