@@ -48,6 +48,12 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 
         return instance
 
+class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BuildingManager
+        fields = ('id','name','phone_number')
+
+
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
@@ -64,14 +70,19 @@ class BuildingSerializer(serializers.ModelSerializer):
             return value
         raise serializers.ValidationError('Cannot find building manager for this user')
 
+class BuildingDisplaySerializer(serializers.ModelSerializer):
+    manager = BuildingManagerDisplaySerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Building
+        fields = '__all__' 
+
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = '__all__'
 
 class UnitSerializer(serializers.ModelSerializer):
-    plans = ProfilePlanSerializer(many=True,read_only=True)
-
     class Meta:
         model = Unit
         fields = '__all__'
@@ -81,3 +92,11 @@ class UnitSerializer(serializers.ModelSerializer):
         if value in Building.objects.for_user(user):
             return value
         raise serializers.ValidationError('Cannot find building for this user')      
+
+class UnitDisplaySerializer(serializers.ModelSerializer):
+    plans = ProfilePlanSerializer(many=True,read_only=True)
+    building = BuildingSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Unit
+        fields = '__all__'
