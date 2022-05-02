@@ -13,8 +13,7 @@ export default function Dashboard () {
   const isInspector = role == 4
 
   const styles = {
-    cols2: 'grid md:grid-cols-2 gap-y-6 gap-4 grid-cols-1',
-    cols3: 'grid md:grid-cols-3 gap-y-6 gap-4 grid-cols-1',
+    cols3: 'grid md:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-4 grid-cols-1',
     colContainer: 'bg-white border border-gray-300 rounded p-2',
     colHeader: 'mb-3 font-bold text-xl',
     buttonDiv: 'space-y-3 flex flex-col',
