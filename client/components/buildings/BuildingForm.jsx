@@ -3,7 +3,10 @@ import { useForm, Controller } from 'react-hook-form'
 
 export default function BuildingForm({ type, data, onSubmit, managers }){
     const { register, handleSubmit, formState: { errors }, control } = useForm({
-        defaultValues: data
+        defaultValues: {
+            ...data,
+            manager: data.manager.id
+        }
     });
 
     const styles = {

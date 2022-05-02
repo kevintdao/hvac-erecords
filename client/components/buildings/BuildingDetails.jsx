@@ -11,6 +11,12 @@ export default function BuildingDetails({data}) {
     return (
         <div className="">
             <dl>
+                {/* Building manager */}
+                <div className={`${styles.div} border-none`}>
+                <dt className={styles.label} id="site_name-label">Building Manager</dt>
+                <dd className={styles.text} id="site_name">{`${data.manager.name} (${data.manager.phone_number})`}</dd>
+                </div>
+
                 {/* Site Name */}
                 <div className={styles.div}>
                 <dt className={styles.label} id="site_name-label">Site Name</dt>

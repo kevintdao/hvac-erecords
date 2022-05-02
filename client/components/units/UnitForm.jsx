@@ -3,7 +3,10 @@ import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, buildings, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: data
+    defaultValues: {
+      ...data,
+      building: data.building.id
+    }
   });
 
   const hvacTypes = [
@@ -21,6 +24,8 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
     button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
   }
 
+  console.log(data)
+
   return (
     <>
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
@@ -34,7 +39,7 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
             {...register('building')}
           >
             {buildings.map((building, i) => (
-              <option value={building.id} key={building.id}>{`${building.site_name} (${building.street} ${building.city} ${building.zip_code})`}</option>
+              <option value={building.id} key={building.id}>{`${building.site_name} (${building.street}, ${building.city} ${building.zip_code})`}</option>
             ))}
           </select>
         </div>
