@@ -132,7 +132,7 @@ export default function NavBar () {
               <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo */}
-                  <Link href={role ? '/dashboard' : '/'}>
+                  <Link href={role && (role == 1 || role == 2) ? '/dashboard' : '/'}>
                     <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>HVAC E-Records</a>
                   </Link>
                 </div>
