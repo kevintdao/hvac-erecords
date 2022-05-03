@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 
-export default function UnitTable({ data, labels }) {
+export default function UnitTable({ data, labels, role }) {
   const styles = {
     header: "px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
     body: "divide-y divide-gray-200",
@@ -19,7 +19,7 @@ export default function UnitTable({ data, labels }) {
             ))}
             <th></th>
             <th></th>
-            <th></th>
+            {role == 1 && <th></th>}
           </tr>
         </thead>
         <tbody className={styles.body}>
@@ -40,11 +40,11 @@ export default function UnitTable({ data, labels }) {
                   <a className={styles.link}>Data</a>
                 </Link>
               </td>
-              <td>
+              {role == 1 && <td>
                 <Link href={`/units/edit/${item.id}`}>
                   <a className={styles.link}>Edit</a>
                 </Link>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
