@@ -26,13 +26,10 @@ export default function NavBar () {
   ]
 
   const iLinks = [
-    { name: 'Data', href: '/' },
     { name: 'Help', href: '/help'},
   ]
 
   const tLinks = [
-    { name: 'Data', href: '/' },
-    { name: 'Report', href: '/' },
     { name: 'Help', href: '/help'},
   ]
 
