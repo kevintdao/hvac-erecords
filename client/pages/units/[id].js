@@ -12,6 +12,7 @@ import { handleError } from '../../utils/errors'
 import { QRCodeCanvas } from 'qrcode.react'
 import { DownloadIcon } from '@heroicons/react/solid'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function Unit (props) {
   const router = useRouter()
@@ -22,6 +23,10 @@ export default function Unit (props) {
   const [profiles, setProfiles] = useState()
   const [backendError, setBackendError] = useState()
   const qrValue = `${process.env.NEXT_PUBLIC_URL}/qr-code-redirect/${id}`
+
+  const { user } = useAppContext()
+  const role = user.user?.role
+  const isCompany = role == 1
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -153,9 +158,9 @@ export default function Unit (props) {
             <a className={styles.button} id='all-units'>All Units</a>
           </Link>
 
-          <Link href={`/units/edit/${id}`}>
+          {isCompany && <Link href={`/units/edit/${id}`}>
             <a className={styles.button} id='edit'>Edit</a>
-          </Link>
+          </Link>}
 
           <Link href={`/units/records/${id}`}>
             <a className={styles.button} id='data'>Maintenance Data</a>
@@ -163,26 +168,26 @@ export default function Unit (props) {
         </div>
       </div>
 
-      <hr />
+      {isCompany && <hr />}
 
-      <div className='space-y-2'>
+      {isCompany && <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Assigned Profiles</h2>
 
         {data.unit.plans.length === 0 ? 
           <p className={styles.desc} id='no-plans'>No profiles are assigned to this unit</p> : 
           <PlanTable data={data} labels={labels} />
         }
-      </div>
+      </div>}
 
-      <hr />
+      {isCompany && <hr />}
 
-      <div className='space-y-2'>
+      {isCompany && <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Assign a Profile</h2>
 
         {error && <Alert title='Error' text={error} type='error' />}
         
         <PlanForm profiles={profiles} onSubmit={onSubmit} />
-      </div>
+      </div>}
     </div>
     </PrivateRoute>
   )
