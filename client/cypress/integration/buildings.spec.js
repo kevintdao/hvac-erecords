@@ -4,7 +4,7 @@ describe('Building index page', () => {
     })
 
     beforeEach(() => {
-      cy.login('manager');
+      cy.login('company');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings');
