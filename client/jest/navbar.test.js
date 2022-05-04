@@ -61,7 +61,7 @@ test("Maintenance company navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Managers", "Buildings", "Tasks", "Profiles"
+    "Managers", "Buildings", "Tasks", "Profiles", "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -87,7 +87,7 @@ test("Building owner navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Buildings", "Units"
+    "Buildings", "Units", "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -113,7 +113,7 @@ test("Inspector navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Data"
+    "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -139,7 +139,7 @@ test("Technician navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Data", "Report"
+    "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){

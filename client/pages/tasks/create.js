@@ -28,8 +28,6 @@ export default function Create () {
         break
     }
     
-    values.company = 1
-
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/tasks`, values)
       .then(res => {
         setId(res.data.id)

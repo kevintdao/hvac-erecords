@@ -56,7 +56,6 @@ export default function Edit () {
   }, [id, router])
 
   const onSubmit = async (data) => {
-    console.log(data)
     const tasks = formatTasks(data.tasks)
     data.tasks = tasks
 
@@ -65,7 +64,6 @@ export default function Edit () {
       setProfileId(res.data.id)
     })
     .catch(error => {
-      console.log(error)
       const output = handleError(error)
       setError(output)
     })

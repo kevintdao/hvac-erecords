@@ -35,7 +35,8 @@ export default function LoginPage () {
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
-        router.push('/dashboard')
+        if (user.data.role == 1 || user.data.role == 2) router.push('/dashboard')
+        else router.push('/')
       })
       .catch(error => {
         const output = handleError(error)

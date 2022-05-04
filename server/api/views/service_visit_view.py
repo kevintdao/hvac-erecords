@@ -7,26 +7,18 @@ from api.serializers import ServiceVisitSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
-def filter_service_visits(user):
-    if has_role(user,['company','technician']):
-        technicians = Technician.objects.filter(company=user.company)
-        return ServiceVisit.objects.filter(technician__in=technicians)
-    elif has_role(user,'admin'):
-        return ServiceVisit.objects.all()
-    else:
-        return ServiceVisit.objects.none()
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def apiVisits(request):
     # List service visits
     if request.method == 'GET' and has_permission(request.user, 'get_visits'):
-        visits = filter_service_visits(request.user)
+        visits = ServiceVisit.objects.for_user(request.user)
         serializer = ServiceVisitSerializer(visits, many=True)
         return Response(serializer.data)
     # Create service visit
     elif request.method == 'POST' and has_permission(request.user, 'create_visits'):
-        serializer = ServiceVisitSerializer(data=request.data)
+        serializer = ServiceVisitSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -37,7 +29,7 @@ def apiVisits(request):
 @permission_classes([IsAuthenticated])
 def apiVisit(request, pk):
     try:
-        visit = filter_service_visits(request.user).get(pk=pk)
+        visit = ServiceVisit.objects.for_user(request.user).get(pk=pk)
     except ServiceVisit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of visit
@@ -46,7 +38,7 @@ def apiVisit(request, pk):
         return Response(serializer.data)
     # Update visit
     elif request.method == 'PUT' and has_permission(request.user, 'update_visits'):
-        serializer = ServiceVisitSerializer(visit, data=request.data)
+        serializer = ServiceVisitSerializer(visit, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

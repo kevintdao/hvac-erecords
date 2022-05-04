@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from base.models import Unit, BuildingManager, Technician, Building, Company, User, CompanyUser
-# from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
@@ -75,6 +74,11 @@ class CompanyUserSerializer(serializers.ModelSerializer):
 
         return instance
 
+class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BuildingManager
+        fields = ('id','name','phone_number')
+
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
@@ -85,13 +89,38 @@ class BuildingSerializer(serializers.ModelSerializer):
         model = Building
         fields = '__all__'
 
+    def validate_manager(self, value):
+        user = self.context['request'].user
+        if value in BuildingManager.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find building manager for this user')
+
+class BuildingDisplaySerializer(serializers.ModelSerializer):
+    manager = BuildingManagerDisplaySerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Building
+        fields = '__all__' 
+
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = '__all__'
 
 class UnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = '__all__'
+
+    def validate_building(self, value):
+        user = self.context['request'].user
+        if value in Building.objects.for_user(user):
+            return value
+        raise serializers.ValidationError('Cannot find building for this user')      
+
+class UnitDisplaySerializer(serializers.ModelSerializer):
     plans = ProfilePlanSerializer(many=True,read_only=True)
+    building = BuildingSerializer(many=False, read_only=True)
 
     class Meta:
         model = Unit

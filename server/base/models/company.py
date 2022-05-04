@@ -1,4 +1,12 @@
 from django.db import models
+from rolepermissions.checkers import has_role
+
+class CompanyQuerySet(models.QuerySet):
+    def for_user(self, user):
+        if has_role(user, 'admin'):
+            return self.all()
+        else:
+            return self.none()
 
 class Company(models.Model):
     name = models.CharField(max_length=255)
@@ -7,3 +15,5 @@ class Company(models.Model):
     zip_code = models.CharField(max_length=16)
     country = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=32)
+
+    objects = CompanyQuerySet.as_manager()

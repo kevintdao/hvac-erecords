@@ -2,8 +2,8 @@ import { render, fireEvent, cleanup, act } from "@testing-library/react"
 import BuildingTable from "../components/buildings/BuildingTable"
 
 const labels = {
-    text: [ "Owner ID", "Site Name", "City" ],
-    id: [ "owner_id", "site_name", "city" ]
+    text: [ "Site Name", "City" ],
+    id: [ "site_name", "city" ]
 }
 
 const data = [
@@ -30,7 +30,7 @@ const data = [
 afterEach(cleanup);
 
 test("Should display preset table data", () => {
-    const { container } =  render(<BuildingTable data={data} labels={labels}/>);
+    const { container } =  render(<BuildingTable data={data} labels={labels} role={1}/>);
 
     labels.id.map((item, index) => {
         const element = container.querySelector(`th#${item}`);
@@ -38,11 +38,9 @@ test("Should display preset table data", () => {
     })
 
     data.map((item, index) => {
-        const owner_id = container.querySelector(`td#owner_id-${item.id}`);
         const site_name = container.querySelector(`td#site_name-${item.id}`);
         const city = container.querySelector(`td#city-${item.id}`);
 
-        expect(owner_id.textContent).toEqual(item.owner_id.toString());
         expect(site_name.textContent).toEqual(item.site_name);
         expect(city.textContent).toEqual(item.city);
     })

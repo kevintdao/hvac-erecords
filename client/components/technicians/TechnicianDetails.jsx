@@ -14,13 +14,7 @@ export default function TechnicianDetails({data}) {
                 {/* ID */}
                 <div className={`${styles.div} border-none`}>
                 <dt className={styles.label} id='id-label'>ID</dt>
-                <dd className={styles.text} id='id'>{data.id}</dd>
-                </div>
-        
-                {/* Company */}
-                <div className={styles.div}>
-                <dt className={styles.label} id="company-label">Company</dt>
-                <dd className={styles.text} id="company">{data.company}</dd>
+                <dd className={styles.text} id='id'>{data.user}</dd>
                 </div>
         
                 {/* First Name */}
