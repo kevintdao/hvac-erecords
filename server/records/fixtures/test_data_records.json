@@ -172,5 +172,14 @@
             "response": "Good condition",
             "value": null
         }
+    },
+    {
+        "model": "records.profile",
+        "pk": 2,
+        "fields": {
+            "title": "Reporting form",
+            "description": "This is a form for automatic reporting",
+            "tag": "test"
+        }
     }
 ]

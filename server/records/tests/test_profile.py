@@ -22,3 +22,8 @@ class ProfileModelTests(TestCase):
         self.assertEqual(len(profile.tasks.all()), 2)
         self.assertEqual(profile.tasks.get(pk=task1.pk), task1)
         self.assertEqual(profile.tasks.get(pk=task2.pk), task2)
+
+    def test_query_profiles_for_reports(self):
+        profile = Profile.objects.for_reports().first()
+        self.assertNotEqual(profile.tag, "")
+        self.assertEqual(profile.company, None)
