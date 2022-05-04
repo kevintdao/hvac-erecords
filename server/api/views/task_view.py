@@ -27,7 +27,11 @@ def apiTasks(request):
 @permission_classes([IsAuthenticated])
 def apiTask(request, pk):
     try:
-        task = Task.objects.for_user(request.user).get(pk=pk)
+        tasks = Task.objects.for_user(request.user)
+        if request.method == 'GET':
+            report_tasks = Task.objects.for_reports()
+            tasks = tasks | report_tasks
+        task = tasks.get(pk=pk)
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of task
