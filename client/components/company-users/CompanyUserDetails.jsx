@@ -37,14 +37,14 @@ export default function CompanyUserDetails({ data }) {
 
                 {/* City */}
                 <div className={styles.div}>
-                    <dt className={styles.label} id="zipcode-label">City</dt>
+                    <dt className={styles.label} id="city-label">City</dt>
                     <dd className={styles.text} id="city">{data.city}</dd> 
                 </div>
 
                 {/* Zip Code */}
                 <div className={styles.div}>
-                    <dt className={styles.label} id="zipcode-label">Zip Code</dt>
-                    <dd className={styles.text} id="zipcode">{data.zipcode}</dd> 
+                    <dt className={styles.label} id="zip_code-label">Zip Code</dt>
+                    <dd className={styles.text} id="zip_code">{data.zip_code}</dd> 
                 </div>
 
                 {/* Country */}
