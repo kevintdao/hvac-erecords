@@ -31,8 +31,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
             user.save()
             assign_role(user, 'manager')
             buildingmanager.users.add(user)  
-
-            uidb64 = urlsafe_base64_encode(user.id)
+            uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
             reset_url = "http://127.0.0.1/" + relativeLink
