@@ -149,5 +149,95 @@
                 "type": "Text"
             }
         }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "task": 1,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 2,
+        "fields": {
+            "profile": 1,
+            "task": 2,
+            "position": 2
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 3,
+        "fields": {
+            "profile": 2,
+            "task": 3,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 4,
+        "fields": {
+            "profile": 2,
+            "task": 4,
+            "position": 2
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 5,
+        "fields": {
+            "profile": 2,
+            "task": 5,
+            "position": 3
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 6,
+        "fields": {
+            "profile": 2,
+            "task": 6,
+            "position": 4
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 7,
+        "fields": {
+            "profile": 2,
+            "task": 7,
+            "position": 5
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 8,
+        "fields": {
+            "profile": 2,
+            "task": 8,
+            "position": 6
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 9,
+        "fields": {
+            "profile": 3,
+            "task": 9,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 10,
+        "fields": {
+            "profile": 3,
+            "task": 10,
+            "position": 2
+        }
     }
 ]
