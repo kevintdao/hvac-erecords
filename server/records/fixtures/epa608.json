@@ -1,6 +1,7 @@
 [
     {
         "model": "records.profile",
+        "pk": 1,
         "fields": {
             "title": "Refrigerant Full Charge Form",
             "description": "This is a form for reporting full charge (or revisions to full charge) of a unit with 50 or more pounds of refrigerant. 82.157(l)(1)",
@@ -9,6 +10,7 @@
     },
     {
         "model": "records.profile",
+        "pk": 2,
         "fields": {
             "title": "Refrigerant Maintenance Form",
             "description": "This is a form for reporting each time an appliance with 50 or more pounds of refrigerant is maintained, serviced, repaired, or disposed of, when applicable. 82.157(l)(2)",
@@ -17,10 +19,135 @@
     },
     {
         "model": "records.profile",
+        "pk": 3,
         "fields": {
             "title": "Refrigerant Leak Inspection Form",
             "description": "This is a form for reporting refrigerant leak inspections. 82.157(l)(3)",
             "tag": "epa608-inspection"
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 1,
+        "fields": {
+            "title": "Full charge",
+            "description": "The full charge of refrigerant for the unit. (Pounds)",
+            "rule": {
+                "type": "Numeric",
+                "options": {
+                    "min": 0
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 2,
+        "fields": {
+            "title": "Method of calculating full charge",
+            "description": "Describe how the full charge was calculated. If using an established range include range, midpoint, and how range was determined.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 3,
+        "fields": {
+            "title": "Parts list",
+            "description": "List part(s) of the unit being maintained, serviced, repaired, or disposed.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 4,
+        "fields": {
+            "title": "Refrigerant change",
+            "description": "Select whether refrigerant is being added, removed (in case of disposal), or unchanged.",
+            "rule": {
+                "type": "Selection",
+                "options": {
+                    "1": "Added",
+                    "2": "Removed",
+                    "3": "Unchanged"
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 5,
+        "fields": {
+            "title": "Amount of refrigerant",
+            "description": "The amount of refrigerant added or removed. If unchanged, set as 0.",
+            "rule": {
+                "type": "Numeric",
+                "options": {
+                    "min": 0
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 6,
+        "fields": {
+            "title": "Type of refrigerant",
+            "description": "The type of refrigerant in the unit.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 7,
+        "fields": {
+            "title": "Leak rate",
+            "description": "The rate at which refrigerant is leaking as a percentage. This is the number of pounds of refrigerant divided by normal full charge. If unit is not leaking set to 0.",
+            "rule": {
+                "type": "Numeric",
+                "options": {
+                    "min": 0
+                }
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 8,
+        "fields": {
+            "title": "Method of calculating leak rate",
+            "description": "The method used to determine the leak rate (not applicable when disposing of the appliance, following a retrofit, installing a new appliance, or if the refrigerant addition qualifies as a seasonal variance).",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 9,
+        "fields": {
+            "title": "Leak inspection method(s)",
+            "description": "The method(s) used to conduct a leak inspection.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 10,
+        "fields": {
+            "title": "Leak location(s)",
+            "description": "The list of locations where leaks were identified.",
+            "rule": {
+                "type": "Text"
+            }
         }
     }
 ]
