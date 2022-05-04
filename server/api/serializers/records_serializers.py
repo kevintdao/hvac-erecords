@@ -81,7 +81,7 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'title', 'description', 'tasks')
+        fields = ('id', 'tag', 'title', 'description', 'tasks')
 
     def get_tasks(self, profile_instance):
         query_datas = ProfileTask.objects.filter(profile=profile_instance)

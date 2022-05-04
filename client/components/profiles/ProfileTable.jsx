@@ -31,11 +31,11 @@ export default function ProfileTable ({ data, labels }) {
                   <a className={styles.link}>More Info</a>
                 </Link>
               </td>
-              <td>
+              {item.tag == null && <td>
                 <Link href={`/profiles/edit/${item.id}`}>
                   <a className={styles.link}>Edit</a>
                 </Link>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
