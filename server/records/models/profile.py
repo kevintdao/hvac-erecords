@@ -16,9 +16,11 @@ class ProfileQuerySet(models.QuerySet):
 
 
 class Profile(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     tasks = models.ManyToManyField(Task, through='ProfileTask')
+
+    tag = models.CharField(max_length=255, blank=True)
 
     objects = ProfileQuerySet.as_manager()
