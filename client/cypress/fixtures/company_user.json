@@ -1,0 +1,11 @@
+{
+    "id": 1,
+    "company": 1,
+    "name": "Iowa",
+    "email": "uiowa@test.com",
+    "phone_number": "+12523543230",
+    "street": "123 Street",
+    "city": "Iowa City",
+    "zip_code": "52240",
+    "country": "United States"
+}

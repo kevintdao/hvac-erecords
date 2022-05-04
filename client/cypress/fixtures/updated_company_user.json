@@ -1,0 +1,11 @@
+{
+    "id": 2,
+    "company": 1,
+    "name": "Wisconsin",
+    "email": "wis@test.com",
+    "phone_number": "+12523543230",
+    "street": "123 Street",
+    "city": "Madision",
+    "zip_code": "12345",
+    "country": "United States"
+}
