@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import Alert from '../components/Alert'
 import { handleError } from '../utils/errors'
 import MaintenanceCompanyRegister from '../components/MaintenanceCompanyRegister'
+import axios from 'axios'
 
 export default function Signup () {
   const { signup } = useAppContext()
@@ -16,7 +17,20 @@ export default function Signup () {
   }
 
   const onSubmit = async (data) => {
-    console.log(data)
+    data.users = [{"email": data.email, "password": data.password}]
+    delete data.email
+    delete data.password
+    delete data.passwordConfirm
+
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/company-users`, data)
+    .then(res => {
+      setId(res.data.id)
+    })
+    .catch(() => {
+      const output = handleError(error)
+      setError(output)
+    })
+
     // signup(data.email, data.password)
     //   .then(res => {
     //     setSuccess(true)
