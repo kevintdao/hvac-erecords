@@ -1,0 +1,26 @@
+[
+    {
+        "model": "records.profile",
+        "fields": {
+            "title": "Refrigerant Full Charge Form",
+            "description": "This is a form for reporting full charge (or revisions to full charge) of a unit with 50 or more pounds of refrigerant. 82.157(l)(1)",
+            "tag": "epa608-charge"
+        }
+    },
+    {
+        "model": "records.profile",
+        "fields": {
+            "title": "Refrigerant Maintenance Form",
+            "description": "This is a form for reporting each time an appliance with 50 or more pounds of refrigerant is maintained, serviced, repaired, or disposed of, when applicable. 82.157(l)(2)",
+            "tag": "epa608-servicing"
+        }
+    },
+    {
+        "model": "records.profile",
+        "fields": {
+            "title": "Refrigerant Leak Inspection Form",
+            "description": "This is a form for reporting refrigerant leak inspections. 82.157(l)(3)",
+            "tag": "epa608-inspection"
+        }
+    }
+]
