@@ -34,7 +34,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
             uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
-            reset_url = "http://127.0.0.1/" + relativeLink
+            reset_url = "http://localhost:3000" + relativeLink
             name = validated_data['name']
             subject = 'Building manager set password'
             message = f'Hello {name}. Set password here: ' + reset_url
