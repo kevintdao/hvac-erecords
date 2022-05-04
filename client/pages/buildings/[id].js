@@ -7,12 +7,17 @@ import BuildingDetails from '../../components/buildings/BuildingDetails'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
 import { handleError } from '../../utils/errors'
+import { useAppContext } from '../../context/state'
 
 export default function Building(props) {
     const router = useRouter();
     const { id } = router.query;
     const [data, setData] = useState()
     const [backendError, setBackendError] = useState()
+
+    const { user } = useAppContext()
+    const role = user.user?.role
+    const isCompany = role == 1
 
     useEffect(() => {
         if (!router.isReady) return
@@ -56,9 +61,9 @@ export default function Building(props) {
                     <a className={styles.button} id='all-buildings'>All Buildings</a>
                 </Link>
 
-                <Link href={`/buildings/edit/${id}`}>
+                {isCompany && <Link href={`/buildings/edit/${id}`}>
                     <a className={styles.button} id='edit'>Edit</a>
-                </Link>
+                </Link>}
             </div>
         </div>
         </PrivateRoute>

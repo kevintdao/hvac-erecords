@@ -26,7 +26,7 @@ const data = [
 afterEach(cleanup);
 
 test('should display the data', () => {
-  const { container } = render(<UnitTable data={data} labels={labels}/>);
+  const { container } = render(<UnitTable data={data} labels={labels} role={1}/>);
 
   labels.id.map((item, index) => {
     const element = container.querySelector(`th#${item}`);

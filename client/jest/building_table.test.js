@@ -30,7 +30,7 @@ const data = [
 afterEach(cleanup);
 
 test("Should display preset table data", () => {
-    const { container } =  render(<BuildingTable data={data} labels={labels}/>);
+    const { container } =  render(<BuildingTable data={data} labels={labels} role={1}/>);
 
     labels.id.map((item, index) => {
         const element = container.querySelector(`th#${item}`);

@@ -4,7 +4,7 @@ describe('Building index page', () => {
     })
 
     beforeEach(() => {
-      cy.login('manager');
+      cy.login('company');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings');
@@ -44,7 +44,7 @@ describe('Building details page', () => {
     })
 
     beforeEach(() => {
-      cy.login('manager');
+      cy.login('company');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings/1');
@@ -75,7 +75,7 @@ describe('Building create page', () => {
     })
 
     beforeEach(() => {
-        cy.login('manager');
+        cy.login('company');
         cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('POST', '**/api/buildings', { fixture: 'building.json' }).as('createBuilding');
@@ -135,7 +135,7 @@ describe('Building edit page', () => {
     })
 
     beforeEach(() => {
-        cy.login('manager');
+        cy.login('company');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('PUT', '**/api/buildings/*', { fixture: 'updated_building.json' }).as('updateBuilding');
         cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');

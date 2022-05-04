@@ -40,7 +40,7 @@ export default function Dashboard () {
             <h3 className={styles.colHeader}>Buildings</h3>
             <div className={styles.buttonDiv}>
               <Link href='/buildings'><a className={styles.button}>View all</a></Link>
-              <Link href='/buildings/create'><a className={styles.button}>Create</a></Link>
+              {isCompany && <Link href='/buildings/create'><a className={styles.button}>Create</a></Link>}
             </div>
           </div>}
 
@@ -48,7 +48,7 @@ export default function Dashboard () {
             <h3 className={styles.colHeader}>Units</h3>
             <div className={styles.buttonDiv}>
               <Link href='/units'><a className={styles.button}>View all</a></Link>
-              <Link href='/units/create'><a className={styles.button}>Create</a></Link>
+              {isCompany && <Link href='/units/create'><a className={styles.button}>Create</a></Link>}
             </div>
           </div>}
 

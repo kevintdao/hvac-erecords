@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-export default function BuildingTable({data, labels}) {
+export default function BuildingTable({data, labels, role}) {
     const styles = {
         header: "px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
         body: "divide-y divide-gray-200",
@@ -18,7 +18,7 @@ export default function BuildingTable({data, labels}) {
                         <th key={index} id={labels.id[index]} className={styles.header}>{labels.text[index]}</th>
                     ))}
                     <th></th>
-                    <th></th>
+                    {role == 1 && <th></th>}
                 </tr>
             </thead>
             <tbody className={styles.body}>
@@ -31,11 +31,11 @@ export default function BuildingTable({data, labels}) {
                             <a className={styles.link}>More Info</a>
                         </Link>
                     </td>
-                    <td>
+                    {role == 1 && <td>
                         <Link href={`/buildings/edit/${item.id}`}>
                             <a className={styles.link}>Edit</a>
                         </Link>
-                  </td>
+                  </td>}
                 </tr>
               ))}
             </tbody>
