@@ -6,10 +6,12 @@ import axios from 'axios'
 import ManagerTable from '../../components/managers/ManagerTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
 
-export default function Index (props) {
+export default function Index () {
   const router = useRouter()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/managers`)
@@ -17,10 +19,8 @@ export default function Index (props) {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
   }, [router])
@@ -35,12 +35,16 @@ export default function Index (props) {
     desc: 'font-medium font-gray-900'
   }
 
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
+
   if (!data) {
     return (<Loading />)
   }
 
   return (
-    <PrivateRoute isAllowed={['company']}>
+    <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Building Managers</title>

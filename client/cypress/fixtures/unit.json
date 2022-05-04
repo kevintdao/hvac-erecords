@@ -7,7 +7,15 @@
   "manufacturer": "Test",
   "production_date": "2022-03-09",
   "installation_date": "2022-03-09",
-  "building": 1,
+  "building": {
+    "city": "Iowa City",
+    "country": "United States",
+    "id": 1,
+    "manager": 1,
+    "site_name": "Seamans Center",
+    "street": "103 South Capitol Street",
+    "zip_code": "52242"
+  },
   "plans": [
     {
       "id": 1,

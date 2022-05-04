@@ -5,16 +5,15 @@ import { useAppContext } from '../context/state'
 import PrivateRoute from '../components/PrivateRoute'
 
 export default function Dashboard () {
-  const { data } = useAppContext()
-  const role = data.user?.role.toLowerCase()
-  const isCompany = role == 'company'
-  const isTechnician = role == 'technician'
-  const isManager = role == 'manager'
-  const isInspector = role == 'inspector'
+  const { user } = useAppContext()
+  const role = user.user?.role
+  const isCompany = role == 1
+  const isTechnician = role == 3
+  const isManager = role == 2
+  const isInspector = role == 4
 
   const styles = {
-    cols2: 'grid md:grid-cols-2 gap-y-6 gap-4 grid-cols-1',
-    cols3: 'grid md:grid-cols-3 gap-y-6 gap-4 grid-cols-1',
+    cols3: 'grid md:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-4 grid-cols-1',
     colContainer: 'bg-white border border-gray-300 rounded p-2',
     colHeader: 'mb-3 font-bold text-xl',
     buttonDiv: 'space-y-3 flex flex-col',
@@ -41,7 +40,7 @@ export default function Dashboard () {
             <h3 className={styles.colHeader}>Buildings</h3>
             <div className={styles.buttonDiv}>
               <Link href='/buildings'><a className={styles.button}>View all</a></Link>
-              <Link href='/buildings/create'><a className={styles.button}>Create</a></Link>
+              {isCompany && <Link href='/buildings/create'><a className={styles.button}>Create</a></Link>}
             </div>
           </div>}
 
@@ -49,7 +48,7 @@ export default function Dashboard () {
             <h3 className={styles.colHeader}>Units</h3>
             <div className={styles.buttonDiv}>
               <Link href='/units'><a className={styles.button}>View all</a></Link>
-              <Link href='/units/create'><a className={styles.button}>Create</a></Link>
+              {isCompany && <Link href='/units/create'><a className={styles.button}>Create</a></Link>}
             </div>
           </div>}
 

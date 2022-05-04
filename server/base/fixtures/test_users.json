@@ -1,0 +1,1307 @@
+[
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 4,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 4,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 4,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 4,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 5,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 5,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 5,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 5,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 6,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 6,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 6,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 6,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add building",
+            "content_type": 7,
+            "codename": "add_building"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change building",
+            "content_type": 7,
+            "codename": "change_building"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete building",
+            "content_type": 7,
+            "codename": "delete_building"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view building",
+            "content_type": 7,
+            "codename": "view_building"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add company",
+            "content_type": 8,
+            "codename": "add_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change company",
+            "content_type": 8,
+            "codename": "change_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete company",
+            "content_type": 8,
+            "codename": "delete_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view company",
+            "content_type": 8,
+            "codename": "view_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add unit",
+            "content_type": 9,
+            "codename": "add_unit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change unit",
+            "content_type": 9,
+            "codename": "change_unit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete unit",
+            "content_type": 9,
+            "codename": "delete_unit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view unit",
+            "content_type": 9,
+            "codename": "view_unit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add building manager",
+            "content_type": 10,
+            "codename": "add_buildingmanager"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change building manager",
+            "content_type": 10,
+            "codename": "change_buildingmanager"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete building manager",
+            "content_type": 10,
+            "codename": "delete_buildingmanager"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view building manager",
+            "content_type": 10,
+            "codename": "view_buildingmanager"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add technician",
+            "content_type": 11,
+            "codename": "add_technician"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change technician",
+            "content_type": 11,
+            "codename": "change_technician"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete technician",
+            "content_type": 11,
+            "codename": "delete_technician"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view technician",
+            "content_type": 11,
+            "codename": "view_technician"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add profile",
+            "content_type": 12,
+            "codename": "add_profile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change profile",
+            "content_type": 12,
+            "codename": "change_profile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete profile",
+            "content_type": 12,
+            "codename": "delete_profile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view profile",
+            "content_type": 12,
+            "codename": "view_profile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add profile plan",
+            "content_type": 13,
+            "codename": "add_profileplan"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change profile plan",
+            "content_type": 13,
+            "codename": "change_profileplan"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete profile plan",
+            "content_type": 13,
+            "codename": "delete_profileplan"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view profile plan",
+            "content_type": 13,
+            "codename": "view_profileplan"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add service visit",
+            "content_type": 14,
+            "codename": "add_servicevisit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change service visit",
+            "content_type": 14,
+            "codename": "change_servicevisit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete service visit",
+            "content_type": 14,
+            "codename": "delete_servicevisit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view service visit",
+            "content_type": 14,
+            "codename": "view_servicevisit"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add task",
+            "content_type": 15,
+            "codename": "add_task"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change task",
+            "content_type": 15,
+            "codename": "change_task"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete task",
+            "content_type": 15,
+            "codename": "delete_task"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view task",
+            "content_type": 15,
+            "codename": "view_task"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+            "name": "Can add task completion",
+            "content_type": 16,
+            "codename": "add_taskcompletion"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+            "name": "Can change task completion",
+            "content_type": 16,
+            "codename": "change_taskcompletion"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+            "name": "Can delete task completion",
+            "content_type": 16,
+            "codename": "delete_taskcompletion"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+            "name": "Can view task completion",
+            "content_type": 16,
+            "codename": "view_taskcompletion"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+            "name": "Can add profile task",
+            "content_type": 17,
+            "codename": "add_profiletask"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+            "name": "Can change profile task",
+            "content_type": 17,
+            "codename": "change_profiletask"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+            "name": "Can delete profile task",
+            "content_type": 17,
+            "codename": "delete_profiletask"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+            "name": "Can view profile task",
+            "content_type": 17,
+            "codename": "view_profiletask"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+            "name": "View Plans",
+            "content_type": 6,
+            "codename": "view_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+            "name": "View Tasks",
+            "content_type": 6,
+            "codename": "view_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+            "name": "Create Completions",
+            "content_type": 6,
+            "codename": "create_completions"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Create Visits",
+            "content_type": 6,
+            "codename": "create_visits"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "Get Unit Records",
+            "content_type": 6,
+            "codename": "get_unit_records"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "View Units",
+            "content_type": 6,
+            "codename": "view_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "View Profiles",
+            "content_type": 6,
+            "codename": "view_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "View Buildings",
+            "content_type": 6,
+            "codename": "view_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "Get Profiles",
+            "content_type": 6,
+            "codename": "get_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Get Buildings",
+            "content_type": 6,
+            "codename": "get_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "Get Units",
+            "content_type": 6,
+            "codename": "get_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Update Buildings",
+            "content_type": 6,
+            "codename": "update_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 81,
+        "fields": {
+            "name": "Update Profiles",
+            "content_type": 6,
+            "codename": "update_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 82,
+        "fields": {
+            "name": "Create Tasks",
+            "content_type": 6,
+            "codename": "create_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 83,
+        "fields": {
+            "name": "View Technicians",
+            "content_type": 6,
+            "codename": "view_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 84,
+        "fields": {
+            "name": "Get Companies",
+            "content_type": 6,
+            "codename": "get_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 85,
+        "fields": {
+            "name": "View Companies",
+            "content_type": 6,
+            "codename": "view_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 86,
+        "fields": {
+            "name": "Create Managers",
+            "content_type": 6,
+            "codename": "create_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 87,
+        "fields": {
+            "name": "Update Plans",
+            "content_type": 6,
+            "codename": "update_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 88,
+        "fields": {
+            "name": "Get Completions",
+            "content_type": 6,
+            "codename": "get_completions"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 89,
+        "fields": {
+            "name": "Create Companies",
+            "content_type": 6,
+            "codename": "create_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 90,
+        "fields": {
+            "name": "Create Technicians",
+            "content_type": 6,
+            "codename": "create_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 91,
+        "fields": {
+            "name": "Get Technicians",
+            "content_type": 6,
+            "codename": "get_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 92,
+        "fields": {
+            "name": "View Managers",
+            "content_type": 6,
+            "codename": "view_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 93,
+        "fields": {
+            "name": "View Completions",
+            "content_type": 6,
+            "codename": "view_completions"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 94,
+        "fields": {
+            "name": "Create Profiles",
+            "content_type": 6,
+            "codename": "create_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 95,
+        "fields": {
+            "name": "Create Buildings",
+            "content_type": 6,
+            "codename": "create_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 96,
+        "fields": {
+            "name": "Create Plans",
+            "content_type": 6,
+            "codename": "create_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 97,
+        "fields": {
+            "name": "Update Tasks",
+            "content_type": 6,
+            "codename": "update_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 98,
+        "fields": {
+            "name": "Update Managers",
+            "content_type": 6,
+            "codename": "update_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 99,
+        "fields": {
+            "name": "Get Tasks",
+            "content_type": 6,
+            "codename": "get_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 100,
+        "fields": {
+            "name": "View Visits",
+            "content_type": 6,
+            "codename": "view_visits"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 101,
+        "fields": {
+            "name": "Update Units",
+            "content_type": 6,
+            "codename": "update_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 102,
+        "fields": {
+            "name": "Get Visits",
+            "content_type": 6,
+            "codename": "get_visits"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 103,
+        "fields": {
+            "name": "Create Units",
+            "content_type": 6,
+            "codename": "create_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 104,
+        "fields": {
+            "name": "Update Companies",
+            "content_type": 6,
+            "codename": "update_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 105,
+        "fields": {
+            "name": "Update Technicians",
+            "content_type": 6,
+            "codename": "update_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 106,
+        "fields": {
+            "name": "Get Plans",
+            "content_type": 6,
+            "codename": "get_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 107,
+        "fields": {
+            "name": "Get Managers",
+            "content_type": 6,
+            "codename": "get_managers"
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 1,
+        "fields": {
+            "name": "technician",
+            "permissions": []
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 2,
+        "fields": {
+            "name": "manager",
+            "permissions": []
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 3,
+        "fields": {
+            "name": "company",
+            "permissions": []
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "base",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "base",
+            "model": "building"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "base",
+            "model": "company"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "base",
+            "model": "unit"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "base",
+            "model": "buildingmanager"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "base",
+            "model": "technician"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "records",
+            "model": "profile"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "records",
+            "model": "profileplan"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "records",
+            "model": "servicevisit"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "records",
+            "model": "task"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 16,
+        "fields": {
+            "app_label": "records",
+            "model": "taskcompletion"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 17,
+        "fields": {
+            "app_label": "records",
+            "model": "profiletask"
+        }
+    },
+    {
+        "model": "base.company",
+        "pk": 1,
+        "fields": {
+            "name": "HVAC Company #1",
+            "street": "112 Railroad Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States",
+            "phone_number": "312-423-3125"
+        }
+    },
+    {
+        "model": "base.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-29T22:22:05.956Z",
+            "email": "company@example.com",
+            "company": 1,
+            "role": 1,
+            "groups": [3],
+            "user_permissions": [
+                95,
+                89,
+                86,
+                96,
+                94,
+                82,
+                90,
+                103,
+                78,
+                84,
+                88,
+                107,
+                106,
+                77,
+                99,
+                91,
+                73,
+                79,
+                102,
+                80,
+                104,
+                98,
+                87,
+                81,
+                97,
+                105,
+                101,
+                76,
+                85,
+                93,
+                92,
+                69,
+                75,
+                70,
+                83,
+                74,
+                100
+            ]
+        }
+    },
+    {
+        "model": "base.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-29T22:22:05.959Z",
+            "email": "manager@example.com",
+            "company": 1,
+            "role": 2,
+            "groups": [2],
+            "user_permissions": [
+                78,
+                77,
+                73,
+                79,
+                76,
+                75,
+                74
+            ]
+        }
+    },
+    {
+        "model": "base.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-29T22:22:05.960Z",
+            "email": "technician@example.com",
+            "company": 1,
+            "role": 3,
+            "groups": [1],
+            "user_permissions": [
+                71,
+                72,
+                73,
+                69,
+                75,
+                70,
+                74
+            ]
+        }
+    },
+    {
+        "model": "base.buildingmanager",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "name": "University of Iowa",
+            "phone_number": "555-555-5555",
+            "users": [2]
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 1,
+        "fields": {
+            "manager": 1,
+            "site_name": "Seamans Center",
+            "street": "103 South Capitol Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States"
+        }
+    },
+    {
+        "model": "base.building",
+        "pk": 2,
+        "fields": {
+            "manager": 1,
+            "site_name": "Main Library",
+            "street": "125 West Washington Street",
+            "city": "Iowa City",
+            "zip_code": 52242,
+            "country": "United States"
+        }
+    },
+    {
+        "model": "base.unit",
+        "pk": 1,
+        "fields": {
+            "building": 1,
+            "external_id": 50030,
+            "category": "Duct free",
+            "serial_number": "AA000312341",
+            "model_number": "AB412",
+            "manufacturer": "Trane",
+            "production_date": "2022-02-01",
+            "installation_date": "2022-03-08"
+        }
+    },
+    {
+        "model": "base.technician",
+        "pk": 1,
+        "fields": {
+            "company": 1,
+            "first_name": "Bob",
+            "last_name": "Smith",
+            "phone_number": "123-321-4213",
+            "license_number": 131251003
+        }
+    }
+]

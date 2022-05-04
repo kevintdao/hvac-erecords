@@ -51,7 +51,6 @@ export default function ProfileUpdateForm ({ profile, currTasks, allTasks, onSub
     setTasksList(list)
   }
 
-  console.log(tasksList)
   return (
     <>
       <form action='' method='post' onSubmit={handleSubmit(onSubmit)} className='space-y-4 mt-2'>

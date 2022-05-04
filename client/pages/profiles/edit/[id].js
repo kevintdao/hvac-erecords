@@ -9,12 +9,13 @@ import Loading from '../../../components/Loading'
 import { handleError } from '../../../utils/errors'
 import PrivateRoute from '../../../components/PrivateRoute'
 
-export default function Edit (props) {
+export default function Edit () {
   const router = useRouter()
   const { id } = router.query
   const [profileId, setProfileId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -48,16 +49,13 @@ export default function Edit (props) {
       })
     })
     .catch(err => {
-      router.push({
-        pathname: '/login',
-        query: { error: 'You must be logged in to access this page' }
-      }, '/login')
+      const output = handleError(err)
+      setBackendError(output)
       return
     })
   }, [id, router])
 
   const onSubmit = async (data) => {
-    console.log(data)
     const tasks = formatTasks(data.tasks)
     data.tasks = tasks
 
@@ -66,7 +64,6 @@ export default function Edit (props) {
       setProfileId(res.data.id)
     })
     .catch(error => {
-      console.log(error)
       const output = handleError(error)
       setError(output)
     })
@@ -84,6 +81,10 @@ export default function Edit (props) {
       }
     }
     return output
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {
@@ -112,7 +113,7 @@ export default function Edit (props) {
   }
 
   return (
-    <PrivateRoute isAllowed={['company']}>
+    <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>
       <Header title='Create Maintenance Profile' />
 

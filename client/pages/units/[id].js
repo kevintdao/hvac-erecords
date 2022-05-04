@@ -12,6 +12,7 @@ import { handleError } from '../../utils/errors'
 import { QRCodeCanvas } from 'qrcode.react'
 import { DownloadIcon } from '@heroicons/react/solid'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function Unit (props) {
   const router = useRouter()
@@ -20,7 +21,12 @@ export default function Unit (props) {
   const [error, setError] = useState()
   const [data, setData] = useState()
   const [profiles, setProfiles] = useState()
-  const qrValue = `${process.env.NEXT_PUBLIC_URL}/service-plans/${id}`
+  const [backendError, setBackendError] = useState()
+  const qrValue = `${process.env.NEXT_PUBLIC_URL}/qr-code-redirect/${id}`
+
+  const { user } = useAppContext()
+  const role = user.user?.role
+  const isCompany = role == 1
 
   const styles = {
     button: 'p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
@@ -37,14 +43,12 @@ export default function Unit (props) {
     const fetchData = async () => {
       const units = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units/${id}/`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!units) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -104,6 +108,10 @@ export default function Unit (props) {
     document.body.removeChild(downloadLink);
   }
 
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
+
   if (!data) {
     return (<Loading />)
   }
@@ -126,7 +134,7 @@ export default function Unit (props) {
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager']}>
+    <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Unit Details</title>
@@ -150,9 +158,9 @@ export default function Unit (props) {
             <a className={styles.button} id='all-units'>All Units</a>
           </Link>
 
-          <Link href={`/units/edit/${id}`}>
+          {isCompany && <Link href={`/units/edit/${id}`}>
             <a className={styles.button} id='edit'>Edit</a>
-          </Link>
+          </Link>}
 
           <Link href={`/units/records/${id}`}>
             <a className={styles.button} id='data'>Maintenance Data</a>
@@ -160,26 +168,26 @@ export default function Unit (props) {
         </div>
       </div>
 
-      <hr />
+      {isCompany && <hr />}
 
-      <div className='space-y-2'>
+      {isCompany && <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Assigned Profiles</h2>
 
         {data.unit.plans.length === 0 ? 
           <p className={styles.desc} id='no-plans'>No profiles are assigned to this unit</p> : 
           <PlanTable data={data} labels={labels} />
         }
-      </div>
+      </div>}
 
-      <hr />
+      {isCompany && <hr />}
 
-      <div className='space-y-2'>
+      {isCompany && <div className='space-y-2'>
         <h2 className='font-bold text-3xl'>Assign a Profile</h2>
 
         {error && <Alert title='Error' text={error} type='error' />}
         
         <PlanForm profiles={profiles} onSubmit={onSubmit} />
-      </div>
+      </div>}
     </div>
     </PrivateRoute>
   )

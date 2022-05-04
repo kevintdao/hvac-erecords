@@ -8,7 +8,7 @@ import axios from 'axios'
 import { handleError } from '../utils/errors'
 
 export default function LoginPage () {
-  const { login, data, setData } = useAppContext()
+  const { login, user, setUser } = useAppContext()
   const router = useRouter()
   const [error, setError] = useState(router.query?.error)
 
@@ -21,17 +21,12 @@ export default function LoginPage () {
           }
         })
 
-        const hardCodedUser = {
-          ...user.data,
-          role: user.data.role ? user.data.role : 'Company'
-        }
-
-        setData(data => ({
+        setUser(data => ({
           ...data,
           accessToken: res.data.access,
           refreshToken: res.data.refresh,
           isLoggedIn: true,
-          user: hardCodedUser
+          user: user.data
         }))
 
         // save tokens to localStorage
@@ -40,7 +35,8 @@ export default function LoginPage () {
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
-        router.push('/dashboard')
+        if (user.data.role == 1 || user.data.role == 2) router.push('/dashboard')
+        else router.push('/')
       })
       .catch(error => {
         const output = handleError(error)

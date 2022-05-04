@@ -8,6 +8,7 @@ import { Temporal } from '@js-temporal/polyfill'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function ServiceProfile () {
   const router = useRouter()
@@ -16,6 +17,8 @@ export default function ServiceProfile () {
   const [savedData, setSavedData] = useState(null)
   const [serviceId, setServiceId] = useState(null)
   const [error, setError] = useState()
+  const [backendError, setBackendError] = useState()
+  const { user } = useAppContext() 
 
   useEffect(() => {
     if (!router.isReady) return
@@ -23,14 +26,12 @@ export default function ServiceProfile () {
     const fetchData = async () => {
       const plan = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/plans/${id}`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
       if (!plan) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
         return
       }
 
@@ -64,6 +65,10 @@ export default function ServiceProfile () {
     loadStorage()
   }, [id, router])
 
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
+
   if (!data) {
     return (<Loading />)
   }
@@ -76,7 +81,7 @@ export default function ServiceProfile () {
     delete data.start_time
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
-      technician: 1,    // hardcoded technician for now
+      technician: user.user.id,
       unit: unit,
       plan: id,
       start_time: startTime,
@@ -143,7 +148,7 @@ export default function ServiceProfile () {
   }
 
   return (
-    <PrivateRoute isAllowed={['technician']}>
+    <PrivateRoute isAllowed={[3]}>
     <div className='space-y-4 mt-2'>
       <Header title='Service Visit' />  
 

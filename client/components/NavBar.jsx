@@ -3,31 +3,34 @@ import Link from 'next/link'
 import { useAppContext } from '../context/state'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { useLoading } from '../context/loading'
 
 export default function NavBar () {
-  const { data, setData, logout } = useAppContext()
-  const isLoggedIn = data.isLoggedIn
-  const role = data.user?.role?.toLowerCase()
+  const { user, logout } = useAppContext()
+  const { loading, setLoading } = useLoading()
+  const isLoggedIn = user.isLoggedIn
+  const role = user.user?.role
 
   const mcLinks = [
     { name: 'Managers', href: '/managers' },
     { name: 'Buildings', href: '/buildings' },
     { name: 'Tasks', href: '/tasks'},
     { name: 'Profiles', href: '/profiles'},
+    { name: 'Help', href: '/help'},
   ]
 
   const boLinks = [
     { name: 'Buildings', href: '/buildings' },
-    { name: 'Units', href: '/units' }
+    { name: 'Units', href: '/units' },
+    { name: 'Help', href: '/help'},
   ]
 
   const iLinks = [
-    { name: 'Data', href: '/' }
+    { name: 'Help', href: '/help'},
   ]
 
   const tLinks = [
-    { name: 'Data', href: '/' },
-    { name: 'Report', href: '/' }
+    { name: 'Help', href: '/help'},
   ]
 
   function createNavLinks(links, mobile){
@@ -75,6 +78,10 @@ export default function NavBar () {
     return createNavLinks(tLinks, mobile);
   }
 
+  function NotLoggedInLinks ({ mobile }){
+    return createNavLinks([{ name: 'Help', href: '/help'}], mobile);
+  }
+
   function NotSignedInOptions(){
     const notSignedInLinks = [
       { name: 'Login', href: '/login' },
@@ -85,6 +92,7 @@ export default function NavBar () {
   }
 
   const signout = async () => {
+    setLoading(true)
     logout()
 
     // remove tokens from localStorage
@@ -108,9 +116,9 @@ export default function NavBar () {
     <Disclosure as="nav" className="bg-gray-800 z-50 sticky top-0">
       {({ open }) => (
         <>
-          <div className="max-w-5xl mx-auto sm:px-6 lg:px-2">
+          <div className="max-w-5xl mx-auto md:px-6 lg:px-2">
             <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -121,24 +129,25 @@ export default function NavBar () {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo */}
-                  <Link href='/dashboard'>
+                  <Link href={role && (role == 1 || role == 2) ? '/dashboard' : '/'}>
                     <a className='text-gray-300 px-1 py-2 text-sm font-medium rounded'>HVAC E-Records</a>
                   </Link>
                 </div>
-                <div className="hidden sm:block sm:ml-6">
+                <div className="hidden md:block md:ml-6">
                   <div className="flex space-x-4">
                     {/* nav links */}
-                    { role == 'company' && <MaintenanceCompanyLinks /> }
-                    { role == 'manager' && <BuildingOwnerLinks /> }
-                    { role == 'inspector' && <InspectorLinks /> }
-                    { role == 'technician' && <TechnicianLinks /> }
+                    { !role && <NotLoggedInLinks /> }
+                    { role == 1 && <MaintenanceCompanyLinks /> }
+                    { role == 2 && <BuildingOwnerLinks /> }
+                    { role == 4 && <InspectorLinks /> }
+                    { role == 3 && <TechnicianLinks /> }
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
                 <div className='flex space-x-4 items-center'>
                   {/* display buttons based on log in status */}
                   { isLoggedIn ? <MenuDropdown /> : <NotSignedInOptions />}
@@ -147,13 +156,14 @@ export default function NavBar () {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* mobile nav links */}
-              { role == 'company' && <MaintenanceCompanyLinks mobile /> }
-              { role == 'manager' && <BuildingOwnerLinks mobile /> }
-              { role == 'inspector' && <InspectorLinks mobile /> }
-              { role == 'technician' && <TechnicianLinks mobile /> }
+              { !role && <NotLoggedInLinks mobile /> }
+              { role == 1 && <MaintenanceCompanyLinks mobile /> }
+              { role == 2 && <BuildingOwnerLinks mobile /> }
+              { role == 4 && <InspectorLinks mobile /> }
+              { role == 3 && <TechnicianLinks mobile /> }
             </div>
           </Disclosure.Panel>
         </>

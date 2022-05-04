@@ -4,15 +4,11 @@ import { useAppContext } from '../context/state'
 
 export default function PrivateRoute ({ isAllowed, children }) {
   const router = useRouter()
-  const { data } = useAppContext()
-  const role = data.user?.role.toLowerCase()
+  const { user } = useAppContext()
+  const role = user.user?.role
 
   if (!role) {
-    router.push({
-      pathname: '/login',
-      query: { error: 'You must be logged in to access this page' }
-    }, '/login')
-    return <div></div>
+    return <div className='mt-2 font-bold text-lg' id='message'>You must be logged in to access this page</div>
   }
 
   if (isAllowed && !isAllowed.includes(role)) {

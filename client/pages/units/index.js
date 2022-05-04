@@ -6,10 +6,16 @@ import axios from 'axios'
 import UnitTable from '../../components/units/UnitTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
+import { useAppContext } from '../../context/state'
 
 export default function Index (props) {
   const router = useRouter()
   const [data, setData] = useState()
+  const [error, setError] = useState('')
+  const { user } = useAppContext()
+  const role = user.user?.role
+  const isCompany = role == 1
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units`)
@@ -17,11 +23,8 @@ export default function Index (props) {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
-        return
+        const output = handleError(err)
+        setError(output)
       })
   }, [router])
 
@@ -35,12 +38,16 @@ export default function Index (props) {
     desc: 'font-medium font-gray-900'
   }
 
+  if (error) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{error}</div>
+  }
+
   if (!data) {
     return (<Loading />)
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager']}>
+    <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Units</title>
@@ -48,13 +55,13 @@ export default function Index (props) {
 
       <h2 className='font-bold text-3xl'>Units</h2>
 
-      {data.length === 0 ? <p className={styles.desc} id='no-units'>No existing units</p> : <UnitTable data={data} labels={labels} />}
+      {data.length === 0 ? <p className={styles.desc} id='no-units'>No existing units</p> : <UnitTable data={data} labels={labels} role={role} />}
 
-      <div className='mt-2'>
+      {isCompany && <div className='mt-2'>
         <Link href='/units/create'>
           <a className={styles.button}>New Unit</a>
         </Link>
-      </div>
+      </div>}
     </div>
     </PrivateRoute>
   )

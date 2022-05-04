@@ -11,8 +11,14 @@ export default function UnitDetails({ data }) {
   return (
     <div className=''>
       <dl>
-        {/* External ID */}
+        {/* Buidling */}
         <div className={`${styles.div} border-none`}>
+          <dt className={styles.label} id='building-label'>Building</dt>
+          <dd className={styles.text} id='building'>{`${data.building.site_name} (${data.building.street}, ${data.building.city} ${data.building.zip_code})`}</dd> 
+        </div>
+
+        {/* External ID */}
+        <div className={styles.div}>
           <dt className={styles.label} id='external_id-label'>External ID</dt>
           <dd className={styles.text} id='external_id'>{data.external_id}</dd> 
         </div>

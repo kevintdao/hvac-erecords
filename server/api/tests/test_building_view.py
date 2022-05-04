@@ -1,8 +1,10 @@
-from django.urls import reverse
-from rest_framework import status 
-from rest_framework.test import APIClient
+from base.models import Building, Company, User
 from django.test import TestCase
-from base.models import Building, User, Company
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestBuildingAPI(TestCase):
     fixtures = ['test_data.json',]
@@ -12,6 +14,7 @@ class TestBuildingAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -106,3 +109,15 @@ class TestBuildingAPI(TestCase):
             format="json"
         )
         self.assertEqual(self.response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_building_noperm(self):
+        clear_roles(self.user)
+        url = reverse('buildings-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        building = Building.objects.last()
+        self.response = self.client.get(
+            reverse('buildings-detail',
+            kwargs={'pk':building.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_404_NOT_FOUND)

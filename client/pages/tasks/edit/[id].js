@@ -15,6 +15,7 @@ export default function Edit (props) {
   const [taskId, setTaskId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -28,10 +29,8 @@ export default function Edit (props) {
         setData(res.data)
       })
       .catch(err => {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
   }, [id, router])
@@ -93,12 +92,16 @@ export default function Edit (props) {
     )
   }
 
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+  }
+
   if (!data) {
     return (<Loading />)
   }
 
   return (
-    <PrivateRoute isAllowed={['company']}>
+    <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>
       <Header title='Update Task' />
 

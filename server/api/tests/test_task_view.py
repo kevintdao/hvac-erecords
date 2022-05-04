@@ -1,9 +1,11 @@
-from django.urls import reverse
-from rest_framework import status
+from base.models import Company, User
 from django.test import TestCase
+from django.urls import reverse
 from records.models import Task
-from base.models import User, Company
+from rest_framework import status
 from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestTaskAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
@@ -13,12 +15,12 @@ class TestTaskAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
         self.initial_count = Task.objects.count()
         self.data = {
-			"company": 1,
 			"title":  "Unit in good condition",
 			"description":  "choose if the condition is in a satisfactory condition",
             "rule":  '{	"type": "1", "name": "response" }'
@@ -42,7 +44,6 @@ class TestTaskAPI(TestCase):
 
     def test_api_create_task_failure(self):
         data = {
-			"company": 1,
 			"title":  "This is a task with no rule",
 			"description":  "description",
         }
@@ -65,7 +66,6 @@ class TestTaskAPI(TestCase):
     def test_api_update_task(self):
         task = Task.objects.last()
         new_data = {
-			"company": 1,
 			"title":  "Unit in good condition",
 			"description":  "choose the appropriate option",
             "rule":  '{"name": "selection", "options": {"1": "Yes", "2": "No"}}}'
@@ -80,10 +80,8 @@ class TestTaskAPI(TestCase):
     def test_api_update_task_failure(self):
         task = Task.objects.last()
         new_data = {
-			"company": 900,
 			"title":  "Unit in good condition",
 			"description":  "choose the appropriate option",
-            "rule":  '{"name": "selection", "options": {"1": "Yes", "2": "No"}}}'
         }
         response = self.client.put(
             reverse('tasks-detail',
@@ -107,3 +105,15 @@ class TestTaskAPI(TestCase):
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_api_task_noperm(self):
+        clear_roles(self.user)
+        url = reverse('tasks-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        task = Task.objects.last()
+        self.response = self.client.get(
+            reverse('tasks-detail',
+            kwargs={'pk':task.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_404_NOT_FOUND)

@@ -1,11 +1,11 @@
 describe('Login page', () => {
   beforeEach(() => {
-    cy.intercept('POST', '**/api/token', { fixture: 'token.json' }).as('login');
-    cy.intercept('GET', '**/api/user', [{
+    cy.intercept('POST', '**/api/token/', { fixture: 'token.json' }).as('login');
+    cy.intercept('GET', '**/api/user/', {
       id: 1,
       email: "test@test.com",
-      role: "Company"
-    }]).as('getUser');
+      role: 1
+    }).as('getUser');
     cy.visit('http://localhost:3000/login');
   })
 
@@ -14,8 +14,7 @@ describe('Login page', () => {
     cy.get('input#password').type("Testing123!");
     cy.get('button#login-button').click();
 
-    cy.wait('@login');
-    cy.wait('@getUser');
+    cy.wait(['@login', '@getUser']);
 
     cy.url().should('include', '/dashboard');
   })

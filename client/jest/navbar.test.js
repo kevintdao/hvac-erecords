@@ -4,7 +4,7 @@ import { AppContext } from "../context/state"
 
 test("Not logged in navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -24,7 +24,7 @@ test("Not logged in navigation bar", () => {
 
 test("Logged in navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: '123adsf',
       refreshToken: '123asdf',
       isLoggedIn: true,
@@ -45,12 +45,12 @@ test("Logged in navigation bar", () => {
 
 test("Maintenance company navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'company'
+        role: 1
       },
       relog: false,
     }
@@ -61,7 +61,7 @@ test("Maintenance company navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Managers", "Buildings", "Tasks", "Profiles"
+    "Managers", "Buildings", "Tasks", "Profiles", "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -71,12 +71,12 @@ test("Maintenance company navigation bar", () => {
 
 test("Building owner navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'manager'
+        role: 2
       },
       relog: false,
     }
@@ -87,7 +87,7 @@ test("Building owner navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Buildings", "Units"
+    "Buildings", "Units", "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -97,12 +97,12 @@ test("Building owner navigation bar", () => {
 
 test("Inspector navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'inspector'
+        role: 4
       },
       relog: false,
     }
@@ -113,7 +113,7 @@ test("Inspector navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Data"
+    "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){
@@ -123,12 +123,12 @@ test("Inspector navigation bar", () => {
 
 test("Technician navigation bar", () => {
   const contextValue = {
-    data: {
+    user: {
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
       user: {
-        role: 'technician'
+        role: 3
       },
       relog: false,
     }
@@ -139,7 +139,7 @@ test("Technician navigation bar", () => {
   </AppContext.Provider>
   );
   const testData = [
-    "Data", "Report"
+    "Help"
   ];
 
   for(let i = 0; i < testData.length; i++){

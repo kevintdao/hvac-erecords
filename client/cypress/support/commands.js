@@ -25,6 +25,22 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('login', (role) => {
+  switch(role){
+    case 'company':
+      role = 1
+      break
+    case 'manager':
+      role = 2
+      break
+    case 'inspector':
+      role = 4
+      break
+    case 'technician':
+      role = 3
+      break
+    default:
+      break
+  }
   cy.intercept('POST', '**/api/token', { fixture: 'token.json' }).as('login');
   cy.intercept('GET', '**/api/user', {
     body: {

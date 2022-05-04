@@ -6,20 +6,21 @@ import ManagerForm from '../../components/managers/ManagerForm'
 import Alert from '../../components/Alert'
 import { handleError } from '../../utils/errors'
 import PrivateRoute from '../../components/PrivateRoute'
+import { useAppContext } from '../../context/state'
 
 export default function Create () {
   const [id, setId] = useState(null)
   const [error, setError] = useState()
+  const { user } = useAppContext()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
   }
 
   const onSubmit = async (data) => {
-    data.company = 1
+    data.company = user.user.company
     data.users = [{"email": data.email, "username": data.email, "password": "tespassword"}] // temporary password is necessary until user model is updated
     delete data.email
-    console.log(data)
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/managers`, data)
       .then(res => {
         setId(res.data.id)
@@ -53,7 +54,7 @@ export default function Create () {
   }
 
   return (
-    <PrivateRoute isAllowed={['company']}>
+    <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Create Manager</title>

@@ -14,6 +14,7 @@ export default function Create () {
   const [id, setId] = useState(null)
   const [error, setError] = useState()
   const [data, setData] = useState()
+  const [backendError, setBackendError] = useState()
 
   const styles = {
     button: 'p-2 bg-indigo-700 rounded text-white text-center hover:bg-indigo-800'
@@ -23,14 +24,12 @@ export default function Create () {
     const fetchData = async () => {
       const buildings = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/buildings`)
       .catch(err => {
+        const output = handleError(err)
+        setBackendError(output)
         return
       })
 
-      if (!buildings) {
-        router.push({
-          pathname: '/login',
-          query: { error: 'You must be logged in to access this page' }
-        }, '/login')
+      if(!buildings) {
         return
       }
 
@@ -46,10 +45,14 @@ export default function Create () {
       .then(res => {
         setId(res.data.id)
       })
-      .catch(() => {
-        const output = handleError(error)
+      .catch((err) => {
+        const output = handleError(err)
         setError(output)
       })
+  }
+
+  if (backendError) {
+    return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
   }
 
   if (!data) {
@@ -79,7 +82,7 @@ export default function Create () {
   }
 
   return (
-    <PrivateRoute isAllowed={['company', 'manager']}>
+    <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
       <Head>
         <title>Create Unit</title>

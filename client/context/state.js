@@ -6,7 +6,7 @@ export const AppContext = createContext()
 
 export function AppProvider ({ children }) {
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState({
+  const [user, setUser] = useState({
     accessToken: null,
     refreshToken: null,
     isLoggedIn: false,
@@ -37,8 +37,8 @@ export function AppProvider ({ children }) {
   }
 
   function logout () {
-    setData({
-      ...data,
+    setUser({
+      ...user,
       accessToken: null,
       refreshToken: null,
       isLoggedIn: false,
@@ -48,8 +48,8 @@ export function AppProvider ({ children }) {
   }
 
   const value = {
-    data,
-    setData,
+    user,
+    setUser,
     signup,
     login,
     logout
@@ -57,25 +57,18 @@ export function AppProvider ({ children }) {
 
   async function loadData () {
     setLoading(true)
-
     const access = localStorage.getItem('access_token')
     const refresh = localStorage.getItem('refresh_token')
     var user = null
     var relog = false
 
-    let hardCodedUser
     if (access) {
       await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/`, {
         headers: {
           Authorization: `Bearer ${access}`
         }
       }).then(res => {
-        console.log(res.data.role)
-        hardCodedUser = {
-          ...res.data,
-          role: res.data.role ? res.data.role : 'Company'
-        }
-        // user = res.data
+        user = res.data
       }).catch(error => {
         relog = true
       })
@@ -85,11 +78,11 @@ export function AppProvider ({ children }) {
       delete axios.defaults.headers.common["Authorization"];
     }
 
-    setData({
+    setUser({
       accessToken: access,
       refreshToken: refresh,
       isLoggedIn: access != null && refresh != null,
-      user: hardCodedUser,
+      user: user,
       relog: relog
     })
 
@@ -106,7 +99,7 @@ export function AppProvider ({ children }) {
     )
   }
 
-  if(data.relog){
+  if(user.relog){
     const relogin = () => {
       localStorage.removeItem('access_token')
       localStorage.removeItem('refresh_token')

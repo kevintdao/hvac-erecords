@@ -6,11 +6,18 @@ import axios from 'axios'
 import BuildingDetails from '../../components/buildings/BuildingDetails'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import { handleError } from '../../utils/errors'
+import { useAppContext } from '../../context/state'
 
 export default function Building(props) {
     const router = useRouter();
     const { id } = router.query;
     const [data, setData] = useState()
+    const [backendError, setBackendError] = useState()
+
+    const { user } = useAppContext()
+    const role = user.user?.role
+    const isCompany = role == 1
 
     useEffect(() => {
         if (!router.isReady) return
@@ -20,10 +27,8 @@ export default function Building(props) {
             setData(res.data)
           })
           .catch(err => {
-            router.push({
-              pathname: '/login',
-              query: { error: 'You must be logged in to access this page' }
-            }, '/login')
+            const output = handleError(err)
+            setBackendError(output)
             return
           })
     }, [id, router])
@@ -32,12 +37,16 @@ export default function Building(props) {
         button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
     }
 
+    if (backendError) {
+        return <div className='mt-2 font-bold text-lg' id='message'>{backendError}</div>
+    }
+
     if (!data) {
         return (<Loading />)
     }
 
     return (
-        <PrivateRoute isAllowed={['company', 'manager']}>
+        <PrivateRoute isAllowed={[1,2]}>
         <div className='space-y-4 mt-2'>
             <Head>
                 <title>Building Details</title>
@@ -52,9 +61,9 @@ export default function Building(props) {
                     <a className={styles.button} id='all-buildings'>All Buildings</a>
                 </Link>
 
-                <Link href={`/buildings/edit/${id}`}>
+                {isCompany && <Link href={`/buildings/edit/${id}`}>
                     <a className={styles.button} id='edit'>Edit</a>
-                </Link>
+                </Link>}
             </div>
         </div>
         </PrivateRoute>

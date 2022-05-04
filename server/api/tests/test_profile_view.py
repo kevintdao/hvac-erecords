@@ -1,9 +1,11 @@
-from django.urls import reverse
-from rest_framework import status
+from base.models import Company, User
 from django.test import TestCase
+from django.urls import reverse
 from records.models import Profile
-from base.models import User, Company
+from rest_framework import status
 from rest_framework.test import APIClient
+from rolepermissions.roles import assign_role, clear_roles
+
 
 class TestProfileAPI(TestCase):
     fixtures = ['test_data.json', 'test_data_records.json']
@@ -13,6 +15,7 @@ class TestProfileAPI(TestCase):
             email="test@example.com",
             company = Company.objects.first()
         )
+        assign_role(self.user, 'admin')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -137,3 +140,15 @@ class TestProfileAPI(TestCase):
             kwargs={'pk':0}), format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_api_profile_noperm(self):
+        clear_roles(self.user)
+        url = reverse('profiles-list')
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        profile = Profile.objects.last()
+        self.response = self.client.get(
+            reverse('profiles-detail',
+            kwargs={'pk':profile.id}), format="json"
+        )
+        self.assertEqual(self.response.status_code, status.HTTP_404_NOT_FOUND)
