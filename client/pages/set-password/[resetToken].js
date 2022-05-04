@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 export default function ResetPassword() {
     const router = useRouter();
-    const { id, resetToken } = router.query;
+    const { uidb64, token } = router.query;
 
+    const {password, setPassword} = useState(); // use-form-hook
 
 
     const styles = {
