@@ -33,5 +33,5 @@ class TestRefrigerantReportAPI(TestCase):
             reverse('units-refrigerant',
             kwargs={'pk':unit.id}), format="json"
         )
-        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(self.response.status_code, status.HTTP_404_NOT_FOUND)
 
