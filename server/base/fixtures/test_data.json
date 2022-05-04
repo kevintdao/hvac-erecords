@@ -13,7 +13,7 @@
 	},
 	{
 		"model": "base.user",
-		"pk": 1,
+		"pk": 3,
 		"fields": {
 			"email": "company@example.com",
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
@@ -33,7 +33,7 @@
 	},
     {
 		"model": "base.user",
-		"pk": 3,
+		"pk": 1,
 		"fields": {
 			"email": "technician@example.com",
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
@@ -115,9 +115,9 @@
     },
     {
         "model": "base.technician",
-        "pk": 3,
+        "pk": 1,
         "fields": {
-            "user": 3,
+            "user": 1,
             "company": 1,
             "first_name": "Bob",
             "last_name": "Smith",
