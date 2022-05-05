@@ -23,12 +23,12 @@ export default function ResetPassword() {
     // }
 
 
-    // const {password, setPassword} = useState(); // use-form-hook
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
       mode: 'onTouched'
-  });
-  const password = watch('password')
+    });
+    const password = watch('password')
+
     const styles = {
         inputContainer: "flex flex-col",
         input: "p-2 border rounded",
@@ -39,14 +39,11 @@ export default function ResetPassword() {
 
     return (
         <>
-            <div>{token}</div>
-            <div>{uidb64}</div>
-            <div>{password}</div>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Password</label>
                 <input
-                type="text"
+                type="password"
                 name="password"
                 id="password"
                 className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
@@ -61,7 +58,7 @@ export default function ResetPassword() {
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Confirm Password</label>
                 <input
-                type="text"
+                type="password"
                 name="confirm-password"
                 id="confirm-password"
                 className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
