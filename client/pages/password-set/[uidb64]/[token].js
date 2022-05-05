@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 export default function ResetPassword() {
     const router = useRouter();
     const { uidb64, token } = router.query;
-    const onSubmit = data => console.log(data);
+    // const onSubmit = data => console.log(data);
     const [error, setError] = useState()
     const onSubmit = async (data) => {
       data = {
