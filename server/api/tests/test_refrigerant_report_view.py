@@ -7,7 +7,7 @@ from rolepermissions.roles import assign_role, clear_roles
 
 
 class TestRefrigerantReportAPI(TestCase):
-    fixtures = ['test_data.json','epa608.json']
+    fixtures = ['test_data.json','epa608.json','test_epa608_data.json']
 
     def setUp(self):
         self.user = User.objects.create(

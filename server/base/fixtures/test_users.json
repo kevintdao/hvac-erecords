@@ -1136,7 +1136,7 @@
     },
     {
         "model": "base.user",
-        "pk": 1,
+        "pk": 3,
         "fields": {
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
             "last_login": null,
@@ -1220,7 +1220,7 @@
     },
     {
         "model": "base.user",
-        "pk": 3,
+        "pk": 1,
         "fields": {
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
             "last_login": null,
