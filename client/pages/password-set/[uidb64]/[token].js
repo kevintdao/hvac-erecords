@@ -5,28 +5,28 @@ import { useForm } from 'react-hook-form';
 export default function ResetPassword() {
     const router = useRouter();
     const { uidb64, token } = router.query;
-    // const onSubmit = data => console.log(data);
+    const onSubmit = data => console.log(data);
     const [error, setError] = useState()
-    const onSubmit = async (data) => {
-      data = {
-        "password": data.password,
-        "token": token,
-        "uidb64": uidb64
-      }
-      axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
-        .then(res => {
+    // const onSubmit = async (data) => {
+    //   data = {
+    //     "password": data.password,
+    //     "token": token,
+    //     "uidb64": uidb64
+    //   }
+    //   axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
+    //     .then(res => {
           
-        })
-        .catch(() => {
-          const output = handleError(error)
-          setError(output)
-        })
-    }
+    //     })
+    //     .catch(() => {
+    //       const output = handleError(error)
+    //       setError(output)
+    //     })
+    // }
 
 
     const {password, setPassword} = useState(); // use-form-hook
-    const { register, handleSubmit, formState: { errors }, control } = useForm({
-
+    const { register, handleSubmit, formState: { errors } } = useForm({
+      mode: 'onTouched'
   });
     const styles = {
         inputContainer: "flex flex-col",
@@ -55,6 +55,7 @@ export default function ResetPassword() {
                   }
                 })}
               />
+              <span className='text-sm text-red-700 mt-1' id="password-help">{errors.Passowrd?.message}</span>
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Confirm Password</label>
                 <input
@@ -65,12 +66,14 @@ export default function ResetPassword() {
                 {...register('confirm_password', {
                   required: {
                   value: true,
-                  message: "confirm password"
-                  }
+                  message: "Confirm Password"
+                  },
+                  validate: (value) =>
+                  value === password || "The passwords do not match",
                 })}
               />
               </div>
-              <span className='text-sm text-red-700 mt-1' id="first_name-help">{errors.first_name?.message}</span>
+              <span className='text-sm text-red-700 mt-1' id="confirm_password-help">{errors.confirm_password?.message}</span>
             </div>
 
               <button className={styles.button} id='password-button'>Set Password</button>
