@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 export default function ProfileForm ({ type, tasks, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, unregister } = useForm()
-  const [tasksList, setTasksList] = useState([{ task_id: tasks[0].id }])
+  const [tasksList, setTasksList] = useState([{ task_id: tasks[0]?.id }])
 
   const styles = {
     inputContainer: 'flex flex-col',
@@ -75,7 +75,8 @@ export default function ProfileForm ({ type, tasks, onSubmit }) {
         {/* Tasks */}
         <div className='space-y-2'>
           <label htmlFor='tasks'>Tasks</label>
-          {tasksList.map((item, index) => (
+          {tasks.length == 0 && <div>No tasks</div>}
+          {tasks.length != 0 && tasksList.map((item, index) => (
             <div className='flex flex-row space-x-2' key={index}>
               <select name={`tasks.t${index}`} id={`tasks.t${index}`} value={item.task_id} className={`${styles.input} border-gray-300 ${tasksList.length > 1 ? 'basis-5/6' : 'basis-full'}`} 
                 {...register(`tasks.t${index}`, {
@@ -89,10 +90,10 @@ export default function ProfileForm ({ type, tasks, onSubmit }) {
               {tasksList.length > 1 && <button type='button' className={`${styles.deleteButton} basis-1/6`} id={`delete${index}`} onClick={() => deleteTask(index)}>Delete</button>}
             </div>
           ))}
-          <button type='button' className={styles.addButton} onClick={addTask} id='add-task'>Add Task</button>
+          {tasks.length != 0 && <button type='button' className={styles.addButton} onClick={addTask} id='add-task'>Add Task</button>}
         </div>
 
-        <button className={styles.button} id='create-button'>{type}</button>
+        {tasks.length != 0 && <button className={styles.button} id='create-button'>{type}</button>}
       </form>
     </>
   )
