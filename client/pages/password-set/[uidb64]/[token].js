@@ -1,26 +1,29 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm, } from 'react-hook-form';
-
+import Alert from '../../../components/Alert';
 export default function ResetPassword() {
     const router = useRouter();
     const { uidb64, token } = router.query;
-    const onSubmit = data => console.log(data);
-    // const onSubmit = async (data) => {
-    //   data = {
-    //     "password": data.password,
-    //     "token": token,
-    //     "uidb64": uidb64
-    //   }
-    //   axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
-    //     .then(res => {
+
+    const [error, setError] = useState()
+    const [success, setSuccess] = useState(false)
+    const onSubmit = async (data) => {
+      data = {
+        "password": data.password,
+        "token": token,
+        "uidb64": uidb64
+      }
+      axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
+        .then(res => {
+            setSuccess(true)
           
-    //     })
-    //     .catch(() => {
-    //       const output = handleError(error)
-    //       setError(output)
-    //     })
-    // }
+        })
+        .catch(() => {
+          const output = handleError(error)
+          setError(output)
+        })
+    }
 
 
 
@@ -36,10 +39,22 @@ export default function ResetPassword() {
         helpText: "text-sm text-red-700 mt-1",
         button: "p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800",
     }
-
+    if(success){
+      return(
+      <div className='mt-2'>
+      <Alert
+        title='Successfully Set Password'
+        text='Successfully Set Password'
+        type='success'
+      />
+      </div>
+      )
+    }
     return (
         <>
-            <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+            {error && <Alert title='Error' text={error} type='error' />}
+            <div className="text-4xl mt-5 mb-3">Password Set Page</div>
+            <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Password</label>
                 <input
