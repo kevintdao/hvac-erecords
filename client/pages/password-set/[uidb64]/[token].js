@@ -6,6 +6,24 @@ export default function ResetPassword() {
     const router = useRouter();
     const { uidb64, token } = router.query;
     const onSubmit = data => console.log(data);
+    const [error, setError] = useState()
+    const onSubmit = async (data) => {
+      data = {
+        "password": data.password,
+        "token": token,
+        "uidb64": uidb64
+      }
+      axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
+        .then(res => {
+          
+        })
+        .catch(() => {
+          const output = handleError(error)
+          setError(output)
+        })
+    }
+
+
     const {password, setPassword} = useState(); // use-form-hook
     const { register, handleSubmit, formState: { errors }, control } = useForm({
 
@@ -30,13 +48,28 @@ export default function ResetPassword() {
                 name="password"
                 id="password"
                 className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
-                {...register('first_name', {
+                {...register('password', {
                   required: {
                   value: true,
-                  message: "Enter a First Name"
+                  message: "Enter a Password"
                   }
                 })}
               />
+              <div className={styles.inputContainer}>
+                <label htmlFor='password'>Confirm Password</label>
+                <input
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
+                className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
+                {...register('confirm_password', {
+                  required: {
+                  value: true,
+                  message: "confirm password"
+                  }
+                })}
+              />
+              </div>
               <span className='text-sm text-red-700 mt-1' id="first_name-help">{errors.first_name?.message}</span>
             </div>
 
