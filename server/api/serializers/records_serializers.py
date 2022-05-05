@@ -81,7 +81,7 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'title', 'description', 'tasks')
+        fields = ('id', 'tag', 'title', 'description', 'tasks')
 
     def get_tasks(self, profile_instance):
         query_datas = ProfileTask.objects.filter(profile=profile_instance)
@@ -100,7 +100,7 @@ class ProfilePlanSerializer(serializers.ModelSerializer):
 
     def validate_profile(self, value):
         user = self.context['request'].user
-        if value in Profile.objects.for_user(user):
+        if value in (Profile.objects.for_user(user) | Profile.objects.for_reports()):
             return value
         raise serializers.ValidationError('Cannot find profile for this user')
 
@@ -145,7 +145,7 @@ class TaskCompletionSerializer(serializers.ModelSerializer):
 
     def validate_task(self, value):
         user = self.context['request'].user
-        if value in Task.objects.for_user(user):
+        if value in (Task.objects.for_user(user) | Task.objects.for_reports()):
             return value
         raise serializers.ValidationError('Cannot find task for this user')
 
