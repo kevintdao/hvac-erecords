@@ -25,3 +25,7 @@ class Technician(models.Model):
     license_number = models.IntegerField()
 
     objects = TechnicianQuerySet.as_manager()
+
+    # TODO: test this
+    def full_name(self):
+        return self.first_name + " " + self.last_name

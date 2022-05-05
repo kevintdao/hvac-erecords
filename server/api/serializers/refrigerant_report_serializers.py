@@ -25,6 +25,10 @@ class DictSerializer(serializers.ListSerializer):
         return {item[self.dict_key]: item for item in items}
 
 
+class TaskCompletionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskCompletion
+        fields = '__all__'
 
 class FullChargeSerializer(serializers.ModelSerializer):
     time = serializers.DateTimeField(source='end_time',read_only=True)
@@ -42,6 +46,53 @@ class FullChargeSerializer(serializers.ModelSerializer):
     def get_method(self, visit):
         return visit.completions.all().order_by('task_id')[1].response
 
+class ServicingSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField(source='end_time',read_only=True)
+    technician = serializers.CharField(source='technician.full_name')
+    parts = serializers.SerializerMethodField()
+    change = serializers.SerializerMethodField()
+    amount = serializers.SerializerMethodField()
+    refrigerant_type = serializers.SerializerMethodField()
+    leak_rate = serializers.SerializerMethodField()
+    method = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ServiceVisit
+        fields = ['time', 'technician', 'parts', 'change', 'amount', 'refrigerant_type', 'leak_rate', 'method']
+
+    def get_parts(self, visit):
+        return visit.completions.all().order_by('task_id')[0].response
+
+    def get_change(self, visit):
+        completion = visit.completions.all().order_by('task_id')[1]     
+        return completion.task.rule['options'][str(completion.selection)]
+
+    def get_amount(self, visit):
+        return visit.completions.all().order_by('task_id')[2].value
+
+    def get_refrigerant_type(self, visit):
+        return visit.completions.all().order_by('task_id')[3].response
+
+    def get_leak_rate(self, visit):
+        return visit.completions.all().order_by('task_id')[4].value
+
+    def get_method(self, visit):
+        return visit.completions.all().order_by('task_id')[5].response
+
+class InspectionSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField(source='end_time',read_only=True)
+    method = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ServiceVisit
+        fields = ('time', 'method', 'location')
+
+    def get_method(self, visit):
+        return visit.completions.all().order_by('task_id')[0].response
+
+    def get_location(self, visit):
+        return visit.completions.all().order_by('task_id')[1].response
 
 class RefrigerantReportSerializer(serializers.ModelSerializer):
     operator = serializers.CharField(source='building.manager.name',read_only=True)
@@ -50,10 +101,14 @@ class RefrigerantReportSerializer(serializers.ModelSerializer):
     zip_code = serializers.CharField(source='building.zip_code',read_only=True)
     country = serializers.CharField(source='building.country',read_only=True)
     full_charge = serializers.SerializerMethodField()
+    servicing = serializers.SerializerMethodField()
+    inspections = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Unit
-        fields = ('id', 'serial_number', 'operator', 'street', 'city', 'zip_code', 'country', 'full_charge')
+        fields = ('id', 'serial_number', 'operator', 'street', 'city', 'zip_code', 'country', 
+            'full_charge','servicing', 'inspections')
 
     def get_full_charge(self, unit):
         profile = Profile.objects.filter(tag="epa608-charge").first()
@@ -61,6 +116,24 @@ class RefrigerantReportSerializer(serializers.ModelSerializer):
         visits = ServiceVisit.objects.filter(unit=unit,plan__profile=profile)
 
         return FullChargeSerializer(
+            visits,
+            many=True
+        ).data
+
+    def get_servicing(self, unit):
+        profile = Profile.objects.filter(tag="epa608-servicing").first()
+        visits = ServiceVisit.objects.filter(unit=unit,plan__profile=profile)
+
+        return ServicingSerializer(
+            visits,
+            many=True
+        ).data
+
+    def get_inspections(self, unit):
+        profile = Profile.objects.filter(tag="epa608-inspection").first()
+        visits = ServiceVisit.objects.filter(unit=unit,plan__profile=profile)
+
+        return InspectionSerializer(
             visits,
             many=True
         ).data
