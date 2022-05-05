@@ -27,6 +27,15 @@
         }
     },
     {
+        "model": "records.profile",
+        "pk": 4,
+        "fields": {
+            "title": "Refrigerant Verification Test Form",
+            "description": "This is a form for reporting refrigerant verification tests. 82.157(l)(5)",
+            "tag": "epa608-verification"
+        }
+    },
+    {
         "model": "records.task",
         "pk": 1,
         "fields": {
@@ -112,7 +121,8 @@
             "rule": {
                 "type": "Numeric",
                 "options": {
-                    "min": 0
+                    "min": 0,
+                    "max": 100
                 }
             }
         }
@@ -145,6 +155,39 @@
         "fields": {
             "title": "Leak location(s)",
             "description": "The list of locations where leaks were identified.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 11,
+        "fields": {
+            "title": "Repaired leak location(s)",
+            "description": "The list of locations where repaired leaks were tested.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 12,
+        "fields": {
+            "title": "Verification test type",
+            "description": "The types of tests used for verifying repairs to leaks.",
+            "rule": {
+                "type": "Text"
+            }
+        }
+    },
+    {
+        "model": "records.task",
+        "pk": 13,
+        "fields": {
+            "title": "Verification test result",
+            "description": "Results of the verification tests.",
             "rule": {
                 "type": "Text"
             }
@@ -238,6 +281,33 @@
             "profile": 3,
             "task": 10,
             "position": 2
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 11,
+        "fields": {
+            "profile": 4,
+            "task": 11,
+            "position": 1
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 12,
+        "fields": {
+            "profile": 4,
+            "task": 12,
+            "position": 2
+        }
+    },
+    {
+        "model": "records.profiletask",
+        "pk": 13,
+        "fields": {
+            "profile": 4,
+            "task": 13,
+            "position": 3
         }
     }
 ]

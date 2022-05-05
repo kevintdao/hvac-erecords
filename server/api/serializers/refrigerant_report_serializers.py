@@ -94,6 +94,25 @@ class InspectionSerializer(serializers.ModelSerializer):
     def get_location(self, visit):
         return visit.completions.all().order_by('task_id')[1].response
 
+class VerificationSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField(source='end_time',read_only=True)
+    location = serializers.SerializerMethodField()
+    test = serializers.SerializerMethodField()
+    result = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ServiceVisit
+        fields = ('time', 'location','test','result')
+
+    def get_location(self, visit):
+        return visit.completions.all().order_by('task_id')[0].response
+
+    def get_test(self, visit):
+        return visit.completions.all().order_by('task_id')[1].response
+
+    def get_result(self, visit):
+        return visit.completions.all().order_by('task_id')[2].response
+
 class RefrigerantReportSerializer(serializers.ModelSerializer):
     operator = serializers.CharField(source='building.manager.name',read_only=True)
     street = serializers.CharField(source='building.street',read_only=True)
@@ -103,12 +122,12 @@ class RefrigerantReportSerializer(serializers.ModelSerializer):
     full_charge = serializers.SerializerMethodField()
     servicing = serializers.SerializerMethodField()
     inspections = serializers.SerializerMethodField()
-
+    verification = serializers.SerializerMethodField()
 
     class Meta:
         model = Unit
         fields = ('id', 'serial_number', 'operator', 'street', 'city', 'zip_code', 'country', 
-            'full_charge','servicing', 'inspections')
+            'full_charge','servicing', 'inspections', 'verification')
 
     def get_full_charge(self, unit):
         profile = Profile.objects.filter(tag="epa608-charge").first()
@@ -134,6 +153,15 @@ class RefrigerantReportSerializer(serializers.ModelSerializer):
         visits = ServiceVisit.objects.filter(unit=unit,plan__profile=profile)
 
         return InspectionSerializer(
+            visits,
+            many=True
+        ).data
+
+    def get_verification(self, unit):
+        profile = Profile.objects.filter(tag="epa608-verification").first()
+        visits = ServiceVisit.objects.filter(unit=unit,plan__profile=profile)
+
+        return VerificationSerializer(
             visits,
             many=True
         ).data

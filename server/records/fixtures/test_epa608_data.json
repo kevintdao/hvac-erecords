@@ -36,6 +36,18 @@
         }
     },
     {
+        "model": "records.profileplan",
+        "pk": 4,
+        "fields": {
+            "profile": 4,
+            "unit": 1,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
+            "is_repeating": true
+        }
+    },
+    {
         "model": "records.servicevisit",
         "pk": 1,
         "fields": {
@@ -110,6 +122,17 @@
             "start_time": "2022-05-05T03:25:55Z",
             "end_time": "2022-05-05T03:26:04Z",
             "plan": 3
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 8,
+        "fields": {
+            "technician": 1,
+            "unit": 1,
+            "start_time": "2022-05-05T01:25:55Z",
+            "end_time": "2022-05-05T09:26:04Z",
+            "plan": 4
         }
     },
     {
@@ -373,6 +396,42 @@
             "completed_at": "2022-05-05T03:25:59Z",
             "selection": null,
             "response": "Electronic leak detectors",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 23,
+        "fields": {
+            "task": 11,
+            "service_visit": 8,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "accumulator",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 24,
+        "fields": {
+            "task": 12,
+            "service_visit": 8,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "method 1",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 25,
+        "fields": {
+            "task": 13,
+            "service_visit": 8,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "no leaks",
             "value": null
         }
     }
