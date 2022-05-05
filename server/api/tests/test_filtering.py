@@ -10,7 +10,7 @@ from rolepermissions.roles import assign_role, clear_roles
 
 
 class TestFilteringAPI(TestCase):
-    fixtures = ['test_data_filtering.json', 'test_data_records_filtering.json']
+    fixtures = ['test_data.json', 'test_data_records.json', 'test_data_filtering.json', 'test_data_records_filtering.json']
 
     def setUp(self):
         self.user_company = User.objects.get(pk=1)
@@ -242,7 +242,7 @@ class TestFilteringAPI(TestCase):
 
     def test_api_filter_profiles_as_company(self):
             self.client.force_authenticate(user=self.user_company)
-            profiles = Profile.objects.filter(company=self.company)
+            profiles = Profile.objects.filter(company=self.company) | Profile.objects.filter(company=None)
 
             response = self.client.get(reverse('profiles-list'))
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -256,7 +256,7 @@ class TestFilteringAPI(TestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-            profile_not_related = Profile.objects.exclude(company=self.company).first()
+            profile_not_related = Profile.objects.exclude(company=self.company).exclude(company=None).first()
             response = self.client.get(
                 reverse('profiles-detail',
                 kwargs={'pk':profile_not_related.id}), format="json"
@@ -316,7 +316,8 @@ class TestFilteringAPI(TestCase):
         buildings = Building.objects.filter(manager=self.manager)
         units = Unit.objects.filter(building__in=buildings)
         plans = ProfilePlan.objects.filter(unit__in=units)
-        profiles = Profile.objects.filter(plans__in=plans).distinct()
+        profiles = Profile.objects.filter(plans__in=plans) | Profile.objects.filter(company=None)
+        profiles = profiles.distinct()
 
         response = self.client.get(reverse('profiles-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -330,7 +331,7 @@ class TestFilteringAPI(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        profile_not_related = Profile.objects.exclude(company=self.company).first()
+        profile_not_related = Profile.objects.exclude(company=self.company).exclude(company=None).first()
         response = self.client.get(
             reverse('profiles-detail',
             kwargs={'pk':profile_not_related.id}), format="json"

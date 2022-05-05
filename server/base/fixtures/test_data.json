@@ -13,7 +13,7 @@
 	},
 	{
 		"model": "base.user",
-		"pk": 3,
+		"pk": 1,
 		"fields": {
 			"email": "company@example.com",
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
@@ -33,7 +33,7 @@
 	},
     {
 		"model": "base.user",
-		"pk": 1,
+		"pk": 3,
 		"fields": {
 			"email": "technician@example.com",
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
@@ -42,29 +42,17 @@
 		}
 	},
     {
-        "model":  "base.building",
-        "pk":  "1",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Seamans Center",
-			"street":  "103 South Capitol Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
-    {
-        "model":  "base.building",
-        "pk":  "2",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Main Library",
-			"street":  "125 West Washington Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
+        "model": "base.technician",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "company": 1,
+            "first_name": "Bob",
+            "last_name": "Smith",
+            "phone_number": "123-321-4213",
+            "license_number": 131251003
+        }
+    },
     {
         "model": "base.buildingmanager",
         "pk": 1,
@@ -88,17 +76,17 @@
         }
     },
     {
-        "model": "base.building",
-        "pk": 2,
-        "fields": {
-            "manager": 1,
-            "site_name": "Main Library",
-            "street": "125 West Washington Street",
-            "city": "Iowa City",
-            "zip_code": 52242,
-            "country": "United States"
-        }
-    },
+        "model":  "base.building",
+        "pk":  "2",
+        "fields": { 
+			"manager": 1,
+			"site_name":  "Main Library",
+			"street":  "125 West Washington Street",
+			"city":  "Iowa City",
+			"zip_code":  "52242",
+			"country":  "United States"
+		}
+	},
     {
         "model": "base.unit",
         "pk": 1,
@@ -111,18 +99,6 @@
             "manufacturer": "Trane",
             "production_date": "2022-02-01",
             "installation_date": "2022-03-08"
-        }
-    },
-    {
-        "model": "base.technician",
-        "pk": 1,
-        "fields": {
-            "user": 1,
-            "company": 1,
-            "first_name": "Bob",
-            "last_name": "Smith",
-            "phone_number": "123-321-4213",
-            "license_number": 131251003
         }
     }
 ]

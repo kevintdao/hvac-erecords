@@ -5,7 +5,7 @@ from records.models import Profile, Task
 from base.models import Company
 
 class ProfileModelTests(TestCase):
-    fixtures = ['test_data.json', 'test_data_records.json'] 
+    fixtures = ['test_data.json', 'test_data_filtering.json', 'test_data_records.json', 'test_data_records_filtering.json'] 
 
     def test_created_valid_profile(self):
         Profile.objects.create(company = Company.objects.first(), title='Spring AC Checklist',description='A set of tasks to perform on an air conditioner during spring.')

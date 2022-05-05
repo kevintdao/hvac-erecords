@@ -51,7 +51,7 @@
         "model": "records.servicevisit",
         "pk": 1,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:19:02Z",
             "end_time": "2022-05-05T03:20:52Z",
@@ -62,7 +62,7 @@
         "model": "records.servicevisit",
         "pk": 2,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:21:04Z",
             "end_time": "2022-05-05T03:21:11Z",
@@ -73,7 +73,7 @@
         "model": "records.servicevisit",
         "pk": 3,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:22:28Z",
             "end_time": "2022-05-05T03:22:33Z",
@@ -84,7 +84,7 @@
         "model": "records.servicevisit",
         "pk": 4,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:22:45Z",
             "end_time": "2022-05-05T03:24:38Z",
@@ -95,7 +95,7 @@
         "model": "records.servicevisit",
         "pk": 5,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:24:49Z",
             "end_time": "2022-05-05T03:25:14Z",
@@ -106,7 +106,7 @@
         "model": "records.servicevisit",
         "pk": 6,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:25:22Z",
             "end_time": "2022-05-05T03:25:50Z",
@@ -117,7 +117,7 @@
         "model": "records.servicevisit",
         "pk": 7,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T03:25:55Z",
             "end_time": "2022-05-05T03:26:04Z",
@@ -128,7 +128,7 @@
         "model": "records.servicevisit",
         "pk": 8,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-05-05T01:25:55Z",
             "end_time": "2022-05-05T09:26:04Z",

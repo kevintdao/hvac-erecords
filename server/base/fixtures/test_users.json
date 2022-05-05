@@ -615,60 +615,6 @@
         "model": "auth.permission",
         "pk": 69,
         "fields": {
-            "name": "View Plans",
-            "content_type": 6,
-            "codename": "view_plans"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 70,
-        "fields": {
-            "name": "View Tasks",
-            "content_type": 6,
-            "codename": "view_tasks"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 71,
-        "fields": {
-            "name": "Create Completions",
-            "content_type": 6,
-            "codename": "create_completions"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 72,
-        "fields": {
-            "name": "Create Visits",
-            "content_type": 6,
-            "codename": "create_visits"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 73,
-        "fields": {
-            "name": "Get Unit Records",
-            "content_type": 6,
-            "codename": "get_unit_records"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 74,
-        "fields": {
-            "name": "View Units",
-            "content_type": 6,
-            "codename": "view_units"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 75,
-        "fields": {
             "name": "View Profiles",
             "content_type": 6,
             "codename": "view_profiles"
@@ -676,133 +622,16 @@
     },
     {
         "model": "auth.permission",
-        "pk": 76,
+        "pk": 70,
         "fields": {
-            "name": "View Buildings",
+            "name": "Get Technicians",
             "content_type": 6,
-            "codename": "view_buildings"
+            "codename": "get_technicians"
         }
     },
     {
         "model": "auth.permission",
-        "pk": 77,
-        "fields": {
-            "name": "Get Profiles",
-            "content_type": 6,
-            "codename": "get_profiles"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 78,
-        "fields": {
-            "name": "Get Buildings",
-            "content_type": 6,
-            "codename": "get_buildings"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 79,
-        "fields": {
-            "name": "Get Units",
-            "content_type": 6,
-            "codename": "get_units"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 80,
-        "fields": {
-            "name": "Update Buildings",
-            "content_type": 6,
-            "codename": "update_buildings"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 81,
-        "fields": {
-            "name": "Update Profiles",
-            "content_type": 6,
-            "codename": "update_profiles"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 82,
-        "fields": {
-            "name": "Create Tasks",
-            "content_type": 6,
-            "codename": "create_tasks"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 83,
-        "fields": {
-            "name": "View Technicians",
-            "content_type": 6,
-            "codename": "view_technicians"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 84,
-        "fields": {
-            "name": "Get Companies",
-            "content_type": 6,
-            "codename": "get_companies"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 85,
-        "fields": {
-            "name": "View Companies",
-            "content_type": 6,
-            "codename": "view_companies"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 86,
-        "fields": {
-            "name": "Create Managers",
-            "content_type": 6,
-            "codename": "create_managers"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 87,
-        "fields": {
-            "name": "Update Plans",
-            "content_type": 6,
-            "codename": "update_plans"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 88,
-        "fields": {
-            "name": "Get Completions",
-            "content_type": 6,
-            "codename": "get_completions"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 89,
-        "fields": {
-            "name": "Create Companies",
-            "content_type": 6,
-            "codename": "create_companies"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 90,
+        "pk": 71,
         "fields": {
             "name": "Create Technicians",
             "content_type": 6,
@@ -811,11 +640,182 @@
     },
     {
         "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Update Tasks",
+            "content_type": 6,
+            "codename": "update_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "View Units",
+            "content_type": 6,
+            "codename": "view_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "Update Technicians",
+            "content_type": 6,
+            "codename": "update_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "Create Buildings",
+            "content_type": 6,
+            "codename": "create_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "Create Managers",
+            "content_type": 6,
+            "codename": "create_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "View Technicians",
+            "content_type": 6,
+            "codename": "view_technicians"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Create Profiles",
+            "content_type": 6,
+            "codename": "create_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "View Plans",
+            "content_type": 6,
+            "codename": "view_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Get Refrigerant Report",
+            "content_type": 6,
+            "codename": "get_refrigerant_report"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 81,
+        "fields": {
+            "name": "View Buildings",
+            "content_type": 6,
+            "codename": "view_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 82,
+        "fields": {
+            "name": "Get Plans",
+            "content_type": 6,
+            "codename": "get_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 83,
+        "fields": {
+            "name": "Get Units",
+            "content_type": 6,
+            "codename": "get_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 84,
+        "fields": {
+            "name": "Update Plans",
+            "content_type": 6,
+            "codename": "update_plans"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 85,
+        "fields": {
+            "name": "Get Visits",
+            "content_type": 6,
+            "codename": "get_visits"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 86,
+        "fields": {
+            "name": "Create Units",
+            "content_type": 6,
+            "codename": "create_units"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 87,
+        "fields": {
+            "name": "Get Tasks",
+            "content_type": 6,
+            "codename": "get_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 88,
+        "fields": {
+            "name": "Update Profiles",
+            "content_type": 6,
+            "codename": "update_profiles"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 89,
+        "fields": {
+            "name": "Get Managers",
+            "content_type": 6,
+            "codename": "get_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 90,
+        "fields": {
+            "name": "Update Managers",
+            "content_type": 6,
+            "codename": "update_managers"
+        }
+    },
+    {
+        "model": "auth.permission",
         "pk": 91,
         "fields": {
-            "name": "Get Technicians",
+            "name": "Get Completions",
             "content_type": 6,
-            "codename": "get_technicians"
+            "codename": "get_completions"
         }
     },
     {
@@ -831,68 +831,32 @@
         "model": "auth.permission",
         "pk": 93,
         "fields": {
-            "name": "View Completions",
+            "name": "Update Units",
             "content_type": 6,
-            "codename": "view_completions"
+            "codename": "update_units"
         }
     },
     {
         "model": "auth.permission",
         "pk": 94,
         "fields": {
-            "name": "Create Profiles",
+            "name": "Update Buildings",
             "content_type": 6,
-            "codename": "create_profiles"
+            "codename": "update_buildings"
         }
     },
     {
         "model": "auth.permission",
         "pk": 95,
         "fields": {
-            "name": "Create Buildings",
+            "name": "Get Profiles",
             "content_type": 6,
-            "codename": "create_buildings"
+            "codename": "get_profiles"
         }
     },
     {
         "model": "auth.permission",
         "pk": 96,
-        "fields": {
-            "name": "Create Plans",
-            "content_type": 6,
-            "codename": "create_plans"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 97,
-        "fields": {
-            "name": "Update Tasks",
-            "content_type": 6,
-            "codename": "update_tasks"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 98,
-        "fields": {
-            "name": "Update Managers",
-            "content_type": 6,
-            "codename": "update_managers"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 99,
-        "fields": {
-            "name": "Get Tasks",
-            "content_type": 6,
-            "codename": "get_tasks"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 100,
         "fields": {
             "name": "View Visits",
             "content_type": 6,
@@ -901,70 +865,87 @@
     },
     {
         "model": "auth.permission",
+        "pk": 97,
+        "fields": {
+            "name": "Get Buildings",
+            "content_type": 6,
+            "codename": "get_buildings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 98,
+        "fields": {
+            "name": "Create Tasks",
+            "content_type": 6,
+            "codename": "create_tasks"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 99,
+        "fields": {
+            "name": "View Completions",
+            "content_type": 6,
+            "codename": "view_completions"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 100,
+        "fields": {
+            "name": "Get Unit Records",
+            "content_type": 6,
+            "codename": "get_unit_records"
+        }
+    },
+    {
+        "model": "auth.permission",
         "pk": 101,
         "fields": {
-            "name": "Update Units",
+            "name": "View Tasks",
             "content_type": 6,
-            "codename": "update_units"
+            "codename": "view_tasks"
         }
     },
     {
         "model": "auth.permission",
         "pk": 102,
         "fields": {
-            "name": "Get Visits",
+            "name": "Create Plans",
             "content_type": 6,
-            "codename": "get_visits"
+            "codename": "create_plans"
         }
     },
     {
         "model": "auth.permission",
         "pk": 103,
         "fields": {
-            "name": "Create Units",
+            "name": "Create Visits",
             "content_type": 6,
-            "codename": "create_units"
+            "codename": "create_visits"
         }
     },
     {
         "model": "auth.permission",
         "pk": 104,
         "fields": {
-            "name": "Update Companies",
+            "name": "Create Completions",
             "content_type": 6,
-            "codename": "update_companies"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 105,
-        "fields": {
-            "name": "Update Technicians",
-            "content_type": 6,
-            "codename": "update_technicians"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 106,
-        "fields": {
-            "name": "Get Plans",
-            "content_type": 6,
-            "codename": "get_plans"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 107,
-        "fields": {
-            "name": "Get Managers",
-            "content_type": 6,
-            "codename": "get_managers"
+            "codename": "create_completions"
         }
     },
     {
         "model": "auth.group",
         "pk": 1,
+        "fields": {
+            "name": "company",
+            "permissions": []
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 2,
         "fields": {
             "name": "technician",
             "permissions": []
@@ -972,154 +953,10 @@
     },
     {
         "model": "auth.group",
-        "pk": 2,
+        "pk": 3,
         "fields": {
             "name": "manager",
             "permissions": []
-        }
-    },
-    {
-        "model": "auth.group",
-        "pk": 3,
-        "fields": {
-            "name": "company",
-            "permissions": []
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 1,
-        "fields": {
-            "app_label": "admin",
-            "model": "logentry"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 2,
-        "fields": {
-            "app_label": "auth",
-            "model": "permission"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 3,
-        "fields": {
-            "app_label": "auth",
-            "model": "group"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 4,
-        "fields": {
-            "app_label": "contenttypes",
-            "model": "contenttype"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 5,
-        "fields": {
-            "app_label": "sessions",
-            "model": "session"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 6,
-        "fields": {
-            "app_label": "base",
-            "model": "user"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 7,
-        "fields": {
-            "app_label": "base",
-            "model": "building"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 8,
-        "fields": {
-            "app_label": "base",
-            "model": "company"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 9,
-        "fields": {
-            "app_label": "base",
-            "model": "unit"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 10,
-        "fields": {
-            "app_label": "base",
-            "model": "buildingmanager"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 11,
-        "fields": {
-            "app_label": "base",
-            "model": "technician"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 12,
-        "fields": {
-            "app_label": "records",
-            "model": "profile"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 13,
-        "fields": {
-            "app_label": "records",
-            "model": "profileplan"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 14,
-        "fields": {
-            "app_label": "records",
-            "model": "servicevisit"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 15,
-        "fields": {
-            "app_label": "records",
-            "model": "task"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 16,
-        "fields": {
-            "app_label": "records",
-            "model": "taskcompletion"
-        }
-    },
-    {
-        "model": "contenttypes.contenttype",
-        "pk": 17,
-        "fields": {
-            "app_label": "records",
-            "model": "profiletask"
         }
     },
     {
@@ -1129,9 +966,107 @@
             "name": "HVAC Company #1",
             "street": "112 Railroad Street",
             "city": "Iowa City",
-            "zip_code": 52242,
+            "zip_code": "52242",
             "country": "United States",
             "phone_number": "312-423-3125"
+        }
+    },
+    {
+        "model": "base.company",
+        "pk": 2,
+        "fields": {
+            "name": "HVAC Company #2",
+            "street": "152 Main Street",
+            "city": "Coralville",
+            "zip_code": "52243",
+            "country": "United States",
+            "phone_number": "312-423-4000"
+        }
+    },
+    {
+        "model": "base.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:48.877Z",
+            "email": "company@example.com",
+            "company": 1,
+            "role": 1,
+            "groups": [
+                1
+            ],
+            "user_permissions": [
+                75,
+                76,
+                102,
+                78,
+                98,
+                71,
+                86,
+                97,
+                91,
+                89,
+                82,
+                95,
+                80,
+                87,
+                70,
+                100,
+                83,
+                85,
+                94,
+                90,
+                84,
+                88,
+                72,
+                74,
+                93,
+                81,
+                99,
+                92,
+                79,
+                69,
+                101,
+                77,
+                73,
+                96
+            ]
+        }
+    },
+    {
+        "model": "base.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:48.881Z",
+            "email": "manager@example.com",
+            "company": 1,
+            "role": 2,
+            "groups": [
+                3
+            ],
+            "user_permissions": [
+                97,
+                95,
+                80,
+                100,
+                83,
+                81,
+                69,
+                73
+            ]
         }
     },
     {
@@ -1145,163 +1080,169 @@
             "last_name": "",
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2022-04-29T22:22:05.956Z",
-            "email": "company@example.com",
-            "company": 1,
-            "role": 1,
-            "groups": [3],
-            "user_permissions": [
-                95,
-                89,
-                86,
-                96,
-                94,
-                82,
-                90,
-                103,
-                78,
-                84,
-                88,
-                107,
-                106,
-                77,
-                99,
-                91,
-                73,
-                79,
-                102,
-                80,
-                104,
-                98,
-                87,
-                81,
-                97,
-                105,
-                101,
-                76,
-                85,
-                93,
-                92,
-                69,
-                75,
-                70,
-                83,
-                74,
-                100
-            ]
-        }
-    },
-    {
-        "model": "base.user",
-        "pk": 2,
-        "fields": {
-            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
-            "last_login": null,
-            "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2022-04-29T22:22:05.959Z",
-            "email": "manager@example.com",
-            "company": 1,
-            "role": 2,
-            "groups": [2],
-            "user_permissions": [
-                78,
-                77,
-                73,
-                79,
-                76,
-                75,
-                74
-            ]
-        }
-    },
-    {
-        "model": "base.user",
-        "pk": 1,
-        "fields": {
-            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
-            "last_login": null,
-            "is_superuser": false,
-            "first_name": "",
-            "last_name": "",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2022-04-29T22:22:05.960Z",
+            "date_joined": "2022-05-05T07:20:48.881Z",
             "email": "technician@example.com",
             "company": 1,
             "role": 3,
-            "groups": [1],
+            "groups": [
+                2
+            ],
             "user_permissions": [
-                71,
-                72,
-                73,
+                104,
+                103,
+                80,
+                100,
+                79,
                 69,
-                75,
-                70,
-                74
+                101,
+                73
             ]
         }
     },
     {
-        "model": "base.buildingmanager",
-        "pk": 1,
+        "model": "base.user",
+        "pk": 4,
         "fields": {
-            "company": 1,
-            "name": "University of Iowa",
-            "phone_number": "555-555-5555",
-            "users": [2]
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:55.694Z",
+            "email": "manager1_2@example.com",
+            "company": 2,
+            "role": 2,
+            "groups": [
+                3
+            ],
+            "user_permissions": [
+                97,
+                95,
+                80,
+                100,
+                83,
+                81,
+                69,
+                73
+            ]
         }
     },
     {
-        "model": "base.building",
-        "pk": 1,
+        "model": "base.user",
+        "pk": 5,
         "fields": {
-            "manager": 1,
-            "site_name": "Seamans Center",
-            "street": "103 South Capitol Street",
-            "city": "Iowa City",
-            "zip_code": 52242,
-            "country": "United States"
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:55.696Z",
+            "email": "company2@example.com",
+            "company": 2,
+            "role": 1,
+            "groups": [
+                1
+            ],
+            "user_permissions": [
+                75,
+                76,
+                102,
+                78,
+                98,
+                71,
+                86,
+                97,
+                91,
+                89,
+                82,
+                95,
+                80,
+                87,
+                70,
+                100,
+                83,
+                85,
+                94,
+                90,
+                84,
+                88,
+                72,
+                74,
+                93,
+                81,
+                99,
+                92,
+                79,
+                69,
+                101,
+                77,
+                73,
+                96
+            ]
         }
     },
     {
-        "model": "base.building",
-        "pk": 2,
+        "model": "base.user",
+        "pk": 6,
         "fields": {
-            "manager": 1,
-            "site_name": "Main Library",
-            "street": "125 West Washington Street",
-            "city": "Iowa City",
-            "zip_code": 52242,
-            "country": "United States"
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:55.696Z",
+            "email": "manager2@example.com",
+            "company": 2,
+            "role": 2,
+            "groups": [
+                3
+            ],
+            "user_permissions": [
+                97,
+                95,
+                80,
+                100,
+                83,
+                81,
+                69,
+                73
+            ]
         }
     },
     {
-        "model": "base.unit",
-        "pk": 1,
+        "model": "base.user",
+        "pk": 7,
         "fields": {
-            "building": 1,
-            "external_id": 50030,
-            "category": "Duct free",
-            "serial_number": "AA000312341",
-            "model_number": "AB412",
-            "manufacturer": "Trane",
-            "production_date": "2022-02-01",
-            "installation_date": "2022-03-08"
-        }
-    },
-    {
-        "model": "base.technician",
-        "pk": 1,
-        "fields": {
-            "company": 1,
-            "first_name": "Bob",
-            "last_name": "Smith",
-            "phone_number": "123-321-4213",
-            "license_number": 131251003
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-05T07:20:55.697Z",
+            "email": "technician2@example.com",
+            "company": 2,
+            "role": 3,
+            "groups": [
+                2
+            ],
+            "user_permissions": [
+                104,
+                103,
+                80,
+                100,
+                79,
+                69,
+                101,
+                73
+            ]
         }
     }
 ]
