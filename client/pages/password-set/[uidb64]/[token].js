@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { useForm, } from 'react-hook-form';
 
 export default function ResetPassword() {
     const router = useRouter();
     const { uidb64, token } = router.query;
     const onSubmit = data => console.log(data);
-    const [error, setError] = useState()
     // const onSubmit = async (data) => {
     //   data = {
     //     "password": data.password,
@@ -24,10 +23,12 @@ export default function ResetPassword() {
     // }
 
 
-    const {password, setPassword} = useState(); // use-form-hook
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    // const {password, setPassword} = useState(); // use-form-hook
+
+    const { register, handleSubmit, formState: { errors }, watch } = useForm({
       mode: 'onTouched'
   });
+  const password = watch('password')
     const styles = {
         inputContainer: "flex flex-col",
         input: "p-2 border rounded",
@@ -40,11 +41,12 @@ export default function ResetPassword() {
         <>
             <div>{token}</div>
             <div>{uidb64}</div>
+            <div>{password}</div>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Password</label>
                 <input
-                type="password"
+                type="text"
                 name="password"
                 id="password"
                 className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
@@ -59,7 +61,7 @@ export default function ResetPassword() {
               <div className={styles.inputContainer}>
                 <label htmlFor='password'>Confirm Password</label>
                 <input
-                type="password"
+                type="text"
                 name="confirm-password"
                 id="confirm-password"
                 className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
@@ -76,7 +78,7 @@ export default function ResetPassword() {
               <span className='text-sm text-red-700 mt-1' id="confirm_password-help">{errors.confirm_password?.message}</span>
             </div>
 
-              <button className={styles.button} id='password-button'>Set Password</button>
+              <input type="submit" className={styles.button} id='password-button' value="Set Password"/>
             </form>
 
         </>
