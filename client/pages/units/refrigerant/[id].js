@@ -79,7 +79,7 @@ export default function Record() {
           </div>
         </div>}
         
-        <h4 className='font-bold text-xl'>Records</h4>
+        <h4 className='font-bold text-xl'>Reports</h4>
         <UnitRefrigerants data={records.reports} unitId={id} />
       </div>
     </div>
