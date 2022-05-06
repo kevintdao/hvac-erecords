@@ -14,9 +14,9 @@ export default function UnitRecords ({ data, unitId }) {
 
   const styles = {
     visit_container: 'border border-gray-300 rounded p-2 space-y-2',
-    grid_2: 'grid md:grid-cols-2 md:gap-0 gap-2 grid-cols-1',
-    grid_3: 'grid md:grid-cols-3 md:gap-0 gap-2 grid-cols-1',
-    grid_4: 'grid md:grid-cols-4 md:gap-0 gap-2 grid-cols-1',
+    grid_2: 'grid md:grid-cols-2 md:gap-4 gap-2 grid-cols-1',
+    grid_3: 'grid md:grid-cols-3 md:gap-4 gap-2 grid-cols-1',
+    grid_4: 'grid md:grid-cols-4 md:gap-4 gap-2 grid-cols-1',
     button: 'flex p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
@@ -97,7 +97,7 @@ export default function UnitRecords ({ data, unitId }) {
   }
 
   return (
-    <div className='space-y-2'>
+    <div className='space-y-4'>
       {visits.length == 0 &&  <div className='flex space-x-2'>
         No records
       </div>}
