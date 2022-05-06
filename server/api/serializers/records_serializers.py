@@ -104,6 +104,18 @@ class ProfilePlanSerializer(serializers.ModelSerializer):
             return value
         raise serializers.ValidationError('Cannot find profile for this user')
 
+class ProfileNoTaskDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('id', 'title', 'description')
+
+class ProfilePlanDisplaySerializer(serializers.ModelSerializer):
+    profile = ProfileNoTaskDisplaySerializer(many=False, read_only=True)
+
+    class Meta:
+        model = ProfilePlan
+        fields = '__all__'
+
 class ServiceVisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceVisit
