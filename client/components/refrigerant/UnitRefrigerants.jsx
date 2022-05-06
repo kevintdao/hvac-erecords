@@ -30,7 +30,56 @@ export default function UnitRefrigerants ({ data, unitId }) {
 
   return (
     <div className='space-y-2'>
-      
+      {!data &&  <div className='flex space-x-2'>
+        No records
+      </div>}
+
+      {data && <div className={styles.visit_container}>
+        <h3 className='font-bold text-2xl' id={data.id}>{`Refrigerant Leaks Report`}</h3>
+        <div className='flex flex-col'>
+          <h5 className='font-bold text-xl'>{`Main Information`}</h5>
+          <span id='serial_number'><u>Serial Number:</u> {data.serial_number}</span>
+          <span id='operator'><u>Operator:</u> {data.operator}</span>
+          <span id='address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
+        </div>
+        <hr />
+
+        <div className='flex flex-col'>
+          <h5 className='font-bold text-xl'>{`Full Charge`}</h5>
+          {data.full_charge.map((item, i) => (
+            <div className='flex flex-col mb-4'>
+              <span id={`date-${i}`}><u>Date of revision:</u> {`${formatDate(item.time)}`}</span>
+              <span id={`amount-${i}`}><u>Amount:</u> {item.value}</span>
+              <span id={`method-${i}`}><u>Method of calculating full charge:</u> {item.method}</span>
+            </div>
+          ))}
+        </div>
+        <hr />
+
+        <div className='flex flex-col'>
+          <h5 className='font-bold text-xl'>{`Servicing History`}</h5>
+          <span id='serial_number'><u>Serial Number:</u> {data.serial_number}</span>
+          <span id='operator'><u>Operator:</u> {data.operator}</span>
+          <span id='address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
+        </div>
+        <hr />
+
+        <div className='flex flex-col'>
+          <h5 className='font-bold text-xl'>{`Leak Inspection History`}</h5>
+          <span id='serial_number'><u>Serial Number:</u> {data.serial_number}</span>
+          <span id='operator'><u>Operator:</u> {data.operator}</span>
+          <span id='address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
+        </div>
+        <hr />
+
+        <div className='flex flex-col'>
+          <h5 className='font-bold text-xl'>{`Verfication History`}</h5>
+          <span id='serial_number'><u>Serial Number:</u> {data.serial_number}</span>
+          <span id='operator'><u>Operator:</u> {data.operator}</span>
+          <span id='address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
+        </div>
+        
+      </div>}
     </div>
   )
 }
