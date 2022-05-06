@@ -144,7 +144,7 @@ export default function UnitRecords ({ data, unitId }) {
 
           <div>
             <h5 className='font-bold text-xl'>{`Technician`}</h5>
-            <div className={styles.grid_2}>
+            <div className='grid md:grid-cols-2 md:gap-x-4 md:gap-y-0 gap-2 grid-cols-1'>
               <span id={`tech-${item.visit.id}-fname`}><u>First name:</u>{` ${item.technician.first_name}`}</span>
               <span id={`tech-${item.visit.id}-lname`}><u>Last name:</u>{` ${item.technician.last_name}`}</span>
               <span id={`tech-${item.visit.id}-company`}><u>Affiliation:</u>{` ${item.technician.affiliation}`}</span>
