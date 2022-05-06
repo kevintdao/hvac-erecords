@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { DownloadIcon } from '@heroicons/react/solid'
 import { Temporal } from '@js-temporal/polyfill'
-import { CSVLink } from 'react-csv'
 import { PDFDownloadLink } from '@react-pdf/renderer'
+import RefrigerantsPDF from './RefrigerantsPDF'
 
 export default function UnitRefrigerants ({ data, unitId }) {
-  const [visits, setVisits] = useState()
-  const [csvData, setCsvData] = useState()
-
   const styles = {
     visit_container: 'border border-gray-300 rounded p-2 space-y-2',
     grid_2: 'grid md:grid-cols-2 md:gap-x-4 md:gap-y-0 gap-2 grid-cols-1',
@@ -30,6 +27,21 @@ export default function UnitRefrigerants ({ data, unitId }) {
     <div className='space-y-2'>
       {!data &&  <div className='flex space-x-2'>
         No records
+      </div>}
+
+      {data && <div className='flex space-x-2'>
+        <PDFDownloadLink document={<RefrigerantsPDF data={data} />} fileName={`unit-${unitId}-refrigerant-report.pdf`}>
+          {({ blob, url, loading, error }) => (loading ? 
+            <button className={styles.button}>
+              <DownloadIcon className='h-5 w-5 mr-2' />
+              PDF
+            </button> : 
+            <button className={styles.button}>
+              <DownloadIcon className='h-5 w-5 mr-2' />
+              PDF
+            </button> 
+          )}
+        </PDFDownloadLink>
       </div>}
 
       {data && <div className={styles.visit_container}>
