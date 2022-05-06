@@ -57,7 +57,7 @@ export default function RefrigerantsPDF ({ data }) {
         <View style={styles.section}>
           <Text style={styles.header}>{`Full Charge`}</Text>
           {data.full_charge.map((item, i) => (
-            <View style={styles.item}>
+            <View key={`charge-${i}`} style={styles.item}>
               <Text style={styles.text}>{`Date of revision: ${formatDate(item.time)}`}</Text>
               <Text style={styles.text}>{`Amount: ${item.value}`}</Text>
               <Text style={styles.text}>{`Method of calculating full charge: ${item.method}`}</Text>
@@ -68,7 +68,7 @@ export default function RefrigerantsPDF ({ data }) {
         <View style={styles.section}>
           <Text style={styles.header}>{`Servicing History`}</Text>
           {data.servicing.map((item, i) => (
-            <View style={styles.item}>
+            <View key={`servicing-${i}`} style={styles.item}>
               <Text style={styles.text}>{`Date of service: ${formatDate(item.time)}`}</Text>
               <Text style={styles.text}>{`Technician: ${item.technician}`}</Text>
               <Text style={styles.text}>{`Parts being serviced: ${item.parts}`}</Text>
@@ -84,7 +84,7 @@ export default function RefrigerantsPDF ({ data }) {
         <View style={styles.section}>
           <Text style={styles.header}>{`Leak Inspection History`}</Text>
           {data.inspections.map((item, i) => (
-            <View style={styles.item}>
+            <View key={`inspections-${i}`} style={styles.item}>
               <Text style={styles.text}>{`Date of inspection: ${formatDate(item.time)}`}</Text>
               <Text style={styles.text}>{`Inspection method: ${item.method}`}</Text>
               <Text style={styles.text}>{`Location of leak: ${item.location}`}</Text>
@@ -95,7 +95,7 @@ export default function RefrigerantsPDF ({ data }) {
         <View style={styles.section}>
           <Text style={styles.header}>{`Verfication History`}</Text>
           {data.verification.map((item, i) => (
-            <View style={styles.item}>
+            <View key={`verification-${i}`} style={styles.item}>
               <Text style={styles.text}>{`Date of inspection: ${formatDate(item.time)}`}</Text>
               <Text style={styles.text}>{`Location of leaks tested: ${item.location}`}</Text>
               <Text style={styles.text}>{`Types of verification tests: ${item.test}`}</Text>

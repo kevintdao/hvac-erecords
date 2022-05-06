@@ -49,9 +49,9 @@ export default function UnitRefrigerants ({ data, unitId }) {
         <div className='flex flex-col'>
           <h5 className='font-bold text-xl'>{`Main Information`}</h5>
           <div className={styles.grid_2}>
-            <span id='serial_number'><u>Serial Number:</u> {data.serial_number}</span>
-            <span id='operator'><u>Operator:</u> {data.operator}</span>
-            <span id='address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
+            <span id='report-serial_number'><u>Serial Number:</u> {data.serial_number}</span>
+            <span id='report-operator'><u>Operator:</u> {data.operator}</span>
+            <span id='report-address'><u>Address:</u> {`${data.street}, ${data.city} ${data.zip_code}`}</span>
           </div>
         </div>
         <hr />
