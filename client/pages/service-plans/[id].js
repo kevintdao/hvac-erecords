@@ -39,6 +39,8 @@ export default function Service () {
         return
       })
 
+      console.log(unit)
+
       if (!unit) {
         return
       }

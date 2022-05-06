@@ -3,7 +3,10 @@ import { useForm } from 'react-hook-form'
 
 export default function PlanForm ({ profiles, plan, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, unregister } = useForm({
-    defaultValues: plan
+    defaultValues: {
+      ...plan,
+      profile: plan?.profile.id
+    }
   })
   const [checked, setChecked] = useState(plan?.is_required || false)
 
