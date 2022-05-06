@@ -125,7 +125,7 @@ export default function UnitRecords ({ data, unitId }) {
       {visits.map((item, i) => (
         <div key={item.visit.id} className={styles.visit_container}>
           <div>
-            <h3 className='font-bold text-2xl' id={`visit-${item.visit.id}`}>{`Visit ${item.visit.id}`}</h3>
+            <h3 className='font-bold text-2xl' id={`visit-${item.visit.id}`}>{`Visit ${i+1}`}</h3>
             <div className={styles.grid_2}>
               <span id={`visit-${item.visit.id}-start`}><u>Start time:</u>{` ${formatDate(item.visit.start_time)}`}</span>
               <span id={`visit-${item.visit.id}-end`}><u>End time:</u>{` ${formatDate(item.visit.end_time)}`}</span>
