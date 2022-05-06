@@ -26,26 +26,20 @@ def apiTechnicians(request):
         company = Company.objects.get(pk=request.data['company'])
         if not company:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        user = User.objects.create(
-            email=request.data['email'],
-            company=company
-        )
-        user.save()
-        assign_role(user, 'technician')
+        # user = User.objects.create(
+        #     email=request.data['email'],
+        #     company=company
+        # )
+        # user.save()
+        # assign_role(user, 'technician')
         keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
         for key in keys:
             if key not in request.data:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        serializer = TechnicianSerializer(data={'user': user.id, 'first_name': request.data['first_name'], 'last_name': request.data['last_name'], 'phone_number': request.data['phone_number'], 'license_number': request.data['license_number'], 'company': request.data['company'] })
+        serializer = TechnicianSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            name = request.data['first_name']
-            subject = 'Email to technician'
-            message = f'Hello {name}. Set password'
-            from_email = settings.EMAIL_HOST_USER
-            to_email = request.data['email']
 
-            send_mail(subject, message, from_email, [to_email], fail_silently=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
