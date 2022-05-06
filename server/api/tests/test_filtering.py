@@ -32,7 +32,7 @@ class TestFilteringAPI(TestCase):
         response = self.client.get(reverse('technicians-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         for technician in response.data:
-            self.assert_(technicians.filter(pk=technician['user']).exists())
+            self.assert_(technicians.filter(pk=technician['user']['id']).exists())
         
         technician_related = technicians.first()
         response = self.client.get(
