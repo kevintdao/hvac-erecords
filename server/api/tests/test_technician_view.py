@@ -21,7 +21,7 @@ class TestTechnicianAPI(TestCase):
 
         self.initial_count = Technician.objects.count()
         self.data = {
-            'email' : 'test@testmail.com',
+            'user': {'email' : 'test@testmail.com'},
             'company' : 1,
             'first_name' : 'John',
             'last_name' : 'Doe',
@@ -75,7 +75,7 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.last()
         new_data = {
-            'user': technician.user_id,
+            'user': {'email': technician.user.email },
             'company' : 1,
             'first_name' : 'Andrew',
             'last_name' : 'Murley',
