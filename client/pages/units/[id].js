@@ -20,7 +20,6 @@ export default function Unit (props) {
   const [planId, setPlanId] = useState()
   const [error, setError] = useState()
   const [data, setData] = useState()
-  const [profiles, setProfiles] = useState()
   const [backendError, setBackendError] = useState()
   const qrValue = `${process.env.NEXT_PUBLIC_URL}/qr-code-redirect/${id}`
 
@@ -123,6 +122,8 @@ export default function Unit (props) {
       </div>
     )
   }
+
+  console.log(data)
 
   return (
     <PrivateRoute isAllowed={[1,2]}>
