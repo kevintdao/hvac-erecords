@@ -1,7 +1,7 @@
 [
     {
         "model": "records.profile",
-        "pk": 53,
+        "pk": 3,
         "fields": {
             "title": "Reporting form",
             "description": "This is a form for automatic reporting",
@@ -10,7 +10,7 @@
     },
     {
         "model": "records.task",
-        "pk": 55,
+        "pk": 5,
         "fields": {
             "company": 2,
             "title": "Record condition of filter",
@@ -22,7 +22,7 @@
     },
     {
         "model": "records.profile",
-        "pk": 54,
+        "pk": 4,
         "fields": {
             "company": 2,
             "title": "Routine Maintenance for Furnace Units",
@@ -31,18 +31,18 @@
     },
     {
         "model": "records.profiletask",
-        "pk": 52,
+        "pk": 2,
         "fields": {
-            "profile": 54,
-            "task": 55,
+            "profile": 4,
+            "task": 5,
             "position": 1
         }
     },
     {
         "model": "records.profileplan",
-        "pk": 53,
+        "pk": 3,
         "fields": {
-            "profile": 54,
+            "profile": 4,
             "unit": 4,
             "start_date": "2022-03-08",
             "end_date": "2022-06-08",
@@ -52,21 +52,21 @@
     },
     {
         "model": "records.servicevisit",
-        "pk": 53,
+        "pk": 3,
         "fields": {
             "technician": 7,
             "unit": 4,
             "start_time": "2022-04-18T16:46:29Z",
             "end_time": "2022-04-18T16:47:39Z",
-            "plan": 53
+            "plan": 3
         }
     },
     {
         "model": "records.taskcompletion",
-        "pk": 54,
+        "pk": 4,
         "fields": {
-            "task": 55,
-            "service_visit": 53,
+            "task": 5,
+            "service_visit": 3,
             "completed_at": "2022-04-18T16:46:57Z",
             "selection": null,
             "response": "Good condition",
