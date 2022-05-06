@@ -14,6 +14,7 @@ export default function NavBar () {
   const mcLinks = [
     { name: 'Managers', href: '/managers' },
     { name: 'Buildings', href: '/buildings' },
+    { name: 'Units', href: '/units' },
     { name: 'Tasks', href: '/tasks'},
     { name: 'Profiles', href: '/profiles'},
     { name: 'Help', href: '/help'},
@@ -105,9 +106,7 @@ export default function NavBar () {
   function MenuDropdown(){
     return (
       <div className='flex space-x-4 items-center'>
-        <div>
-          <a onClick={signout} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer' id='sign-out'>Sign Out</a>
-        </div>
+        <a onClick={signout} className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium rounded cursor-pointer' id='sign-out'>Sign Out</a>
       </div>
     )
   }
@@ -116,7 +115,7 @@ export default function NavBar () {
     <Disclosure as="nav" className="bg-gray-800 z-50 sticky top-0">
       {({ open }) => (
         <>
-          <div className="max-w-5xl mx-auto md:px-6 lg:px-2">
+          <div className="max-w-5xl mx-auto px-2">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
