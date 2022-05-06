@@ -24,3 +24,16 @@ class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'last_login', 'username', 'email', 'role', 'company']
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        user = User.object.create(
+            email= validated_data['email']
+
+        )
+        user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'date_joined']
