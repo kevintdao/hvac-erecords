@@ -52,21 +52,12 @@ export default function Unit (props) {
         return
       }
 
-      const profiles = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles`)
-
-      let endpoints = []
-      let plansRes = units.data.plans
-      for (let i = 0; i < plansRes.length; i++) {
-        endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${plansRes[i].profile}/`)
-      }
-
       let pList = []
-      const res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      for (let i = 0; i < res.length; i++) {
-        pList.push(res[i].data)
+      for (let i = 0; i < units.data.plans.length; i++) {
+        const curr = units.data.plans[i].profile
+        pList.push(curr)
       }
 
-      setProfiles(profiles.data)
       setData({
         unit: units.data,
         plan: units.data.plans,
@@ -186,7 +177,7 @@ export default function Unit (props) {
 
         {error && <Alert title='Error' text={error} type='error' />}
         
-        <PlanForm profiles={profiles} onSubmit={onSubmit} />
+        <PlanForm profiles={data.profile} onSubmit={onSubmit} />
       </div>}
     </div>
     </PrivateRoute>
