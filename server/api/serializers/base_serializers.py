@@ -88,7 +88,7 @@ class TechnicianSerializer(serializers.ModelSerializer):
         instance.company=validated_data['company'],
         instance.license_number=validated_data['license_number'],
         instance.user=validated_data['user']
-        instance.save()
+
 
         return instance
 
