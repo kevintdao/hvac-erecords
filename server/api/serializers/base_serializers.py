@@ -79,12 +79,18 @@ class TechnicianSerializer(serializers.ModelSerializer):
         send_mail(subject, message, from_email, [to_email], fail_silently=False)
 
         return technician
-        # user = User.objects.create(email=validated_data['email'], company=validated_data['company'])
-        # user.save()
-        # assign_role(user, 'technician')
 
-        # technician = Technician.objects.create(user=user.id, first_name=validated_data['first_name'], last_name=validated_data['last_name'], phone_number=validated_data['phone_number'], license_number=validated_data['license_number'], company=validated_data['company'])
-        # technician.save()
+
+    def update(self, instance, validated_data): 
+        instance.first_name=validated_data['first_name']
+        instance.first_name=validated_data['last_name']
+        instance.phone_number=validated_data['phone_number']
+        instance.company=validated_data['company'],
+        instance.license_number=validated_data['license_number'],
+        instance.user=validated_data['user']
+        instance.save()
+
+        return instance
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
