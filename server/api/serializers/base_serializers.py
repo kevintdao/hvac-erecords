@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
 
-from .records_serializers import ProfilePlanSerializer
+from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
 from .user_serializers import UserSerializer, RegisterUserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
@@ -94,7 +94,7 @@ class UnitSerializer(serializers.ModelSerializer):
         raise serializers.ValidationError('Cannot find building for this user')      
 
 class UnitDisplaySerializer(serializers.ModelSerializer):
-    plans = ProfilePlanSerializer(many=True,read_only=True)
+    plans = ProfilePlanDisplaySerializer(many=True,read_only=True)
     building = BuildingSerializer(many=False, read_only=True)
 
     class Meta:
