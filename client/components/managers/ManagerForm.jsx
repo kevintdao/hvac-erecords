@@ -7,7 +7,7 @@ export default function ManagerForm({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, control } = useForm({
     defaultValues: {
       ...data,
-      email: data.users[0].email
+      email: data?.users[0].email
     }
   });
 

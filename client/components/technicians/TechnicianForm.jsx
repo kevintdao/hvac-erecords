@@ -7,7 +7,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
     const { register, handleSubmit, formState: { errors }, control } = useForm({
         defaultValues: {
             ...data,
-            email: data.user.email
+            email: data?.user.email
         }
     });
 
