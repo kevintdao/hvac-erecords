@@ -16,7 +16,7 @@ export default function Home () {
   const isInspector = role == 4
 
   const styles = {
-    button: 'px-8 py-3 bg-blue-700 rounded font-bold text-white text-center hover:bg-blue-800',
+    button: 'px-8 py-3 bg-blue-700 rounded font-semibold text-white text-center hover:bg-blue-800',
     grid_3: 'grid md:grid-cols-3 sm:grid-cols-2 sm:gap-4 gap-2 grid-cols-1 justify-center',
     container: 'border-gray-200 border p-2 rounded flex flex-col justify-center text-center',
     image_container: 'flex flex-col justify-center',
