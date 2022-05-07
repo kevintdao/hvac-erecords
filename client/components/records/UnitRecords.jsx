@@ -14,9 +14,9 @@ export default function UnitRecords ({ data, unitId }) {
 
   const styles = {
     visit_container: 'border border-gray-300 rounded p-2 space-y-2',
-    grid_2: 'grid md:grid-cols-2 md:gap-0 gap-2 grid-cols-1',
-    grid_3: 'grid md:grid-cols-3 md:gap-0 gap-2 grid-cols-1',
-    grid_4: 'grid md:grid-cols-4 md:gap-0 gap-2 grid-cols-1',
+    grid_2: 'grid md:grid-cols-2 md:gap-4 gap-2 grid-cols-1',
+    grid_3: 'grid md:grid-cols-3 md:gap-4 gap-2 grid-cols-1',
+    grid_4: 'grid md:grid-cols-4 md:gap-4 gap-2 grid-cols-1',
     button: 'flex p-2 bg-blue-700 rounded text-white text-center hover:bg-blue-800'
   }
 
@@ -97,7 +97,7 @@ export default function UnitRecords ({ data, unitId }) {
   }
 
   return (
-    <div className='space-y-2'>
+    <div className='space-y-4'>
       {visits.length == 0 &&  <div className='flex space-x-2'>
         No records
       </div>}
@@ -125,7 +125,7 @@ export default function UnitRecords ({ data, unitId }) {
       {visits.map((item, i) => (
         <div key={item.visit.id} className={styles.visit_container}>
           <div>
-            <h3 className='font-bold text-2xl' id={`visit-${item.visit.id}`}>{`Visit ${item.visit.id}`}</h3>
+            <h3 className='font-bold text-2xl' id={`visit-${item.visit.id}`}>{`Visit ${i+1}`}</h3>
             <div className={styles.grid_2}>
               <span id={`visit-${item.visit.id}-start`}><u>Start time:</u>{` ${formatDate(item.visit.start_time)}`}</span>
               <span id={`visit-${item.visit.id}-end`}><u>End time:</u>{` ${formatDate(item.visit.end_time)}`}</span>
@@ -144,7 +144,7 @@ export default function UnitRecords ({ data, unitId }) {
 
           <div>
             <h5 className='font-bold text-xl'>{`Technician`}</h5>
-            <div className={styles.grid_2}>
+            <div className='grid md:grid-cols-2 md:gap-x-4 md:gap-y-0 gap-2 grid-cols-1'>
               <span id={`tech-${item.visit.id}-fname`}><u>First name:</u>{` ${item.technician.first_name}`}</span>
               <span id={`tech-${item.visit.id}-lname`}><u>Last name:</u>{` ${item.technician.last_name}`}</span>
               <span id={`tech-${item.visit.id}-company`}><u>Affiliation:</u>{` ${item.technician.affiliation}`}</span>

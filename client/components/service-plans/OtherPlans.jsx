@@ -28,7 +28,7 @@ export default function OtherPlans ({ unitId, data, labels }) {
         <tbody className={styles.body}>
             {data.map((item, index) => (
               <tr key={index}>
-                <td className={`${styles.cell} w-1/4`} id={`title-${item.id}`}>{item.title}</td>
+                <td className={`${styles.cell} w-1/4`} id={`title-${item.id}`}>{item.profile.title}</td>
                 <td className={`${styles.cell} w-1/8`} id={`is-repeating-${item.id}`}>
                   <input className={styles.checkbox_disable} type='checkbox' name={`is-repeating-${item.id}`} id={`is-repeating-${item.id}`} checked={item.is_repeating} readOnly disabled/>
                 </td>

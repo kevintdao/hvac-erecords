@@ -25,7 +25,8 @@ export default function BuildingForm({ type, data, onSubmit, managers }){
                     {/* Building manager */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="manager">Building Manager</label>
-                        <select 
+                        {managers.length == 0 && <div>No tasks</div>}
+                        {managers.length != 0 && <select 
                             type="text" 
                             name="manager" 
                             id="manager" 
@@ -35,7 +36,7 @@ export default function BuildingForm({ type, data, onSubmit, managers }){
                             {managers.map((manager, i) => (
                                 <option value={manager.id} key={manager.id}>{`${manager.name} (${manager.phone_number})`}</option>
                             ))}
-                        </select>
+                        </select>}
                     </div>
                     {/* Site Name */}
                     <div className={styles.inputContainer}>
@@ -127,9 +128,9 @@ export default function BuildingForm({ type, data, onSubmit, managers }){
                         <span className='text-sm text-red-700 mt-1' id="country-help">{errors.country?.message}</span>
                     </div>
                 </div>
-                <div>
+                {managers.length != 0 && <div>
                     <button className={styles.button} id='create-button'>{type}</button>
-                </div>
+                </div>}
             </form>
         </>
     )

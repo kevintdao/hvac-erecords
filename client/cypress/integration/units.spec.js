@@ -19,11 +19,8 @@ describe('Unit index page', () => {
   })
 
   it('should navigate to unit info page when click on more info button', () => {
-    cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
-    cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
     cy.wait('@getAllUnits');
     cy.get('a[href="/units/1"]').click();
-    cy.wait(['@getUnit', '@getAllProfiles'])
     cy.url().should('include', '/units/1');
   })
 
@@ -59,14 +56,12 @@ describe('Unit details page', () => {
     cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
-    cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
-    cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
 
     cy.visit('http://localhost:3000/units/1');
   })
 
   it('should display the unit details', () => {
-    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.wait(['@getUnit'])
 
     cy.get('dd#external_id').should('contain', '12345');
     cy.get('dd#model_number').should('contain', '12345');
@@ -79,14 +74,14 @@ describe('Unit details page', () => {
 
   it('should navigate to edit unit page when click on edit button', () => {
     cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
-    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.wait(['@getUnit'])
     cy.get('a#edit').click();
     cy.wait('@getAllBuildings')
     cy.url().should('include', '/units/edit/1');
   })
 
   it('should navigate to all units page when click on all units button', () => {
-    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.wait(['@getUnit'])
     cy.get('a#all-units').click();
     cy.wait('@getAllUnits');
     cy.url().should('include', '/units');
@@ -95,7 +90,7 @@ describe('Unit details page', () => {
   it('should download the qr code', () => {
     const path = require('path');
     const downloadsFolder = Cypress.config("downloadsFolder");
-    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.wait(['@getUnit'])
     cy.get('a#qr-download').click();
     cy.readFile(path.join(downloadsFolder, 'unit-1.png')).should('exist');
   })

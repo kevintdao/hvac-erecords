@@ -14,6 +14,8 @@ def apiProfiles(request):
     # List profiles
     if request.method == 'GET' and has_permission(request.user, 'get_profiles'):
         profiles = Profile.objects.for_user(request.user)
+        report_profiles = Profile.objects.for_reports()
+        profiles = profiles | report_profiles
         serializer = ProfileDisplaySerializer(profiles, many=True)
         return Response(serializer.data)
     # Add profile
@@ -30,7 +32,11 @@ def apiProfiles(request):
 @permission_classes([IsAuthenticated])
 def apiProfile(request, pk):
     try:
-        profile = Profile.objects.for_user(request.user).get(pk=pk)
+        profiles = Profile.objects.for_user(request.user)
+        if request.method == 'GET':
+            report_profiles = Profile.objects.for_reports()
+            profiles = profiles | report_profiles
+        profile = profiles.get(pk=pk)
     except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of profile

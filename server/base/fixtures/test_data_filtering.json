@@ -1,16 +1,4 @@
 [
-	{
-        "model":  "base.company",
-        "pk":  1,
-        "fields": { 
-			"name":  "HVAC Company #1",
-			"street":  "112 Railroad Street",
-			"city":  "Iowa City",
-			"zip_code":  52242,
-			"country":  "United States",
-			"phone_number":  "312-423-3125"
-		}
-	},
     {
         "model":  "base.company",
         "pk":  2,
@@ -23,44 +11,14 @@
 			"phone_number":  "312-423-4000"
 		}
 	},
-	{
-		"model": "base.user",
-		"pk": 1,
-		"fields": {
-			"email": "company@example.com",
-            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
-            "company": 1,
-            "role": 1
-		}
-	},
-    {
-		"model": "base.user",
-		"pk": 2,
-		"fields": {
-			"email": "manager@example.com",
-            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
-            "company": 1,
-            "role": 2
-		}
-	},
-    {
-		"model": "base.user",
-		"pk": 3,
-		"fields": {
-			"email": "technician@example.com",
-            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
-            "company": 1,
-            "role": 3
-		}
-	},
     {
 		"model": "base.user",
 		"pk": 4,
 		"fields": {
-			"email": "technician2@example.com",
+			"email": "manager1_2@example.com",
             "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
             "company": 2,
-            "role": 3
+            "role": 2
 		}
 	},
     {
@@ -84,13 +42,25 @@
 		}
 	},
     {
-        "model": "base.buildingmanager",
-        "pk": 1,
+		"model": "base.user",
+		"pk": 7,
+		"fields": {
+			"email": "technician2@example.com",
+            "password": "pbkdf2_sha256$320000$xwJBfpnpMW8d9uMqht4par$h3Nf1N1qtQOWp7jEuNOpdCFcFv5RLWZo0VdPNEfw6qs=",
+            "company": 2,
+            "role": 3
+		}
+	},
+    {
+        "model": "base.technician",
+        "pk": 7,
         "fields": {
-            "company": 1,
-            "name": "University of Iowa",
-            "phone_number": "555-555-5555",
-            "users": [2]
+            "user": 7,
+            "company": 2,
+            "first_name": "Jimmy",
+            "last_name": "Brown",
+            "phone_number": "123-321-4713",
+            "license_number": 131251003
         }
     },
     {
@@ -98,9 +68,9 @@
         "pk": 2,
         "fields": {
             "company": 1,
-            "name": "Building owner 2",
-            "phone_number": "555-555-0303",
-            "users": [6]
+            "name": "Community College",
+            "phone_number": "555-555-3000",
+            "users": [4]
         }
     },
     {
@@ -108,57 +78,9 @@
         "pk": 3,
         "fields": {
             "company": 2,
-            "name": "Building owner 3",
-            "phone_number": "555-555-0344",
-            "users": []
-        }
-    },
-    {
-        "model":  "base.building",
-        "pk":  "1",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Seamans Center",
-			"street":  "103 South Capitol Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
-    {
-        "model":  "base.building",
-        "pk":  "2",
-        "fields": { 
-			"manager": 1,
-			"site_name":  "Main Library",
-			"street":  "125 West Washington Street",
-			"city":  "Iowa City",
-			"zip_code":  "52242",
-			"country":  "United States"
-		}
-	},
-    {
-        "model": "base.building",
-        "pk": 1,
-        "fields": {
-            "manager": 1,
-            "site_name": "Seamans Center",
-            "street": "103 South Capitol Street",
-            "city": "Iowa City",
-            "zip_code": 52242,
-            "country": "United States"
-        }
-    },
-    {
-        "model": "base.building",
-        "pk": 2,
-        "fields": {
-            "manager": 1,
-            "site_name": "Main Library",
-            "street": "125 West Washington Street",
-            "city": "Iowa City",
-            "zip_code": 52242,
-            "country": "United States"
+            "name": "Mainland Mall",
+            "phone_number": "555-555-0303",
+            "users": [6]
         }
     },
     {
@@ -166,7 +88,7 @@
         "pk": 3,
         "fields": {
             "manager": 2,
-            "site_name": "Main Library",
+            "site_name": "Art Building",
             "street": "4615 Desert Broom Court",
             "city": "Jersey City",
             "zip_code": 11357,
@@ -183,20 +105,6 @@
             "city": "Frederika",
             "zip_code": 50630,
             "country": "United States"
-        }
-    },
-    {
-        "model": "base.unit",
-        "pk": 1,
-        "fields": {
-            "building": 1,
-            "external_id": "50030",
-            "category": "Duct free",
-            "serial_number": "AA000312341",
-            "model_number": "AB412",
-            "manufacturer": "Trane",
-            "production_date": "2022-02-01",
-            "installation_date": "2022-03-08"
         }
     },
     {
@@ -227,43 +135,18 @@
             "installation_date": "2022-03-08"
         }
     },
-
     {
         "model": "base.unit",
         "pk": 4,
         "fields": {
             "building": 4,
-            "external_id": "514",
+            "external_id": "515",
             "category": "Duct free",
             "serial_number": "AA032333",
             "model_number": "AB4143",
             "manufacturer": "Unknown",
             "production_date": "2022-02-01",
             "installation_date": "2022-03-08"
-        }
-    },
-    {
-        "model": "base.technician",
-        "pk": 3,
-        "fields": {
-            "user": 3,
-            "company": 1,
-            "first_name": "Bob",
-            "last_name": "Smith",
-            "phone_number": "123-321-4213",
-            "license_number": 131251003
-        }
-    },
-    {
-        "model": "base.technician",
-        "pk": 4,
-        "fields": {
-            "user": 4,
-            "company": 2,
-            "first_name": "Bob",
-            "last_name": "Smith",
-            "phone_number": "123-321-4213",
-            "license_number": 131251003
         }
     }
 ]

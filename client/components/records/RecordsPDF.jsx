@@ -40,7 +40,7 @@ export default function RecordPDF ({ data, visits }) {
       {visits.map((item, i) => (
         <Page size='A4' style={styles.page} key={item.visit.id}>
           <View style={styles.section}>
-            <Text style={styles.header}>{`Visit ${item.visit.id}`}</Text>
+            <Text style={styles.header}>{`Visit ${i+1}`}</Text>
             <View style={styles.row}>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{`Start time: ${formatDate(item.visit.start_time)}`}</Text>

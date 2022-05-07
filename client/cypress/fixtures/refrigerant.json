@@ -1,0 +1,68 @@
+{
+"id": 1,
+"serial_number": "AA000312341",
+"operator": "University of Iowa",
+"street": "103 South Capitol Street",
+"city": "Iowa City",
+"zip_code": "52242",
+"country": "United States",
+"full_charge": [
+    {
+        "time": "2022-05-05T03:22:33Z",
+        "value": 55.0,
+        "method": "Method 1"
+    },
+    {
+        "time": "2022-05-05T03:21:11Z",
+        "value": 49.0,
+        "method": "Method 2"
+    },
+    {
+        "time": "2022-05-05T03:20:52Z",
+        "value": 50.0,
+        "method": "Method 1"
+    }
+],
+"servicing": [
+    {
+        "time": "2022-05-05T03:25:14Z",
+        "technician": "Bob Smith",
+        "parts": "accumulator",
+        "change": "Unchanged",
+        "amount": 0.0,
+        "refrigerant_type": "CFC",
+        "leak_rate": 0.0,
+        "method": "No leak"
+    },
+    {
+        "time": "2022-05-05T03:24:38Z",
+        "technician": "Bob Smith",
+        "parts": "evaporator coil, condensing coil, accumulator",
+        "change": "Added",
+        "amount": 10.0,
+        "refrigerant_type": "CFC",
+        "leak_rate": 19.0,
+        "method": "method 1"
+    }
+],
+"inspections": [
+    {
+        "time": "2022-05-05T03:26:04Z",
+        "method": "Electronic leak detectors",
+        "location": "None"
+    },
+    {
+        "time": "2022-05-05T03:25:50Z",
+        "method": "electronic leak detectors",
+        "location": "evaporator coil, condensing coil, accumulator"
+    }
+],
+"verification": [
+    {
+        "time": "2022-05-05T09:26:04Z",
+        "location": "accumulator",
+        "test": "method 1",
+        "result": "no leaks"
+    }
+]
+}

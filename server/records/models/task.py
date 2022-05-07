@@ -12,8 +12,11 @@ class TaskQuerySet(models.QuerySet):
         else:
             return self.none()
 
+    def for_reports(self):
+        return self.filter(company__isnull=True)
+
 class Task(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     rule = models.JSONField()

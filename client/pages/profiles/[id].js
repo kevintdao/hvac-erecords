@@ -72,9 +72,9 @@ export default function Profile () {
           <a className={styles.button} id='all-profiles'>All Profiles</a>
         </Link>
 
-        <Link href={`/profiles/edit/${id}`}>
+        {data.profile.tag == null && <Link href={`/profiles/edit/${id}`}>
           <a className={styles.button} id='edit'>Edit</a>
-        </Link>
+        </Link>}
       </div>
     </div>
     </PrivateRoute>
