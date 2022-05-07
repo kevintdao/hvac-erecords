@@ -72,7 +72,7 @@ export default function Home () {
         <p className='text-lg text-center px-10 mb-6'>
           Sign up as a maintenance company or log in to an existing account.
         </p>
-        <div className='space-x-4 flex justify-center'>
+        <div className='space-x-4 flex justify-center mb-2'>
           <Link href='/login'><a className={styles.button}>Login</a></Link>
           <Link href='/register'><a className={styles.button}>Sign Up</a></Link>
         </div>
