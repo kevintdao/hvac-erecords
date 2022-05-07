@@ -1,10 +1,12 @@
 {
     "id": 1,
-    "user": 1,
+    "user": {
+        "id": 1,
+        "email": "andrew-murley@test.com"
+    },
     "company": 1,
     "first_name": "Andrew",
     "last_name": "Murley",
     "phone_number": "+13193844357",
-    "license_number": 4,
-    "email": "andrew-murley@test.com"
+    "license_number": 4
 }

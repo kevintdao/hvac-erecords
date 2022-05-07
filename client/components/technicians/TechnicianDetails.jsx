@@ -14,7 +14,7 @@ export default function TechnicianDetails({data}) {
                 {/* ID */}
                 <div className={`${styles.div} border-none`}>
                 <dt className={styles.label} id='id-label'>ID</dt>
-                <dd className={styles.text} id='id'>{data.user}</dd>
+                <dd className={styles.text} id='id'>{data.user.id}</dd>
                 </div>
         
                 {/* First Name */}
@@ -27,6 +27,12 @@ export default function TechnicianDetails({data}) {
                 <div className={styles.div}>
                 <dt className={styles.label} id="last_name-label">Last Name</dt>
                 <dd className={styles.text} id="last_name">{data.last_name}</dd>
+                </div>
+
+                {/* Email */}
+                <div className={styles.div}>
+                <dt className={styles.label} id='id-label'>Email</dt>
+                <dd className={styles.text} id='id'>{data.user.email}</dd>
                 </div>
         
                 {/* Phone Number */}
