@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import loginpage from '../../public/screenshots/LoginPage.png'
+import registerpage from '../../public/screenshots/RegisterPage.png'
 
 export default function NotLoggedIn() {
   const styles = {
@@ -26,7 +27,7 @@ export default function NotLoggedIn() {
         <p>To sign up for a maintenance company account, enter your company informations along
           with an email and password associated with that company.
         </p>
-        <Image src={loginpage} alt='signUpPage' />
+        <Image src={registerpage} alt='signUpPage' />
       </div>
     </div>
   )
