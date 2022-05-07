@@ -5,7 +5,7 @@ from django.conf import settings
 from rolepermissions.roles import assign_role
 
 from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
@@ -55,9 +55,37 @@ class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
 
 
 class TechnicianSerializer(serializers.ModelSerializer):
+    user = CreateUserSerializer()
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Technician
-        fields = '__all__'
+        fields = ('user', 'company', 'first_name', 'last_name', 'phone_number', 'license_number')
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=user_data)
+        assign_role(user, 'technician')
+        user.company = validated_data['company']
+        user.save()
+        student, created = Technician.objects.update_or_create(user=user,
+                            company=validated_data['company'],
+                            first_name=validated_data['first_name'],
+                            last_name=validated_data['last_name'],
+                            phone_number=validated_data['phone_number'],
+                            license_number=validated_data['license_number'])
+        return student
+    
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
+
+# Don't update user_id or company
+class TechnicianUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technician
+        fields = ('first_name', 'last_name', 'phone_number', 'license_number')
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
