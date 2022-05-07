@@ -63,20 +63,19 @@ export default function Home () {
         </div>
       </div>
 
-      {!role && <hr />}
+      {!role && <hr className='py-2' />}
 
-      {!role && <div className='flex flex-col justify-center mt-6'>
+      {!role && <div className='flex flex-col justify-center border border-gray-200 p-2 rounded'>
         <h3 className='font-bold text-2xl text-center mb-2'>
           To get started
         </h3>
-        <p className='text-lg text-center px-10'>
+        <p className='text-lg text-center px-10 mb-6'>
           Sign up as a maintenance company or log in to an existing account.
         </p>
-      </div>}
-      
-      {!role && <div className='space-x-4 flex justify-center'>
-        <Link href='/login'><a className={styles.button}>Login</a></Link>
-        <Link href='/register'><a className={styles.button}>Sign Up</a></Link>
+        <div className='space-x-4 flex justify-center'>
+          <Link href='/login'><a className={styles.button}>Login</a></Link>
+          <Link href='/register'><a className={styles.button}>Sign Up</a></Link>
+        </div>
       </div>}
     </div>
   )
