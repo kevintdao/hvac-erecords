@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import axios from 'axios'
 import { useForm, } from 'react-hook-form';
 import Alert from '../../../components/Alert';
 export default function ResetPassword() {
@@ -14,14 +15,14 @@ export default function ResetPassword() {
         "token": token,
         "uidb64": uidb64
       }
-      axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
+      axios.patch(`${process.env.NEXT_PUBLIC_HOST}/api/password-set-complete/`, data)
         .then(res => {
             setSuccess(true)
           
         })
         .catch(() => {
-          const output = handleError(error)
-          setError(output)
+          // const output = handleError(error)
+          alert('no')
         })
     }
 
