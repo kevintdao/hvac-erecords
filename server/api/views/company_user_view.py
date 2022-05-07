@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from api.serializers import CompanyUserSerializer
 from rest_framework import status
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def apiCompanyUsers(request):
     # Create company user

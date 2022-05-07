@@ -101,11 +101,6 @@ class Company(AbstractUserRole):
         'view_visits': True,
         'get_completions': True,
         'view_completions': True,
-        'get_company_users': True,
-        'create_company_users': True,
-        'view_company_users': True,
-        'update_company_users': True,
-        'delete_company_users': True,
     }
 
 class Manager(AbstractUserRole):
