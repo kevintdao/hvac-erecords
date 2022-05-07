@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import { Menu } from '@headlessui/react'
 
 export default function UnitTable({ data, labels, role }) {
   const styles = {
@@ -31,13 +32,29 @@ export default function UnitTable({ data, labels, role }) {
               <td className={styles.cell} id={`category-${item.id}`}>{item.category}</td>
               <td className={styles.cell} id={`manufacturer-${item.id}`}>{item.manufacturer}</td>
               <td>
-                <Link href={`/units/${item.id}`}>
-                  <a className={styles.link}>More Info</a>
-                </Link>
+                <Menu>
+                  <Menu.Button className='inline-flex w-full rounded-md font-medium text-blue-600 hover:text-blue-500'>Reports</Menu.Button>
+                  <Menu.Items className='flex flex-col absolute mt-2 origin-top-right divide-y divide-gray-100 border border-gray-100 rounded p-2'>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link href={`/units/records/${item.id}`}>
+                          <a className={styles.link}>Records</a>
+                        </Link>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link href={`/units/refrigerant/${item.id}`}>
+                          <a className={styles.link}>Refrigerant Leaks</a>
+                        </Link>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
+                </Menu>
               </td>
               <td>
-                <Link href={`/units/records/${item.id}`}>
-                  <a className={styles.link}>Data</a>
+                <Link href={`/units/${item.id}`}>
+                  <a className={styles.link}>More Info</a>
                 </Link>
               </td>
               {role == 1 && <td>
