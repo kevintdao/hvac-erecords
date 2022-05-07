@@ -57,11 +57,20 @@ def apiTechnician(request,pk):
         return Response(serializer.data)
     # Update technician
     elif request.method == 'PUT' and has_permission(request.user, 'update_technicians'):
-        serializer = TechnicianSerializer(technician, data=request.data)
+        
+        keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
+        for key in keys:
+            if key not in request.data:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = TechnicianSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # serializer = TechnicianSerializer(technician, data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # Delete technician
     elif request.method == 'DELETE' and has_permission(request.user, 'delete_technicians'):
         technician.delete()
