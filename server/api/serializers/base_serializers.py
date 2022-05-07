@@ -49,9 +49,10 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         return instance
 
 class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
+    users = LoginUserSerializer(many=True)
     class Meta:
         model = BuildingManager
-        fields = ('id','name','phone_number')
+        fields = '__all__'
 
 
 class TechnicianSerializer(serializers.ModelSerializer):

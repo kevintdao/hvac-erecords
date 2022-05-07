@@ -31,8 +31,8 @@ export default function TechnicianDetails({data}) {
 
                 {/* Email */}
                 <div className={styles.div}>
-                <dt className={styles.label} id='id-label'>Email</dt>
-                <dd className={styles.text} id='id'>{data.user.email}</dd>
+                <dt className={styles.label} id='email-label'>Email</dt>
+                <dd className={styles.text} id='email'>{data.user.email}</dd>
                 </div>
         
                 {/* Phone Number */}

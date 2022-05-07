@@ -5,7 +5,10 @@ import { isPossiblePhoneNumber } from 'react-phone-number-input'
 
 export default function ManagerForm({ type, data, onSubmit }) {
   const { register, handleSubmit, formState: { errors }, control } = useForm({
-    defaultValues: data
+    defaultValues: {
+      ...data,
+      email: data.users[0].email
+    }
   });
 
   const styles = {
