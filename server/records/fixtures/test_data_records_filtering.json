@@ -57,7 +57,7 @@
         "model": "records.servicevisit",
         "pk": 1,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-04-18T16:46:29Z",
             "end_time": "2022-04-18T16:47:39Z",

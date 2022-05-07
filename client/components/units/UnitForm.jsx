@@ -3,14 +3,18 @@ import { useForm } from 'react-hook-form';
 
 export default function UnitForm({ type, data, buildings, onSubmit }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: data
+    defaultValues: {
+      ...data,
+      building: data?.building.id
+    }
   });
 
   const hvacTypes = [
     "Heating and cooling split system",
     "Hybrid split system",
     "Duct free",
-    "Packaged heating and air conditioning system"
+    "Packaged heating and air conditioning system",
+    "Other"
   ]
 
   const styles = {
@@ -34,7 +38,7 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
             {...register('building')}
           >
             {buildings.map((building, i) => (
-              <option value={building.id} key={building.id}>{`${building.site_name} (${building.street} ${building.city} ${building.zip_code})`}</option>
+              <option value={building.id} key={building.id}>{`${building.site_name} (${building.street}, ${building.city} ${building.zip_code})`}</option>
             ))}
           </select>
         </div>

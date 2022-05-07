@@ -57,7 +57,6 @@ export function AppProvider ({ children }) {
 
   async function loadData () {
     setLoading(true)
-
     const access = localStorage.getItem('access_token')
     const refresh = localStorage.getItem('refresh_token')
     var user = null
@@ -70,7 +69,6 @@ export function AppProvider ({ children }) {
         }
       }).then(res => {
         user = res.data
-        console.log(user)
       }).catch(error => {
         relog = true
       })

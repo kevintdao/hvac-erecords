@@ -26,8 +26,8 @@ export default function Index(props) {
     }, [router])
 
     const labels = {
-        text: ["Company", "First Name", "Last Name"],
-        id: ["company", "first_name", "last_name"],
+        text: ["First Name", "Last Name", "Phone Number"],
+        id: ["first_name", "last_name", "phone_number"],
     };
 
     const styles = {

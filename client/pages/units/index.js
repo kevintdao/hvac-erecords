@@ -7,11 +7,15 @@ import UnitTable from '../../components/units/UnitTable'
 import Loading from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
 import { handleError } from '../../utils/errors'
+import { useAppContext } from '../../context/state'
 
 export default function Index (props) {
   const router = useRouter()
   const [data, setData] = useState()
   const [error, setError] = useState('')
+  const { user } = useAppContext()
+  const role = user.user?.role
+  const isCompany = role == 1
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/units`)
@@ -19,7 +23,6 @@ export default function Index (props) {
         setData(res.data)
       })
       .catch(err => {
-        console.log(err.response?.data)
         const output = handleError(err)
         setError(output)
       })
@@ -52,13 +55,13 @@ export default function Index (props) {
 
       <h2 className='font-bold text-3xl'>Units</h2>
 
-      {data.length === 0 ? <p className={styles.desc} id='no-units'>No existing units</p> : <UnitTable data={data} labels={labels} />}
+      {data.length === 0 ? <p className={styles.desc} id='no-units'>No existing units</p> : <UnitTable data={data} labels={labels} role={role} />}
 
-      <div className='mt-2'>
+      {isCompany && <div className='mt-2'>
         <Link href='/units/create'>
           <a className={styles.button}>New Unit</a>
         </Link>
-      </div>
+      </div>}
     </div>
     </PrivateRoute>
   )

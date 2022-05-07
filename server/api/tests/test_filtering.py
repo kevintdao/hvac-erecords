@@ -316,7 +316,7 @@ class TestFilteringAPI(TestCase):
         buildings = Building.objects.filter(manager=self.manager)
         units = Unit.objects.filter(building__in=buildings)
         plans = ProfilePlan.objects.filter(unit__in=units)
-        profiles = Profile.objects.filter(profileplan__in=plans).distinct()
+        profiles = Profile.objects.filter(plans__in=plans).distinct()
 
         response = self.client.get(reverse('profiles-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)

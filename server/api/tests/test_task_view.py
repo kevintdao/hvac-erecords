@@ -21,7 +21,6 @@ class TestTaskAPI(TestCase):
 
         self.initial_count = Task.objects.count()
         self.data = {
-			"company": 1,
 			"title":  "Unit in good condition",
 			"description":  "choose if the condition is in a satisfactory condition",
             "rule":  '{	"type": "1", "name": "response" }'
@@ -45,7 +44,6 @@ class TestTaskAPI(TestCase):
 
     def test_api_create_task_failure(self):
         data = {
-			"company": 1,
 			"title":  "This is a task with no rule",
 			"description":  "description",
         }
@@ -68,7 +66,6 @@ class TestTaskAPI(TestCase):
     def test_api_update_task(self):
         task = Task.objects.last()
         new_data = {
-			"company": 1,
 			"title":  "Unit in good condition",
 			"description":  "choose the appropriate option",
             "rule":  '{"name": "selection", "options": {"1": "Yes", "2": "No"}}}'
@@ -83,10 +80,8 @@ class TestTaskAPI(TestCase):
     def test_api_update_task_failure(self):
         task = Task.objects.last()
         new_data = {
-			"company": 900,
 			"title":  "Unit in good condition",
 			"description":  "choose the appropriate option",
-            "rule":  '{"name": "selection", "options": {"1": "Yes", "2": "No"}}}'
         }
         response = self.client.put(
             reverse('tasks-detail',

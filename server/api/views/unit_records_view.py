@@ -5,13 +5,12 @@ from base.models import Unit
 from rest_framework import status
 from api.serializers import UnitRecordsSerializer
 from rolepermissions.checkers import has_permission
-from .unit_view import filter_units
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def apiUnitRecords(request, pk):
     try:
-        unit = filter_units(request.user).get(pk=pk)
+        unit = Unit.objects.for_user(request.user).get(pk=pk)
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Unit records

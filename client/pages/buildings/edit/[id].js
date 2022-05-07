@@ -15,6 +15,7 @@ export default function Edit() {
     const [buildingID, setBuildingId] = useState();
     const [error, setError] = useState();
     const [data, setData] = useState();
+    const [managers, setManagers] = useState()
     const [backendError, setBackendError] = useState()
 
     const styles = {
@@ -24,15 +25,24 @@ export default function Edit() {
     useEffect(() => {
         if (!router.isReady) return
     
-        axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/buildings/${id}/`)
-          .then((res) => {
-            setData(res.data)
-          })
-          .catch(err => {
-            const output = handleError(err)
-            setBackendError(output)
-            return
-          })
+        const fetchData = async () => {
+            const detail = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/buildings/${id}/`)
+            .catch(err => {
+              const output = handleError(err)
+              setBackendError(output)
+              return
+            })
+
+            if (!detail) {
+                return
+            }
+        
+            const managersDetail = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/managers`)
+        
+            setManagers(managersDetail.data)
+            setData(detail.data)
+        }
+        fetchData()
     }, [id, router])
     
     const onSubmit = async (data) => {
@@ -87,7 +97,7 @@ export default function Edit() {
 
             {error && <Alert title="Error" text={error} type="error" />}
 
-            <BuildingForm type='Update' data={data} onSubmit={onSubmit}/>
+            <BuildingForm type='Update' data={data} onSubmit={onSubmit} managers={managers} />
         </div>
         </PrivateRoute>
     )

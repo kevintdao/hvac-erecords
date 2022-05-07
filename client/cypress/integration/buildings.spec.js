@@ -4,7 +4,7 @@ describe('Building index page', () => {
     })
 
     beforeEach(() => {
-      cy.login('manager');
+      cy.login('company');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings');
@@ -12,7 +12,6 @@ describe('Building index page', () => {
   
     it('should see all buildings when on the index page', () => {
       cy.wait('@getAllBuildings');
-      cy.get('td#owner_id-1').should('contain', '1');
       cy.get('td#site_name-1').should('contain', 'Iowa');
     })
   
@@ -23,14 +22,18 @@ describe('Building index page', () => {
     })
   
     it('should navigate to new building page when click on new building button', () => {
+      cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.wait('@getAllBuildings');
       cy.get('a[href="/buildings/create"]').click();
+      cy.wait('@getAllManagers');
       cy.url().should('include', '/buildings/create');
     })
   
     it('should navigate to edit building page when click on edit button', () => {
+      cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.wait('@getAllBuildings');
       cy.get('a[href="/buildings/edit/1"]').click();
+      cy.wait('@getAllManagers');
       cy.url().should('include', '/buildings/edit/1');
     })
 })
@@ -41,7 +44,7 @@ describe('Building details page', () => {
     })
 
     beforeEach(() => {
-      cy.login('manager');
+      cy.login('company');
       cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
       cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
       cy.visit('http://localhost:3000/buildings/1');
@@ -49,12 +52,13 @@ describe('Building details page', () => {
     })
   
     it('should display the building details', () => {
-      cy.get('dd#owner_id').should('contain', '1');
       cy.get('dd#zip_code').should('contain', '52240');
     })
   
     it('should navigate to edit building page when click on edit button', () => {
+      cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
       cy.get('a#edit').click();
+      cy.wait('@getAllManagers');
       cy.url().should('include', '/buildings/edit/1');
     })
   
@@ -71,13 +75,15 @@ describe('Building create page', () => {
     })
 
     beforeEach(() => {
-        cy.login('manager');
+        cy.login('company');
         cy.intercept('GET', '**/api/buildings', { fixture: 'all_buildings.json' }).as('getAllBuildings');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('POST', '**/api/buildings', { fixture: 'building.json' }).as('createBuilding');
+        cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
         cy.visit('http://localhost:3000/buildings/create');
 
-        cy.get('input#owner_id').type("3");
+        cy.wait('@getAllManagers');
+
         cy.get('input#site_name').type("Wisconsin");
         cy.get('input#street').type("963 Street");
         cy.get('input#city').type("Madison");
@@ -86,7 +92,6 @@ describe('Building create page', () => {
     })
 
     it('should diplay red border around invalid inputs', () => {
-        cy.get('input#owner_id').clear();
         cy.get('input#site_name').clear();
         cy.get('input#street').clear();
         cy.get('input#city').clear();
@@ -95,7 +100,6 @@ describe('Building create page', () => {
 
         cy.get('button#create-button').click();
 
-        cy.get('input#owner_id').should('have.class', 'border-red-400');
         cy.get('input#site_name').should('have.class', 'border-red-400');
         cy.get('input#street').should('have.class', 'border-red-400');
         cy.get('input#city').should('have.class', 'border-red-400');
@@ -131,15 +135,15 @@ describe('Building edit page', () => {
     })
 
     beforeEach(() => {
-        cy.login('manager');
+        cy.login('company');
         cy.intercept('GET', '**/api/buildings/*', { fixture: 'building.json' }).as('getBuilding');
         cy.intercept('PUT', '**/api/buildings/*', { fixture: 'updated_building.json' }).as('updateBuilding');
+        cy.intercept('GET', '**/api/managers', { fixture: 'all_managers.json' }).as('getAllManagers');
         cy.visit('http://localhost:3000/buildings/edit/1');
-        cy.wait('@getBuilding');
+        cy.wait(['@getBuilding', '@getAllManagers']);
     })
   
     it('should pre-filled the inputs with the current information', () => {
-        cy.get('input#owner_id').should('have.value', '1');
         cy.get('input#site_name').should('have.value', 'Iowa');
         cy.get('input#street').should('have.value', '123 Street');
         cy.get('input#city').should('have.value', 'Iowa City');

@@ -1,7 +1,6 @@
 [
     {
-        "id": 1,
-        "user_id": 1,
+        "user": 1,
         "company": 1,
         "first_name": "Andrew",
         "last_name": "Murley",
@@ -10,8 +9,7 @@
         "email": "andrew-murley@test.com"
     },
     {
-        "id": 2,
-        "user_id": 2,
+        "user": 2,
         "company": 1,
         "first_name": "Ryan",
         "last_name": "Doe",
