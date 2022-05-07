@@ -1,3 +1,4 @@
+from hashlib import new
 from base.models import Company, Technician, User
 from django.test import TestCase
 from django.urls import reverse
@@ -82,7 +83,6 @@ class TestTechnicianAPI(TestCase):
             'phone_number' : '010-010-0101',
             'license_number' : 2
         }
-
         response = self.client.put(
             reverse('technicians-detail',
             kwargs={'pk':technician.user_id}), data=new_data, format="json"
