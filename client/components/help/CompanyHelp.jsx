@@ -11,9 +11,11 @@ import unitupdate from '../../public/screenshots/UnitUpdatePage.png'
 import managercreate from '../../public/screenshots/ManagerCreatePage.png'
 import managerdetails from '../../public/screenshots/ManagerDetailsPage.png'
 import managerindex from '../../public/screenshots/ManagerIndexPage.png'
+import managerupdate from '../../public/screenshots/ManagerUpdatePage.png'
 import techniciancreate from '../../public/screenshots/TechnicianCreatePage.png'
 import techniciandetails from '../../public/screenshots/TechnicianDetailsPage.png'
 import technicianindex from '../../public/screenshots/TechnicianIndexPage.png'
+import technicianupdate from '../../public/screenshots/TechnicianUpdatePage.png'
 import profilecreate from '../../public/screenshots/ProfileCreatePage.png'
 import profiledetails from '../../public/screenshots/ProfileDetailsPage.png'
 import profileindex from '../../public/screenshots/ProfileIndexPage.png'
@@ -118,7 +120,7 @@ export default function CompanyHelp() {
             information has been prefilled.
           </p>
           place holder image, replace with page is finished
-          <Image src={managercreate} alt='managerCreatePage' />
+          <Image src={managerupdate} alt='managerUpdatePage' />
         </div>
       </div>
 
@@ -205,7 +207,7 @@ export default function CompanyHelp() {
             information has been prefilled.
           </p>
           place holder image, replace with page is finished
-          <Image src={managercreate} alt='managerCreatePage' />
+          <Image src={technicianupdate} alt='technicianUpdatePage' />
         </div>
       </div>
 
