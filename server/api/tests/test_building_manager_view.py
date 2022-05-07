@@ -21,12 +21,11 @@ class TestBuildingManagerAPI(TestCase):
 
         self.initial_count = BuildingManager.objects.count()
         self.data = {
-            "company": 1,
             "name": 'Joe Smith',
             "phone_number": '512-513-5123',
             "users": [
-	            {"email": "js@email.com",
-                "password": "jspass"},
+	            {"email": "js@email.com"},
+                {"email": "test@email.com"},
 	        ]
         }
         self.response = self.client.post(
@@ -58,12 +57,6 @@ class TestBuildingManagerAPI(TestCase):
     def test_api_update_building_manager(self):
         building_manager = BuildingManager.objects.last()
         new_data = {
-            'users': [{
-                "email": "georgejohnson@uiowa.edu",
-                "username": "georgejohnson@uiowa.edu",
-                "password": "1234"
-            }],
-            'company': 1,
             "name": "George Johnson",
             "phone_number": "512-513-0000",
         }
@@ -72,7 +65,7 @@ class TestBuildingManagerAPI(TestCase):
             kwargs={'pk':building_manager.id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(BuildingManager.objects.last().name, 'George Johnson') 
+        self.assertEqual(BuildingManager.objects.last().name, 'George Johnson')
 
     def test_api_update_building_manager_failure(self):
         building_manager = BuildingManager.objects.last()

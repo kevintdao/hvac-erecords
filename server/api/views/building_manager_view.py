@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import BuildingManager
-from api.serializers import BuildingManagerSerializer
+from api.serializers import BuildingManagerSerializer, BuildingManagerUpdateSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
 
@@ -17,7 +17,7 @@ def apiManagers(request):
         return Response(serializer.data)
     # Create manager
     elif request.method == 'POST' and has_permission(request.user, 'create_managers'):
-        serializer = BuildingManagerSerializer(data=request.data)
+        serializer = BuildingManagerSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,7 +38,7 @@ def apiManager(request, pk):
         return Response(serializer.data)
     # Update manager
     elif request.method == 'PUT' and has_permission(request.user, 'update_managers'):
-        serializer = BuildingManagerSerializer(manager, data=request.data)
+        serializer = BuildingManagerUpdateSerializer(manager, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
