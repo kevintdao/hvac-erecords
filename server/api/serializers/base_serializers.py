@@ -81,10 +81,14 @@ class TechnicianSerializer(serializers.ModelSerializer):
         # technician_data = {"first_name": validated_data["first_name"],'last_name': validated_data["last_name"], 'phone_number': validated_data['phone_number'], 'license_number': validated_data['license_number'], 'company': validated_data['company'], 'user_id': user.id }
         
         technician = Technician.objects.create(first_name= validated_data["first_name"],last_name= validated_data["last_name"], phone_number= validated_data['phone_number'], license_number= validated_data['license_number'], company= validated_data['company'], user_id= user.id)
-
+        uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
+        token = PasswordResetTokenGenerator().make_token(user)
+        # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
+        relativeLink = "/password-set/{uidb64}/{token}/".format(uidb64=uidb64, token=token)
+        reset_url = "http://localhost:3000" + relativeLink
         name = validated_data["first_name"] + validated_data["last_name"]
-        subject = 'Email to technician'
-        message = f'Hello {name}. Set password'
+        subject = 'Technician set password'
+        message = f'Hello {name}. Set password here: ' + reset_url
         from_email = settings.EMAIL_HOST_USER
         to_email = user_data["email"]
 
