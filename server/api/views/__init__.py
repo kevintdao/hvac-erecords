@@ -13,3 +13,4 @@ from .profile_plan_view import *
 from .service_visit_view import *
 from .task_completion_view import *
 from .unit_records_view import *
+from .refrigerant_report_view import *

@@ -53,6 +53,7 @@ class Admin(AbstractUserRole):
         'view_completions': True,
         'update_completions': True,
         'delete_completions': True,
+        'get_refrigerant_report': True,
     }
 
 class Technician(AbstractUserRole):
@@ -64,6 +65,7 @@ class Technician(AbstractUserRole):
         'view_plans': True,
         'create_visits': True,
         'create_completions': True,
+        'get_refrigerant_report': True,
     }
 
 class Company(AbstractUserRole):
@@ -101,6 +103,7 @@ class Company(AbstractUserRole):
         'view_visits': True,
         'get_completions': True,
         'view_completions': True,
+        'get_refrigerant_report': True,
     }
 
 class Manager(AbstractUserRole):
@@ -112,6 +115,7 @@ class Manager(AbstractUserRole):
         'view_buildings': True,
         'get_profiles': True,
         'view_profiles': True,
+        'get_refrigerant_report': True,
     }
 
 class Inspector(AbstractUserRole):

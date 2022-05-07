@@ -10,7 +10,7 @@ from rolepermissions.roles import assign_role, clear_roles
 
 
 class TestFieldValidationAPI(TestCase):
-    fixtures = ['test_data_filtering.json', 'test_data_records_filtering.json']
+    fixtures = ['test_data.json', 'test_data_records.json', 'test_data_filtering.json', 'test_data_records_filtering.json']
 
     def setUp(self):
         self.user_company = User.objects.get(pk=1)

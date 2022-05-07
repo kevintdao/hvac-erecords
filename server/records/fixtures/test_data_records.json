@@ -65,6 +65,15 @@
         }
     },
     {
+        "model": "records.profile",
+        "pk": 2,
+        "fields": {
+            "company": 1,
+            "title": "Break Fix Form",
+            "description": "This is a form to fill out unit break fixes"
+        }
+    },
+    {
         "model": "records.profiletask",
         "pk": 4,
         "fields": {
@@ -92,6 +101,15 @@
         }
     },
     {
+        "model": "records.profiletask",
+        "pk": 7,
+        "fields": {
+            "profile": 2,
+            "task": 4,
+            "position": 1
+        }
+    },
+    {
         "model": "records.profileplan",
         "pk": 1,
         "fields": {
@@ -107,11 +125,11 @@
         "model": "records.profileplan",
         "pk": 2,
         "fields": {
-            "profile": 1,
+            "profile": 2,
             "unit": 1,
-            "start_date": "2022-08-01",
-            "end_date": "2022-12-31",
-            "is_required": true,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
             "is_repeating": true
         }
     },
@@ -119,18 +137,18 @@
         "model": "records.servicevisit",
         "pk": 1,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-04-01T17:41:28Z",
             "end_time": "2022-04-02T17:41:28Z",
-            "plan": 1
+            "plan": 2
         }
     },
     {
         "model": "records.servicevisit",
         "pk": 2,
         "fields": {
-            "technician": 1,
+            "technician": 3,
             "unit": 1,
             "start_time": "2022-04-18T16:46:29Z",
             "end_time": "2022-04-18T16:47:39Z",
@@ -140,6 +158,18 @@
     {
         "model": "records.taskcompletion",
         "pk": 1,
+        "fields": {
+            "task": 4,
+            "service_visit": 1,
+            "completed_at": "2022-04-18T16:47:17Z",
+            "selection": null,
+            "response": "Condenser coil broken",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 2,
         "fields": {
             "task": 2,
             "service_visit": 2,
@@ -151,25 +181,13 @@
     },
     {
         "model": "records.taskcompletion",
-        "pk": 2,
+        "pk": 3,
         "fields": {
             "task": 3,
             "service_visit": 2,
             "completed_at": "2022-04-18T16:47:38Z",
             "selection": 1,
             "response": "",
-            "value": null
-        }
-    },
-    {
-        "model": "records.taskcompletion",
-        "pk": 3,
-        "fields": {
-            "task": 1,
-            "service_visit": 2,
-            "completed_at": "2022-04-18T16:46:57Z",
-            "selection": null,
-            "response": "Good condition",
             "value": null
         }
     }

@@ -11,7 +11,7 @@ describe('Record page', () => {
   })
 
   it('should display all the data', () => {
-    cy.get('#visit-2').should('contain', 'Visit 2');
+    cy.get('#visit-2').should('contain', 'Visit 1');
     cy.get('#visit-2-start').should('contain', 'Start time: 4/18/2022, 4:46:29 PM UTC');
     cy.get('#visit-2-end').should('contain', 'End time: 4/18/2022, 4:47:39 PM UTC');
     cy.get('#plan-2-title').should('contain', 'Title: Routine Maintenance for AC Units');

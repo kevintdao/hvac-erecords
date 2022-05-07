@@ -5,7 +5,7 @@ from records.models import Profile, Task
 from base.models import Company
 
 class ProfileModelTests(TestCase):
-    fixtures = ['test_data.json', 'test_data_records.json'] 
+    fixtures = ['test_data.json', 'test_data_filtering.json', 'test_data_records.json', 'test_data_records_filtering.json'] 
 
     def test_created_valid_profile(self):
         Profile.objects.create(company = Company.objects.first(), title='Spring AC Checklist',description='A set of tasks to perform on an air conditioner during spring.')
@@ -22,3 +22,8 @@ class ProfileModelTests(TestCase):
         self.assertEqual(len(profile.tasks.all()), 2)
         self.assertEqual(profile.tasks.get(pk=task1.pk), task1)
         self.assertEqual(profile.tasks.get(pk=task2.pk), task2)
+
+    def test_query_profiles_for_reports(self):
+        profile = Profile.objects.for_reports().first()
+        self.assertNotEqual(profile.tag, "")
+        self.assertEqual(profile.company, None)

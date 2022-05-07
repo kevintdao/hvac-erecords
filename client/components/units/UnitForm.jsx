@@ -30,7 +30,8 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
       <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
         <div className={styles.inputContainer}>
           <label htmlFor="building">Building</label>
-          <select 
+          {buildings.length == 0 && <div>No tasks</div>}
+          {buildings.length != 0 && <select 
             type="text" 
             name="building" 
             id="building" 
@@ -40,7 +41,7 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
             {buildings.map((building, i) => (
               <option value={building.id} key={building.id}>{`${building.site_name} (${building.street}, ${building.city} ${building.zip_code})`}</option>
             ))}
-          </select>
+          </select>}
         </div>
         
         <div className={styles.inputs3Cols}>
@@ -166,9 +167,9 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
           </div>
         </div>
 
-        <div>
+        {buildings.length != 0 && <div>
           <button className={styles.button} id='create-button'>{type}</button>
-        </div>
+        </div>}
       </form>
     </>
   )
