@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Unit, BuildingManager, Technician, Building, Company, User, CompanyUser
+from base.models import Unit, BuildingManager, Technician, Building, Company, User
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
@@ -50,23 +50,23 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 
 class CompanyUserSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
-
-    class Meta:
-        model = CompanyUser
-        fields = "__all__"
     
     def create(self, validated_data):
-        data = validated_data.pop('users')
+        data_users = validated_data.pop('users')
+        data_company = validated_data.pop('company')
 
-        companyuser = CompanyUser.objects.create(**validated_data)
+        new_company = Company.objects.create(email=data_company['email'], name=data_company['name'], phone=data_company['phone'],
+                                            street=data_company['street'], city=data_company['city'],
+                                            zip_code=data_company['zip_code'], country=data_company['country'])
+        new_company.save()
 
-        for u in data:
-            user = User.objects.create(email=u['email'], company=validated_data['company'])
-            user.save()
-            assign_role(user, 'company')
-            companyuser.users.add(user)
+        for u in data_users:
+            new_user = User.objects.create(email=u['email'], company=new_company)
+            new_user.save()
+            assign_role(new_user, 'company')
+            new_company.users.add(new_user)
         
-        return companyuser
+        return new_company
     
     def update(self, instance, validated_data):
         instance.company=validated_data['company']
