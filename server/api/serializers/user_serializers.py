@@ -5,7 +5,7 @@ from rest_framework import serializers
 from base.models import User
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from base64 import urlsafe_b64decode, urlsafe_b64encode
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework.exceptions import AuthenticationFailed
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,7 +31,6 @@ class LoginUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'last_login', 'username', 'email', 'role', 'company']
 
-<<<<<<< HEAD
 class SetPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=6, max_length=40, write_only=True)
     token = serializers.CharField(min_length=1, write_only=True)
@@ -40,12 +39,12 @@ class SetPasswordSerializer(serializers.Serializer):
     class Meta:
         fields=['password', 'token', 'uidb64']
 
-    def validate(self, data):
+    def validate(self, attrs):
         try:
             password = attrs.get('password')
             token = attrs.get('token')
             uidb64 = attrs.get('uidb64')
-            user_id = force_str(urlsafe_b64decode(uidb64))
+            user_id = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(id=user_id)
 
             if not PasswordResetTokenGenerator().check_token(user, token):
@@ -57,7 +56,6 @@ class SetPasswordSerializer(serializers.Serializer):
         except Exception as e:
             raise AuthenticationFailed('The set password link is invalid', 401)
         return super().validate(attrs)
-=======
 class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.object.create(
@@ -70,4 +68,3 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'date_joined']
->>>>>>> technician_creation_update
