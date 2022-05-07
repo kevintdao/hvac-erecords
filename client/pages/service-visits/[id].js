@@ -35,7 +35,7 @@ export default function ServiceProfile () {
         return
       }
 
-      const profileId = plan.data.profile
+      const profileId = plan.data.profile.id
       const profile = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${profileId}`)
       
       let endpoints = []

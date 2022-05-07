@@ -1,6 +1,9 @@
 {
     "id": 1,
-    "user_id": 1,
+    "user": {
+        "id": 1,
+        "email": "andrew-murley@test.com"
+    },
     "company": 1,
     "first_name": "Ryan",
     "last_name": "Murley",
