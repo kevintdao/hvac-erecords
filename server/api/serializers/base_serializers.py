@@ -6,7 +6,7 @@ from django.conf import settings
 from rolepermissions.roles import assign_role
 
 from .records_serializers import ProfilePlanSerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
@@ -67,9 +67,41 @@ class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
 
 
 class TechnicianSerializer(serializers.ModelSerializer):
+    user = CreateUserSerializer(many=False)
     class Meta:
         model = Technician
         fields = '__all__'
+    
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = User.objects.create(email=user_data["email"], company=validated_data["company"])
+
+        user.save()
+        assign_role(user, 'technician')
+        # technician_data = {"first_name": validated_data["first_name"],'last_name': validated_data["last_name"], 'phone_number': validated_data['phone_number'], 'license_number': validated_data['license_number'], 'company': validated_data['company'], 'user_id': user.id }
+        
+        technician = Technician.objects.create(first_name= validated_data["first_name"],last_name= validated_data["last_name"], phone_number= validated_data['phone_number'], license_number= validated_data['license_number'], company= validated_data['company'], user_id= user.id)
+
+        name = validated_data["first_name"] + validated_data["last_name"]
+        subject = 'Email to technician'
+        message = f'Hello {name}. Set password'
+        from_email = settings.EMAIL_HOST_USER
+        to_email = user_data["email"]
+
+        send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
+        return technician
+
+
+    def update(self, instance, validated_data): 
+        instance.first_name=validated_data['first_name']
+        instance.first_name=validated_data['last_name']
+        instance.phone_number=validated_data['phone_number']
+        instance.company=validated_data['company']
+        instance.license_number=validated_data['license_number']
+
+
+        return instance
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
