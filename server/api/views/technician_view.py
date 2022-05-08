@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Technician, Company
-from api.serializers import TechnicianSerializer
+from api.serializers import TechnicianSerializer, TechnicianDisplaySerializer
 from rest_framework import status
 from base.models import User
 from django.core.mail import send_mail
@@ -59,7 +59,7 @@ def apiTechnician(request,pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of technician
     if request.method == 'GET' and has_permission(request.user, 'view_technicians'):
-        serializer = TechnicianSerializer(technician, many=False)
+        serializer = TechnicianDisplaySerializer(technician, many=False)
         return Response(serializer.data)
     # Update technician
     elif request.method == 'PUT' and has_permission(request.user, 'update_technicians'):

@@ -5,7 +5,7 @@ from django.conf import settings
 from rolepermissions.roles import assign_role
 
 from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer, LoginUserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
@@ -49,11 +49,18 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         return instance
 
 class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
+    users = LoginUserSerializer(many=True)
     class Meta:
         model = BuildingManager
-        fields = ('id','name','phone_number')
+        fields = '__all__'
 
 class TechnicianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technician
+        fields = '__all__'
+
+class TechnicianDisplaySerializer(serializers.ModelSerializer):
+    user = LoginUserSerializer(many=False, read_only=True)
     class Meta:
         model = Technician
         fields = '__all__'
@@ -89,7 +96,7 @@ class CompanySerializer(serializers.ModelSerializer):
         company = Company.objects.create(**validated_data)
         
         for u in users_data:
-            user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=u)
+            user = RegisterUserSerializer.create(RegisterUserSerializer(), validated_data=u)
             assign_role(user, 'manager')
             user.company = company
             user.save()

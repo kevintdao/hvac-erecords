@@ -6,8 +6,9 @@ import records from '../../public/screenshots/RecordsTechnicianPage.png'
 
 export default function TechnicianHelp() {
   const styles = {
-    header: 'font-bold text-3xl',
-    sub_header: 'font-bold text-xl'
+    header: 'font-bold text-3xl text-center',
+    sub_header: 'font-bold text-xl',
+    container: 'space-y-2 p-2 border border-gray-200 rounded'
   }
 
   return (
@@ -17,7 +18,7 @@ export default function TechnicianHelp() {
         the informations for that specific unit. Once the QR code is scanned, you will be taken
         to the Service Plans page for that unit. You can then complete a service profile for that unit.
       </p>
-      <div>
+      <div className={styles.container}>
         <h2 className={styles.header}>Service Plans</h2>
         <p>
           After scanning a QR code, you will be taken to a Service Plans page for that unit.
@@ -32,7 +33,7 @@ export default function TechnicianHelp() {
         <Image src={serviceplans} alt='servicePlansPage' />
       </div>
 
-      <div>
+      <div className={styles.container}>
         <h2 className={styles.header}>Unit Records</h2>
         <p>
           On the Unit Records, you can view the previous maintenance records performed on the current unit.
@@ -42,7 +43,7 @@ export default function TechnicianHelp() {
         <Image src={records} alt='unitRecords' />
       </div>
 
-      <div>
+      <div className={styles.container}>
         <h2 className={styles.header}>Service Visits</h2>
         <p>
           On the Service Visits page, there&apos;s a title and description for the current maintenance plan. Below that are the

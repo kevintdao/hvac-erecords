@@ -40,6 +40,8 @@ export default function Manager () {
     return (<Loading />)
   }
 
+  console.log(data)
+
   return (
     <PrivateRoute isAllowed={[1]}>
     <div className='space-y-4 mt-2'>

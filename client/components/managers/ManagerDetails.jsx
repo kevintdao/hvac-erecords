@@ -11,10 +11,22 @@ export default function ManagerDetails({ data }) {
   return (
     <div className=''>
       <dl>
-        {/* Name */}
+        {/* ID */}
         <div className={`${styles.div} border-none`}>
+          <dt className={styles.label} id='id-label'>ID</dt>
+          <dd className={styles.text} id='id'>{data.users[0].id}</dd> 
+        </div>
+
+        {/* Name */}
+        <div className={styles.div}>
           <dt className={styles.label} id='name-label'>Name</dt>
           <dd className={styles.text} id='name'>{data.name}</dd> 
+        </div>
+
+        {/* Email */}
+        <div className={styles.div}>
+          <dt className={styles.label} id="email-label">Email</dt>
+          <dd className={styles.text} id="email">{data.users[0].email}</dd> 
         </div>
 
         {/* Phone Number */}
