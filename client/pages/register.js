@@ -26,21 +26,12 @@ export default function Signup () {
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/companies`, data)
     .then(res => {
-      setId(res.data.id)
+      setSuccess(true)
     })
     .catch(() => {
       const output = handleError(error)
       setError(output)
     })
-
-    // signup(data.email, data.password)
-    //   .then(res => {
-    //     setSuccess(true)
-    //   })
-    //   .catch(error => {
-    //     const output = handleError(error)
-    //     setError(output)
-    //   })
   }
 
   // successfully sign up
