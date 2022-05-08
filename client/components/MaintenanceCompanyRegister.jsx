@@ -136,7 +136,7 @@ export default function MaintenanceCompanyRegister ({ onSubmit }) {
                     <div className={styles.inputContainer}>
                         <label htmlFor="phone">Phone Number</label>
                         <Controller 
-                        name='phone'
+                        name='phone_number'
                         control={control}
                         rules={{
                             required: {

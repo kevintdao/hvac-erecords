@@ -77,7 +77,7 @@ class BuildingDisplaySerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 class CompanySerializer(serializers.ModelSerializer):
-    users = CreateUserSerializer(many=True)
+    users = RegisterUserSerializer(many=True)
 
     class Meta:
         model = Company

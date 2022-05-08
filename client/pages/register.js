@@ -24,7 +24,7 @@ export default function Signup () {
 
     console.log(data)
 
-    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/company-users`, data)
+    axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/companies`, data)
     .then(res => {
       setId(res.data.id)
     })

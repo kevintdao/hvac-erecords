@@ -20,7 +20,8 @@ class TestMaintenanceCompanyAPI(TestCase):
 
         self.data = {
             "users": [
-	            {"email": "company123@email.com"},
+	            {"email": "company123@email.com",
+                "password": "password123"},
 	        ],
             "name": "University of Iowa",
             "street": "123 Street",

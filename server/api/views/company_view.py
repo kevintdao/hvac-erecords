@@ -7,15 +7,14 @@ from rest_framework import status
 from rolepermissions.checkers import has_permission
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
 def apiCompanies(request):
     # List companies
-    if request.method == 'GET' and has_permission(request.user, 'get_companies'):
+    if request.method == 'GET' and has_permission(request.user, 'get_companies') and request.user.is_authenticated:
         companies = Company.objects.for_user(request.user)
         serializer = CompanySerializer(companies, many=True)
         return Response(serializer.data)
     # Create company
-    elif request.method == 'POST' and has_permission(request.user, 'create_companies'):
+    elif request.method == 'POST':
         serializer = CompanySerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
