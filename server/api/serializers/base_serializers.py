@@ -134,7 +134,7 @@ class TechnicianSerializer(serializers.ModelSerializer):
         # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
         # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
 
-        name = validated_data["first_name"] + validated_data["last_name"]
+        name = validated_data["first_name"] + " " + validated_data["last_name"]
         subject = "Technician set password"
         message = f"Hello {name}. Set password here: " + reset_url
         from_email = settings.EMAIL_HOST_USER
