@@ -5,6 +5,7 @@ from base.models import Company
 from api.serializers import CompanySerializer, CompanyUpdateSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
+from rolepermissions.roles import assign_role
 
 @api_view(['GET','POST'])
 def apiCompanies(request):
@@ -17,7 +18,9 @@ def apiCompanies(request):
     elif request.method == 'POST':
         serializer = CompanySerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
+            company = serializer.save()
+            for user in company.users.all():
+                assign_role(user,'company')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
