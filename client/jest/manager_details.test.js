@@ -5,7 +5,7 @@ const data = {
   name: "12345",
   phone_number: "(319) 123-4567",
   users: [
-    { id: 1, email: 'test@test.com'}
+    { id: 1, email: 'test@test.com' }
   ]
 }
 

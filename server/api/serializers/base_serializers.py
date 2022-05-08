@@ -1,11 +1,22 @@
-from rest_framework import serializers
-from base.models import Unit, BuildingManager, Technician, Building, Company
-from django.core.mail import send_mail
+from cgitb import reset
+
+import environ
+from base.models import Building, BuildingManager, Company, Technician, Unit
 from django.conf import settings
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils.encoding import (DjangoUnicodeDecodeError, force_str,
+                                   smart_bytes, smart_str)
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework import serializers
 from rolepermissions.roles import assign_role
 
-from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer, LoginUserSerializer
+from .records_serializers import (ProfilePlanDisplaySerializer,
+                                  ProfilePlanSerializer)
+from .user_serializers import (CreateUserSerializer, LoginUserSerializer,
+                               RegisterUserSerializer, UserSerializer)
+
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = CreateUserSerializer(many=True)
@@ -16,6 +27,9 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         fields = ('id', 'users', 'name', 'phone_number', 'company')
 
     def create(self, validated_data):
+
+        env = environ.Env()
+        url = env("URL")
         users_data = validated_data.pop('users')
     
         building_manager = BuildingManager.objects.create(**validated_data)
@@ -25,6 +39,23 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
             user.company = validated_data['company']
             user.save()
             building_manager.users.add(user)   
+
+            uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
+            token = PasswordResetTokenGenerator().make_token(user)
+            # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
+            relativeLink = "/password-set/{uidb64}/{token}/".format(uidb64=uidb64, token=token)
+            reset_url = url + relativeLink
+
+            # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
+            # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
+
+            name = validated_data['name']
+            subject = 'Building manager set password'
+            message = f'Hello {name}. Set password here: ' + reset_url
+            from_email = settings.EMAIL_HOST_USER
+            to_email = u['email']
+
+            send_mail(subject, message, from_email, [to_email], fail_silently=False)
 
         building_manager.save()
         return building_manager
@@ -54,23 +85,46 @@ class TechnicianSerializer(serializers.ModelSerializer):
         model = Technician
         fields = ('user', 'company', 'first_name', 'last_name', 'phone_number', 'license_number')
 
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
+
     def create(self, validated_data):
         user_data = validated_data.pop('user')
         user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=user_data)
         user.company = validated_data['company']
         user.save()
-        student, created = Technician.objects.update_or_create(user=user,
-                            company=validated_data['company'],
-                            first_name=validated_data['first_name'],
-                            last_name=validated_data['last_name'],
-                            phone_number=validated_data['phone_number'],
-                            license_number=validated_data['license_number'])
-        return student
-    
-    def save(self, **kwargs):
-        user = self.context['request'].user
-        kwargs["company"] = user.company
-        return super().save(**kwargs)
+
+        env = environ.Env()
+        url = env("URL")
+
+        technician, created = Technician.objects.update_or_create(user=user,
+                    company=validated_data['company'],
+                    first_name=validated_data['first_name'],
+                    last_name=validated_data['last_name'],
+                    phone_number=validated_data['phone_number'],
+                    license_number=validated_data['license_number'])
+
+        uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
+        token = PasswordResetTokenGenerator().make_token(user)
+        # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
+        relativeLink = "/password-set/{uidb64}/{token}/".format(uidb64=uidb64, token=token)
+        reset_url = url + relativeLink
+
+        # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
+        # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
+        
+        name = validated_data["first_name"] + validated_data["last_name"]
+        subject = 'Technician set password'
+        message = f'Hello {name}. Set password here: ' + reset_url
+        from_email = settings.EMAIL_HOST_USER
+        to_email = user_data["email"]
+
+        send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
+        return technician
 
 # Don't update user or company
 class TechnicianUpdateSerializer(serializers.ModelSerializer):
