@@ -8,7 +8,10 @@ const labels = {
 
 const data = [
     {
-        user: 1,
+        user: {
+            id: 1,
+            email: "andrew-murley@test.com"
+        },
         company: 1,
         first_name: "John",
         last_name: "Doe",
@@ -16,7 +19,10 @@ const data = [
         license_number: 5,
     },
     {
-        user: 2,
+        user: {
+            id: 2,
+            email: "ryan-doe@test.com"
+        },
         company: 1,
         first_name: "Ryan",
         last_name: "Baker",
@@ -36,8 +42,8 @@ test("Should display preset table data", () => {
     });
 
     data.map((item, index) => {
-        const first_name = container.querySelector(`td#first_name-${item.user}`);
-        const last_name = container.querySelector(`td#last_name-${item.user}`);
+        const first_name = container.querySelector(`td#first_name-${item.user.id}`);
+        const last_name = container.querySelector(`td#last_name-${item.user.id}`);
     
         expect(first_name.textContent).toEqual(item.first_name);
         expect(last_name.textContent).toEqual(item.last_name);

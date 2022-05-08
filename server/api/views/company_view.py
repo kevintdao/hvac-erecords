@@ -21,6 +21,8 @@ def apiCompanies(request):
             company = serializer.save()
             for user in company.users.all():
                 assign_role(user,'company')
+                user.role = 1
+                user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)

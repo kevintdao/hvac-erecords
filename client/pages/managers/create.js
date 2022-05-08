@@ -18,8 +18,7 @@ export default function Create () {
   }
 
   const onSubmit = async (data) => {
-    data.company = user.user.company
-    data.users = [{"email": data.email, "username": data.email, "password": "tespassword"}] // temporary password is necessary until user model is updated
+    data.users = [{"email": data.email}]
     delete data.email
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/managers`, data)
       .then(res => {

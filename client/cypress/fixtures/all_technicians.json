@@ -1,20 +1,24 @@
 [
     {
-        "user": 1,
+        "user": {
+            "id": 1,
+            "email": "andrew-murley@test.com"
+        },
         "company": 1,
         "first_name": "Andrew",
         "last_name": "Murley",
         "phone_number": "+13193844357",
-        "license_number": 4,
-        "email": "andrew-murley@test.com"
+        "license_number": 4
     },
     {
-        "user": 2,
+        "user": {
+            "id": 2,
+            "email": "ryan-doe@test.com"
+        },
         "company": 1,
         "first_name": "Ryan",
         "last_name": "Doe",
         "phone_number": "+13193560001",
-        "license_number": 5,
-        "email": "ryan-doe@test.com"
+        "license_number": 5
     }
 ]

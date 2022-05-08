@@ -77,7 +77,7 @@ export default function UnitForm({ type, data, buildings, onSubmit }) {
 
           {/* Serial Number */}
           <div className={styles.inputContainer}>
-            <label htmlFor="serial_number">Serial Nunber</label>
+            <label htmlFor="serial_number">Serial Number</label>
             <input 
               type="text" 
               name="serial_number" 

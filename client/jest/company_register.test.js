@@ -68,7 +68,7 @@ test("should display error message when inputs are empty", async () => {
     const countryError = container.querySelector("span#country-help");
     const phoneError = container.querySelector("span#phone_number-help");
 
-    const createButton = container.querySelector("button#create-button");
+    const createButton = container.querySelector("button#register-button");
 
     await act(async () => { fireEvent.submit(createButton); });
 
@@ -93,7 +93,7 @@ test("should display error message when phone number is invalid", async () => {
     const { container } = render(<MaintenanceCompanyRegister />);
     const phoneInput = container.querySelector("input#phone_number");
     const phoneError = container.querySelector("span#phone_number-help");
-    const createButton = container.querySelector("button#create-button");
+    const createButton = container.querySelector("button#register-button");
 
     fireEvent.input(phoneInput, { target: { value: invalidPhone } });
 
@@ -107,7 +107,7 @@ test("should display error message when email is invalid", async () => {
     const { container } = render(<MaintenanceCompanyRegister />);
     const emailInput = container.querySelector("input#email");
     const emailError = container.querySelector("span#email-help");
-    const createButton = container.querySelector("button#create-button");
+    const createButton = container.querySelector("button#register-button");
   
     fireEvent.input(emailInput, { target: { value: invalidEmail } });
   
@@ -121,7 +121,7 @@ test("should display error message when email is invalid", async () => {
     const { container } = render(<MaintenanceCompanyRegister />);
     const emailInput = container.querySelector("input#email");
     const emailError = container.querySelector("span#email-help");
-    const createButton = container.querySelector("button#create-button");
+    const createButton = container.querySelector("button#register-button");
   
     fireEvent.input(emailInput, { target: { value: longEmail } });
   
