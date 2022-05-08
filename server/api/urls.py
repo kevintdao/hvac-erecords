@@ -37,5 +37,4 @@ urlpatterns = [
     path("visits/<int:pk>/", views.apiVisit, name="visits-detail"),
     path("completions", views.apiCompletions, name="completions-list"),
     path("completions/<int:pk>/", views.apiCompletion, name="completions-detail"),
-    path("company-users", views.apiCompanyUsers, name="company-users"),
 ]

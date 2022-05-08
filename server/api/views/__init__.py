@@ -14,4 +14,3 @@ from .service_visit_view import *
 from .task_completion_view import *
 from .unit_records_view import *
 from .refrigerant_report_view import *
-from .company_user_view import *
