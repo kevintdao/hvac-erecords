@@ -19,6 +19,7 @@ export default function Technician(props) {
     
         axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/technicians/${id}/`)
           .then((res) => {
+            res.data["user"] = res.data["user"].id
             setData(res.data)
           })
           .catch(err => {
