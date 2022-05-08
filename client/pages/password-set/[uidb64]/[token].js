@@ -44,11 +44,11 @@ export default function ResetPassword() {
     if(success){
       return(
       <div className='mt-2'>
-      <Alert
-        title='Successfully Set Password'
-        text='Successfully Set Password'
-        type='success'
-      />
+        <Alert
+          title='Successful'
+          text='Successfully Set Password'
+          type='success'
+        />
       </div>
       )
     }
@@ -95,11 +95,8 @@ export default function ResetPassword() {
               </div>
               <span className='text-sm text-red-700 mt-1' id="confirm_password-help">{errors.confirm_password?.message}</span>
             </div>
-
               <input type="submit" className={styles.button} id='password-button' value="Set Password"/>
             </form>
-
         </div>
-        
   )
 }
