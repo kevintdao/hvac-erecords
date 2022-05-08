@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Company
-from api.serializers import CompanySerializer
+from api.serializers import CompanySerializer, CompanyUpdateSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
 
@@ -16,7 +16,7 @@ def apiCompanies(request):
         return Response(serializer.data)
     # Create company
     elif request.method == 'POST' and has_permission(request.user, 'create_companies'):
-        serializer = CompanySerializer(data=request.data)
+        serializer = CompanySerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -36,7 +36,7 @@ def apiCompany(request,pk):
         return Response(serializer.data)
     # Update company
     elif request.method == 'PUT' and has_permission(request.user, 'update_companies'):
-        serializer = CompanySerializer(company, data=request.data)
+        serializer = CompanyUpdateSerializer(company, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

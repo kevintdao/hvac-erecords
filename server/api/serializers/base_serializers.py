@@ -5,7 +5,7 @@ from django.conf import settings
 from rolepermissions.roles import assign_role
 
 from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
@@ -48,32 +48,6 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 
         return instance
 
-class CompanyUserSerializer(serializers.ModelSerializer):
-    users = RegisterUserSerializer(many=True)
-    
-    def create(self, validated_data):
-        data_users = validated_data.pop('users')
-        data_company = validated_data.pop('company')
-
-        new_company = Company.objects.create(email=data_company['email'], name=data_company['name'], phone=data_company['phone'],
-                                            street=data_company['street'], city=data_company['city'],
-                                            zip_code=data_company['zip_code'], country=data_company['country'])
-        new_company.save()
-
-        for u in data_users:
-            new_user = User.objects.create(email=u['email'], company=new_company)
-            new_user.save()
-            assign_role(new_user, 'company')
-            new_company.users.add(new_user)
-        
-        return new_company
-    
-    def update(self, instance, validated_data):
-        instance.company=validated_data['company']
-        instance.save()
-
-        return instance
-
 class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = BuildingManager
@@ -103,9 +77,31 @@ class BuildingDisplaySerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 class CompanySerializer(serializers.ModelSerializer):
+    users = CreateUserSerializer(many=True)
+
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = ('id', 'users', 'name', 'street', 'city', 'zip_code', 'country', 'phone_number')
+
+    def create(self, validated_data):
+        users_data = validated_data.pop('users')
+    
+        company = Company.objects.create(**validated_data)
+        
+        for u in users_data:
+            user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=u)
+            assign_role(user, 'manager')
+            user.company = company
+            user.save()
+            company.users.add(user)   
+
+        company.save()
+        return company
+
+class CompanyUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('name', 'street', 'city', 'zip_code', 'country', 'phone_number')
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
