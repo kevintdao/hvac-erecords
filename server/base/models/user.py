@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .company import *
+from .company import Company
 from django.utils.translation import gettext_lazy as _
 from .user_manager import *
 

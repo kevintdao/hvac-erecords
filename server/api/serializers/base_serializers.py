@@ -54,7 +54,6 @@ class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
         model = BuildingManager
         fields = '__all__'
 
-
 class TechnicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
@@ -85,9 +84,30 @@ class BuildingDisplaySerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 class CompanySerializer(serializers.ModelSerializer):
+    users = RegisterUserSerializer(many=True)
+
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = ('id', 'users', 'name', 'street', 'city', 'zip_code', 'country', 'phone_number')
+
+    def create(self, validated_data):
+        users_data = validated_data.pop('users')
+    
+        company = Company.objects.create(**validated_data)
+        
+        for u in users_data:
+            user = RegisterUserSerializer.create(RegisterUserSerializer(), validated_data=u)
+            user.company = company
+            user.save()
+            company.users.add(user)   
+
+        company.save()
+        return company
+
+class CompanyUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('name', 'street', 'city', 'zip_code', 'country', 'phone_number')
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:

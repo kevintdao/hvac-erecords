@@ -3,7 +3,10 @@ import ManagerDetails from "../components/managers/ManagerDetails"
 
 const data = {
   name: "12345",
-  phone_number: "(319) 123-4567"
+  phone_number: "(319) 123-4567",
+  users: [
+    { id: 1, email: 'test@test.com'}
+  ]
 }
 
 afterEach(cleanup);
