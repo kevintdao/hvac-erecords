@@ -90,7 +90,9 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician_failure(self):
         technician = Technician.objects.last()
         new_data = {
-            'user': '2',
+            'last_name' : 'Doe',
+            'phone_number' : '101-101-1010',
+            'license_number' : 5
         }
         response = self.client.put(
             reverse('technicians-detail',

@@ -48,11 +48,7 @@ def apiTechnician(request,pk):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        # serializer = TechnicianSerializer(technician, data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # Delete technician
     elif request.method == 'DELETE' and has_permission(request.user, 'delete_technicians'):
         technician.delete()

@@ -61,15 +61,3 @@ class SetPasswordSerializer(serializers.Serializer):
         except Exception as e:
             raise AuthenticationFailed('The set password link is invalid', 401)
         return super().validate(attrs)
-class CreateUserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        user = User.object.create(
-            email= validated_data['email']
-
-        )
-        user.save()
-        return user
-
-    class Meta:
-        model = User
-        fields = ['id', 'email', 'date_joined']
