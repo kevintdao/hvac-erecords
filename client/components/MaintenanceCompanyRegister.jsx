@@ -134,29 +134,29 @@ export default function MaintenanceCompanyRegister ({ onSubmit }) {
 
                     {/* Phone Number */}
                     <div className={styles.inputContainer}>
-                        <label htmlFor="phone">Phone Number</label>
+                        <label htmlFor="phone_number">Phone Number</label>
                         <Controller 
                         name='phone_number'
                         control={control}
                         rules={{
                             required: {
-                            value: true,
-                            message: "Enter a Phone Number"
-                            },
+                                value: true,
+                                message: "Enter a Phone Number"
+                                },
                             validate: value => isPossiblePhoneNumber(value) || "Enter a Valid Phone Number"
                         }}
                         render={({ field: { onChange, value } }) => (
                             <PhoneInput
-                            country="US"
-                            className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
-                            value={value}
-                            onChange={onChange}
-                            id="phone"
+                                country="US"
+                                className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
+                                value={value}
+                                onChange={onChange}
+                                id="phone_number"
                             />
                         )}
                         />
                         
-                        <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
+                        <span className={styles.helpText} id="phone_number-help">{errors.phone_number?.message}</span>
                         <small className="text-gray-400 mt-1">US phone number only.</small>
                     </div>
                 </div>

@@ -31,7 +31,7 @@ test("should watch input correctly", () => {
     const cityInput = container.querySelector("input#city");
     const zipCodeInput = container.querySelector("input#zip_code");
     const countryInput = container.querySelector("input#country");
-    const phoneInput = container.querySelector("input#phone");
+    const phoneInput = container.querySelector("input#phone_number");
 
     fireEvent.input(emailInput, { target: {value: validEmail } });
     fireEvent.input(nameInput, { target: { value: validName } });
@@ -58,7 +58,7 @@ test("should display error message when inputs are empty", async () => {
     const cityInput = container.querySelector("input#city");
     const zipCodeInput = container.querySelector("input#zip_code");
     const countryInput = container.querySelector("input#country");
-    const phoneInput = container.querySelector("input#phone");
+    const phoneInput = container.querySelector("input#phone_number");
 
     const emailError = container.querySelector("span#email-help")
     const nameError = container.querySelector("span#name-help");
@@ -66,7 +66,7 @@ test("should display error message when inputs are empty", async () => {
     const cityError = container.querySelector("span#city-help");
     const zipCodeError = container.querySelector("span#zip_code-help");
     const countryError = container.querySelector("span#country-help");
-    const phoneError = container.querySelector("span#phone-help");
+    const phoneError = container.querySelector("span#phone_number-help");
 
     const createButton = container.querySelector("button#create-button");
 
@@ -91,8 +91,8 @@ test("should display error message when inputs are empty", async () => {
 
 test("should display error message when phone number is invalid", async () => {
     const { container } = render(<MaintenanceCompanyRegister />);
-    const phoneInput = container.querySelector("input#phone");
-    const phoneError = container.querySelector("span#phone-help");
+    const phoneInput = container.querySelector("input#phone_number");
+    const phoneError = container.querySelector("span#phone_number-help");
     const createButton = container.querySelector("button#create-button");
 
     fireEvent.input(phoneInput, { target: { value: invalidPhone } });
