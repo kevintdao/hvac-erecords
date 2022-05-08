@@ -7,7 +7,7 @@ from base.models import Unit
 from api.serializers import RefrigerantReportSerializer
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def apiRefrigerantReport(request, pk):
     try:
@@ -15,7 +15,11 @@ def apiRefrigerantReport(request, pk):
     except Unit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Unit records
-    if request.method == 'GET' and has_permission(request.user, 'get_refrigerant_report'):
+    if request.method == "GET" and has_permission(
+        request.user, "get_refrigerant_report"
+    ):
         serializer = RefrigerantReportSerializer(unit, many=False)
         return Response(serializer.data)
-    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
+    return Response(
+        "This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED
+    )

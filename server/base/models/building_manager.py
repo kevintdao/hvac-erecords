@@ -7,12 +7,13 @@ from .user import *
 
 class BuildingManagerQuerySet(models.QuerySet):
     def for_user(self, user):
-        if has_role(user,'company'):
+        if has_role(user, "company"):
             return self.filter(company=user.company)
-        elif has_role(user,'admin'):
+        elif has_role(user, "admin"):
             return self.all()
         else:
             return self.none()
+
 
 class BuildingManager(models.Model):
     users = models.ManyToManyField(User, related_name="managers")

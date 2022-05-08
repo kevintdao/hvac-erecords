@@ -7,46 +7,60 @@ from rest_framework import status
 from rolepermissions.checkers import has_permission
 from rolepermissions.roles import assign_role
 
-@api_view(['GET','POST'])
+
+@api_view(["GET", "POST"])
 def apiCompanies(request):
     # List companies
-    if request.method == 'GET' and has_permission(request.user, 'get_companies') and request.user.is_authenticated:
+    if (
+        request.method == "GET"
+        and has_permission(request.user, "get_companies")
+        and request.user.is_authenticated
+    ):
         companies = Company.objects.for_user(request.user)
         serializer = CompanySerializer(companies, many=True)
         return Response(serializer.data)
     # Create company
-    elif request.method == 'POST':
-        serializer = CompanySerializer(data=request.data, context={'request': request})
+    elif request.method == "POST":
+        serializer = CompanySerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             company = serializer.save()
             for user in company.users.all():
-                assign_role(user,'company')
+                assign_role(user, "company")
                 user.role = 1
                 user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
+    return Response(
+        "This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED
+    )
 
-@api_view(['GET','PUT','DELETE'])
-@permission_classes([IsAuthenticated]) 
-def apiCompany(request,pk):
+
+@api_view(["GET", "PUT", "DELETE"])
+@permission_classes([IsAuthenticated])
+def apiCompany(request, pk):
     try:
         company = Company.objects.for_user(request.user).get(pk=pk)
     except Company.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of company
-    if request.method == 'GET' and has_permission(request.user, 'view_companies'):
+    if request.method == "GET" and has_permission(request.user, "view_companies"):
         serializer = CompanySerializer(company, many=False)
         return Response(serializer.data)
     # Update company
-    elif request.method == 'PUT' and has_permission(request.user, 'update_companies'):
-        serializer = CompanyUpdateSerializer(company, data=request.data, context={'request': request})
+    elif request.method == "PUT" and has_permission(request.user, "update_companies"):
+        serializer = CompanyUpdateSerializer(
+            company, data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # Delete company
-    elif request.method == 'DELETE' and has_permission(request.user, 'delete_companies'):
+    elif request.method == "DELETE" and has_permission(
+        request.user, "delete_companies"
+    ):
         company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
+    return Response(
+        "This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED
+    )
