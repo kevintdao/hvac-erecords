@@ -56,8 +56,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://hvac-erecords.herokuapp.com/)
 
-Electronic HVAC Maintenance Records
-<!-- expand project description -->
+Manage your buildings, units, and maintenance records for HVAC all in one application. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -128,9 +127,7 @@ NEXT_PUBLIC_HOST=http://127.0.0.1:8000
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [User Guide](https://github.com/UIOWAjohnsonhj/TEAM_001/wiki/User-Guide)_
+_For examples, please refer to the [User Guide](https://github.com/UIOWAjohnsonhj/TEAM_001/wiki/User-Guide)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -139,8 +136,6 @@ _For more examples, please refer to the [User Guide](https://github.com/UIOWAjoh
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Improve accounts system
-- [ ] Records system
 - [ ] [TBD](https://github.com/UIOWAjohnsonhj/TEAM_001#workspaces/)
 
 See the [open issues](https://github.com/UIOWAjohnsonhj/TEAM_001/issues) for a full list of proposed features (and known issues).
@@ -161,4 +156,4 @@ See the [open issues](https://github.com/UIOWAjohnsonhj/TEAM_001/issues) for a f
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[product-screenshot]: media/preview.png
+[product-screenshot]: https://user-images.githubusercontent.com/73150419/167306494-5dda1ced-ad1c-4788-89c1-efd9043e22c7.png
