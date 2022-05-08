@@ -68,7 +68,7 @@ export default function ManagerForm({ type, data, onSubmit }) {
           </div>
 
           {/* Email */}
-          <div className={styles.inputContainer}>
+          {type == 'Create' && <div className={styles.inputContainer}>
             <label htmlFor="email">Email address</label>
             <input 
               type="text" 
@@ -91,7 +91,7 @@ export default function ManagerForm({ type, data, onSubmit }) {
               })}
             />
             <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
-          </div>
+          </div>}
         </div>
 
         <div>
