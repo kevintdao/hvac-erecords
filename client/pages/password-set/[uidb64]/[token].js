@@ -82,7 +82,7 @@ export default function ResetPassword() {
                 {...register('confirm_password', {
                   required: {
                   value: true,
-                  message: "Password not long enough",
+                  message: "Enter a Password",
                   minLength: 1
                   },
                   validate: (value) =>
