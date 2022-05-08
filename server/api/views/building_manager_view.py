@@ -23,6 +23,8 @@ def apiManagers(request):
             manager = serializer.save()
             for user in manager.users.all():
                 assign_role(user,'manager')
+                user.role = 2
+                user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
