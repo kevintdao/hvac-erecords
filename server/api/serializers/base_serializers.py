@@ -97,7 +97,7 @@ class CompanySerializer(serializers.ModelSerializer):
         
         for u in users_data:
             user = RegisterUserSerializer.create(RegisterUserSerializer(), validated_data=u)
-            assign_role(user, 'manager')
+            assign_role(user, 'company')
             user.company = company
             user.save()
             company.users.add(user)   
