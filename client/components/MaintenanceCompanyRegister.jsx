@@ -238,7 +238,7 @@ export default function MaintenanceCompanyRegister ({ onSubmit }) {
                 </div>
 
                 {/* submit button */}
-                <button className='px-4 py-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='create-button'>Create</button>
+                <button className='px-4 py-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='register-button'>Register</button>
             </form>
         </div>
       )
