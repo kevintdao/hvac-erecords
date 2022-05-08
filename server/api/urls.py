@@ -16,7 +16,11 @@ urlpatterns = [
     path("units", views.apiUnits, name="units-list"),
     path("units/<int:pk>/", views.apiUnit, name="units-detail"),
     path("units/<int:pk>/records/", views.apiUnitRecords, name="units-records"),
-    path("units/<int:pk>/refrigerant/", views.apiRefrigerantReport, name="units-refrigerant"),
+    path(
+        "units/<int:pk>/refrigerant/",
+        views.apiRefrigerantReport,
+        name="units-refrigerant",
+    ),
     path("managers", views.apiManagers, name="managers-list"),
     path("managers/<int:pk>/", views.apiManager, name="managers-detail"),
     path("technicians", views.apiTechnicians, name="technicians-list"),
@@ -37,6 +41,14 @@ urlpatterns = [
     path("visits/<int:pk>/", views.apiVisit, name="visits-detail"),
     path("completions", views.apiCompletions, name="completions-list"),
     path("completions/<int:pk>/", views.apiCompletion, name="completions-detail"),
-    path("password-set/<uidb64>/<token>/", views.PasswordTokenCheckAPI.as_view(), name="password-set-confirm"),
-    path("password-set-complete/", views.SetPasswordAPIView.as_view(), name="password-set-complete")
+    path(
+        "password-set/<uidb64>/<token>/",
+        views.PasswordTokenCheckAPI.as_view(),
+        name="password-set-confirm",
+    ),
+    path(
+        "password-set-complete/",
+        views.SetPasswordAPIView.as_view(),
+        name="password-set-complete",
+    ),
 ]

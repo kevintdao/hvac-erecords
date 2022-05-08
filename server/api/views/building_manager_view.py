@@ -2,35 +2,43 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import BuildingManager
-from api.serializers import BuildingManagerSerializer, BuildingManagerUpdateSerializer, BuildingManagerDisplaySerializer
+from api.serializers import (
+    BuildingManagerSerializer,
+    BuildingManagerUpdateSerializer,
+    BuildingManagerDisplaySerializer,
+)
 from rest_framework import status
 from rolepermissions.checkers import has_permission
 from rolepermissions.roles import assign_role
 
 
-@api_view(['GET', 'POST'])
+@api_view(["GET", "POST"])
 @permission_classes([IsAuthenticated])
 def apiManagers(request):
     # List managers
-    if request.method == 'GET' and has_permission(request.user, 'get_managers'):
+    if request.method == "GET" and has_permission(request.user, "get_managers"):
         managers = BuildingManager.objects.for_user(request.user)
         serializer = BuildingManagerSerializer(managers, many=True)
         return Response(serializer.data)
     # Create manager
-    elif request.method == 'POST' and has_permission(request.user, 'create_managers'):
-        serializer = BuildingManagerSerializer(data=request.data, context={'request': request})
+    elif request.method == "POST" and has_permission(request.user, "create_managers"):
+        serializer = BuildingManagerSerializer(
+            data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             manager = serializer.save()
             for user in manager.users.all():
-                assign_role(user,'manager')
+                assign_role(user, "manager")
                 user.role = 2
                 user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
+    return Response(
+        "This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED
+    )
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(["GET", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])
 def apiManager(request, pk):
     try:
@@ -38,17 +46,21 @@ def apiManager(request, pk):
     except BuildingManager.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of manager
-    if request.method == 'GET' and has_permission(request.user, 'view_managers'):
+    if request.method == "GET" and has_permission(request.user, "view_managers"):
         serializer = BuildingManagerDisplaySerializer(manager, many=False)
         return Response(serializer.data)
     # Update manager
-    elif request.method == 'PUT' and has_permission(request.user, 'update_managers'):
-        serializer = BuildingManagerUpdateSerializer(manager, data=request.data, context={'request': request})
+    elif request.method == "PUT" and has_permission(request.user, "update_managers"):
+        serializer = BuildingManagerUpdateSerializer(
+            manager, data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE' and has_permission(request.user, 'delete_managers'):
+    elif request.method == "DELETE" and has_permission(request.user, "delete_managers"):
         manager.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
+    return Response(
+        "This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED
+    )

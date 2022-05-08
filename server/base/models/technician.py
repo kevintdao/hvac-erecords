@@ -7,14 +7,15 @@ from .company import *
 
 class TechnicianQuerySet(models.QuerySet):
     def for_user(self, user):
-        if has_role(user,'company'):
+        if has_role(user, "company"):
             return self.filter(company=user.company)
-        elif has_role(user,'technician'):
+        elif has_role(user, "technician"):
             return self.filter(user=user)
-        elif has_role(user,'admin'):
+        elif has_role(user, "admin"):
             return self.all()
         else:
             return self.none()
+
 
 class Technician(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
