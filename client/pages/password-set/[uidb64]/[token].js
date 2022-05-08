@@ -62,26 +62,28 @@ export default function ResetPassword() {
                 type="password"
                 name="password"
                 id="password"
-                className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
+                className={`${styles.input} ${errors.password ? "border-red-400" : "border-gray-300"}`}
                 {...register('password', {
                   required: {
                   value: true,
-                  message: "Enter a Password"
+                  message: "Enter a Password",
+                  minLength: 1
                   }
                 })}
               />
-              <span className='text-sm text-red-700 mt-1' id="password-help">{errors.Passowrd?.message}</span>
+              <span className='text-sm text-red-700 mt-1' id="password-help">{errors.password?.message}</span>
               <div className={styles.inputContainer}>
-                <label htmlFor='password'>Confirm Password</label>
+                <label htmlFor='confirm_password'>Confirm Password</label>
                 <input
                 type="password"
                 name="confirm-password"
                 id="confirm-password"
-                className={`${styles.input} ${errors.first_name ? "border-red-400" : "border-gray-300"}`}
+                className={`${styles.input} ${errors.confirm_password ? "border-red-400" : "border-gray-300"}`}
                 {...register('confirm_password', {
                   required: {
                   value: true,
-                  message: "Confirm Password"
+                  message: "Password not long enough",
+                  minLength: 1
                   },
                   validate: (value) =>
                   value === password || "The passwords do not match",
