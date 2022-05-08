@@ -1,0 +1,438 @@
+[
+    {
+        "model": "records.profileplan",
+        "pk": 51,
+        "fields": {
+            "profile": 51,
+            "unit": 1,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 52,
+        "fields": {
+            "profile": 52,
+            "unit": 1,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 53,
+        "fields": {
+            "profile": 53,
+            "unit": 1,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.profileplan",
+        "pk": 54,
+        "fields": {
+            "profile": 54,
+            "unit": 1,
+            "start_date": "1970-01-01",
+            "end_date": "1970-01-01",
+            "is_required": false,
+            "is_repeating": true
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 51,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:19:02Z",
+            "end_time": "2022-05-05T03:20:52Z",
+            "plan": 51
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 52,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:21:04Z",
+            "end_time": "2022-05-05T03:21:11Z",
+            "plan": 51
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 53,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:22:28Z",
+            "end_time": "2022-05-05T03:22:33Z",
+            "plan": 51
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 54,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:22:45Z",
+            "end_time": "2022-05-05T03:24:38Z",
+            "plan": 52
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 55,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:24:49Z",
+            "end_time": "2022-05-05T03:25:14Z",
+            "plan": 52
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 56,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:25:22Z",
+            "end_time": "2022-05-05T03:25:50Z",
+            "plan": 53
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 57,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T03:25:55Z",
+            "end_time": "2022-05-05T03:26:04Z",
+            "plan": 53
+        }
+    },
+    {
+        "model": "records.servicevisit",
+        "pk": 58,
+        "fields": {
+            "technician": 3,
+            "unit": 1,
+            "start_time": "2022-05-05T01:25:55Z",
+            "end_time": "2022-05-05T09:26:04Z",
+            "plan": 54
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 51,
+        "fields": {
+            "task": 52,
+            "service_visit": 51,
+            "completed_at": "2022-05-05T03:20:45Z",
+            "selection": null,
+            "response": "Method 1",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 52,
+        "fields": {
+            "task": 51,
+            "service_visit": 51,
+            "completed_at": "2022-05-05T03:20:51Z",
+            "selection": null,
+            "response": "",
+            "value": 50
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 53,
+        "fields": {
+            "task": 51,
+            "service_visit": 52,
+            "completed_at": "2022-05-05T03:21:08Z",
+            "selection": null,
+            "response": "",
+            "value": 49
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 54,
+        "fields": {
+            "task": 52,
+            "service_visit": 52,
+            "completed_at": "2022-05-05T03:21:10Z",
+            "selection": null,
+            "response": "Method 2",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 55,
+        "fields": {
+            "task": 51,
+            "service_visit": 53,
+            "completed_at": "2022-05-05T03:22:30Z",
+            "selection": null,
+            "response": "",
+            "value": 55
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 56,
+        "fields": {
+            "task": 52,
+            "service_visit": 53,
+            "completed_at": "2022-05-05T03:22:32Z",
+            "selection": null,
+            "response": "Method 1",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 57,
+        "fields": {
+            "task": 54,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:23:25Z",
+            "selection": 1,
+            "response": "",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 58,
+        "fields": {
+            "task": 55,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:23:31Z",
+            "selection": null,
+            "response": "",
+            "value": 10
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 59,
+        "fields": {
+            "task": 58,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:24:37Z",
+            "selection": null,
+            "response": "method 1",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 60,
+        "fields": {
+            "task": 57,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:24:04Z",
+            "selection": null,
+            "response": "",
+            "value": 19
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 61,
+        "fields": {
+            "task": 56,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:23:49Z",
+            "selection": null,
+            "response": "CFC",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 62,
+        "fields": {
+            "task": 53,
+            "service_visit": 54,
+            "completed_at": "2022-05-05T03:23:23Z",
+            "selection": null,
+            "response": "evaporator coil, condensing coil, accumulator",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 63,
+        "fields": {
+            "task": 53,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:05Z",
+            "selection": null,
+            "response": "accumulator",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 64,
+        "fields": {
+            "task": 54,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:00Z",
+            "selection": 3,
+            "response": "",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 65,
+        "fields": {
+            "task": 56,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:10Z",
+            "selection": null,
+            "response": "CFC",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 66,
+        "fields": {
+            "task": 55,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:08Z",
+            "selection": null,
+            "response": "",
+            "value": 0
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 67,
+        "fields": {
+            "task": 58,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:13Z",
+            "selection": null,
+            "response": "No leak",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 68,
+        "fields": {
+            "task": 57,
+            "service_visit": 55,
+            "completed_at": "2022-05-05T03:25:11Z",
+            "selection": null,
+            "response": "",
+            "value": 0
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 69,
+        "fields": {
+            "task": 59,
+            "service_visit": 56,
+            "completed_at": "2022-05-05T03:25:45Z",
+            "selection": null,
+            "response": "electronic leak detectors",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 70,
+        "fields": {
+            "task": 60,
+            "service_visit": 56,
+            "completed_at": "2022-05-05T03:25:50Z",
+            "selection": null,
+            "response": "evaporator coil, condensing coil, accumulator",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 71,
+        "fields": {
+            "task": 60,
+            "service_visit": 57,
+            "completed_at": "2022-05-05T03:26:01Z",
+            "selection": null,
+            "response": "None",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 72,
+        "fields": {
+            "task": 59,
+            "service_visit": 57,
+            "completed_at": "2022-05-05T03:25:59Z",
+            "selection": null,
+            "response": "Electronic leak detectors",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 73,
+        "fields": {
+            "task": 61,
+            "service_visit": 58,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "accumulator",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 74,
+        "fields": {
+            "task": 62,
+            "service_visit": 58,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "method 1",
+            "value": null
+        }
+    },
+    {
+        "model": "records.taskcompletion",
+        "pk": 75,
+        "fields": {
+            "task": 63,
+            "service_visit": 58,
+            "completed_at": "2022-05-05T06:25:59Z",
+            "selection": null,
+            "response": "no leaks",
+            "value": null
+        }
+    }
+]

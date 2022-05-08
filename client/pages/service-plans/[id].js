@@ -98,9 +98,13 @@ export default function Service () {
         <UnitDetails data={data.unit} />
       </div>
 
-      <div className='my-2'>
+      <div className='my-2 space-x-2'>
         <Link href={`/units/records/${id}`}>
           <a className={styles.button} id='data'>Maintenance Data</a>
+        </Link>
+
+        <Link href={`/units/refrigerant/${id}`}>
+          <a className={styles.button} id='refrigerant'>Refrigerant Leaks Report</a>
         </Link>
       </div>
       

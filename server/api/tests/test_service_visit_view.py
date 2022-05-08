@@ -21,7 +21,7 @@ class TestServiceVisitAPI(TestCase):
 
         self.initial_count = ServiceVisit.objects.count()
         self.data = {
-            "technician": 1,
+            "technician": 3,
             "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",
@@ -36,12 +36,12 @@ class TestServiceVisitAPI(TestCase):
     def test_api_create_service_visit(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(ServiceVisit.objects.count(), self.initial_count+1)
-        self.assertEqual(ServiceVisit.objects.last().technician, Technician.objects.get(pk=1))
+        self.assertEqual(ServiceVisit.objects.last().technician, Technician.objects.get(pk=3))
         self.assertEqual(ServiceVisit.objects.last().plan, ProfilePlan.objects.get(pk=1))
 
     def test_api_create_service_visit_failure(self):
         data = {
-            "technician": 1, 
+            "technician": 3, 
             "unit": 1, 
             "plan": 1, 
             "end_time": "2022-03-22T17:41:28+00:00",
@@ -55,7 +55,7 @@ class TestServiceVisitAPI(TestCase):
 
     def test_api_create_service_visit_failure_start_after_end(self):
         data = {
-            "technician": 1, 
+            "technician": 3, 
             "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-29T17:41:28+00:00",
@@ -86,7 +86,7 @@ class TestServiceVisitAPI(TestCase):
     def test_api_update_service_visit(self):
         visit = ServiceVisit.objects.last()
         new_data = {
-            "technician": 1, 
+            "technician": 3, 
             "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",
@@ -103,7 +103,7 @@ class TestServiceVisitAPI(TestCase):
     def test_api_update_service_visit_failure(self):
         visit = ServiceVisit.objects.last()
         new_data = {
-            "technician": 1, 
+            "technician": 3, 
             "unit": 1, 
             "plan": 1, 
             "start_time": "2022-03-20T17:41:28+00:00",

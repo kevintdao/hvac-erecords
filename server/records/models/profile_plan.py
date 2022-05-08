@@ -8,8 +8,9 @@ from rolepermissions.checkers import has_role
 class ProfilePlanQuerySet(models.QuerySet):
     def for_user(self, user):
         if has_role(user,['company','technician']):
-            profiles = Profile.objects.filter(company=user.company)
-            return self.filter(profile__in=profiles)
+            # Need to check profiles assigned to user's units
+            units = Unit.objects.for_user(user)
+            return self.filter(unit__in=units)
         elif has_role(user,'admin'):
             return self.all()
         else:

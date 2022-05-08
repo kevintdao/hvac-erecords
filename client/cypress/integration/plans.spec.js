@@ -7,14 +7,12 @@ describe('Plan table', () => {
     cy.login('company');
     cy.intercept('GET', '**/api/units', { fixture: 'all_units.json' }).as('getAllUnits');
     cy.intercept('GET', '**/api/units/*', { fixture: 'unit.json' }).as('getUnit');
-    cy.intercept('GET', '**/api/profiles', { fixture: 'all_profiles.json' }).as('getAllProfiles');
-    cy.intercept('GET', '**/api/profiles/*', { fixture: 'profile.json' }).as('getProfile');
 
     cy.visit('http://localhost:3000/units/1');
   })
 
   it('should display the all assigned plan of the unit', () => {
-    cy.wait(['@getUnit', '@getAllProfiles', '@getProfile'])
+    cy.wait(['@getUnit'])
 
     cy.get('td#unit-1').should('contain', '1');
     cy.get('td#title-1').should('contain', 'Profile 1');

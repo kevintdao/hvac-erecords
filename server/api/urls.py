@@ -16,6 +16,7 @@ urlpatterns = [
     path("units", views.apiUnits, name="units-list"),
     path("units/<int:pk>/", views.apiUnit, name="units-detail"),
     path("units/<int:pk>/records/", views.apiUnitRecords, name="units-records"),
+    path("units/<int:pk>/refrigerant/", views.apiRefrigerantReport, name="units-refrigerant"),
     path("managers", views.apiManagers, name="managers-list"),
     path("managers/<int:pk>/", views.apiManager, name="managers-detail"),
     path("technicians", views.apiTechnicians, name="technicians-list"),

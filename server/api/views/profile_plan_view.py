@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from records.models import ProfilePlan, Profile
-from api.serializers import ProfilePlanSerializer
+from api.serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission, has_role
 
@@ -13,7 +13,7 @@ def apiProfilePlans(request):
     # List profile plans
     if request.method == 'GET' and has_permission(request.user, 'get_plans'):
         profile_plans = ProfilePlan.objects.for_user(request.user)
-        serializer = ProfilePlanSerializer(profile_plans, many=True)
+        serializer = ProfilePlanDisplaySerializer(profile_plans, many=True)
         return Response(serializer.data)
     # Create profile plan
     elif request.method == 'POST' and has_permission(request.user, 'create_plans'):
@@ -34,7 +34,7 @@ def apiProfilePlan(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of profile plan
     if request.method == 'GET' and has_permission(request.user, 'view_plans'):
-        serializer = ProfilePlanSerializer(profile_plan, many=False)
+        serializer = ProfilePlanDisplaySerializer(profile_plan, many=False)
         return Response(serializer.data)
     # Update profile plan
     elif request.method == 'PUT' and has_permission(request.user, 'update_plans'):

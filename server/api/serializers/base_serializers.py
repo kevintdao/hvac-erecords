@@ -4,15 +4,14 @@ from base.models import Unit, BuildingManager, Technician, Building, Company, Us
 from django.core.mail import send_mail
 from django.conf import settings
 from rolepermissions.roles import assign_role
-
-from .records_serializers import ProfilePlanSerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer
+from django.urls import reverse
+from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
+from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer, LoginUserSerializer
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from django.urls import reverse
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
@@ -65,9 +64,10 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         return instance
 
 class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
+    users = LoginUserSerializer(many=True)
     class Meta:
         model = BuildingManager
-        fields = ('id','name','phone_number')
+        fields = '__all__'
 
 
 class TechnicianSerializer(serializers.ModelSerializer):
@@ -115,6 +115,12 @@ class TechnicianSerializer(serializers.ModelSerializer):
 
         return instance
 
+class TechnicianDisplaySerializer(serializers.ModelSerializer):
+    user = LoginUserSerializer(many=False, read_only=True)
+    class Meta:
+        model = Technician
+        fields = '__all__'
+
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
@@ -150,7 +156,7 @@ class UnitSerializer(serializers.ModelSerializer):
         raise serializers.ValidationError('Cannot find building for this user')      
 
 class UnitDisplaySerializer(serializers.ModelSerializer):
-    plans = ProfilePlanSerializer(many=True,read_only=True)
+    plans = ProfilePlanDisplaySerializer(many=True,read_only=True)
     building = BuildingSerializer(many=False, read_only=True)
 
     class Meta:
