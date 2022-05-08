@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import BuildingManager
-from api.serializers import BuildingManagerSerializer, BuildingManagerUpdateSerializer
+from api.serializers import BuildingManagerSerializer, BuildingManagerUpdateSerializer, BuildingManagerDisplaySerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
 from rolepermissions.roles import assign_role
@@ -37,7 +37,7 @@ def apiManager(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     # Detail of manager
     if request.method == 'GET' and has_permission(request.user, 'view_managers'):
-        serializer = BuildingManagerSerializer(manager, many=False)
+        serializer = BuildingManagerDisplaySerializer(manager, many=False)
         return Response(serializer.data)
     # Update manager
     elif request.method == 'PUT' and has_permission(request.user, 'update_managers'):

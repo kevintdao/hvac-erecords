@@ -104,7 +104,7 @@ export default function Service () {
         </Link>
 
         <Link href={`/units/refrigerant/${id}`}>
-          <a className={styles.button} id='data'>Refrigerant Leaks Report</a>
+          <a className={styles.button} id='refrigerant'>Refrigerant Leaks Report</a>
         </Link>
       </div>
       

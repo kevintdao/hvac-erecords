@@ -9,8 +9,9 @@ import unitupdate from '../../public/screenshots/UnitUpdatePage.png'
 
 export default function ManagerHelp() {
   const styles = {
-    header: 'font-bold text-3xl',
-    sub_header: 'font-bold text-xl'
+    header: 'font-bold text-3xl text-center',
+    sub_header: 'font-bold text-xl',
+    container: 'space-y-2 p-2 border border-gray-200 rounded'
   }
 
   return (
@@ -19,7 +20,7 @@ export default function ManagerHelp() {
         As a building manager, you will have access to your buildings and units available to you.
       </p>
 
-      <div>
+      <div className={styles.container}>
         <h2 className={styles.header}>Buildings</h2>
         <div>
           <h4 className={styles.sub_header}>Index</h4>
@@ -41,7 +42,7 @@ export default function ManagerHelp() {
         </div>
       </div>
 
-      <div>
+      <div className={styles.container}>
         <h2 className={styles.header}>Units</h2>
         <div>
           <h4 className={styles.sub_header}>Index</h4>

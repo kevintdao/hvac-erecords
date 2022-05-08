@@ -123,8 +123,6 @@ export default function Unit (props) {
     )
   }
 
-  console.log(data)
-
   return (
     <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
@@ -156,6 +154,10 @@ export default function Unit (props) {
 
           <Link href={`/units/records/${id}`}>
             <a className={styles.button} id='data'>Maintenance Data</a>
+          </Link>
+
+          <Link href={`/units/refrigerant/${id}`}>
+            <a className={styles.button} id='refrigerant'>Refrigerant Leaks Report</a>
           </Link>
         </div>
       </div>

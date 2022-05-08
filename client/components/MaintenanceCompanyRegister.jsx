@@ -1,45 +1,50 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/input'
 import { isPossiblePhoneNumber } from 'react-phone-number-input'
 
-export default function MaintenanceCompanyRegister() {
+export default function MaintenanceCompanyRegister ({ onSubmit }) {
     const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const passRef = useRef(null)
+
+    const { ref, ...rest } = register('password', {
+        required: {
+          value: true,
+          message: 'Enter a password'
+        },
+        minLength: {
+          value: 8,
+          message: 'Must contains at least 8 characters'
+        },
+        maxLength: {
+          value: 32,
+          message: 'Must not exceed 32 characters'
+        },
+        pattern: {
+          value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          message: 'Must contains at least 1 special character and 1 number'
+        },
+    })
+
+    const isSamePass = (passConf) => {
+        if (passRef.current.value != passConf) {
+          return false
+        }
+        return true
+    }
 
     const styles = {
         inputContainer: "flex flex-col",
         input: "p-2 border rounded",
         helpText: "text-sm text-red-700 mt-1"
     }
-    
-    const onSubmit = (data) => {
-        // call server api to verify information
-    }
 
     return (
         <div className='mt-2'>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-                <h2 className='font-bold text-3xl'>Maintenance Company Account Creation</h2>
+                <h2 className='font-bold text-3xl'>Maintenance Company Register</h2>
 
                 <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-                    {/* Company Name */}
-                    <div className={styles.inputContainer}>
-                        <label htmlFor="name">Company Name</label>
-                        <input 
-                        type="text" 
-                        name="name" 
-                        id="name" 
-                        className={`${styles.input} ${errors.name ? "border-red-400" : "border-gray-300"}`}
-                        {...register('name', {
-                            required: {
-                            value: true,
-                            message: "Enter a Maintenance Company Name"
-                            }
-                        })}
-                        />
-                        <span className={styles.helpText} id="name-help">{errors.name?.message}</span>
-                    </div>
-
                     {/* Email */}
                     <div className={styles.inputContainer}>
                         <label htmlFor="email">Email</label>
@@ -67,31 +72,91 @@ export default function MaintenanceCompanyRegister() {
                         <small className="text-gray-400 mt-1">Email should not exceed 320 characters.</small>
                     </div>
 
+                    {/* password */}
+                    <div className={styles.inputContainer}>
+                        <label htmlFor='password'>Password</label>
+                        <input 
+                        type='password' 
+                        name='password' 
+                        id='password' 
+                        ref={(e) => {
+                            ref(e)
+                            passRef.current = e
+                        }}
+                        className={`p-2 border rounded ${errors.password ? 'border-red-400' : 'border-gray-300'}`} 
+                        {...rest}
+                        />
+                        <span className='text-sm text-red-700 mt-1' id='pass-help'>{errors.password?.message}</span>
+                        <small className='text-gray-400 mt-1'>Password must contains at least 8 characters, 1 special character, and 1 number.</small>
+                        <small className='text-gray-400 mt-1'>Password should not exceed 32 characters.</small>
+                    </div>
+
+                    {/* confirm password */}
+                    <div className={styles.inputContainer}>
+                    <label htmlFor='password-confirm'>Confirm Password</label>
+                    <input 
+                        type='password' 
+                        name='password-confirm' 
+                        id='password-confirm' 
+                        className={`p-2 border rounded ${errors.passwordConfirm ? 'border-red-400' : 'border-gray-300'}`} 
+                        {...register('passwordConfirm', {
+                        required: {
+                            value: true,
+                            message: 'Confirm your password'
+                        },
+                        validate: {
+                            samePass: value => isSamePass(value) || 'Passwords do not match'
+                        }
+                        })}
+                    />
+                    <span className='text-sm text-red-700 mt-1' id='pass-confirm-help'>{errors.passwordConfirm?.message}</span>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 grid-cols-1">
+                    {/* Company Name */}
+                    <div className={styles.inputContainer}>
+                        <label htmlFor="name">Company Name</label>
+                        <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        className={`${styles.input} ${errors.name ? "border-red-400" : "border-gray-300"}`}
+                        {...register('name', {
+                            required: {
+                            value: true,
+                            message: "Enter a Maintenance Company Name"
+                            }
+                        })}
+                        />
+                        <span className={styles.helpText} id="name-help">{errors.name?.message}</span>
+                    </div>
+
                     {/* Phone Number */}
                     <div className={styles.inputContainer}>
-                        <label htmlFor="phone">Phone Number</label>
+                        <label htmlFor="phone_number">Phone Number</label>
                         <Controller 
-                        name='phone'
+                        name='phone_number'
                         control={control}
                         rules={{
                             required: {
-                            value: true,
-                            message: "Enter a Phone Number"
-                            },
+                                value: true,
+                                message: "Enter a Phone Number"
+                                },
                             validate: value => isPossiblePhoneNumber(value) || "Enter a Valid Phone Number"
                         }}
                         render={({ field: { onChange, value } }) => (
                             <PhoneInput
-                            country="US"
-                            className={`${styles.input} ${errors.phone ? "border-red-400" : "border-gray-300"}`}
-                            value={value}
-                            onChange={onChange}
-                            id="phone"
+                                country="US"
+                                className={`${styles.input} ${errors.phone_number ? "border-red-400" : "border-gray-300"}`}
+                                value={value}
+                                onChange={onChange}
+                                id="phone_number"
                             />
                         )}
                         />
                         
-                        <span className={styles.helpText} id="phone-help">{errors.phone?.message}</span>
+                        <span className={styles.helpText} id="phone_number-help">{errors.phone_number?.message}</span>
                         <small className="text-gray-400 mt-1">US phone number only.</small>
                     </div>
                 </div>
@@ -171,10 +236,9 @@ export default function MaintenanceCompanyRegister() {
                         <span className={styles.helpText} id="country-help">{errors.country?.message}</span>
                     </div>
                 </div>
-        
-        
+
                 {/* submit button */}
-                <button className='px-4 py-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='create-button'>Create</button>
+                <button className='px-4 py-2 bg-blue-700 rounded text-white text-center font-bold hover:bg-blue-800' id='register-button'>Register</button>
             </form>
         </div>
       )

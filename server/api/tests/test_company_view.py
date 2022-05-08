@@ -19,6 +19,10 @@ class TestMaintenanceCompanyAPI(TestCase):
         self.client.force_authenticate(user=self.user)
 
         self.data = {
+            "users": [
+	            {"email": "company123@email.com",
+                "password": "password123"},
+	        ],
             "name": "University of Iowa",
             "street": "123 Street",
             "city": "Iowa City",
