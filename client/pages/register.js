@@ -22,8 +22,6 @@ export default function Signup () {
     delete data.password
     delete data.passwordConfirm
 
-    console.log(data)
-
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/companies`, data)
     .then(res => {
       setSuccess(true)

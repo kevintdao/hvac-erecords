@@ -123,8 +123,6 @@ export default function Unit (props) {
     )
   }
 
-  console.log(data)
-
   return (
     <PrivateRoute isAllowed={[1,2]}>
     <div className='space-y-4 mt-2'>
