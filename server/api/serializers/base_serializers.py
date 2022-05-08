@@ -11,7 +11,7 @@ from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUser
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-
+import environ
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
     users = RegisterUserSerializer(many=True)
@@ -21,6 +21,9 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+
+        env = environ.Env()
+        url = env("URL")
         data = validated_data.pop('users')
     
         buildingmanager = BuildingManager.objects.create(**validated_data)
@@ -34,7 +37,7 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
             token = PasswordResetTokenGenerator().make_token(user)
             # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
             relativeLink = "/password-set/{uidb64}/{token}/".format(uidb64=uidb64, token=token)
-            reset_url = "http://localhost:3000" + relativeLink
+            reset_url = url + relativeLink
 
             # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
             # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
@@ -77,6 +80,10 @@ class TechnicianSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def create(self, validated_data):
+
+        env = environ.Env()
+        url = env("URL")
+
         user_data = validated_data.pop('user')
         user = User.objects.create(email=user_data["email"], company=validated_data["company"])
 
@@ -89,7 +96,7 @@ class TechnicianSerializer(serializers.ModelSerializer):
         token = PasswordResetTokenGenerator().make_token(user)
         # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
         relativeLink = "/password-set/{uidb64}/{token}/".format(uidb64=uidb64, token=token)
-        reset_url = "http://localhost:3000" + relativeLink
+        reset_url = url + relativeLink
 
         # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
         # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
