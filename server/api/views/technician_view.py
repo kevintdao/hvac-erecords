@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from base.models import Technician, Company
-from api.serializers import TechnicianSerializer, TechnicianDisplaySerializer
+from api.serializers import TechnicianSerializer, TechnicianUpdateSerializer, TechnicianDisplaySerializer
 from rest_framework import status
 from base.models import User
 from django.core.mail import send_mail
@@ -21,25 +21,12 @@ def apiTechnicians(request):
         return Response(serializer.data)
     # Create technician
     elif request.method == 'POST' and has_permission(request.user, 'create_technicians'):
-        if 'company' not in request.data.keys():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        company = Company.objects.get(pk=request.data['company'])
-        if not company:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        # user = User.objects.create(
-        #     email=request.data['email'],
-        #     company=company
-        # )
-        # user.save()
-        # assign_role(user, 'technician')
-        keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
-        for key in keys:
-            if key not in request.data:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        serializer = TechnicianSerializer(data=request.data)
+        serializer = TechnicianSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
-
+            technician = serializer.save()
+            assign_role(technician.user,'technician')
+            technician.user.role = 3
+            technician.user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
@@ -57,12 +44,7 @@ def apiTechnician(request,pk):
         return Response(serializer.data)
     # Update technician
     elif request.method == 'PUT' and has_permission(request.user, 'update_technicians'):
-        
-        keys = ['first_name', 'last_name', 'phone_number', 'license_number',  'company']
-        for key in keys:
-            if key not in request.data:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        serializer = TechnicianSerializer(data=request.data)
+        serializer = TechnicianUpdateSerializer(technician, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

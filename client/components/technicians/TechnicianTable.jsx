@@ -24,16 +24,16 @@ export default function TechnicianTable({data, labels}) {
             <tbody className={styles.body}>
               {data.map((item, index) => (
                 <tr key={index}>
-                    <td className={styles.cell} id={`first_name-${item.user}`}>{item.first_name}</td>
-                    <td className={styles.cell} id={`last_name-${item.user}`}>{item.last_name}</td>
-                    <td className={styles.cell} id={`phone_number-${item.user}`}>{item.phone_number}</td>
+                    <td className={styles.cell} id={`first_name-${item.user.id}`}>{item.first_name}</td>
+                    <td className={styles.cell} id={`last_name-${item.user.id}`}>{item.last_name}</td>
+                    <td className={styles.cell} id={`phone_number-${item.user.id}`}>{item.phone_number}</td>
                     <td>
-                        <Link href={`/technicians/${item.user}`}>
+                        <Link href={`/technicians/${item.user.id}`}>
                             <a className={styles.link}>More Info</a>
                         </Link>
                     </td>
                     <td>
-                        <Link href={`/technicians/edit/${item.user}`}>
+                        <Link href={`/technicians/edit/${item.user.id}`}>
                             <a className={styles.link}>Edit</a>
                         </Link>
                   </td>

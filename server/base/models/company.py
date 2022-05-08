@@ -9,6 +9,7 @@ class CompanyQuerySet(models.QuerySet):
             return self.none()
 
 class Company(models.Model):
+    users = models.ManyToManyField("base.User", related_name="users")
     name = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)

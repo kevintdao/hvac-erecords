@@ -104,7 +104,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         <span className='text-sm text-red-700 mt-1' id="license_number-help">{errors.license_number?.message}</span>
                     </div>
                 </div>
-                <div className={styles.inputContainer}>
+                {type == 'Create' && <div className={styles.inputContainer}>
                         <label htmlFor="email">Email</label>
                         <input 
                         type="text" 
@@ -127,7 +127,7 @@ export default function TechnicianForm({type, data, onSubmit}) {
                         })}
                         />
                         <span className='text-sm text-red-700 mt-1' id="email-help">{errors.email?.message}</span>
-                    </div>
+                    </div>}
                 <div>
                     <button className={styles.button} id='create-button'>{type}</button>
                 </div>

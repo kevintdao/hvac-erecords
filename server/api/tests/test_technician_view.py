@@ -22,8 +22,7 @@ class TestTechnicianAPI(TestCase):
 
         self.initial_count = Technician.objects.count()
         self.data = {
-            'user': {'email' : 'test@testmail.com'},
-            'company' : 1,
+            'user' : {'email': 'test@testmail.com'},
             'first_name' : 'John',
             'last_name' : 'Doe',
             'phone_number' : '101-101-1010',
@@ -39,7 +38,7 @@ class TestTechnicianAPI(TestCase):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Technician.objects.count(), self.initial_count+1)
         self.assertEqual(Technician.objects.last().first_name, 'John')
-    
+
     def test_api_create_technician_failure(self):
         data = {
             'email': '33@test.com',
@@ -76,12 +75,10 @@ class TestTechnicianAPI(TestCase):
     def test_api_update_technician(self):
         technician = Technician.objects.last()
         new_data = {
-            'user': {'email': technician.user.email },
-            'company' : 1,
             'first_name' : 'Andrew',
-            'last_name' : 'Murley',
-            'phone_number' : '010-010-0101',
-            'license_number' : 2
+            'last_name' : 'Doe',
+            'phone_number' : '101-101-1010',
+            'license_number' : 5
         }
         response = self.client.put(
             reverse('technicians-detail',
@@ -100,7 +97,7 @@ class TestTechnicianAPI(TestCase):
             kwargs={'pk':technician.user_id}), data=new_data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-    
+
     def test_technician_role(self):
         technician = Technician.objects.last()
         user = User.objects.get(pk=technician.user_id)

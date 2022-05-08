@@ -1,38 +1,45 @@
 from cgitb import reset
-from rest_framework import serializers
-from base.models import Unit, BuildingManager, Technician, Building, Company, User
-from django.core.mail import send_mail
-from django.conf import settings
-from rolepermissions.roles import assign_role
-from django.urls import reverse
-from .records_serializers import ProfilePlanSerializer, ProfilePlanDisplaySerializer
-from .user_serializers import UserSerializer, RegisterUserSerializer, CreateUserSerializer, LoginUserSerializer
 
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 import environ
+from base.models import Building, BuildingManager, Company, Technician, Unit
+from django.conf import settings
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils.encoding import (DjangoUnicodeDecodeError, force_str,
+                                   smart_bytes, smart_str)
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework import serializers
+from rolepermissions.roles import assign_role
+
+from .records_serializers import (ProfilePlanDisplaySerializer,
+                                  ProfilePlanSerializer)
+from .user_serializers import (CreateUserSerializer, LoginUserSerializer,
+                               RegisterUserSerializer, UserSerializer)
+
 
 class BuildingManagerSerializer(serializers.ModelSerializer):
-    users = RegisterUserSerializer(many=True)
+    users = CreateUserSerializer(many=True)
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = BuildingManager
-        fields = '__all__'
+        fields = ('id', 'users', 'name', 'phone_number', 'company')
 
     def create(self, validated_data):
 
         env = environ.Env()
         url = env("URL")
-        data = validated_data.pop('users')
+        users_data = validated_data.pop('users')
     
-        buildingmanager = BuildingManager.objects.create(**validated_data)
+        building_manager = BuildingManager.objects.create(**validated_data)
         
-        for u in data:
-            user = User.objects.create(email=u['email'], company=validated_data['company'])
+        for u in users_data:
+            user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=u)
+            user.company = validated_data['company']
             user.save()
-            assign_role(user, 'manager')
-            buildingmanager.users.add(user)  
+            building_manager.users.add(user)   
+
             uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
@@ -50,21 +57,19 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 
             send_mail(subject, message, from_email, [to_email], fail_silently=False)
 
-        return buildingmanager
+        building_manager.save()
+        return building_manager
 
-    def update(self, instance, validated_data):  
-        # data = validated_data.pop('users')
-        #BuildingManager.objects.filter(name=validated_data['name']).delete()
-        # u = User.objects.filter(username=data)
-        # for u in instance.objects:
-        #     u.email = validated_data
-        #     u.save()
-        instance.name=validated_data['name']
-        instance.phone_number=validated_data['phone_number']
-        instance.company=validated_data['company']
-        instance.save()
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
 
-        return instance
+# Don't update users or company
+class BuildingManagerUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BuildingManager
+        fields = ('name', 'phone_number')
 
 class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
     users = LoginUserSerializer(many=True)
@@ -72,26 +77,36 @@ class BuildingManagerDisplaySerializer(serializers.ModelSerializer):
         model = BuildingManager
         fields = '__all__'
 
-
 class TechnicianSerializer(serializers.ModelSerializer):
-    user = CreateUserSerializer(many=False)
+    user = CreateUserSerializer()
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Technician
-        fields = '__all__'
-    
+        fields = ('user', 'company', 'first_name', 'last_name', 'phone_number', 'license_number')
+
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        kwargs["company"] = user.company
+        return super().save(**kwargs)
+
     def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=user_data)
+        user.company = validated_data['company']
+        user.save()
 
         env = environ.Env()
         url = env("URL")
 
-        user_data = validated_data.pop('user')
-        user = User.objects.create(email=user_data["email"], company=validated_data["company"])
+        technician, created = Technician.objects.update_or_create(user=user,
+                    company=validated_data['company'],
+                    first_name=validated_data['first_name'],
+                    last_name=validated_data['last_name'],
+                    phone_number=validated_data['phone_number'],
+                    license_number=validated_data['license_number'])
 
-        user.save()
-        assign_role(user, 'technician')
-        # technician_data = {"first_name": validated_data["first_name"],'last_name': validated_data["last_name"], 'phone_number': validated_data['phone_number'], 'license_number': validated_data['license_number'], 'company': validated_data['company'], 'user_id': user.id }
-        
-        technician = Technician.objects.create(first_name= validated_data["first_name"],last_name= validated_data["last_name"], phone_number= validated_data['phone_number'], license_number= validated_data['license_number'], company= validated_data['company'], user_id= user.id)
         uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)
         # relativeLink = reverse("password-set-confirm", kwargs={'uidb64': uidb64, 'token': token})
@@ -111,16 +126,11 @@ class TechnicianSerializer(serializers.ModelSerializer):
 
         return technician
 
-
-    def update(self, instance, validated_data): 
-        instance.first_name=validated_data['first_name']
-        instance.first_name=validated_data['last_name']
-        instance.phone_number=validated_data['phone_number']
-        instance.company=validated_data['company']
-        instance.license_number=validated_data['license_number']
-
-
-        return instance
+# Don't update user or company
+class TechnicianUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technician
+        fields = ('first_name', 'last_name', 'phone_number', 'license_number')
 
 class TechnicianDisplaySerializer(serializers.ModelSerializer):
     user = LoginUserSerializer(many=False, read_only=True)
@@ -147,9 +157,30 @@ class BuildingDisplaySerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 class CompanySerializer(serializers.ModelSerializer):
+    users = RegisterUserSerializer(many=True)
+
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = ('id', 'users', 'name', 'street', 'city', 'zip_code', 'country', 'phone_number')
+
+    def create(self, validated_data):
+        users_data = validated_data.pop('users')
+    
+        company = Company.objects.create(**validated_data)
+        
+        for u in users_data:
+            user = RegisterUserSerializer.create(RegisterUserSerializer(), validated_data=u)
+            user.company = company
+            user.save()
+            company.users.add(user)   
+
+        company.save()
+        return company
+
+class CompanyUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('name', 'street', 'city', 'zip_code', 'country', 'phone_number')
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
