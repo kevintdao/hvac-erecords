@@ -23,7 +23,8 @@ def apiTechnicians(request):
     elif request.method == 'POST' and has_permission(request.user, 'create_technicians'):
         serializer = TechnicianSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
+            technician = serializer.save()
+            assign_role(technician.user,'technician')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)

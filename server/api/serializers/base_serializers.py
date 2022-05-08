@@ -22,7 +22,6 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
         
         for u in users_data:
             user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=u)
-            assign_role(user, 'manager')
             user.company = validated_data['company']
             user.save()
             building_manager.users.add(user)   
@@ -57,7 +56,6 @@ class TechnicianSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_data = validated_data.pop('user')
         user = CreateUserSerializer.create(CreateUserSerializer(), validated_data=user_data)
-        assign_role(user, 'technician')
         user.company = validated_data['company']
         user.save()
         student, created = Technician.objects.update_or_create(user=user,

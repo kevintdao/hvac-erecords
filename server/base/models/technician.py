@@ -26,6 +26,5 @@ class Technician(models.Model):
 
     objects = TechnicianQuerySet.as_manager()
 
-    # TODO: test this
     def full_name(self):
         return self.first_name + " " + self.last_name

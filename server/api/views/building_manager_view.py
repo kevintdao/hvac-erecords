@@ -5,6 +5,7 @@ from base.models import BuildingManager
 from api.serializers import BuildingManagerSerializer, BuildingManagerUpdateSerializer
 from rest_framework import status
 from rolepermissions.checkers import has_permission
+from rolepermissions.roles import assign_role
 
 
 @api_view(['GET', 'POST'])
@@ -19,7 +20,9 @@ def apiManagers(request):
     elif request.method == 'POST' and has_permission(request.user, 'create_managers'):
         serializer = BuildingManagerSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
+            manager = serializer.save()
+            for user in manager.users.all():
+                assign_role(user,'manager')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response("This user cannot perform this action.", status=status.HTTP_401_UNAUTHORIZED)
