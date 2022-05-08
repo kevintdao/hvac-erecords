@@ -127,7 +127,7 @@ NEXT_PUBLIC_HOST=http://127.0.0.1:8000
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-_For more examples, please refer to the [User Guide](https://github.com/UIOWAjohnsonhj/TEAM_001/wiki/User-Guide)_
+_For examples, please refer to the [User Guide](https://github.com/UIOWAjohnsonhj/TEAM_001/wiki/User-Guide)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
