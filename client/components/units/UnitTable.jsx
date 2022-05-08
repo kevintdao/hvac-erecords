@@ -33,7 +33,7 @@ export default function UnitTable({ data, labels, role }) {
               <td className={styles.cell} id={`manufacturer-${item.id}`}>{item.manufacturer}</td>
               <td>
                 <Menu>
-                  <Menu.Button className='inline-flex w-full rounded-md font-medium text-blue-600 hover:text-blue-500'>Reports</Menu.Button>
+                  <Menu.Button id={`reports-${item.id}`} className='inline-flex w-full rounded-md font-medium text-blue-600 hover:text-blue-500'>Reports</Menu.Button>
                   <Menu.Items className='flex flex-col absolute mt-2 origin-top-right divide-y divide-gray-100 border border-gray-100 rounded p-2'>
                     <Menu.Item>
                       {({ active }) => (
