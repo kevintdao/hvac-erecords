@@ -19,7 +19,8 @@ export default function Create() {
         data.user = {"email": data.email}
         axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/technicians`, data)
         .then(res => {
-            setId(res.data.id);
+            console.log(res.data)
+            setId(res.data.user.id);
         })
         .catch(error => {
             const output = handleError(error)
