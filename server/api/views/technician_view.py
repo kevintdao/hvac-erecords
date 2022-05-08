@@ -1,16 +1,13 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Technician, Company
+from base.models import Technician
 from api.serializers import (
     TechnicianSerializer,
     TechnicianUpdateSerializer,
     TechnicianDisplaySerializer,
 )
 from rest_framework import status
-from base.models import User
-from django.core.mail import send_mail
-from django.conf import settings
 from rolepermissions.roles import assign_role
 from rolepermissions.checkers import has_permission
 

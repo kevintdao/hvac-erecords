@@ -1,4 +1,3 @@
-from django.db import DataError
 from django.test import TestCase
 
 from records.models import Profile, Task

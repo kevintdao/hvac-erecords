@@ -1,5 +1,4 @@
 from django.db import models
-from .task import Task
 from .profile import Profile
 from base.models import Unit
 from rolepermissions.checkers import has_role

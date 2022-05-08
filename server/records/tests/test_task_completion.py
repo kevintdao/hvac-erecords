@@ -1,10 +1,8 @@
-from django.db import DataError
 from django.test import TestCase
 
 from records.models import TaskCompletion, Task
 
 from django.utils import timezone
-from records.models import service_visit
 
 from records.models.service_visit import ServiceVisit
 

@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from rest_framework.utils.serializer_helpers import ReturnDict
-from base.models import Unit, Building, Technician
-from records.models import ServiceVisit, TaskCompletion, ProfilePlan, Profile
+from base.models import Unit
+from records.models import ServiceVisit, Profile
 
 
 class FullChargeSerializer(serializers.ModelSerializer):

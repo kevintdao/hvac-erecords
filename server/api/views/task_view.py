@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from records.models import Task
 from api.serializers import TaskSerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission, has_role
+from rolepermissions.checkers import has_permission
 
 
 @api_view(["GET", "POST"])

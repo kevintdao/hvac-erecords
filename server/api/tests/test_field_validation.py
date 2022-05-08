@@ -7,21 +7,18 @@ from base.models import (
     Building,
     BuildingManager,
     Technician,
-    technician,
 )
 from records.models import (
     ServiceVisit,
     Task,
     Profile,
-    ProfileTask,
     ProfilePlan,
-    TaskCompletion,
 )
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from rolepermissions.roles import assign_role, clear_roles
+from rolepermissions.roles import assign_role
 
 
 class TestFieldValidationAPI(TestCase):

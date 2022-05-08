@@ -1,12 +1,10 @@
-from base64 import urlsafe_b64decode, urlsafe_b64encode
+from base64 import urlsafe_b64decode
 from rest_framework.generics import GenericAPIView
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils.encoding import (
     smart_str,
-    force_str,
-    smart_bytes,
     DjangoUnicodeDecodeError,
 )
 from base.models import User

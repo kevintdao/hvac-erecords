@@ -1,4 +1,3 @@
-from hashlib import new
 from base.models import Company, Technician, User
 from django.test import TestCase
 from django.urls import reverse

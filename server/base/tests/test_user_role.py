@@ -1,4 +1,3 @@
-from re import T
 from django.test import TestCase
 from base.models import Technician, Company, User
 

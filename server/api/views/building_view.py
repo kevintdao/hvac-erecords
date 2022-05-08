@@ -1,10 +1,10 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Building, BuildingManager
+from base.models import Building
 from api.serializers import BuildingSerializer, BuildingDisplaySerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission, has_role
+from rolepermissions.checkers import has_permission
 
 
 @api_view(["GET", "POST"])

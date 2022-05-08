@@ -1,6 +1,6 @@
 from django.db import models
 from .task import Task
-from base.models import Company, Building, Unit
+from base.models import Company
 from rolepermissions.checkers import has_role
 
 

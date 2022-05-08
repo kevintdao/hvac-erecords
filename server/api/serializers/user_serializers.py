@@ -1,17 +1,12 @@
-from ast import Pass
-from multiprocessing import AuthenticationError
 from rest_framework import serializers
 
 # from django.contrib.auth.models import User
 from base.models import User
 from django.utils.encoding import (
-    smart_str,
     force_str,
-    smart_bytes,
-    DjangoUnicodeDecodeError,
 )
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode
 from rest_framework.exceptions import AuthenticationFailed
 
 

@@ -1,11 +1,10 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from base.models import Unit, Building
-from records.models import Profile, ProfilePlan
+from records.models import Profile
 from api.serializers import ProfileCreateSerializer, ProfileDisplaySerializer
 from rest_framework import status
-from rolepermissions.checkers import has_permission, has_role
+from rolepermissions.checkers import has_permission
 
 
 @api_view(["GET", "POST"])

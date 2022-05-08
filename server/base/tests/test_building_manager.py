@@ -2,7 +2,6 @@ from django.db import DataError
 from django.test import TestCase
 
 from base.models import BuildingManager, Company
-from django.contrib.auth.models import User
 
 
 class BuildingManagerModelTests(TestCase):
