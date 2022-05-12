@@ -82,7 +82,7 @@ export default function ServiceProfile () {
 
     axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/visits`, {
       technician: user.user.id,
-      unit: unit,
+      unit: localStorageData.unit,
       plan: id,
       start_time: startTime,
       end_time: endTime
@@ -104,6 +104,7 @@ export default function ServiceProfile () {
 
   function formatData (serviceId, data, localStorageData) {
     let output = []
+    delete data.unit
     
     for (const key in data) {
       const value = data[key]

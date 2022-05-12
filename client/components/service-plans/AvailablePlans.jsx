@@ -36,7 +36,7 @@ export default function AvailablePlans ({ unitId, data, labels }) {
                 <td className={`${styles.cell} w-1/4`} id={`end-date-${item.id}`}>{item.is_required ? item.end_date : '-'}</td>
                 <td>
                   <button id={item.id} className={`${styles.link} w-1/8`} onClick={() => {
-                    setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString()})
+                    setObject(`/service-visits/${item.id}`, { start_time: Temporal.Now.instant().round('second').toString(), unit: unitId })
                     router.push({
                         pathname: `/service-visits/${item.id}`,
                         query: { unit: unitId }
