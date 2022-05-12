@@ -46,10 +46,10 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
             relativeLink = "/password-set/{uidb64}/{token}/".format(
                 uidb64=uidb64, token=token
             )
-            reset_url = url + relativeLink
+            # reset_url = url + relativeLink
 
             # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
-            # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
+            reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
 
             name = validated_data["name"]
             subject = "Building manager set password"
@@ -129,10 +129,10 @@ class TechnicianSerializer(serializers.ModelSerializer):
         relativeLink = "/password-set/{uidb64}/{token}/".format(
             uidb64=uidb64, token=token
         )
-        reset_url = url + relativeLink
+        # reset_url = url + relativeLink
 
         # WHEN IN PRODUCTION UNCOMMENT THIS AND COMMENT OUT ABOVE reset_url LINE
-        # reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
+        reset_url = "https://hvac-erecords.herokuapp.com" + relativeLink
 
         name = validated_data["first_name"] + " " + validated_data["last_name"]
         subject = "Technician set password"
