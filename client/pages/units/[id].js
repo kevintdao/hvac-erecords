@@ -56,8 +56,9 @@ export default function Unit (props) {
 
       let endpoints = []
       let plansRes = units.data.plans
+
       for (let i = 0; i < plansRes.length; i++) {
-        endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${plansRes[i].profile}/`)
+        endpoints.push(`${process.env.NEXT_PUBLIC_HOST}/api/profiles/${plansRes[i].profile.id}/`)
       }
 
       let pList = []
