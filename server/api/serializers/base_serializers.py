@@ -28,8 +28,8 @@ class BuildingManagerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        env = environ.Env()
-        url = env("URL")
+        # env = environ.Env()
+        # url = env("URL")
         users_data = validated_data.pop("users")
 
         building_manager = BuildingManager.objects.create(**validated_data)
@@ -111,8 +111,8 @@ class TechnicianSerializer(serializers.ModelSerializer):
         user.company = validated_data["company"]
         user.save()
 
-        env = environ.Env()
-        url = env("URL")
+        # env = environ.Env()
+        # url = env("URL")
 
         technician, created = Technician.objects.update_or_create(
             user=user,
