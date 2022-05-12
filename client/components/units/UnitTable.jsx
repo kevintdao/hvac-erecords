@@ -34,7 +34,7 @@ export default function UnitTable({ data, labels, role }) {
               <td>
                 <Menu>
                   <Menu.Button id={`reports-${item.id}`} className='inline-flex w-full rounded-md font-medium text-blue-600 hover:text-blue-500'>Reports</Menu.Button>
-                  <Menu.Items className='flex flex-col absolute mt-2 origin-top-right divide-y divide-gray-100 border border-gray-100 rounded p-2'>
+                  <Menu.Items className='flex flex-col absolute mt-2 origin-top-right divide-y divide-gray-100 border border-gray-100 rounded p-2 bg-white'>
                     <Menu.Item>
                       {({ active }) => (
                         <Link href={`/units/records/${item.id}`}>
